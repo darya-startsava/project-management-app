@@ -1,0 +1,48 @@
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
+  @font-face {
+    src: url("#{$file-path}.woff2") format("woff2"), url("#{$file-path}.woff") format("woff"),
+      url("#{$file-path}.otf") format("opentype"), url("#{$file-path}.ttf") format("truetype");
+    font-family: $font-family;
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+@mixin dflex($just: center, $align: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $just;
+}
+
+@mixin psevdo($cont: "", $pos: absolute, $topValue: 0, $ind: -1) {
+  content: $cont;
+  position: $pos;
+  top: $topValue;
+  z-index: $ind;
+}
+
+@mixin largeDisplay() {
+  @media screen and (max-width: 1400px) {
+    @content;
+  }
+}
+@mixin desctop() {
+  @media screen and (max-width: 1100px) {
+    @content;
+  }
+}
+@mixin tablet() {
+  @media screen and (max-width: 992px) {
+    @content;
+  }
+}
+@mixin smallTablet() {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+@mixin mobile() {
+  @media screen and (max-width: 576px) {
+    @content;
+  }
+}
