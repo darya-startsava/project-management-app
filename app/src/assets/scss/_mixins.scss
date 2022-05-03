@@ -1,3 +1,6 @@
+/*
+ ** миксин для подключения шрифтов(подключаем woff2, woff, otf, ttf)
+ */
 @mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
   @font-face {
     src: url("#{$file-path}.woff2") format("woff2"), url("#{$file-path}.woff") format("woff"),
@@ -8,12 +11,24 @@
   }
 }
 
+/*
+**миксин для дисплей флекс принимает 2 аргумента(опуиональные)
+**  1-justify-content по умолчанию center
+**  2-align-items по умолчанию center
+*/
 @mixin dflex($just: center, $align: center) {
   display: flex;
   align-items: $align;
   justify-content: $just;
 }
 
+/*
+** миксин для псевдоэллементов принимает 4 аргумента(опуиональные)
+** 1-content по умолчанию ""
+** 2-position по умолчанию absolute
+** 3-top по умолчанию 0
+** 4-z-index по умолчанию -1
+*/
 @mixin psevdo($cont: "", $pos: absolute, $topValue: 0, $ind: -1) {
   content: $cont;
   position: $pos;
@@ -21,26 +36,50 @@
   z-index: $ind;
 }
 
+/*
+** миксин для медиазапроса ширина экрана меньше 1400px
+** подключать  @include largeDisplay() {конткнт}
+*/
 @mixin largeDisplay() {
   @media screen and (max-width: 1400px) {
     @content;
   }
 }
+
+/*
+** миксин для медиазапроса ширина экрана меньше 1100px
+** подключать  @include desctop() {конткнт}
+*/
 @mixin desctop() {
   @media screen and (max-width: 1100px) {
     @content;
   }
 }
+
+/*
+** миксин для медиазапроса ширина экрана меньше 992px
+** подключать  @include tablet() {конткнт}
+*/
 @mixin tablet() {
   @media screen and (max-width: 992px) {
     @content;
   }
 }
+
+/*
+** миксин для медиазапроса ширина экрана меньше 768px
+** подключать  @include smallTablet() {конткнт}
+*/
 @mixin smallTablet() {
   @media screen and (max-width: 768px) {
     @content;
   }
 }
+
+/*
+** миксин для медиазапроса ширина экрана меньше 576px
+** подключать  @include mobile() {конткнт}
+*/
 @mixin mobile() {
   @media screen and (max-width: 576px) {
     @content;

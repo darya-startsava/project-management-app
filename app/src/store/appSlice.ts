@@ -1,3 +1,8 @@
+/*
+ ** Slice для редакса, reducer скорее всего будет несколько таких редюсеров,
+ ** один для usera, а второй для бордеров
+ */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 export type IStateApp = {

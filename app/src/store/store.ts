@@ -1,3 +1,7 @@
+/*
+ ** Store проекта для редакса
+ */
+
 import { AnyAction, configureStore, Reducer } from '@reduxjs/toolkit';
 import appReducer, { IStateApp } from './appSlice';
 
