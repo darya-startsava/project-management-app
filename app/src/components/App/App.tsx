@@ -1,8 +1,19 @@
 import React, { FC } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
 import './App.scss';
+import IconButton from '@mui/material/IconButton';
+import LoginIcon from '@mui/icons-material/Login';
 
 const App: FC = () => {
-  return <div>Start task</div>;
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <div>Start task</div>
+      <IconButton arial-label="login">
+        <LoginIcon htmlColor="#000" />
+      </IconButton>
+    </React.Fragment>
+  );
 };
 
 export default App;
