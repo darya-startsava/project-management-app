@@ -1,6 +1,2 @@
 @import '$assets/scss/variables';
 @import '$assets/scss/mixins';
-
-@include font-face('Roboto', '$assets/fonts/RobotoRegular');
-@include font-face('Roboto', '$assets/fonts/RobotoMedium', 500);
-@include font-face('Roboto', '$assets/fonts/RobotoBold', bold);
