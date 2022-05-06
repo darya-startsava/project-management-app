@@ -1,7 +1,4 @@
 /*
  ** Основные константы проекта
  */
-
-// remove this and down string
-export const START_VALUT = 'Hello World!';
-// remove this and up string
+export const URL = 'https://pure-brushlands-15604.herokuapp.com';
