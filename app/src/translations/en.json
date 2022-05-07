@@ -1,0 +1,9 @@
+{
+  "lng": "English",
+  "app": {
+    "start": "Start task",
+    "welcome": "Welcome to Kanban",
+    "welcomeText": "Kanban - is an application with a wide range of possibilities for creating and managing boards"
+  }
+
+}
