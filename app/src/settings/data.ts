@@ -2,6 +2,7 @@
  ** Основные константы проекта
  */
 
+import { INavigationLink } from '$components/Navigation/Navigation';
 import { IWordsObj } from '$types/common';
 
 /* routing start */
@@ -42,7 +43,7 @@ export const LOCALIZES_TEXT: IWordsObj = {
   },
 };
 
-export const ROUTERS_APP_ANONIM = [
+export const ROUTERS_APP_ANONIM: Array<INavigationLink> = [
   {
     path: ROUTES_PATHS.home,
     ...LOCALIZES_TEXT.home,
@@ -57,7 +58,7 @@ export const ROUTERS_APP_ANONIM = [
   },
 ];
 
-export const ROUTERS_APP_AUTH = [
+export const ROUTERS_APP_AUTH: Array<INavigationLink> = [
   {
     path: ROUTES_PATHS.home,
     ...LOCALIZES_TEXT.home,
