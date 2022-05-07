@@ -1,17 +1,9 @@
 import { URL } from '$settings/index';
+import { IUserAuthorization, IUserRegistration } from '$types/common';
 
 enum Endpoints {
   signUp = 'signup',
   signIn = 'signin',
-}
-
-interface IUserAuthorization {
-  login: string;
-  password: string;
-}
-
-interface IUserRegistration extends IUserAuthorization {
-  name: string;
 }
 
 export async function signUp(user: IUserRegistration): Promise<string> {

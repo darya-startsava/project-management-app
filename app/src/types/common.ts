@@ -9,3 +9,12 @@ export interface IWrapEl {
   className?: string;
   children?: string | JSX.Element | Array<JSX.Element>;
 }
+
+export interface IUserAuthorization {
+  login: string;
+  password: string;
+}
+
+export interface IUserRegistration extends IUserAuthorization {
+  name: string;
+}

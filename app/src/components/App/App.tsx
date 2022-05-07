@@ -3,7 +3,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import './App.scss';
 import IconButton from '@mui/material/IconButton';
 import LoginIcon from '@mui/icons-material/Login';
-import Login from '$components/Login';
+import Authorization from '$components/Login/Authorization';
+import Registration from '$components/Login/Registration';
 
 const App: FC = () => {
   return (
@@ -13,7 +14,7 @@ const App: FC = () => {
       <IconButton arial-label="login">
         <LoginIcon htmlColor="#000" />
       </IconButton>
-      <Login />
+      <Registration />
     </React.Fragment>
   );
 };
