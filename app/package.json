@@ -2,6 +2,8 @@
   "name": "project-management-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
+  "start_url": "/",
   "scripts": {
     "start": "craco start",
     "prepare": "cd .. && husky install app/.husky && husky add app/.husky/pre-commit \"cd app && npx lint-staged\"",
