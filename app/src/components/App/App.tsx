@@ -1,17 +1,38 @@
-import React, { FC } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
+import React, { FC, useState } from 'react';
+
+import { Button, CssBaseline } from '@mui/material';
+import Main from '$components/Main';
+import ErrorBoundary from '$components/ErrorBoundary';
+import ComponentWithError from '$components/ComponentWithError';
+
 import './App.scss';
-import IconButton from '@mui/material/IconButton';
-import LoginIcon from '@mui/icons-material/Login';
 
 const App: FC = () => {
+  const [showError, setShowError] = useState<boolean>(false);
+  const [showError2, setShowError2] = useState<boolean>(false);
   return (
     <React.Fragment>
       <CssBaseline />
       <div>Start task</div>
-      <IconButton arial-label="login">
-        <LoginIcon htmlColor="#000" />
-      </IconButton>
+
+      <Button variant={'contained'} onClick={() => setShowError(true)}>
+        Show component without error boundry
+      </Button>
+      <Button variant={'contained'} color={'secondary'} onClick={() => setShowError2(true)}>
+        Show componetn with error boundry
+      </Button>
+
+      <Main>
+        <>{showError ? <ComponentWithError /> : null}</>
+        <>
+          {showError2 ? (
+            <ErrorBoundary>
+              <ComponentWithError />
+            </ErrorBoundary>
+          ) : null}
+        </>
+        <span>Text</span>
+      </Main>
     </React.Fragment>
   );
 };
