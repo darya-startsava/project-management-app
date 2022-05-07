@@ -1,11 +1,14 @@
 import { FC, Fragment, useState } from 'react';
-import { signIn } from './provider';
-import { Button, TextField, Typography } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { Button, TextField, Typography } from '@mui/material';
+import { signIn } from './provider';
 import { IUserAuthorization } from '$types/common';
+import { setToken } from '$store/appSlice';
 
 const Authorization: FC = () => {
-  const [token, setToken] = useState('token');
+  const [token, setStateToken] = useState('token');
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<IUserAuthorization>();
 
   const onSubmit: SubmitHandler<IUserAuthorization> = async (data) => {
@@ -15,8 +18,9 @@ const Authorization: FC = () => {
   async function userAuthorization(user: IUserAuthorization) {
     try {
       const data = await signIn(user);
-      setToken(data);
+      setStateToken(data);
       localStorage.setItem('kanban-token', data);
+      dispatch(setToken(data));
     } catch (error) {
       throw error;
     }

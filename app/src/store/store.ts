@@ -22,7 +22,7 @@ export const createStore = (reducerObj: IReducerObj) =>
     reducer: reducerObj,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
-        serializableCheck: false,
+        serializableCheck: true,
       }),
     devTools: process.env.NODE_ENV !== 'production',
   });

@@ -14,7 +14,7 @@ const App: FC = () => {
       <IconButton arial-label="login">
         <LoginIcon htmlColor="#000" />
       </IconButton>
-      <Registration />
+      <Authorization />
     </React.Fragment>
   );
 };
