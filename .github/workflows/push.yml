@@ -7,7 +7,7 @@ on:
     branches: [develop]
 
 env:
-  work_directory: ./app
+  working-directory: ./app
   build_directory: ./app/build
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-20.04
     defaults:
       run:
-        working-directory: ${{env.work_directory}}
+        working-directory: ${{env.working-directory}}
     strategy:
       matrix:
         node_version: [16.x]
@@ -24,7 +24,7 @@ jobs:
       - name: Run actions/checkout@v3
         uses: actions/checkout@v3
 
-      - name: Add node ${{matrix.node_version}}
+      - name: Setup Node.js ${{matrix.node_version}}
         uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node_version}}

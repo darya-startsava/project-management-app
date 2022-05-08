@@ -7,7 +7,7 @@ on:
     branches: [develop]
 
 env:
-  work_directory: ./app
+  working-directory: ./app
 
 jobs:
   check_pull_request:
@@ -19,13 +19,13 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     defaults:
       run:
-        working-directory: ${{env.work_directory}}
+        working-directory: ${{env.working-directory}}
 
     steps:
       - name: Clone files
         uses: actions/checkout@v3
 
-      - name: Add node  ${{matrix.node_version}}
+      - name: Setup Node.js ${{matrix.node_version}}
         uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node_version}}
