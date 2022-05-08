@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '$store/store';
+import { v4 as uuidv4 } from 'uuid';
 
 import { MenuItem, MenuList } from '@mui/material';
 
@@ -19,11 +20,7 @@ const Navigation: FC = () => {
     <nav>
       <MenuList>
         {listLinks.map((navEl) => (
-          <MenuItem
-            key={`${navEl.path}_${new Date().getTime()}`}
-            component="li"
-            disableGutters={true}
-          >
+          <MenuItem key={uuidv4()} component="li" disableGutters={true}>
             <NavLink to={navEl.path}>{isEnglishLang ? navEl.en : navEl.ru}</NavLink>
           </MenuItem>
         ))}

@@ -12,6 +12,7 @@ import ErrorPage from '$pages/ErrorPage';
 import RequiredAuth from '$components/RequiredAuth';
 
 import { ROUTES_PATHS } from '$settings/routing';
+import NotFoundPage from '$pages/NotFoundPage';
 
 const AppRoutes: FC = () => {
   return (
@@ -45,6 +46,7 @@ const AppRoutes: FC = () => {
       />
       <Route path={ROUTES_PATHS.registration} element={<Registration />} />
       <Route path={ROUTES_PATHS.error_page} element={<ErrorPage />} />
+      <Route path={ROUTES_PATHS.not_found_page} element={<NotFoundPage />} />
     </Routes>
   );
 };

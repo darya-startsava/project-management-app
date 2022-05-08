@@ -12,7 +12,8 @@ export enum ROUTES_PATHS {
   logout = '/logout',
   registration = '/registration',
   boards = '/boards',
-  error_page = '*',
+  error_page = '/error',
+  not_found_page = '*',
 }
 
 // TODO: REMOVE THIS WHEN APP BE INCLUDE LOCALIZATION
