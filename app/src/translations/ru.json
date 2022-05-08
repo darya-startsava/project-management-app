@@ -8,5 +8,9 @@
   },
   "LanguageSwitch": {
     "BtnGroupAriaLabel": "Группа кнопок с основным дизайном выделенная контуром"
+  },
+  "Footer": {
+    "RSSchoolLogo": "RSSchool Logo",
+    "githubLogo": "Github Logo"
   }
 }
