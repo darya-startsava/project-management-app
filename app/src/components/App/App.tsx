@@ -13,7 +13,7 @@ const App: FC = () => {
     <React.Fragment>
       <CssBaseline />
       <div>{t('app.start')}</div>
-      <IconButton arial-label="login">
+      <IconButton arial-label={t('app.IconBtnAriaLabel')}>
         <LoginIcon htmlColor="#000" />
       </IconButton>
 
