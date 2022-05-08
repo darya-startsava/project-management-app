@@ -1,10 +1,12 @@
 {
   "lng": "English",
-  "app": {
+  "Welcome": {
     "start": "Start task",
     "IconBtnAriaLabel": "login",
-    "welcome": "Welcome to Kanban",
-    "welcomeText": "Kanban - is an application with a wide range of possibilities for creating and managing boards"
+    "titleText": "Welcome to Kanban",
+    "youtubeSign": "YouTube Sign",
+    "welcomeText": "Kanban - is an application with a wide range of possibilities for creating and managing boards",
+    "aboutUs": "About Us"
   },
   "LanguageSwitch": {
     "BtnGroupAriaLabel": "outlined primary button group"

@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import LoginIcon from '@mui/icons-material/Login';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitch from '../general/LanguageSwitch';
+import Welcome from '../../pages/Welcome';
 
 const App: FC = () => {
   const { t } = useTranslation();
@@ -19,10 +20,7 @@ const App: FC = () => {
 
       <LanguageSwitch />
 
-      <div>
-        <h2>{t('app.welcome')}</h2>
-        <span>{t('app.welcomeText')}</span>
-      </div>
+      <Welcome />
     </React.Fragment>
   );
 };

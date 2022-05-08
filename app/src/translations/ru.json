@@ -1,10 +1,12 @@
 {
   "lng": "Русский",
-  "app": {
+  "Welcome": {
     "start": "Открыть задачу",
     "IconBtnAriaLabel": "Кнопка для авторизации",
-    "welcome": "Добро пожаловать в Kanban",
-    "welcomeText": "Kanban - это приложение с широкими возможностями создания и менеджмента досок"
+    "titleText": "Добро пожаловать в Kanban",
+    "youtubeSign": "Знак YouTube",
+    "welcomeText": "Kanban - это приложение с широкими возможностями создания и менеджмента досок",
+    "aboutUs": "Об авторах"
   },
   "LanguageSwitch": {
     "BtnGroupAriaLabel": "Группа кнопок с основным дизайном выделенная контуром"
