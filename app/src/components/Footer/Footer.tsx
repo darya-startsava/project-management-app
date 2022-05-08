@@ -6,7 +6,7 @@ import css from './Footer.module.scss';
 
 const Footer: FC = () => {
   return (
-    <footer className={`${css.footer} button`}>
+    <footer className={css.footer}>
       <Container>
         <Grid container>
           <Grid item xs={4}>

@@ -4,26 +4,26 @@ import { useAppSelector } from '$store/store';
 
 import { MenuItem, MenuList } from '@mui/material';
 
+import { ROUTERS_APP_AUTH, ROUTERS_APP_ANONYM } from '$settings/routing';
 import { IWord } from '$types/common';
-import css from './Navigation.module.scss';
 
 export interface INavigationLink extends IWord {
   path: string;
 }
 
-interface INavigation {
-  linksList: Array<INavigationLink>;
-  clasName?: string;
-}
-
-const Navigation: FC<INavigation> = ({ clasName, linksList }: INavigation) => {
-  const { isEnglishLang } = useAppSelector((state) => state.app);
+const Navigation: FC = () => {
+  const { isEnglishLang, isAuthorizationUser } = useAppSelector((state) => state.app);
+  const listLinks = isAuthorizationUser ? ROUTERS_APP_AUTH : ROUTERS_APP_ANONYM;
 
   return (
-    <nav className={clasName || ''}>
-      <MenuList className={css.navigation__list}>
-        {linksList.map((navEl) => (
-          <MenuItem key={navEl.en} component="li" disableGutters={true}>
+    <nav>
+      <MenuList>
+        {listLinks.map((navEl) => (
+          <MenuItem
+            key={`${navEl.path}_${new Date().getTime()}`}
+            component="li"
+            disableGutters={true}
+          >
             <NavLink to={navEl.path}>{isEnglishLang ? navEl.en : navEl.ru}</NavLink>
           </MenuItem>
         ))}

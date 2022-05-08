@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '$store/store';
-import { ROUTES_PATHS } from '$settings/data';
+import { ROUTES_PATHS } from '$settings/routing';
 
 interface IRequiredAuthProps {
   children: JSX.Element | null;

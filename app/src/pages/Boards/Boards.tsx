@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Grid, Typography } from '@mui/material';
 import Section from '$components/Section';
 
-import { ROUTES_PATHS } from '$settings/data';
+import { ROUTES_PATHS } from '$settings/routing';
 import css from './Boards.module.scss';
 
 const Boards: FC = () => {

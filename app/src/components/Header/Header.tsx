@@ -8,7 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LanguageIcon from '@mui/icons-material/Language';
 
 import { changeAuthorizationAction, changeLanguageAction } from '$store/appSlice';
-import { ROUTERS_APP_AUTH, ROUTERS_APP_ANONIM, LOCALIZES_TEXT } from '$settings/data';
+import { LOCALIZES_TEXT } from '$settings/routing';
 
 import css from './Header.module.scss';
 
@@ -65,11 +65,7 @@ const Header: FC = () => {
           </Grid>
 
           <Grid item xs={8}>
-            {isAuthorizationUser ? (
-              <Navigation linksList={ROUTERS_APP_AUTH} />
-            ) : (
-              <Navigation linksList={ROUTERS_APP_ANONIM} />
-            )}
+            <Navigation />
           </Grid>
         </Grid>
       </Container>

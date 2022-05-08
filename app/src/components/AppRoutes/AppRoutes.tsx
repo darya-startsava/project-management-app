@@ -9,9 +9,9 @@ import LogIn from '$pages/LogIn';
 import LogOut from '$pages/LogOut';
 import Registration from '$pages/Registration';
 import ErrorPage from '$pages/ErrorPage';
-import RequiredAuth from '$hoc/RequiredAuth';
+import RequiredAuth from '$components/RequiredAuth';
 
-import { ROUTES_PATHS } from '$settings/data';
+import { ROUTES_PATHS } from '$settings/routing';
 
 const AppRoutes: FC = () => {
   return (
