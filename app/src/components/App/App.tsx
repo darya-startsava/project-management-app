@@ -23,7 +23,7 @@ const App: FC = () => {
       </Button>
 
       <Main>
-        <>{showError ? <ComponentWithError /> : null}</>
+        <>{showError ? <ComponentWithError showArror={true} /> : null}</>
         <>
           {showError2 ? (
             <ErrorBoundary>

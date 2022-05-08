@@ -1,9 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
-const ComponentWithError = () => {
+interface IErrorProps {
+  showArror?: boolean;
+}
+
+const ComponentWithError: FC<IErrorProps> = ({ showArror = false }) => {
   useEffect(() => {
-    throw new Error('Error in component');
-  });
+    if (showArror) {
+      throw new Error('Error in component');
+    }
+    if (Math.random() > 0.5) {
+      throw new Error('Error in component');
+    }
+  }, []);
 
   return <div>With Error Component</div>;
 };

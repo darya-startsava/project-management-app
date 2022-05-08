@@ -1,0 +1,25 @@
+@import "$assets/scss/variables";
+@import "$assets/scss/mixins";
+
+.home_link {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin-top: 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: $borderRadius;
+  color: $neonBlue;
+  background-color: $whiteColor;
+  transition: $transitionTime;
+
+  &:not(:disabled):hover {
+    color: $whiteColor;
+    background-color: $primary;
+  }
+
+  &:not(:disabled):active {
+    box-shadow: inset 0 0 5px transparentize($whiteColor, 0.5);
+  }
+}
+

@@ -1,7 +1,10 @@
 import React, { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Alert, IconButton, Snackbar } from '@mui/material';
+import { Alert, AlertTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+
+import css from './ErrorBoundary.module.scss';
 
 interface IProps {
   children: ReactNode;
@@ -10,49 +13,51 @@ interface IProps {
 interface IState {
   error: boolean;
   errorText: string;
-  showSnackBar: boolean;
 }
 
-class ErrorBoundary extends React.Component<IProps, IState> {
+class ErrorBoundary extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-    this.state = { error: false, errorText: '', showSnackBar: false };
+    this.state = { error: false, errorText: '' };
   }
 
+  static getDerivedStateFromError(error: Error) {
+    return { errorText: error.message };
+  }
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
     this.setState({
       error: true,
       errorText: error.message,
-      showSnackBar: true,
     });
   }
+
+  removeErrorState = () => {
+    this.setState({ error: false, errorText: '' });
+  };
 
   render() {
     if (this.state.error) {
       return (
-        <Snackbar
-          open={this.state.showSnackBar}
-          // autoHideDuration={10000}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          onClose={() => this.setState({ showSnackBar: false })}
+        <Alert
+          severity="error"
+          variant="filled"
           action={
             <IconButton
               size="small"
+              color="inherit"
               aria-label="close"
-              onClick={() => this.setState({ showSnackBar: false })}
+              onClick={this.removeErrorState}
             >
               <CloseIcon fontSize="small" />
             </IconButton>
           }
         >
-          <Alert
-            onClose={() => this.setState({ showSnackBar: false })}
-            severity={'error'}
-            variant="filled"
-          >
-            {this.state.errorText}
-          </Alert>
-        </Snackbar>
+          <AlertTitle>Something went wrong!</AlertTitle>
+          {this.state.errorText}
+          <Link to="/" className={css.home_link} onClick={this.removeErrorState}>
+            Back home
+          </Link>
+        </Alert>
       );
     }
 
