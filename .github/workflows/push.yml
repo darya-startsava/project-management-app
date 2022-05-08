@@ -7,8 +7,8 @@ on:
     branches: [develop]
 
 env:
-  work_directory: ./my-app
-  build_directory: ./my-app/build
+  work_directory: ./app
+  build_directory: ./app/build
 
 jobs:
   deploy_project:

@@ -7,7 +7,7 @@ on:
     branches: [develop]
 
 env:
-  work_directory: ./my-app
+  work_directory: ./app
 
 jobs:
   check_pull_request:
