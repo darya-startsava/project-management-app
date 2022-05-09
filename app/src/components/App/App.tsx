@@ -7,10 +7,6 @@ import AppRoutes from '$components/AppRoutes';
 import Footer from '$components/Footer';
 
 import './App.scss';
-import IconButton from '@mui/material/IconButton';
-import LoginIcon from '@mui/icons-material/Login';
-import { useTranslation } from 'react-i18next';
-import LanguageSwitch from '../general/LanguageSwitch';
 import Welcome from '../../pages/Welcome';
 
 const App: FC = () => {
