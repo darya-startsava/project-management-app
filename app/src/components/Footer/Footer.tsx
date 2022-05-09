@@ -18,19 +18,19 @@ const Footer: FC = () => {
         </Grid>
         <Grid container xs={8} sx={{ flexWrap: 'nowrap' }}>
           <Grid container sx={{ alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <GitHubIcon />
+            <GitHubIcon sx={{ color: '#001A33' }} />
             <Link href="https://github.com/TarasiukDima" underline="none" sx={{ color: '#001A33' }}>
               TarasiukDima
             </Link>
           </Grid>
           <Grid container sx={{ alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <GitHubIcon />
+            <GitHubIcon sx={{ color: '#001A33' }} />
             <Link href="https://github.com/exekuta" underline="none" sx={{ color: '#001A33' }}>
               exekuta
             </Link>
           </Grid>
           <Grid container sx={{ alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <GitHubIcon />
+            <GitHubIcon sx={{ color: '#001A33' }} />
             <Link
               href="https://github.com/darya-startsava"
               underline="none"
@@ -41,8 +41,8 @@ const Footer: FC = () => {
           </Grid>
         </Grid>
         <Grid container xs={2} sx={{ alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-          <CopyrightIcon />
-          <Typography>{new Date().getFullYear()}</Typography>
+          <CopyrightIcon sx={{ color: '#001A33' }} />
+          <Typography sx={{ color: '#001A33' }}>{new Date().getFullYear()}</Typography>
         </Grid>
       </Grid>
     </footer>
