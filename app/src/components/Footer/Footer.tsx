@@ -12,7 +12,7 @@ const Footer: FC = () => {
     <footer>
       <Grid container sx={{ padding: '20px', minHeight: '10vh' }}>
         <Grid container xs={2} sx={{ justifyContent: 'center' }}>
-          <Link href="https://github.com/TarasiukDima" underline="none">
+          <Link href="https://rs.school/" underline="none">
             <img src={RSSchoolSign} alt={t('Footer.RSSchoolLogo')} />
           </Link>
         </Grid>
