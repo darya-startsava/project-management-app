@@ -3,22 +3,34 @@
  ** один для usera, а второй для бордеров
  */
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type IStateApp = {
   isLoading: boolean;
+  isAuthorizationUser: boolean;
+  isEnglishLang: boolean;
 };
 
 export const initialState: IStateApp = {
   isLoading: false,
+  isAuthorizationUser: false,
+  isEnglishLang: true,
 };
 
 const app = createSlice({
   name: 'app',
   initialState,
-  reducers: {},
+  reducers: {
+    changeAuthorizationAction(state: IStateApp, action: PayloadAction<boolean>) {
+      state.isAuthorizationUser = action.payload;
+    },
+
+    changeLanguageAction(state: IStateApp, action: PayloadAction<boolean>) {
+      state.isEnglishLang = action.payload;
+    },
+  },
 });
 
-export const {} = app.actions;
+export const { changeAuthorizationAction, changeLanguageAction } = app.actions;
 
 export default app.reducer;

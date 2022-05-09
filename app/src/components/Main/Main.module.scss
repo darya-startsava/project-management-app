@@ -1,5 +1,8 @@
-@import "$assets/scss/variables";
 @import "$assets/scss/mixins";
 
 .main {
+  @include dflex(flex-start, stretch);
+
+  flex-direction: column;
+  flex-grow: 1;
 }

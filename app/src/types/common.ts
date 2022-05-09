@@ -9,3 +9,14 @@ export interface IWrapEl {
   className?: string;
   children?: string | JSX.Element | Array<JSX.Element>;
 }
+
+/* routing start */
+export interface IWord {
+  en: string;
+  ru: string;
+}
+
+export interface IWordsObj {
+  [key: string]: IWord;
+}
+/* routing end */

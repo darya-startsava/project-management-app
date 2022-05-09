@@ -1,2 +1,5 @@
-@import "$assets/scss/variables";
-@import "$assets/scss/mixins";
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
