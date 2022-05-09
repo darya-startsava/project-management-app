@@ -1,20 +1,23 @@
 import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '$store/store';
 
-import Navigation from '$components/Navigation';
-import { AppBar, Container, FormControlLabel, Grid, Switch } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LanguageIcon from '@mui/icons-material/Language';
+import { AppBar, Container, FormControlLabel, Grid, IconButton, Switch } from '@mui/material';
+import Navigation from '$components/Navigation';
+import LanguageSwitch from '$components/general/LanguageSwitch';
 
 import { changeAuthorizationAction, changeLanguageAction } from '$store/appSlice';
 import { LOCALIZES_TEXT } from '$settings/routing';
 
 import css from './Header.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const Header: FC = () => {
   const { isEnglishLang, isAuthorizationUser } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const showLogUserText = (): string => {
     if (isAuthorizationUser) {
@@ -25,6 +28,12 @@ const Header: FC = () => {
   return (
     <AppBar classes={css.header} color="default" position="static">
       <Container>
+        <IconButton arial-label={t('app.IconBtnAriaLabel')}>
+          <LoginIcon htmlColor="#000" />
+        </IconButton>
+
+        <LanguageSwitch />
+
         <Grid container>
           <Grid item xs={2}>
             <FormControlLabel

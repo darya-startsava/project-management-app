@@ -1,10 +1,7 @@
 import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-import { Alert, AlertTitle, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-
-import css from './ErrorBoundary.module.scss';
+import { ROUTES_PATHS } from '$settings/routing';
 
 interface IProps {
   children: ReactNode;
@@ -24,41 +21,22 @@ class ErrorBoundary extends React.PureComponent<IProps, IState> {
   static getDerivedStateFromError(error: Error) {
     return { errorText: error.message };
   }
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
+  componentDidCatch(error: Error): void {
     this.setState({
       error: true,
       errorText: error.message,
     });
   }
 
-  removeErrorState = () => {
+  showErrorPage = () => {
+    const errorText = this.state.errorText;
     this.setState({ error: false, errorText: '' });
+    return <Navigate to={ROUTES_PATHS.error_page} replace state={{ errorText }} />;
   };
 
   render() {
     if (this.state.error) {
-      return (
-        <Alert
-          severity="error"
-          variant="filled"
-          action={
-            <IconButton
-              size="small"
-              color="inherit"
-              aria-label="close"
-              onClick={this.removeErrorState}
-            >
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          }
-        >
-          <AlertTitle>Something went wrong!</AlertTitle>
-          {this.state.errorText}
-          <Link to="/" className={css.home_link} onClick={this.removeErrorState}>
-            Back home
-          </Link>
-        </Alert>
-      );
+      return this.showErrorPage();
     }
 
     return this.props.children;
