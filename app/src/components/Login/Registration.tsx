@@ -1,13 +1,20 @@
 import { FC, Fragment, useState } from 'react';
-import { signIn, signUp } from '$services/api';
+import { useDispatch } from 'react-redux';
 import { Button, TextField, Typography } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IUserAuthorization, IUserRegistration } from '$types/common';
+import { setToken } from '$store/appSlice';
+import { useSignInMutation, useSignUpMutation } from '$services/api';
+import Users from './Users';
 
 const Registration: FC = () => {
-  const [id, setId] = useState('id');
-  const [token, setToken] = useState('token');
+  const [token, setStateToken] = useState('token');
+  const [isTokenLoaded, setIsTokenLoaded] = useState(false);
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<IUserRegistration>();
+
+  const [signUp] = useSignUpMutation();
+  const [signIn, { isLoading }] = useSignInMutation();
 
   const onSubmit: SubmitHandler<IUserRegistration> = async (data) => {
     await newUserRegistration(data);
@@ -16,9 +23,7 @@ const Registration: FC = () => {
 
   async function newUserRegistration(user: IUserRegistration) {
     try {
-      const data = await signUp(user);
-      setId(data);
-      localStorage.setItem('kanban-id', data);
+      await signUp(user).unwrap();
     } catch (error) {
       throw error;
     }
@@ -26,9 +31,10 @@ const Registration: FC = () => {
 
   async function userAuthorization(user: IUserAuthorization) {
     try {
-      const data = await signIn(user);
-      setToken(data);
-      localStorage.setItem('kanban-token', data);
+      const result = await signIn(user).unwrap();
+      setStateToken(result.token);
+      dispatch(setToken(result.token));
+      setIsTokenLoaded(true);
     } catch (error) {
       throw error;
     }
@@ -36,7 +42,7 @@ const Registration: FC = () => {
 
   return (
     <Fragment>
-      <Typography variant="h3">Log in</Typography>
+      <Typography variant="h3">Sign Up</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField {...register('name')} required label="Name" placeholder="Name" />
         <TextField {...register('login')} required label="Login" placeholder="Login" />
@@ -47,10 +53,10 @@ const Registration: FC = () => {
           type="password"
           placeholder="Password"
         />
-        <Button type="submit">Registration</Button>
+        <Button type="submit">Sign Up</Button>
       </form>
-      <div>{id}</div>
-      <div>{token}</div>
+      {isLoading && <div>Loading...</div>}
+      {isTokenLoaded && <Users />}
     </Fragment>
   );
 };

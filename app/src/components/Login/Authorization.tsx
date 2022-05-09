@@ -2,10 +2,9 @@ import { FC, Fragment, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Button, TextField, Typography } from '@mui/material';
-import { signIn } from '../../services/api';
 import { IUserAuthorization } from '$types/common';
 import { setToken } from '$store/appSlice';
-import { useSignInMutation, useGetAllUsersQuery } from '$services/api';
+import { useSignInMutation } from '$services/api';
 import Users from './Users';
 
 const Authorization: FC = () => {
@@ -23,10 +22,8 @@ const Authorization: FC = () => {
   async function userAuthorization(user: IUserAuthorization) {
     try {
       const result = await signIn(user).unwrap();
-      console.log(result);
       setStateToken(result.token);
       dispatch(setToken(result.token));
-      localStorage.setItem('kanban-token', result.token);
       setIsTokenLoaded(true);
     } catch (error) {
       throw error;
@@ -35,7 +32,7 @@ const Authorization: FC = () => {
 
   return (
     <Fragment>
-      <Typography variant="h3">Log In</Typography>
+      <Typography variant="h3">Sign In</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField {...register('login')} required label="Login" placeholder="Login" />
         <TextField
@@ -45,7 +42,7 @@ const Authorization: FC = () => {
           type="password"
           placeholder="Password"
         />
-        <Button type="submit">Log In</Button>
+        <Button type="submit">Sign In</Button>
       </form>
       {isLoading && <div>Loading...</div>}
       <div>{token}</div>

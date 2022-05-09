@@ -3,11 +3,6 @@ import { URL } from '$settings/index';
 import { IUser, IUserAuthorization, IUserRegistration } from '$types/common';
 import { RootState } from '$store/store';
 
-enum Endpoints {
-  signUp = 'signup',
-  signIn = 'signin',
-}
-
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
@@ -22,9 +17,13 @@ export const api = createApi({
     },
   }),
   endpoints: (build) => ({
+    signUp: build.mutation<{ id: string }, IUserRegistration>({
+      query: (body: IUserRegistration) => ({ url: 'signup', method: 'POST', body }),
+    }),
     signIn: build.mutation<{ token: string }, IUserAuthorization>({
       query: (body: IUserAuthorization) => ({ url: 'signin', method: 'POST', body }),
     }),
+    // this is the sample of query with common header (prepareHeaders)
     getAllUsers: build.query<IUser, void>({
       query: () => ({
         url: 'users',
@@ -33,28 +32,4 @@ export const api = createApi({
   }),
 });
 
-export const { useSignInMutation, useGetAllUsersQuery } = api;
-
-export async function signUp(user: IUserRegistration): Promise<string> {
-  const response = await fetch(`${URL}/${Endpoints.signUp}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  });
-  const data = await response.json();
-  return data.id;
-}
-
-export async function signIn(user: IUserAuthorization): Promise<string> {
-  const response = await fetch(`${URL}/${Endpoints.signIn}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  });
-  const data = await response.json();
-  return data.token;
-}
+export const { useSignUpMutation, useSignInMutation, useGetAllUsersQuery } = api;
