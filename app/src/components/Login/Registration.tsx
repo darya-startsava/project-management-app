@@ -1,5 +1,5 @@
 import { FC, Fragment, useState } from 'react';
-import { signIn, signUp } from './provider';
+import { signIn, signUp } from '$services/api';
 import { Button, TextField, Typography } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IUserAuthorization, IUserRegistration } from '$types/common';

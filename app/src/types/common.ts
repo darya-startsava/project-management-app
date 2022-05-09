@@ -18,3 +18,9 @@ export interface IUserAuthorization {
 export interface IUserRegistration extends IUserAuthorization {
   name: string;
 }
+
+export interface IUser {
+  id: string;
+  name: string;
+  login: string;
+}
