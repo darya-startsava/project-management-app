@@ -1,5 +1,11 @@
 import React, { FC } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
+
+import { CssBaseline } from '@mui/material';
+import Header from '$components/Header';
+import Main from '$components/Main';
+import AppRoutes from '$components/AppRoutes';
+import Footer from '$components/Footer';
+
 import './App.scss';
 import IconButton from '@mui/material/IconButton';
 import LoginIcon from '@mui/icons-material/Login';
@@ -8,19 +14,18 @@ import LanguageSwitch from '../general/LanguageSwitch';
 import Welcome from '../../pages/Welcome';
 
 const App: FC = () => {
-  const { t } = useTranslation();
-
   return (
     <React.Fragment>
       <CssBaseline />
-      <div>{t('app.start')}</div>
-      <IconButton arial-label={t('app.IconBtnAriaLabel')}>
-        <LoginIcon htmlColor="#000" />
-      </IconButton>
 
-      <LanguageSwitch />
+      <Header />
+
+      <Main>
+        <AppRoutes />
+      </Main>
 
       <Welcome />
+      <Footer />
     </React.Fragment>
   );
 };
