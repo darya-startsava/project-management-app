@@ -24,3 +24,13 @@ export interface IUser {
   name: string;
   login: string;
 }
+/* routing start */
+export interface IWord {
+  en: string;
+  ru: string;
+}
+
+export interface IWordsObj {
+  [key: string]: IWord;
+}
+/* routing end */

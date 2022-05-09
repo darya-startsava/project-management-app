@@ -4,8 +4,10 @@
     "paths": {
       "$assets/*": ["./assets/*"],
       "$components/*": ["./components/*"],
-      "$containers/*": ["./containers/*"],
-      "$services/*": ["./services/*"],
+      "$pages/*": ["./pages/*"],
+      "$hoc/*": ["./hoc/*"],
+      "$translations/*": ["./translations/*"],
+      "$general/*": ["./general/*"],
       "$settings/*": ["./settings/*"],
       "$utils/*": ["./utils/*"],
       "$store/*": ["./store/*"],

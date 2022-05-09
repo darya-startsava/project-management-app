@@ -8,23 +8,34 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type IStateApp = {
   isLoading: boolean;
   token: string | null;
+  isAuthorizationUser: boolean;
+  isEnglishLang: boolean;
 };
 
 export const initialState: IStateApp = {
   isLoading: false,
   token: null,
+  isAuthorizationUser: false,
+  isEnglishLang: true,
 };
 
-const appSlice = createSlice({
+const app = createSlice({
   name: 'app',
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
+    changeAuthorizationAction(state: IStateApp, action: PayloadAction<boolean>) {
+      state.isAuthorizationUser = action.payload;
+    },
+
+    changeLanguageAction(state: IStateApp, action: PayloadAction<boolean>) {
+      state.isEnglishLang = action.payload;
+    },
   },
 });
 
-export const { setToken } = appSlice.actions;
+export const { setToken, changeAuthorizationAction, changeLanguageAction } = app.actions;
 
-export default appSlice.reducer;
+export default app.reducer;

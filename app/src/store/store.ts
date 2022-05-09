@@ -3,6 +3,9 @@
  */
 
 import { configureStore } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import appReducer, { IStateApp } from './appSlice';
 import { api } from '$services/api';
 
@@ -29,3 +32,6 @@ export const store = createStore();
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export const useAppSelector: TypedUseSelectorHook<IState> = useSelector;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
