@@ -10,6 +10,20 @@ export interface IWrapEl {
   children?: string | JSX.Element | Array<JSX.Element>;
 }
 
+export interface IUserLogIn {
+  login: string;
+  password: string;
+}
+
+export interface IUserRegistration extends IUserLogIn {
+  name: string;
+}
+
+export interface IUser {
+  id: string;
+  name: string;
+  login: string;
+}
 /* routing start */
 export interface IWord {
   en: string;

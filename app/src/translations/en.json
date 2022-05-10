@@ -9,6 +9,24 @@
   "LanguageSwitch": {
     "BtnGroupAriaLabel": "outlined primary button group"
   },
+  "LogIn": {
+    "signInTitle": "Sign In",
+    "loginLabel": "Login",
+    "loginPlaceholder": "Login",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Password",
+    "signInButton": "Sign In"
+  },
+  "Registration": {
+    "signUpTitle": "Sign Up",
+    "nameLabel": "Name",
+    "namePlaceholder": "Name",
+    "loginLabel": "Login",
+    "loginPlaceholder": "Login",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Password",
+    "signUpButton": "Sign Up"
+  },
   "Footer": {
     "RSSchoolLogo": "RSSchool Logo",
     "githubLogo": "Github Logo"

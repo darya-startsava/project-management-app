@@ -9,6 +9,24 @@
   "LanguageSwitch": {
     "BtnGroupAriaLabel": "Группа кнопок с основным дизайном выделенная контуром"
   },
+  "LogIn": {
+    "signInTitle": "Вход",
+    "loginLabel": "Логин",
+    "loginPlaceholder": "Логин",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Пароль",
+    "signInButton": "Вход"
+  },
+  "Registration": {
+    "signUpTitle": "Регистрация",
+    "nameLabel": "Имя",
+    "namePlaceholder": "Имя",
+    "loginLabel": "Логин",
+    "loginPlaceholder": "Логин",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Пароль",
+    "signUpButton": "Регистрация"
+  },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",
     "githubLogo": "Логотип Github"
