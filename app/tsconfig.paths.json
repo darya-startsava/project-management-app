@@ -11,7 +11,8 @@
       "$settings/*": ["./settings/*"],
       "$utils/*": ["./utils/*"],
       "$store/*": ["./store/*"],
-      "$types/*": ["./types/*"]
+      "$types/*": ["./types/*"],
+      "$services/*": ["./services/*"]
     }
   }
 }
