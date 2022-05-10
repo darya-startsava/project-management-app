@@ -9,7 +9,7 @@
   "LanguageSwitch": {
     "BtnGroupAriaLabel": "outlined primary button group"
   },
-  "Authorization": {
+  "LogIn": {
     "signInTitle": "Sign In",
     "loginLabel": "Login",
     "loginPlaceholder": "Login",

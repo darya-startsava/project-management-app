@@ -3,25 +3,25 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, CircularProgress, TextField, Typography } from '@mui/material';
-import { IUserAuthorization } from '$types/common';
+import { IUserLogIn } from '$types/common';
 import { setToken } from '$store/appSlice';
 import { useSignInMutation } from '$services/api';
 import Section from '$components/Section';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_PATHS } from '$settings/routing';
 
-const Authorization: FC = () => {
+const LogIn: FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm<IUserAuthorization>();
+  const { register, handleSubmit } = useForm<IUserLogIn>();
   const [signIn, { isLoading }] = useSignInMutation();
 
-  const onSubmit: SubmitHandler<IUserAuthorization> = async (data) => {
-    await userAuthorization(data);
+  const onSubmit: SubmitHandler<IUserLogIn> = async (data) => {
+    await userLogIn(data);
   };
 
-  async function userAuthorization(user: IUserAuthorization) {
+  async function userLogIn(user: IUserLogIn) {
     try {
       const result = await signIn(user).unwrap();
       dispatch(setToken(result.token));
@@ -34,27 +34,27 @@ const Authorization: FC = () => {
 
   return (
     <Section pageAllSpace={true}>
-      <Typography variant="h3">{t('Authorization.signInTitle')}</Typography>
+      <Typography variant="h3">{t('LogIn.signInTitle')}</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* TODO: add validation */}
         <TextField
           {...register('login')}
           required
-          label={t('Authorization.loginLabel')}
-          placeholder={t('Authorization.loginPlaceholder')}
+          label={t('LogIn.loginLabel')}
+          placeholder={t('LogIn.loginPlaceholder')}
         />
         <TextField
           {...register('password')}
           required
-          label={t('Authorization.passwordLabel')}
+          label={t('LogIn.passwordLabel')}
           type="password"
-          placeholder={t('Authorization.passwordPlaceholder')}
+          placeholder={t('LogIn.passwordPlaceholder')}
         />
-        <Button type="submit">{t('Authorization.signInButton')}</Button>
+        <Button type="submit">{t('LogIn.signInButton')}</Button>
       </form>
       {isLoading && <CircularProgress />}
     </Section>
   );
 };
 
-export default Authorization;
+export default LogIn;

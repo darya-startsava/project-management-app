@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Button, CircularProgress, TextField, Typography } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { IUserAuthorization, IUserRegistration } from '$types/common';
+import { IUserLogIn, IUserRegistration } from '$types/common';
 import { setToken } from '$store/appSlice';
 import { useSignInMutation, useSignUpMutation } from '$services/api';
 import Section from '$components/Section';
@@ -20,7 +20,7 @@ const Registration: FC = () => {
 
   const onSubmit: SubmitHandler<IUserRegistration> = async (data) => {
     await newUserRegistration(data);
-    await userAuthorization({ login: data.login, password: data.password });
+    await userLogIn({ login: data.login, password: data.password });
   };
 
   async function newUserRegistration(user: IUserRegistration) {
@@ -32,7 +32,7 @@ const Registration: FC = () => {
     }
   }
 
-  async function userAuthorization(user: IUserAuthorization) {
+  async function userLogIn(user: IUserLogIn) {
     try {
       const result = await signIn(user).unwrap();
       dispatch(setToken(result.token));

@@ -9,7 +9,7 @@
   "LanguageSwitch": {
     "BtnGroupAriaLabel": "Группа кнопок с основным дизайном выделенная контуром"
   },
-  "Authorization": {
+  "LogIn": {
     "signInTitle": "Вход",
     "loginLabel": "Логин",
     "loginPlaceholder": "Логин",
