@@ -17,5 +17,9 @@
   },
   "LanguageSwitch": {
     "BtnGroupAriaLabel": "outlined primary button group"
+  },
+  "Footer": {
+    "RSSchoolLogo": "RSSchool Logo",
+    "githubLogo": "Github Logo"
   }
 }
