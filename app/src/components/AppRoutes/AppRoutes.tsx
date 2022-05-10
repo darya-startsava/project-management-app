@@ -5,7 +5,7 @@ import Home from '$pages/Home';
 import Welcome from '$pages/Boards';
 import Boards from '$pages/Boards';
 import OneBoard from '$pages/OneBoard';
-import LogIn from '$pages/LogIn';
+import LogIn from '$pages/Authorization';
 import LogOut from '$pages/LogOut';
 import Registration from '$pages/Registration';
 import ErrorPage from '$pages/ErrorPage';

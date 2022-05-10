@@ -13,8 +13,8 @@ export interface INavigationLink extends IWord {
 }
 
 const Navigation: FC = () => {
-  const { isEnglishLang, isAuthorizationUser } = useAppSelector((state) => state.app);
-  const listLinks = isAuthorizationUser ? ROUTERS_APP_AUTH : ROUTERS_APP_ANONYM;
+  const { isEnglishLang, token } = useAppSelector((state) => state.app);
+  const listLinks = token ? ROUTERS_APP_AUTH : ROUTERS_APP_ANONYM;
 
   return (
     <nav>

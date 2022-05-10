@@ -12,9 +12,9 @@ const RequiredAuth: FC<IRequiredAuthProps> = ({
   children,
   redirect = ROUTES_PATHS.home,
 }: IRequiredAuthProps) => {
-  const { isAuthorizationUser } = useAppSelector((state) => state.app);
+  const { token } = useAppSelector((state) => state.app);
 
-  if (!isAuthorizationUser) {
+  if (!token) {
     return <Navigate to={redirect} replace />;
   }
 

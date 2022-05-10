@@ -8,5 +8,23 @@
   },
   "LanguageSwitch": {
     "BtnGroupAriaLabel": "Группа кнопок с основным дизайном выделенная контуром"
+  },
+  "Authorization": {
+    "signInTitle": "Вход",
+    "loginLabel": "Логин",
+    "loginPlaceholder": "Логин",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Пароль",
+    "signInButton": "Вход"
+  },
+  "Registration": {
+    "signUpTitle": "Регистрация",
+    "nameLabel": "Имя",
+    "namePlaceholder": "Имя",
+    "loginLabel": "Логин",
+    "loginPlaceholder": "Логин",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Пароль",
+    "signUpButton": "Регистрация"
   }
 }
