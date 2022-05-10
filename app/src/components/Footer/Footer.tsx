@@ -42,7 +42,7 @@ const Footer: FC = () => {
         </Grid>
         <Grid container xs={2} sx={{ alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
           <CopyrightIcon sx={{ color: '#001A33' }} />
-          <Typography sx={{ color: '#001A33' }}>{new Date().getFullYear()}</Typography>
+          <Typography sx={{ color: '#001A33' }}>2022</Typography>
         </Grid>
       </Grid>
     </footer>
