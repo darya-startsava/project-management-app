@@ -3,10 +3,15 @@
   "Welcome": {
     "start": "Start task",
     "IconBtnAriaLabel": "login",
+    "modalTitleAriaLabel": "modal-modal-title",
+    "modalDescriptionAriaLabel": "modal-modal-description",
     "titleText": "Welcome to Kanban",
     "youtubeSign": "YouTube Sign",
     "welcomeText": "Kanban - is an application with a wide range of possibilities for creating and managing boards",
     "aboutUs": "About Us",
+    "author1": "Dmitrii",
+    "author2": "Andrey",
+    "author3": "Daria",
     "modalText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   },
   "LanguageSwitch": {

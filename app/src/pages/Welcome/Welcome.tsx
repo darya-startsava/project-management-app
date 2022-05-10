@@ -6,17 +6,7 @@ import youtubeBigSign from '../../assets/svg/youtubeBigSign.svg';
 
 import css from './Welcome.module.scss';
 
-// const style = {
-//   position: 'absolute' as const,
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 400,
-//   bgcolor: 'background.paper',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-// };
+//TODO: Заменить текст-заглушку "Об авторах" в модальном окне и вставить фотографии/аватары авторов
 
 const Welcome = () => {
   const [showAuthors, setShowAuthors] = useState<boolean>(false);
@@ -31,12 +21,10 @@ const Welcome = () => {
       alignItems="center"
       sx={{ background: 'linear-gradient(45deg,#f8a078,#6dc6f0)' }}
     >
-      <Grid
-        item
-        color="#fff"
-        sx={{ fontSize: '72px', fontWeight: '600', lineHeight: '144px', marginTop: '31px' }}
-      >
-        <span>{t('Welcome.titleText')}</span>
+      <Grid item color="#fff" sx={{ marginTop: '31px' }}>
+        <Typography sx={{ fontSize: '72px', fontWeight: '600', lineHeight: '144px' }}>
+          {t('Welcome.titleText')}
+        </Typography>
       </Grid>
       <Grid>
         <Grid
@@ -59,15 +47,15 @@ const Welcome = () => {
         item
         color="#fff"
         sx={{
-          fontSize: '32px',
-          fontWeight: '600',
-          lineHeight: '48px',
           width: '630px',
           textAlign: 'center',
-          marginTop: '31px',
         }}
       >
-        <span>{t('Welcome.welcomeText')}</span>
+        <Typography
+          sx={{ fontSize: '32px', fontWeight: '600', lineHeight: '48px', marginTop: '31px' }}
+        >
+          {t('Welcome.welcomeText')}
+        </Typography>
       </Grid>
       <Grid item>
         <Button
@@ -80,8 +68,8 @@ const Welcome = () => {
         <Modal
           open={showAuthors}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby={t('Welcome.modalTitleAriaLabel')}
+          aria-describedby={t('Welcome.modalDescriptionAriaLabel')}
         >
           <Grid className={css.modal}>
             <Typography variant="h6" component="h2" align="center" sx={{ marginBottom: '20px' }}>
@@ -90,15 +78,15 @@ const Welcome = () => {
             <Grid container sx={{ justifyContent: 'center', gap: '20px' }}>
               <Grid item className={css.developer} direction="column">
                 <PersonOutlineIcon />
-                <Typography>TarasiukDima</Typography>
+                <Typography>{t('Welcome.author1')}</Typography>
               </Grid>
               <Grid item className={css.developer} direction="column">
                 <PersonOutlineIcon />
-                <Typography>exekuta</Typography>
+                <Typography>{t('Welcome.author2')}</Typography>
               </Grid>
               <Grid item className={css.developer} direction="column">
                 <PersonOutlineIcon />
-                <Typography>darya-startsava</Typography>
+                <Typography>{t('Welcome.author3')}</Typography>
               </Grid>
             </Grid>
             <Typography sx={{ mt: 2 }} align="center">
