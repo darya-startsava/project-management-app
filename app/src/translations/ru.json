@@ -26,5 +26,9 @@
     "passwordLabel": "Пароль",
     "passwordPlaceholder": "Пароль",
     "signUpButton": "Регистрация"
+  },
+  "Footer": {
+    "RSSchoolLogo": "Логотип RSSchool",
+    "githubLogo": "Логотип Github"
   }
 }

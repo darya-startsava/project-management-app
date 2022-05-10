@@ -26,5 +26,9 @@
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
     "signUpButton": "Sign Up"
+  },
+  "Footer": {
+    "RSSchoolLogo": "RSSchool Logo",
+    "githubLogo": "Github Logo"
   }
 }
