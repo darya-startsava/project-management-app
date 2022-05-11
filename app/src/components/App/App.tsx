@@ -15,8 +15,6 @@ const App: FC = () => {
       <Main>
         <AppRoutes />
       </Main>
-
-      <Welcome />
       <Footer />
     </React.Fragment>
   );

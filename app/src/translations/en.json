@@ -2,8 +2,8 @@
   "lng": "English",
   "Welcome": {
     "start": "Start task",
-    "IconBtnAriaLabel": "login",
-    "BtnAboutUsAriaLabel": "button About Us",
+    "iconBtnAriaLabel": "login",
+    "btnAboutUsAriaLabel": "About Us",
     "modalTitleAriaLabel": "modal-modal-title",
     "modalDescriptionAriaLabel": "modal-modal-description",
     "titleText": "Welcome to Kanban",

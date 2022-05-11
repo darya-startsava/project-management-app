@@ -61,7 +61,7 @@ const Welcome = () => {
         <Button
           variant="contained"
           onClick={handleOpen}
-          aria-label={t('Welcome.BtnAboutUsAriaLabel')}
+          aria-label={t('Welcome.btnAboutUsAriaLabel')}
           sx={{ fontSize: '22px', fontWeight: '600', marginTop: '31px', marginBottom: '31px ' }}
         >
           {t('Welcome.aboutUs')}

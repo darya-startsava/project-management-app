@@ -2,8 +2,8 @@
   "lng": "Русский",
   "Welcome": {
     "start": "Открыть задачу",
-    "IconBtnAriaLabel": "Кнопка для авторизации",
-    "BtnAboutUsAriaLabel": "Кнопка Об Авторах",
+    "iconBtnAriaLabel": "Кнопка для авторизации",
+    "btnAboutUsAriaLabel": "Об Авторах",
     "modalTitleAriaLabel": "Модальное окно - заголовок",
     "modalDescriptionAriaLabel": "Модальное окно - описание",
     "titleText": "Добро пожаловать в Kanban",

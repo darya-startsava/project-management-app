@@ -6,8 +6,8 @@ import { INavigationLink } from '$components/Navigation/Navigation';
 import { IWordsObj } from '$types/common';
 
 export enum ROUTES_PATHS {
-  home = '/',
-  welcome = '/welcome',
+  // home = '/',
+  welcome = '/',
   login = '/login',
   logout = '/logout',
   registration = '/registration',
@@ -46,7 +46,7 @@ export const LOCALIZES_TEXT: IWordsObj = {
 
 export const ROUTERS_APP_ANONYM: Array<INavigationLink> = [
   {
-    path: ROUTES_PATHS.home,
+    path: ROUTES_PATHS.welcome,
     ...LOCALIZES_TEXT.home,
   },
   {
@@ -61,7 +61,7 @@ export const ROUTERS_APP_ANONYM: Array<INavigationLink> = [
 
 export const ROUTERS_APP_AUTH: Array<INavigationLink> = [
   {
-    path: ROUTES_PATHS.home,
+    path: ROUTES_PATHS.welcome,
     ...LOCALIZES_TEXT.home,
   },
   {
