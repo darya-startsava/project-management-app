@@ -6,7 +6,6 @@ import { INavigationLink } from '$components/Navigation/Navigation';
 import { IWordsObj } from '$types/common';
 
 export enum ROUTES_PATHS {
-  // home = '/',
   welcome = '/',
   login = '/login',
   logout = '/logout',

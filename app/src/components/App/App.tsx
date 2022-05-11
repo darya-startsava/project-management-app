@@ -5,7 +5,6 @@ import Main from '$components/Main';
 import AppRoutes from '$components/AppRoutes';
 import Footer from '$components/Footer';
 import './App.scss';
-import Welcome from '../../pages/Welcome';
 
 const App: FC = () => {
   return (

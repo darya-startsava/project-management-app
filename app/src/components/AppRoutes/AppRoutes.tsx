@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-// import Home from '$pages/Home';
 import Welcome from '$pages/Welcome';
 import Boards from '$pages/Boards';
 import OneBoard from '$pages/OneBoard';
@@ -17,7 +16,6 @@ import NotFoundPage from '$pages/NotFoundPage';
 const AppRoutes: FC = () => {
   return (
     <Routes>
-      {/* <Route path={ROUTES_PATHS.home} element={<Home />} /> */}
       <Route path={ROUTES_PATHS.welcome} element={<Welcome />} />
       <Route
         path={ROUTES_PATHS.boards}
