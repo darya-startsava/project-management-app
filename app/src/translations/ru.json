@@ -27,6 +27,12 @@
     "passwordPlaceholder": "Пароль",
     "signUpButton": "Регистрация"
   },
+  "Boards": {
+    "boardsTitle": "Список досок",
+    "boardsLinkItemText": "Перейти к доске",
+    "boardsAddButtonText": "Создать доску",
+    "boardsInputSearchText": "Поиск досок или задач..."
+  },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",
     "githubLogo": "Логотип Github"

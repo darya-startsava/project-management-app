@@ -27,6 +27,12 @@
     "passwordPlaceholder": "Password",
     "signUpButton": "Sign Up"
   },
+  "Boards": {
+    "boardsTitle": "My Boards",
+    "boardsLinkItemText": "Watch board",
+    "boardsAddButtonText": "Create Board",
+    "boardsInputSearchText": "Search board or task..."
+  },
   "Footer": {
     "RSSchoolLogo": "RSSchool Logo",
     "githubLogo": "Github Logo"

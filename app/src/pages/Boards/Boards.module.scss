@@ -1,3 +1,62 @@
+@import "$assets/scss/variables";
+@import "$assets/scss/mixins";
+
+%commonHeadStyles {
+  box-shadow: $boxShadow;
+  border-radius: $borderRadiusItem;
+  color: $black;
+  background: $whiteColor;
+}
+
 .boards {
-  background-color: rgb(202, 202, 202);
+  &__head {
+    margin-bottom: 37px;
+
+    &_name {
+      @include dflex(space-between);
+      @extend %commonHeadStyles;
+
+      min-width: 29%;
+      padding: 14px 34px;
+      line-height: 1.5;
+    }
+
+    &_title {
+      margin-bottom: 20px;
+      font-weight: bold;
+      font-size: $boardsTitleSize;
+    }
+
+    form.boards__head_form {
+      position: relative;
+      z-index: 1;
+      flex-grow: 1;
+      margin-left: 49px;
+    }
+
+    &_search {
+      @extend %commonHeadStyles;
+
+      padding: 14px 34px;
+      color: $black;
+
+      input {
+        height: auto;
+        padding: 0;
+        font-weight: bold;
+        font-size: $boardsTitleSize;
+        line-height: 1.5;
+      }
+    }
+
+    &_submit {
+      width: 1px;
+      height: 1px;
+      position: absolute !important;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    }
+  }
 }
