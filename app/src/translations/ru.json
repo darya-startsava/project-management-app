@@ -6,8 +6,17 @@
     "welcome": "Добро пожаловать в Kanban",
     "welcomeText": "Kanban - это приложение с широкими возможностями создания и менеджмента досок"
   },
-  "LanguageSwitch": {
-    "BtnGroupAriaLabel": "Группа кнопок с основным дизайном выделенная контуром"
+  "LanguageToggler": {
+    "AriaLabelToggler": "Поменять язык",
+    "AriaLabelButtonEn": "Английский",
+    "AriaLabelButtonRu": "Русский",
+    "ButtonEn": "Англ",
+    "ButtonRu": "Рус"
+  },
+  "Header": {
+    "editProfile": "Редактировать профиль",
+    "signOut": "Выход",
+    "newBoard": "Создать новую доску"
   },
   "LogIn": {
     "signInTitle": "Вход",

@@ -8,13 +8,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type IStateApp = {
   isLoading: boolean;
   token: string | null;
-  isEnglishLang: boolean;
 };
 
 export const initialState: IStateApp = {
   isLoading: false,
   token: null,
-  isEnglishLang: true,
 };
 
 const app = createSlice({
@@ -24,12 +22,9 @@ const app = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
-    changeLanguageAction(state: IStateApp, action: PayloadAction<boolean>) {
-      state.isEnglishLang = action.payload;
-    },
   },
 });
 
-export const { setToken, changeLanguageAction } = app.actions;
+export const { setToken } = app.actions;
 
 export default app.reducer;

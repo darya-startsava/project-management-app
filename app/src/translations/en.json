@@ -6,8 +6,17 @@
     "welcome": "Welcome to Kanban",
     "welcomeText": "Kanban - is an application with a wide range of possibilities for creating and managing boards"
   },
-  "LanguageSwitch": {
-    "BtnGroupAriaLabel": "outlined primary button group"
+  "LanguageToggler": {
+    "AriaLabelToggler": "Change language",
+    "AriaLabelButtonEn": "English",
+    "AriaLabelButtonRu": "Russian",
+    "ButtonEn": "En",
+    "ButtonRu": "Ru"
+  },
+  "Header": {
+    "editProfile": "Edit profile",
+    "signOut": "Sign out",
+    "newBoard": "Create new board"
   },
   "LogIn": {
     "signInTitle": "Sign In",
