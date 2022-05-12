@@ -1,7 +1,7 @@
 /*
  ** миксин для подключения шрифтов(подключаем woff2, woff, otf, ttf)
  */
-@mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
+ @mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
   @font-face {
     src: url("#{$file-path}.woff2") format("woff2"), url("#{$file-path}.woff") format("woff"),
       url("#{$file-path}.otf") format("opentype"), url("#{$file-path}.ttf") format("truetype");
@@ -12,7 +12,7 @@
 }
 
 /*
-**миксин для дисплей флекс принимает 2 аргумента(опуиональные)
+**миксин для дисплей флекс принимает 2 аргумента(опциональные)
 **  1-justify-content по умолчанию center
 **  2-align-items по умолчанию center
 */
@@ -23,7 +23,7 @@
 }
 
 /*
-** миксин для псевдоэллементов принимает 4 аргумента(опуиональные)
+** миксин для псевдоэлементов принимает 4 аргумента(опциональные)
 ** 1-content по умолчанию ""
 ** 2-position по умолчанию absolute
 ** 3-top по умолчанию 0
@@ -37,51 +37,53 @@
 }
 
 /*
-** миксин для медиазапроса ширина экрана меньше 1400px
-** подключать  @include largeDisplay() {конткнт}
+** миксин для медиазапроса ширина экрана больше 0px начиная с мобильных устройств
+** подключать  @include xs_mobile_start() {контент}
 */
-@mixin largeDisplay() {
-  @media screen and (max-width: 1400px) {
+@mixin xs_mobile_start() {
+  @media screen and (min-width: 0px) {
+    @content;
+  }
+}
+
+
+/*
+** миксин для медиазапроса ширина экрана больше 600px
+** подключать  @include sm_tablet_start() {контент}
+*/
+@mixin sm_tablet_start() {
+  @media screen and (min-width: 600px) {
     @content;
   }
 }
 
 /*
-** миксин для медиазапроса ширина экрана меньше 1100px
-** подключать  @include desctop() {конткнт}
+** миксин для медиазапроса ширина экрана больше 900px
+** подключать  @include md_laptop_start() {контент}
 */
-@mixin desctop() {
-  @media screen and (max-width: 1100px) {
+@mixin md_laptop_start() {
+  @media screen and (min-width: 900px) {
+    @content;
+  }
+}
+
+
+/*
+** миксин для медиазапроса ширина экрана больше 1200px
+** подключать  @include lg_display_start() {контент}
+*/
+@mixin lg_display_start() {
+  @media screen and (min-width: 1200px) {
     @content;
   }
 }
 
 /*
-** миксин для медиазапроса ширина экрана меньше 992px
-** подключать  @include tablet() {конткнт}
+** миксин для медиазапроса ширина экрана больше 1536px
+** подключать  @include xl_bigDisplay_start() {контент}
 */
-@mixin tablet() {
-  @media screen and (max-width: 992px) {
-    @content;
-  }
-}
-
-/*
-** миксин для медиазапроса ширина экрана меньше 768px
-** подключать  @include smallTablet() {конткнт}
-*/
-@mixin smallTablet() {
-  @media screen and (max-width: 768px) {
-    @content;
-  }
-}
-
-/*
-** миксин для медиазапроса ширина экрана меньше 576px
-** подключать  @include mobile() {конткнт}
-*/
-@mixin mobile() {
-  @media screen and (max-width: 576px) {
+@mixin xl_bigDisplay_start() {
+  @media screen and (min-width: 1536px) {
     @content;
   }
 }
