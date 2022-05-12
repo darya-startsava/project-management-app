@@ -7,6 +7,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import { useAppSelector } from '$store/store';
+import { ROUTES_PATHS } from '$settings/routing';
 
 const Header: FC = () => {
   const { token } = useAppSelector((state) => state.app);
@@ -26,7 +27,7 @@ const Header: FC = () => {
             {t('Header.editProfile')}
           </Button>
           <Button
-            href="#/logout"
+            href={ROUTES_PATHS.logout}
             aria-label={t('Header.signOut')}
             sx={{ textTransform: 'none', color: '#001a33', fontSize: '16px' }}
             startIcon={<LogoutIcon />}

@@ -5,17 +5,20 @@ import Main from '$components/Main';
 import AppRoutes from '$components/AppRoutes';
 import Footer from '$components/Footer';
 import './App.scss';
+import MuiTheme from '$components/MuiTheme/MuiTheme';
 
 const App: FC = () => {
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <Header />
-      <Main>
-        <AppRoutes />
-      </Main>
-      <Footer />
-    </React.Fragment>
+    <MuiTheme>
+      <React.Fragment>
+        <CssBaseline />
+        <Header />
+        <Main>
+          <AppRoutes />
+        </Main>
+        <Footer />
+      </React.Fragment>
+    </MuiTheme>
   );
 };
 
