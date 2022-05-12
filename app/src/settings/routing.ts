@@ -3,8 +3,7 @@
  */
 
 export enum ROUTES_PATHS {
-  home = '/',
-  welcome = '/welcome',
+  welcome = '/',
   login = '/login',
   logout = '/logout',
   registration = '/registration',
