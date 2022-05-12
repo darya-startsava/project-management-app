@@ -19,12 +19,8 @@ import { ROUTES_PATHS } from '$settings/routing';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
+import { IBoard } from '$types/common';
 import css from './BoardsList.module.scss';
-
-export interface IBoard {
-  id: string;
-  title: string;
-}
 
 interface IBoardProps extends IBoard {
   index: number;

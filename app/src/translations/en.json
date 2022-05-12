@@ -31,6 +31,9 @@
     "boardsTitle": "My Boards",
     "boardsLinkItemText": "Watch board",
     "boardsAddButtonText": "Create Board",
+    "boardsModalTitle": "Add new Board",
+    "boardsModalTextareaPlaceholder": "Name of the new board",
+    "boardsModalSubmitButton": "Add",
     "boardsInputSearchText": "Search board or task..."
   },
   "Footer": {

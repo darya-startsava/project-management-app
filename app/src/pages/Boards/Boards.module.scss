@@ -7,6 +7,15 @@
   color: $black;
   background: $whiteColor;
 }
+%submitButton {
+  width: 1px;
+  height: 1px;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+}
 
 .boards {
   &__head {
@@ -50,13 +59,40 @@
     }
 
     &_submit {
-      width: 1px;
-      height: 1px;
-      position: absolute !important;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+      @extend %submitButton;
     }
+  }
+}
+
+.modalAddForm {
+  position: relative;
+  z-index: 1;
+  min-width: 600px;
+
+  &_text {
+    @extend %commonHeadStyles;
+
+    width: 100%;
+    min-height: 120px;
+    margin-bottom: 15px;
+    padding: 15px 30px;
+    font-size: $boardsTitleSize;
+    border-color: transparentize($black, 0.8);
+    resize: vertical;
+  }
+
+  .modalAddForm_submitWrapper {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: $boardsTitleSize;
+    text-align: center;
+    border-radius: $borderRadiusItem;
+    color: $whiteColor;
+    background-color: $primary;
+  }
+  &_submit input {
+    @extend %submitButton;
   }
 }
