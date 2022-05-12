@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import SearchIcon from '@mui/icons-material/Search';
-import TableChartIcon from '@mui/icons-material/TableChart';
+import { useAddBoardMutation, useGetAllBoardsQuery } from '$services/api';
+import { Search as SearchIcon, TableChart as TableChartIcon } from '@mui/icons-material';
 import {
   Grid,
   Typography,
@@ -13,39 +13,15 @@ import {
 } from '@mui/material';
 import Section from '$components/Section';
 import BoardsList from '$components/BoardsList';
+import ModalPage from '$components/ModalPage';
 import css from './Boards.module.scss';
 
-import { IBoard } from '$types/common';
-import ModalPage from '$components/ModalPage';
-
 const Boards: FC = () => {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [newCardTitle, setNewCardTitle] = useState<string>('');
-  const { t } = useTranslation();
-
-  // useGetAllBoardsQuery,
-  const listBoards: Array<IBoard> = [
-    {
-      id: '9a111e19-24ec-43e1-b8c4-13776842b8d5',
-      title: 'My Board 1',
-    },
-    {
-      id: '9a111e19-24ec-43e1-b8c4-13776842b8d2',
-      title: 'My Board 2',
-    },
-    {
-      id: '9a111e19-24ec-43e1-b8c4-13776842b8d3',
-      title: 'My Board 3',
-    },
-    {
-      id: '9a111e19-24ec-43e1-b8c4-13776842b8d1',
-      title: 'My Board 4',
-    },
-    {
-      id: '9a111e19-2412-43e1-b8c4-13776842b8d1',
-      title: 'My Board 5',
-    },
-  ];
+  const { data: listBoards = [] } = useGetAllBoardsQuery();
+  const [addBoard, { isLoading: isLoadingAddNewBoard }] = useAddBoardMutation();
 
   const searchHandler = (event: React.FormEvent | React.MouseEvent) => {
     event.preventDefault();
@@ -55,13 +31,14 @@ const Boards: FC = () => {
     setNewCardTitle(event.target.value);
   };
 
-  const addNewBoardHandler = (event: React.FormEvent) => {
+  const addNewBoardHandler = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    if (newCardTitle.trim() !== '') {
-      console.log(newCardTitle);
-      // useCreateOneBoardMutation,
+    const title = newCardTitle.trim();
+    if (title !== '') {
+      const card = await addBoard({ title }).unwrap();
+      console.log(card);
       setNewCardTitle('');
+      setShowModal(false);
     }
   };
 
@@ -131,6 +108,7 @@ const Boards: FC = () => {
             <InputBase
               className={css.modalAddForm_submit}
               type="submit"
+              disabled={isLoadingAddNewBoard}
               value={t('Boards.boardsModalSubmitButton')}
             />
           </FormLabel>

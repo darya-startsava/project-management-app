@@ -23,6 +23,7 @@ export const api = createApi({
       return headers;
     },
   }),
+  tagTypes: ['Boards'],
   endpoints: (build) => ({
     signUp: build.mutation<{ id: string }, IUserRegistration>({
       query: (body: IUserRegistration) => ({ url: QueryPoints.signup, method: 'POST', body }),
@@ -36,14 +37,23 @@ export const api = createApi({
         url: QueryPoints.users,
       }),
     }),
+
     // boards page
     getAllBoards: build.query<Array<IBoard>, void>({
       query: () => ({
         url: QueryPoints.boards,
       }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Boards' as const, id })),
+              { type: 'Boards', id: 'LIST' },
+            ]
+          : [{ type: 'Boards', id: 'LIST' }],
     }),
-    createOneBoard: build.mutation<{ id: Array<IBoard> }, IBoardCreateObj>({
+    addBoard: build.mutation<IBoard, IBoardCreateObj>({
       query: (body: IBoardCreateObj) => ({ url: QueryPoints.boards, method: 'POST', body }),
+      invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
     }),
   }),
 });
@@ -52,6 +62,6 @@ export const {
   useSignUpMutation,
   useSignInMutation,
   useGetAllUsersQuery,
-  useCreateOneBoardMutation,
   useGetAllBoardsQuery,
+  useAddBoardMutation,
 } = api;
