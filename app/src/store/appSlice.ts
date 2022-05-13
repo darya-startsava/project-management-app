@@ -24,12 +24,16 @@ const app = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
+    logout: (state) => {
+      state.token = null;
+      state.isLoading = false;
+    },
     changeLanguageAction(state: IStateApp, action: PayloadAction<boolean>) {
       state.isEnglishLang = action.payload;
     },
   },
 });
 
-export const { setToken, changeLanguageAction } = app.actions;
+export const { setToken, logout, changeLanguageAction } = app.actions;
 
 export default app.reducer;

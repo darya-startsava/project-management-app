@@ -8,7 +8,7 @@ import { IWordsObj } from '$types/common';
 export enum ROUTES_PATHS {
   welcome = '/',
   login = '/login',
-  logout = '/logout',
+  logout = '/',
   registration = '/registration',
   boards = '/boards',
   error_page = '/error',
