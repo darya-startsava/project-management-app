@@ -3,7 +3,7 @@
   "Welcome": {
     "start": "Открыть задачу",
     "iconBtnAriaLabel": "Кнопка для авторизации",
-    "btnAboutUsAriaLabel": "Об Авторах",
+    "btnAboutUsAriaLabel": "Об авторах",
     "modalTitleAriaLabel": "Модальное окно - заголовок",
     "modalDescriptionAriaLabel": "Модальное окно - описание",
     "titleText": "Добро пожаловать в Kanban",
@@ -23,7 +23,7 @@
     "ButtonRu": "Рус"
   },
   "Header": {
-    "logo": "логотип",
+    "logo": "Логотип",
     "signIn": "Вход",
     "signUp": "Регистрация",
     "editProfile": "Редактировать профиль",

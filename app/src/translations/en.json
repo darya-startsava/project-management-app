@@ -3,13 +3,13 @@
   "Welcome": {
     "start": "Start task",
     "iconBtnAriaLabel": "login",
-    "btnAboutUsAriaLabel": "About Us",
+    "btnAboutUsAriaLabel": "About us",
     "modalTitleAriaLabel": "modal-modal-title",
     "modalDescriptionAriaLabel": "modal-modal-description",
     "titleText": "Welcome to Kanban",
-    "youtubeSign": "YouTube Sign",
+    "youtubeSign": "YouTube sign",
     "welcomeText": "Kanban - is an application with a wide range of possibilities for creating and managing boards",
-    "aboutUs": "About Us",
+    "aboutUs": "About us",
     "author1": "Dmitrij",
     "author2": "Andrey",
     "author3": "Darya",
@@ -25,32 +25,32 @@
   "Header": {
     "logo": "logo",
     "signIn": "Sign in",
-    "signUp": "Sign Up",
+    "signUp": "Sign up",
     "editProfile": "Edit profile",
     "signOut": "Sign out",
     "newBoard": "Create new board",
     "goToMainPage": "Go to main page"
   },
   "LogIn": {
-    "signInTitle": "Sign In",
+    "signInTitle": "Sign in",
     "loginLabel": "Login",
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signInButton": "Sign In"
+    "signInButton": "Sign in"
   },
   "Registration": {
-    "signUpTitle": "Sign Up",
+    "signUpTitle": "Sign up",
     "nameLabel": "Name",
     "namePlaceholder": "Name",
     "loginLabel": "Login",
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signUpButton": "Sign Up"
+    "signUpButton": "Sign up"
   },
   "Footer": {
-    "RSSchoolLogo": "RSSchool Logo",
-    "githubLogo": "Github Logo"
+    "RSSchoolLogo": "RSSchool logo",
+    "githubLogo": "Github logo"
   }
 }
