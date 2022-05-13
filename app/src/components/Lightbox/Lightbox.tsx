@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Box, IconButton, Modal, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { IWrapEl, TSimpleFunction } from '$types/common';
-import css from './ModalPage.module.scss';
+import css from './LightBox.module.scss';
 
 /*
  ** Принимает 4 аргумента:
@@ -12,21 +12,26 @@ import css from './ModalPage.module.scss';
  ** 4 - closeModalFunction1 функция закрывающая модальное окно
  */
 
-interface IModalProps extends IWrapEl {
+interface ILightBoxProps extends IWrapEl {
   modalTitle: string;
   showModal: boolean;
   closeModalFunction: TSimpleFunction;
 }
-const ModalPage: FC<IModalProps> = ({ modalTitle, showModal, children, closeModalFunction }) => {
+const LightBox: FC<ILightBoxProps> = ({ modalTitle, showModal, children, closeModalFunction }) => {
   return (
-    <Modal open={showModal} className={css.modal} onClose={closeModalFunction}>
-      <Box className={css.modal__wrapper}>
-        <IconButton className={css.modal__wrapper_closeButton} onClick={closeModalFunction}>
+    <Modal open={showModal} className={css.lightbox} onClose={closeModalFunction}>
+      <Box className={css.lightbox__wrapper}>
+        <IconButton className={css.lightbox__wrapper_closeButton} onClick={closeModalFunction}>
           <CloseIcon />
         </IconButton>
 
         {modalTitle ? (
-          <Typography variant="inherit" component="p" className={css.modal__wrapper_title} mb={3}>
+          <Typography
+            variant="inherit"
+            component="p"
+            className={css.lightbox__wrapper_title}
+            mb={3}
+          >
             {modalTitle}
           </Typography>
         ) : null}
@@ -37,4 +42,4 @@ const ModalPage: FC<IModalProps> = ({ modalTitle, showModal, children, closeModa
   );
 };
 
-export default ModalPage;
+export default LightBox;

@@ -42,7 +42,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
           className={css.boardsList__item_title}
           gutterBottom
           variant="inherit"
-          component="h2"
+          component="h3"
         >
           {title}
         </Typography>

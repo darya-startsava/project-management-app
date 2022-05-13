@@ -1,7 +1,7 @@
 @import "$assets/scss/variables";
 @import "$assets/scss/mixins";
 
-.modal {
+.lightbox {
   @include dflex();
 
   height: 100%;
@@ -16,7 +16,7 @@
     border-radius: $borderRadiusItem;
   }
 
-  button.modal__wrapper_closeButton {
+  button.lightbox__wrapper_closeButton {
     position: absolute;
     top: 5px;
     right: 5px;

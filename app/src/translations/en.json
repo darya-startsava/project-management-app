@@ -28,10 +28,10 @@
     "signUpButton": "Sign Up"
   },
   "Boards": {
-    "boardsTitle": "My Boards",
-    "boardsLinkItemText": "One board",
-    "boardsAddButtonText": "Create Board",
-    "boardsModalTitle": "Add Board",
+    "boardsTitle": "My boards",
+    "boardsLinkItemText": "Open board",
+    "boardsAddButtonText": "Create board",
+    "boardsModalTitle": "Add board",
     "boardsModalTextareaPlaceholder": "Board name",
     "boardsModalSubmitButton": "Add",
     "boardsHeadItemImgAlt": "Background item",

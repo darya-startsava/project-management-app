@@ -26,14 +26,11 @@
       @extend %commonHeadStyles;
 
       min-width: 29%;
-      padding: 14px 34px;
-      line-height: 1.5;
-    }
-
-    &_title {
-      margin-bottom: 20px;
       font-weight: bold;
       font-size: $boardsTitleSize;
+      font-size: $boardsTitleSize;
+      padding: 14px 34px;
+      line-height: 1.5;
     }
 
     form.boards__head_form {

@@ -2,18 +2,10 @@ import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAddBoardMutation, useGetAllBoardsQuery } from '$services/api';
 import { Search as SearchIcon, TableChart as TableChartIcon } from '@mui/icons-material';
-import {
-  Grid,
-  Typography,
-  InputBase,
-  IconButton,
-  Box,
-  FormLabel,
-  TextareaAutosize,
-} from '@mui/material';
+import { Grid, InputBase, IconButton, Box, FormLabel, TextareaAutosize } from '@mui/material';
 import Section from '$components/Section';
 import BoardsList from '$components/BoardsList';
-import ModalPage from '$components/ModalPage';
+import LightBox from '$components/Lightbox';
 import css from './Boards.module.scss';
 
 const Boards: FC = () => {
@@ -44,10 +36,8 @@ const Boards: FC = () => {
   return (
     <Section className={css.boards} pageAllSpace={true}>
       <Grid container className={css.boards__head} direction="row">
-        <Grid item className={css.boards__head_name}>
-          <Typography variant="inherit" component="h1" className={css.boards__head_title}>
-            {t('Boards.boardsTitle')}
-          </Typography>
+        <Grid item className={css.boards__head_name} component="h2">
+          {t('Boards.boardsTitle')}
           <TableChartIcon />
         </Grid>
 
@@ -63,7 +53,9 @@ const Boards: FC = () => {
             className={css.boards__head_search}
             placeholder={t('Boards.boardsInputSearchText')}
             type="search"
-            area-label={t('Boards.boardsInputSearchText')}
+            inputProps={{
+              'aria-label': t('Boards.boardsInputSearchText'),
+            }}
             endAdornment={
               <IconButton onClick={searchHandler}>
                 <SearchIcon />
@@ -82,7 +74,7 @@ const Boards: FC = () => {
         }}
       />
 
-      <ModalPage
+      <LightBox
         showModal={showModal}
         closeModalFunction={() => {
           setShowModal(false);
@@ -114,7 +106,7 @@ const Boards: FC = () => {
             />
           </FormLabel>
         </Box>
-      </ModalPage>
+      </LightBox>
     </Section>
   );
 };
