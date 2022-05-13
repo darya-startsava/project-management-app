@@ -31,9 +31,10 @@
     "boardsTitle": "Список досок",
     "boardsLinkItemText": "Перейти к доске",
     "boardsAddButtonText": "Создать доску",
-    "boardsModalTitle": "Добавить новую доску",
+    "boardsModalTitle": "Добавить доску",
     "boardsModalTextareaPlaceholder": "Название новой доски",
     "boardsModalSubmitButton": "Добавить",
+    "boardsHeadItemImgAlt": "Фон элемента списка.",
     "boardsInputSearchText": "Поиск досок или задач..."
   },
   "Footer": {

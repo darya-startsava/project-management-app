@@ -20,7 +20,7 @@ const Boards: FC = () => {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [newCardTitle, setNewCardTitle] = useState<string>('');
-  const { data: listBoards = [] } = useGetAllBoardsQuery();
+  const { data: boards = [] } = useGetAllBoardsQuery();
   const [addBoard, { isLoading: isLoadingAddNewBoard }] = useAddBoardMutation();
 
   const searchHandler = (event: React.FormEvent | React.MouseEvent) => {
@@ -35,8 +35,7 @@ const Boards: FC = () => {
     event.preventDefault();
     const title = newCardTitle.trim();
     if (title !== '') {
-      const card = await addBoard({ title }).unwrap();
-      console.log(card);
+      await addBoard({ title }).unwrap();
       setNewCardTitle('');
       setShowModal(false);
     }
@@ -64,6 +63,7 @@ const Boards: FC = () => {
             className={css.boards__head_search}
             placeholder={t('Boards.boardsInputSearchText')}
             type="search"
+            area-label={t('Boards.boardsInputSearchText')}
             endAdornment={
               <IconButton onClick={searchHandler}>
                 <SearchIcon />
@@ -76,7 +76,7 @@ const Boards: FC = () => {
       </Grid>
 
       <BoardsList
-        listBoards={listBoards}
+        boards={boards}
         addCardHandler={() => {
           setShowModal(true);
         }}
@@ -100,6 +100,7 @@ const Boards: FC = () => {
             value={newCardTitle}
             className={css.modalAddForm_text}
             placeholder={t('Boards.boardsModalTextareaPlaceholder')}
+            area-label={t('Boards.boardsModalTextareaPlaceholder')}
             onChange={typeNewBoardTitle}
           />
 

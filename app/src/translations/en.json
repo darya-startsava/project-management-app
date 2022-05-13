@@ -29,11 +29,12 @@
   },
   "Boards": {
     "boardsTitle": "My Boards",
-    "boardsLinkItemText": "Watch board",
+    "boardsLinkItemText": "One board",
     "boardsAddButtonText": "Create Board",
-    "boardsModalTitle": "Add new Board",
-    "boardsModalTextareaPlaceholder": "Name of the new board",
+    "boardsModalTitle": "Add Board",
+    "boardsModalTextareaPlaceholder": "Board name",
     "boardsModalSubmitButton": "Add",
+    "boardsHeadItemImgAlt": "Background item",
     "boardsInputSearchText": "Search board or task..."
   },
   "Footer": {

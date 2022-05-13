@@ -9,16 +9,16 @@ import { IBoard, TSimpleFunction } from '$types/common';
 import css from './BoardsList.module.scss';
 
 interface IBoardsListProps {
-  listBoards: Array<IBoard>;
+  boards: Array<IBoard>;
   addCardHandler: TSimpleFunction;
 }
-const BoardsList: FC<IBoardsListProps> = ({ listBoards, addCardHandler }) => {
+const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler }) => {
   const { t } = useTranslation();
 
   return (
     <Grid container component="ul" className={css.boardsList}>
-      {listBoards.map((boardItem: IBoard, index) => (
-        <BoardsListItem key={boardItem.id} {...boardItem} index={index} />
+      {boards.map((boardItem: IBoard) => (
+        <BoardsListItem key={boardItem.id} {...boardItem} />
       ))}
 
       <Grid item component="li" className={css.boardsList__item} mb={5}>
