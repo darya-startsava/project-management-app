@@ -23,6 +23,7 @@
     "ButtonRu": "Ru"
   },
   "Header": {
+    "logo": "logo",
     "signIn": "Sign in",
     "signUp": "Sign Up",
     "editProfile": "Edit profile",

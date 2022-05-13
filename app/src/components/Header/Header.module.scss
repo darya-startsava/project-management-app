@@ -1,2 +1,17 @@
+@import '$assets/scss/variables';
+
 .header {
+  color: $black;
+  &__heading {
+    text-transform: uppercase;
+  }
+  &__logo {
+    width: auto;
+    height: 20px;
+  }
+  &__button {
+    text-transform: none;
+    font-size: 16px;
+    color: $black;
+  }
 }
