@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.4fa1d6a1.css",
-    "main.js": "./static/js/main.7f1ad3ed.js",
+    "main.css": "./static/css/main.522eb625.css",
+    "main.js": "./static/js/main.b2006e97.js",
     "static/media/Darya.jpeg": "./static/media/Darya.914c1c74cd6cac05996e.jpeg",
     "static/media/roboto-all-500-normal.woff": "./static/media/roboto-all-500-normal.52cb737b682eb9661ee1.woff",
     "static/media/roboto-all-700-normal.woff": "./static/media/roboto-all-700-normal.ef6d1d09b20b877fee4e.woff",
@@ -14,6 +14,7 @@
     "static/media/roboto-latin-300-normal.woff2": "./static/media/roboto-latin-300-normal.0109a2ace896a506a0aa.woff2",
     "static/media/roboto-latin-400-normal.woff2": "./static/media/roboto-latin-400-normal.4673b4537a84c7f7a130.woff2",
     "static/media/roboto-cyrillic-ext-400-normal.woff2": "./static/media/roboto-cyrillic-ext-400-normal.493afe7ae8ecfe268800.woff2",
+    "static/media/kanban-logo.png": "./static/media/kanban-logo.fad08412631995bc54cd.png",
     "static/media/roboto-cyrillic-ext-500-normal.woff2": "./static/media/roboto-cyrillic-ext-500-normal.3e748c93fe6a87bdedaa.woff2",
     "static/media/roboto-cyrillic-ext-300-normal.woff2": "./static/media/roboto-cyrillic-ext-300-normal.12d37040a0160a948ff1.woff2",
     "static/media/roboto-cyrillic-ext-700-normal.woff2": "./static/media/roboto-cyrillic-ext-700-normal.b816cda3107bb21c87e1.woff2",
@@ -39,11 +40,11 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "./static/media/roboto-greek-ext-700-normal.9674bc0ae12c2551d9d1.woff2",
     "static/media/youtubeBigSign.svg": "./static/media/youtubeBigSign.67a071fe7bd65cc54551081f2f6fe5e9.svg",
     "index.html": "./index.html",
-    "main.4fa1d6a1.css.map": "./static/css/main.4fa1d6a1.css.map",
-    "main.7f1ad3ed.js.map": "./static/js/main.7f1ad3ed.js.map"
+    "main.522eb625.css.map": "./static/css/main.522eb625.css.map",
+    "main.b2006e97.js.map": "./static/js/main.b2006e97.js.map"
   },
   "entrypoints": [
-    "static/css/main.4fa1d6a1.css",
-    "static/js/main.7f1ad3ed.js"
+    "static/css/main.522eb625.css",
+    "static/js/main.b2006e97.js"
   ]
 }
