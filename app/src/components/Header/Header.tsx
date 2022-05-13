@@ -7,8 +7,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import HomeIcon from '@mui/icons-material/Home';
+import TableChartIcon from '@mui/icons-material/TableChart';
 import { useAppSelector } from '$store/store';
 import { ROUTES_PATHS } from '$settings/routing';
 import css from './Header.module.scss';
@@ -22,10 +22,15 @@ const Header: FC = () => {
   return (
     <AppBar position="sticky" color={trigger ? 'primary' : 'inherit'}>
       <Toolbar>
-        <Typography className={css.header__heading} variant="h6" component="h1">
-          Kanban
-        </Typography>
-        <img className={css.header__logo} src={KanbanLogo} alt={t('Header.logo')} />
+        <Button
+          href={ROUTES_PATHS.welcome}
+          sx={{ textTransform: 'none', color: '#001a33', fontSize: '16px' }}
+        >
+          <Typography className={css.header__heading} variant="h6" component="h1">
+            Kanban
+          </Typography>
+          <img className={css.header__logo} src={KanbanLogo} alt={t('Header.logo')} />
+        </Button>
         <Grid container spacing={0} direction="row" alignItems="center" justifyContent="end">
           <LanguageToggler />
           {token ? (
@@ -39,7 +44,7 @@ const Header: FC = () => {
               </Button>
               <Button
                 sx={{ textTransform: 'none', color: '#001a33', fontSize: '16px' }}
-                startIcon={<DeveloperBoardIcon />}
+                startIcon={<TableChartIcon />}
               >
                 {t('Header.newBoard')}
               </Button>
@@ -51,7 +56,7 @@ const Header: FC = () => {
                 {t('Header.signOut')}
               </Button>
               <Button
-                href={ROUTES_PATHS.welcome}
+                href={ROUTES_PATHS.boards}
                 sx={{ textTransform: 'none', color: '#001a33', fontSize: '16px' }}
                 startIcon={<HomeIcon />}
               >
