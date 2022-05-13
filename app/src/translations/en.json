@@ -23,9 +23,12 @@
     "ButtonRu": "Ru"
   },
   "Header": {
+    "signIn": "Sign in",
+    "signUp": "Sign Up",
     "editProfile": "Edit profile",
     "signOut": "Sign out",
-    "newBoard": "Create new board"
+    "newBoard": "Create new board",
+    "goToMainPage": "Go to main page"
   },
   "LogIn": {
     "signInTitle": "Sign In",

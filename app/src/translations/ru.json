@@ -23,9 +23,12 @@
     "ButtonRu": "Рус"
   },
   "Header": {
+    "signIn": "Вход",
+    "signUp": "Регистрация",
     "editProfile": "Редактировать профиль",
     "signOut": "Выход",
-    "newBoard": "Создать новую доску"
+    "newBoard": "Создать новую доску",
+    "goToMainPage": "Перейти на главную страницу"
   },
   "LogIn": {
     "signInTitle": "Вход",

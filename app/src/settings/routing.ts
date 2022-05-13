@@ -8,6 +8,7 @@ export enum ROUTES_PATHS {
   logout = '/logout',
   registration = '/registration',
   boards = '/boards',
+  profile = '/profile',
   error_page = '/error',
   not_found_page = '*',
 }

@@ -6,12 +6,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type IStateApp = {
-  isLoading: boolean;
   token: string | null;
 };
 
 export const initialState: IStateApp = {
-  isLoading: false,
   token: null,
 };
 
