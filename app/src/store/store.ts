@@ -6,12 +6,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import appReducer, { IStateApp } from './appSlice';
+import appReducer from './appSlice';
 import { api } from '$services/api';
-
-export type IState = {
-  app: IStateApp;
-};
 
 const reducerObj = {
   app: appReducer,
@@ -33,5 +29,5 @@ export const store = createStore();
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export const useAppSelector: TypedUseSelectorHook<IState> = useSelector;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
