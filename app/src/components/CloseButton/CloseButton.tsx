@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 import { TSimpleFunction } from '$types/common';
@@ -9,8 +10,14 @@ interface ICloseButtonProps {
   closeCb: TSimpleFunction;
 }
 const CloseButton: FC<ICloseButtonProps> = ({ closeCb, size = 'small', className }) => {
+  const { t } = useTranslation();
   return (
-    <IconButton size={size} aria-label="close" onClick={closeCb} className={className}>
+    <IconButton
+      size={size}
+      aria-label={t('Boards.ariaLabelCloseButton')}
+      onClick={closeCb}
+      className={className}
+    >
       <CloseIcon fontSize="small" />
     </IconButton>
   );

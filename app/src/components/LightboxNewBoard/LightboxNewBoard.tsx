@@ -14,7 +14,7 @@ interface IBoardsModal {
   changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface IDefaultValues {
+interface IFormState {
   cardTitle: string;
 }
 
@@ -28,24 +28,20 @@ const LightboxNewBoard: FC<IBoardsModal> = ({ showModal, changeShowModal }) => {
     control,
     reset,
     formState: { isDirty, errors },
-  } = useForm<IDefaultValues>({
-    defaultValues: {
-      cardTitle: '',
-    },
-  });
+  } = useForm<IFormState>();
 
-  const addNewBoardHandler: SubmitHandler<IDefaultValues> = async (data) => {
+  const addNewBoardHandler: SubmitHandler<IFormState> = async (data) => {
     try {
       await addBoard({ title: data.cardTitle }).unwrap();
     } catch (_) {
-      return enqueueSnackbar(t('Boards.errorBoardCreat'), {
+      return enqueueSnackbar(t('Boards.errorBoardCreate'), {
         variant: 'error',
         autoHideDuration: 5000,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
 
-    enqueueSnackbar(t('Boards.successBoardCreat'), {
+    enqueueSnackbar(t('Boards.successBoardCreate'), {
       variant: 'success',
       autoHideDuration: 5000,
       action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
