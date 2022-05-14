@@ -10,7 +10,7 @@ interface IRequiredAuthProps {
 
 const RequiredAuth: FC<IRequiredAuthProps> = ({
   children,
-  redirect = ROUTES_PATHS.home,
+  redirect = ROUTES_PATHS.welcome,
 }: IRequiredAuthProps) => {
   const { token } = useAppSelector((state) => state.app);
 

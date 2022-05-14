@@ -1,31 +1,53 @@
 {
   "lng": "English",
-  "app": {
+  "Welcome": {
     "start": "Start task",
-    "IconBtnAriaLabel": "login",
-    "welcome": "Welcome to Kanban",
-    "welcomeText": "Kanban - is an application with a wide range of possibilities for creating and managing boards"
+    "iconBtnAriaLabel": "login",
+    "btnAboutUsAriaLabel": "About us",
+    "modalTitleAriaLabel": "modal-modal-title",
+    "modalDescriptionAriaLabel": "modal-modal-description",
+    "titleText": "Welcome to Kanban",
+    "youtubeSign": "YouTube sign",
+    "welcomeText": "Kanban - is an application with a wide range of possibilities for creating and managing boards",
+    "aboutUs": "About us",
+    "author1": "Dmitrij",
+    "author2": "Andrey",
+    "author3": "Darya",
+    "modalText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   },
-  "LanguageSwitch": {
-    "BtnGroupAriaLabel": "outlined primary button group"
+  "LanguageToggler": {
+    "AriaLabelToggler": "Change language",
+    "AriaLabelButtonEn": "English",
+    "AriaLabelButtonRu": "Russian",
+    "ButtonEn": "En",
+    "ButtonRu": "Ru"
+  },
+  "Header": {
+    "logo": "logo",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "editProfile": "Edit profile",
+    "signOut": "Sign out",
+    "newBoard": "Create new board",
+    "goToMainPage": "Go to main page"
   },
   "LogIn": {
-    "signInTitle": "Sign In",
+    "signInTitle": "Sign in",
     "loginLabel": "Login",
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signInButton": "Sign In"
+    "signInButton": "Sign in"
   },
   "Registration": {
-    "signUpTitle": "Sign Up",
+    "signUpTitle": "Sign up",
     "nameLabel": "Name",
     "namePlaceholder": "Name",
     "loginLabel": "Login",
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signUpButton": "Sign Up"
+    "signUpButton": "Sign up"
   },
   "Boards": {
     "boardsTitle": "My boards",
@@ -38,7 +60,7 @@
     "boardsInputSearchText": "Search board or task..."
   },
   "Footer": {
-    "RSSchoolLogo": "RSSchool Logo",
-    "githubLogo": "Github Logo"
+    "RSSchoolLogo": "RSSchool logo",
+    "githubLogo": "Github logo"
   }
 }
