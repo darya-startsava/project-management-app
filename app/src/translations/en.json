@@ -57,6 +57,11 @@
     "boardsModalTextareaPlaceholder": "Board name",
     "boardsModalSubmitButton": "Add",
     "boardsHeadItemImgAlt": "Background item",
+    "errorTitle": "Error: ",
+    "errorTextMinLengthNewTitle": "Min length 5 letters",
+    "errorTextMaxLengthNewTitle": "Max length 60 letters",
+    "errorBoardCreat": "The board was not founded! Try to do this later.",
+    "successBoardCreat": "The board was founded!",
     "boardsInputSearchText": "Search board or task..."
   },
   "Footer": {

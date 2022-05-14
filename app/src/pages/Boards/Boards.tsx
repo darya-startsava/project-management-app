@@ -1,112 +1,59 @@
 import React, { FC, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useAddBoardMutation, useGetAllBoardsQuery } from '$services/api';
-import { Search as SearchIcon, TableChart as TableChartIcon } from '@mui/icons-material';
-import { Grid, InputBase, IconButton, Box, FormLabel, TextareaAutosize } from '@mui/material';
+import { useGetAllBoardsQuery } from '$services/api';
+// import { useTranslation } from 'react-i18next';
+// import { useSnackbar } from 'notistack';
 import Section from '$components/Section';
+import BoardsHead from './BoardsHead';
 import BoardsList from '$components/BoardsList';
-import LightBox from '$components/Lightbox';
+import LightboxNewBoard from '$components/LightboxNewBoard';
+// import CloseButton from '$components/CloseButton';
+import { IBoard } from '$types/common';
 import css from './Boards.module.scss';
 
+export type TChangeBoardsShow = (searchValue: string) => void;
+
 const Boards: FC = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [newCardTitle, setNewCardTitle] = useState<string>('');
-  const { data: boards = [] } = useGetAllBoardsQuery();
-  const [addBoard, { isLoading: isLoadingAddNewBoard }] = useAddBoardMutation();
+  const [boards, setBoards] = useState<Array<IBoard>>([]);
+  const { data: boardsArray = [] } = useGetAllBoardsQuery();
 
-  const searchHandler = (event: React.FormEvent | React.MouseEvent) => {
-    event.preventDefault();
-  };
+  // useEffect(() => {
+  //   changeBoardsListShow('');
+  // }, []);
 
-  const typeNewBoardTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewCardTitle(event.target.value);
-  };
+  // if (!isSuccess) {
+  //   enqueueSnackbar(t('Boards.errorBoardCreat'), {
+  //     variant: 'error',
+  //     autoHideDuration: 3000,
+  //     action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+  //   });
+  // }
 
-  const addNewBoardHandler = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const title = newCardTitle.trim();
-    if (title !== '') {
-      await addBoard({ title }).unwrap();
-      setNewCardTitle('');
-      setShowModal(false);
+  const changeBoardsListShow: TChangeBoardsShow = (searchValue: string) => {
+    if (!searchValue.trim().length) {
+      setBoards(boardsArray);
+      return;
     }
+    const filteredBoards: Array<IBoard> = boardsArray.filter((board: IBoard) =>
+      board.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setBoards(filteredBoards);
   };
 
   return (
     <Section className={css.boards} pageAllSpace={true}>
-      <Grid container className={css.boards__head} direction="row">
-        <Grid item className={css.boards__head_name} component="h2">
-          {t('Boards.boardsTitle')}
-          <TableChartIcon />
-        </Grid>
-
-        <Grid
-          item
-          className={css.boards__head_form}
-          component="form"
-          autoComplete="off"
-          onSubmit={searchHandler}
-          noValidate
-        >
-          <InputBase
-            className={css.boards__head_search}
-            placeholder={t('Boards.boardsInputSearchText')}
-            type="search"
-            inputProps={{
-              'aria-label': t('Boards.boardsInputSearchText'),
-            }}
-            endAdornment={
-              <IconButton onClick={searchHandler}>
-                <SearchIcon />
-              </IconButton>
-            }
-            fullWidth
-          />
-          <InputBase className={css.boards__head_submit} type="submit" />
-        </Grid>
-      </Grid>
+      <BoardsHead searchCB={changeBoardsListShow} />
 
       <BoardsList
-        boards={boards}
+        boards={boardsArray || boards}
         addCardHandler={() => {
           setShowModal(true);
         }}
       />
 
-      <LightBox
-        showModal={showModal}
-        closeModalFunction={() => {
-          setShowModal(false);
-        }}
-        modalTitle={t('Boards.boardsModalTitle')}
-      >
-        <Box
-          className={css.modalAddForm}
-          component="form"
-          autoComplete="off"
-          onSubmit={addNewBoardHandler}
-          noValidate
-        >
-          <TextareaAutosize
-            value={newCardTitle}
-            className={css.modalAddForm_text}
-            placeholder={t('Boards.boardsModalTextareaPlaceholder')}
-            area-label={t('Boards.boardsModalTextareaPlaceholder')}
-            onChange={typeNewBoardTitle}
-          />
-
-          <FormLabel className={css.modalAddForm_submitWrapper}>
-            <Box component="span">{t('Boards.boardsModalSubmitButton')}</Box>
-            <InputBase
-              className={css.modalAddForm_submit}
-              type="submit"
-              disabled={isLoadingAddNewBoard}
-              value={t('Boards.boardsModalSubmitButton')}
-            />
-          </FormLabel>
-        </Box>
-      </LightBox>
+      <LightboxNewBoard showModal={showModal} changeShowModal={setShowModal} />
     </Section>
   );
 };
