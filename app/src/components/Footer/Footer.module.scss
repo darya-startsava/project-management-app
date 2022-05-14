@@ -1,14 +1,20 @@
-.githubContainer {
-  display: flex;
-  flex-wrap: nowrap;
+@import "$assets/scss/mixins";
+
+.footerContainer {
+  padding: 20px;
+  min-height: 10vh;
   align-items: center;
-  justify-content: space-evenly;
+}
+
+.githubContainer {
+  @include dflex(space-evenly, center);
+
+  flex-wrap: nowrap;
   gap: 10px;
 }
 
 .centerBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include dflex(center, center);
+
   gap: 10px;
 }

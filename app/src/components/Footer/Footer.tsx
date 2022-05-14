@@ -12,7 +12,7 @@ const Footer: FC = () => {
 
   return (
     <footer>
-      <Grid container sx={{ padding: '20px', minHeight: '10vh', alignItems: 'center' }}>
+      <Grid container className={css.footerContainer}>
         <Grid item xs={2}>
           <Box className={css.centerBox}>
             <Link href="https://rs.school/" underline="none">
