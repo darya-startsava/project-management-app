@@ -1,0 +1,11 @@
+@import '$assets/scss/variables';
+@import '$assets/scss/mixins';
+
+.login__error_message {
+  color: $red;
+}
+
+.login__error_message::before {
+  display: inline;
+  content: '⚠ ';
+}

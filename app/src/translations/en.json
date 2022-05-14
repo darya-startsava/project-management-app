@@ -37,7 +37,9 @@
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signInButton": "Sign in"
+    "signInButton": "Sign in",
+    "loginFieldRequiredMessage": "This field must be filled",
+    "passwordFieldRequiredMessage": "This field must be filled"
   },
   "Registration": {
     "signUpTitle": "Sign up",
@@ -47,7 +49,11 @@
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signUpButton": "Sign up"
+    "signUpButton": "Sign up",
+    "nameFieldRequiredMessage": "This field must be filled",
+    "loginFieldRequiredMessage": "This field must be filled",
+    "passwordFieldRequiredMessage": "This field must be filled",
+    "passwordFieldMinLengthMessage": "Password must contain at least 5 symbols"
   },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",

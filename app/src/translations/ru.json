@@ -37,7 +37,9 @@
     "loginPlaceholder": "Логин",
     "passwordLabel": "Пароль",
     "passwordPlaceholder": "Пароль",
-    "signInButton": "Вход"
+    "signInButton": "Вход",
+    "loginFieldRequiredMessage": "Это поле обязательно для заполнения",
+    "passwordFieldRequiredMessage": "Это поле обязательно для заполнения"
   },
   "Registration": {
     "signUpTitle": "Регистрация",
@@ -47,7 +49,11 @@
     "loginPlaceholder": "Логин",
     "passwordLabel": "Пароль",
     "passwordPlaceholder": "Пароль",
-    "signUpButton": "Регистрация"
+    "signUpButton": "Регистрация",
+    "nameFieldRequiredMessage": "Это поле обязательно для заполнения",
+    "loginFieldRequiredMessage": "Это поле обязательно для заполнения",
+    "passwordFieldRequiredMessage": "Это поле обязательно для заполнения",
+    "passwordFieldMinLengthMessage": "Пароль должен содержать минимум 5 символов"
   },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",
