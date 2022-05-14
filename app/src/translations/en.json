@@ -62,6 +62,7 @@
     "errorTextMaxLengthNewTitle": "Max length 60 letters",
     "errorBoardCreat": "The board was not founded! Try to do this later.",
     "successBoardCreat": "The board was founded!",
+    "errorGetBoards": "Bad request address. Try to do this later.",
     "boardsInputSearchText": "Search board or task..."
   },
   "Footer": {

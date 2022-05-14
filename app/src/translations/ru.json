@@ -62,6 +62,7 @@
     "errorTextMaxLengthNewTitle": "Максимальная длина 60 букв",
     "errorBoardCreat": "Доска не создана! Попробуйте повторить позже.",
     "successBoardCreat": "Доска создана!",
+    "errorGetBoards": "Неверный адрес запроса. Попробуйте повторить позже.",
     "boardsInputSearchText": "Поиск досок или задач..."
   },
   "Footer": {
