@@ -1,3 +1,5 @@
+@import "$assets/scss/mixins";
+
 .welcome {
   background-color: grey;
 }
@@ -10,18 +12,16 @@
   width: 60vw;
   background-color: #fff;
   border: 2px solid #000;
+  border-radius: 20px;
   box-shadow: 24;
   padding: 40px;
 }
 
 .developer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include dflex(center, center);
+
+  flex-direction: column;
   padding: 8px;
-  // background-color: white;
-  // border-radius: 10px;
-  // box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
   margin-bottom: 10px;
   width: 30%;
   height: 200px;
