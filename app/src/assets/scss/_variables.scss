@@ -5,11 +5,12 @@
 $withOutColor: transparent;
 $whiteColor: #fff;
 $lightGrey: #efefef;
-$black: #2e313c;
+$black: #001a33;
 $primary: #1976d2;
-$neonBlue: #423f5e;
-$LightBlue: #cbdfe0;
+$lightBlue: #cbdfe0;
 $red: red;
+$pageGradient: linear-gradient(243.18deg, rgba(109, 198, 240, 0.4) 32.99%, rgba(248, 160, 120, 0.4) 69.68%);
+$boxShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 /* colors end */
 
 //В values основные значения
@@ -17,4 +18,7 @@ $red: red;
 $wrapper-max-width: 1300px;
 $transitionTime: 0.3s;
 $borderRadius: 5px;
+$borderRadiusItem: 28px;
+$boardsTitleSize: 28px;
+$modalTitleSize: 40px;
 /* values end */
