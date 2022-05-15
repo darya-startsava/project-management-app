@@ -2,7 +2,7 @@
  ** файл для общих типов и интерфейсов, используемых в других компонентах
  */
 
-export type TSimpleFuncion = () => void;
+export type TSimpleFunction = () => void;
 export type TChangeElHandler<T> = (event: React.ChangeEvent<T>) => void;
 
 export interface IWrapEl {
@@ -24,6 +24,18 @@ export interface IUser {
   name: string;
   login: string;
 }
+
+/* boards start */
+export interface IBoardCreateObj {
+  title: string;
+}
+
+export interface IBoard extends IBoardCreateObj {
+  id: string;
+  title: string;
+}
+/* boards end */
+
 /* routing start */
 export interface IWord {
   en: string;

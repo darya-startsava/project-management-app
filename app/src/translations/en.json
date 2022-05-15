@@ -55,6 +55,16 @@
     "passwordFieldRequiredMessage": "This field must be filled",
     "passwordFieldMinLengthMessage": "Password must contain at least 5 symbols"
   },
+  "Boards": {
+    "boardsTitle": "My boards",
+    "boardsLinkItemText": "Open board",
+    "boardsAddButtonText": "Create board",
+    "boardsModalTitle": "Add board",
+    "boardsModalTextareaPlaceholder": "Board name",
+    "boardsModalSubmitButton": "Add",
+    "boardsHeadItemImgAlt": "Background item",
+    "boardsInputSearchText": "Search board or task..."
+  },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",
     "githubLogo": "Github logo"
