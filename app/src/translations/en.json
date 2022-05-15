@@ -59,6 +59,20 @@
     "boardsHeadItemImgAlt": "Background item",
     "boardsInputSearchText": "Search board or task..."
   },
+  "Profile": {
+    "profileTitle": "Profile",
+    "profileFormTitle": "Profile editing fields",
+    "profileNameLabel": "Username",
+    "profileLoginLabel": "Login",
+    "profilePasswordLabel": "Password",
+    "profileSubmit": "Update profile",
+    "profileImage": "User image.",
+    "profileDelete": "Delete user",
+    "profileConfirmDelete": "Are you sure you want to delete the profile?",
+    "profileConfirmChangeProfile": "Are you sure you want to change the user info?",
+    "profileAgreeButtonText": "Agree",
+    "profileDisagreeButtonText": "Disagree"
+  },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",
     "githubLogo": "Github logo"

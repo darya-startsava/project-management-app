@@ -4,7 +4,7 @@ import { Button, CircularProgress, TextField, Typography } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { IUserLogIn, IUserRegistration } from '$types/common';
-import { setToken } from '$store/appSlice';
+import { setLogin, setToken } from '$store/appSlice';
 import { useSignInMutation, useSignUpMutation } from '$services/api';
 import Section from '$components/Section';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +36,7 @@ const Registration: FC = () => {
     try {
       const result = await signIn(user).unwrap();
       dispatch(setToken(result.token));
+      dispatch(setLogin(user.login));
       navigate(ROUTES_PATHS.boards);
     } catch (error) {
       // TODO: add handling error

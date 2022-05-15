@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, CircularProgress, TextField, Typography } from '@mui/material';
 import { IUserLogIn } from '$types/common';
-import { setToken } from '$store/appSlice';
+import { setLogin, setToken } from '$store/appSlice';
 import { useSignInMutation } from '$services/api';
 import Section from '$components/Section';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,7 @@ const LogIn: FC = () => {
     try {
       const result = await signIn(user).unwrap();
       dispatch(setToken(result.token));
+      dispatch(setLogin(user.login));
       navigate(ROUTES_PATHS.boards);
     } catch (error) {
       // TODO: add handling error

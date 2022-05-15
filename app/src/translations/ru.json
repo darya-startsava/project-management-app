@@ -59,6 +59,20 @@
     "boardsHeadItemImgAlt": "Фон элемента списка",
     "boardsInputSearchText": "Поиск досок или задач..."
   },
+  "Profile": {
+    "profileTitle": "Профиль",
+    "profileFormTitle": "Поля для редактирования профиля",
+    "profileNameLabel": "Имя",
+    "profileLoginLabel": "Логин",
+    "profilePasswordLabel": "Пароль",
+    "profileSubmit": "Обновить профиль",
+    "profileImage": "Картинка пользователя.",
+    "profileDelete": "Удалить профиль",
+    "profileConfirmDelete": "Вы уверены, что хотите удалить профиль?",
+    "profileConfirmChangeProfile": "Вы уверены, что хотите изменить данные?",
+    "profileAgreeButtonText": "Согласиться",
+    "profileDisagreeButtonText": "Не соглашаться"
+  },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",
     "githubLogo": "Логотип Github"
