@@ -4,8 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Welcome from '$pages/Welcome';
 import Boards from '$pages/Boards';
 import OneBoard from '$pages/OneBoard';
-import LogOut from '$pages/LogOut';
-import Authorization from '$pages/Authorization/Authorization';
+import Authorization from '$pages/Authorization';
 import ErrorPage from '$pages/ErrorPage';
 import RequiredAuth from '$components/RequiredAuth';
 import Profile from '$pages/Profile';
@@ -45,7 +44,7 @@ const AppRoutes: FC = () => {
         path={ROUTES_PATHS.logout}
         element={
           <RequiredAuth redirect={ROUTES_PATHS.login}>
-            <LogOut />
+            <Welcome />
           </RequiredAuth>
         }
       />

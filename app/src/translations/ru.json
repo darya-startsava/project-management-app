@@ -63,6 +63,13 @@
     "boardsModalTextareaPlaceholder": "Название новой доски",
     "boardsModalSubmitButton": "Добавить",
     "boardsHeadItemImgAlt": "Фон элемента списка",
+    "errorTitle": "Ошибка: ",
+    "errorTextMinLengthNewTitle": "Минимальная длина 5 символов",
+    "errorTextMaxLengthNewTitle": "Максимальная длина 60 символов",
+    "errorBoardCreate": "Доска не создана! Попробуйте повторить позже.",
+    "successBoardCreate": "Доска создана!",
+    "errorGetBoards": "Неверный адрес запроса. Попробуйте повторить позже.",
+    "ariaLabelCloseButton": "Закрыть",
     "boardsInputSearchText": "Поиск досок или задач..."
   },
   "Footer": {
