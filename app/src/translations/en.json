@@ -32,24 +32,24 @@
     "goToMainPage": "Go to main page"
   },
   "LogIn": {
-    "signInTitle": "Sign in",
+    "signTitle": "Sign in",
     "loginLabel": "Login",
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signInButton": "Sign in",
+    "signButton": "Sign in",
     "loginFieldRequiredMessage": "This field must be filled",
     "passwordFieldRequiredMessage": "This field must be filled"
   },
   "Registration": {
-    "signUpTitle": "Sign up",
+    "signTitle": "Sign up",
     "nameLabel": "Name",
     "namePlaceholder": "Name",
     "loginLabel": "Login",
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signUpButton": "Sign up",
+    "signButton": "Sign up",
     "nameFieldRequiredMessage": "This field must be filled",
     "loginFieldRequiredMessage": "This field must be filled",
     "passwordFieldRequiredMessage": "This field must be filled",

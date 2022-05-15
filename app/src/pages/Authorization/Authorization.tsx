@@ -10,9 +10,15 @@ import { setToken } from '$store/appSlice';
 import { useSignInMutation, useSignUpMutation } from '$services/api';
 import Section from '$components/Section';
 import { ROUTES_PATHS } from '$settings/routing';
-import css from './Registration.module.scss';
+import css from './Authorization.module.scss';
 
-const Registration: FC = () => {
+interface IAuthorization {
+  sortOfAuth: string;
+}
+
+const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
+  let passwordValue = 0;
+  if (sortOfAuth === 'Registration') passwordValue = 5;
   const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -25,8 +31,10 @@ const Registration: FC = () => {
   const [signIn, { isLoading: isLoadingSignIn }] = useSignInMutation();
 
   const onSubmit: SubmitHandler<IUserRegistration> = async (data) => {
-    await newUserRegistration(data);
-    await userLogIn({ login: data.login, password: data.password });
+    if (sortOfAuth === 'Registration') {
+      await newUserRegistration(data);
+      await userLogIn({ login: data.login, password: data.password });
+    } else await userLogIn(data);
   };
 
   async function newUserRegistration(user: IUserRegistration) {
@@ -52,47 +60,56 @@ const Registration: FC = () => {
 
   return (
     <Section pageAllSpace={true}>
-      <Typography variant="h3">{t('Registration.signUpTitle')}</Typography>
+      <Typography variant="h3">{t(`${sortOfAuth}.signTitle`)} </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
+        {sortOfAuth === 'Registration' && (
+          <>
+            <TextField
+              {...register('name', { required: t('Registration.nameFieldRequiredMessage') })}
+              label={t('Registration.nameLabel')}
+              placeholder={t('Registration.namePlaceholder')}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="name"
+              render={({ message }) => (
+                <p className={css.authorization__error_message}>{message}</p>
+              )}
+            />
+          </>
+        )}
         <TextField
-          {...register('name', { required: t('Registration.nameFieldRequiredMessage') })}
-          label={t('Registration.nameLabel')}
-          placeholder={t('Registration.namePlaceholder')}
-        />
-        <ErrorMessage
-          errors={errors}
-          name="name"
-          render={({ message }) => <p className={css.login__error_message}>{message}</p>}
-        />
-        <TextField
-          {...register('login', { required: t('Registration.loginFieldRequiredMessage') })}
-          label={t('Registration.loginLabel')}
-          placeholder={t('Registration.loginPlaceholder')}
+          {...register('login', { required: t(`${sortOfAuth}.loginFieldRequiredMessage`) })}
+          label={t(`${sortOfAuth}.loginLabel`)}
+          placeholder={t(`${sortOfAuth}.loginPlaceholder`)}
         />
         <ErrorMessage
           errors={errors}
           name="login"
-          render={({ message }) => <p className={css.login__error_message}>{message}</p>}
+          render={({ message }) => <p className={css.authorization__error_message}>{message}</p>}
         />
         <TextField
           {...register('password', {
-            required: t('Registration.passwordFieldRequiredMessage'),
-            minLength: { value: 5, message: t('Registration.passwordFieldMinLengthMessage') },
+            required: t(`${sortOfAuth}.passwordFieldRequiredMessage`),
+            minLength: {
+              value: passwordValue,
+              message: t('Registration.passwordFieldMinLengthMessage'),
+            },
           })}
-          label={t('Registration.passwordLabel')}
+          label={t(`${sortOfAuth}.passwordLabel`)}
           type="password"
-          placeholder={t('Registration.passwordPlaceholder')}
+          placeholder={t(`${sortOfAuth}.passwordPlaceholder`)}
         />
         <ErrorMessage
           errors={errors}
           name="password"
-          render={({ message }) => <p className={css.login__error_message}>{message}</p>}
+          render={({ message }) => <p className={css.authorization__error_message}>{message}</p>}
         />
-        <Button type="submit">{t('Registration.signUpButton')}</Button>
+        <Button type="submit">{t(`${sortOfAuth}.signButton`)}</Button>
       </form>
       {(isLoadingSignUp || isLoadingSignIn) && <CircularProgress />}
     </Section>
   );
 };
 
-export default Registration;
+export default Authorization;

@@ -16,7 +16,7 @@ export interface IUserLogIn {
 }
 
 export interface IUserRegistration extends IUserLogIn {
-  name: string;
+  name?: string;
 }
 
 export interface IUser {

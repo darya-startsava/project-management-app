@@ -32,24 +32,24 @@
     "goToMainPage": "Перейти на главную страницу"
   },
   "LogIn": {
-    "signInTitle": "Вход",
+    "signTitle": "Вход",
     "loginLabel": "Логин",
     "loginPlaceholder": "Логин",
     "passwordLabel": "Пароль",
     "passwordPlaceholder": "Пароль",
-    "signInButton": "Вход",
+    "signButton": "Вход",
     "loginFieldRequiredMessage": "Это поле обязательно для заполнения",
     "passwordFieldRequiredMessage": "Это поле обязательно для заполнения"
   },
   "Registration": {
-    "signUpTitle": "Регистрация",
+    "signTitle": "Регистрация",
     "nameLabel": "Имя",
     "namePlaceholder": "Имя",
     "loginLabel": "Логин",
     "loginPlaceholder": "Логин",
     "passwordLabel": "Пароль",
     "passwordPlaceholder": "Пароль",
-    "signUpButton": "Регистрация",
+    "signButton": "Регистрация",
     "nameFieldRequiredMessage": "Это поле обязательно для заполнения",
     "loginFieldRequiredMessage": "Это поле обязательно для заполнения",
     "passwordFieldRequiredMessage": "Это поле обязательно для заполнения",

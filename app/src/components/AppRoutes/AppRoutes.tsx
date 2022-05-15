@@ -4,9 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import Welcome from '$pages/Welcome';
 import Boards from '$pages/Boards';
 import OneBoard from '$pages/OneBoard';
-import LogIn from '$pages/LogIn/LogIn';
 import LogOut from '$pages/LogOut';
-import Registration from '$pages/Registration';
+import Authorization from '$pages/Authorization/Authorization';
 import ErrorPage from '$pages/ErrorPage';
 import RequiredAuth from '$components/RequiredAuth';
 import Profile from '$pages/Profile';
@@ -38,7 +37,7 @@ const AppRoutes: FC = () => {
         path={ROUTES_PATHS.login}
         element={
           <NoDoubleLogin redirect={ROUTES_PATHS.boards}>
-            <LogIn />
+            <Authorization sortOfAuth={'LogIn'} />
           </NoDoubleLogin>
         }
       />
@@ -54,7 +53,7 @@ const AppRoutes: FC = () => {
         path={ROUTES_PATHS.registration}
         element={
           <NoDoubleLogin redirect={ROUTES_PATHS.boards}>
-            <Registration />
+            <Authorization sortOfAuth={'Registration'} />
           </NoDoubleLogin>
         }
       />{' '}
