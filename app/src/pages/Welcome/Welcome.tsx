@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Button, Modal, Typography, Avatar } from '@mui/material';
+import { Grid, Button, Modal, Typography, Avatar, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import youtubeBigSign from '../../assets/svg/youtubeBigSign.svg';
 import author1 from '../../assets/images/Dmitrij.jpg';
@@ -79,18 +79,18 @@ const Welcome = () => {
               {t('Welcome.aboutUs')}
             </Typography>
             <Grid container sx={{ justifyContent: 'center', gap: '20px' }}>
-              <Grid item className={css.developer} direction="column">
+              <Box className={css.developer}>
                 <Avatar alt={t('Welcome.author1')} src={author1} sx={{ width: 200, height: 200 }} />
                 <Typography sx={{ mt: 2 }}>{t('Welcome.author1')}</Typography>
-              </Grid>
-              <Grid item className={css.developer} direction="column">
+              </Box>
+              <Box className={css.developer}>
                 <Avatar alt={t('Welcome.author2')} src={author2} sx={{ width: 200, height: 200 }} />
                 <Typography sx={{ mt: 2 }}>{t('Welcome.author2')}</Typography>
-              </Grid>
-              <Grid item className={css.developer} direction="column">
+              </Box>
+              <Box className={css.developer}>
                 <Avatar alt={t('Welcome.author3')} src={author3} sx={{ width: 200, height: 200 }} />
                 <Typography sx={{ mt: 2 }}>{t('Welcome.author3')}</Typography>
-              </Grid>
+              </Box>
             </Grid>
             <Typography sx={{ mt: 4 }} align="center">
               {t('Welcome.modalText')}

@@ -5,7 +5,6 @@ import Welcome from '$pages/Welcome';
 import Boards from '$pages/Boards';
 import OneBoard from '$pages/OneBoard';
 import LogIn from '$pages/LogIn/LogIn';
-import LogOut from '$pages/LogOut';
 import Registration from '$pages/Registration';
 import ErrorPage from '$pages/ErrorPage';
 import RequiredAuth from '$components/RequiredAuth';
@@ -38,7 +37,7 @@ const AppRoutes: FC = () => {
         path={ROUTES_PATHS.logout}
         element={
           <RequiredAuth redirect={ROUTES_PATHS.login}>
-            <LogOut />
+            <Welcome />
           </RequiredAuth>
         }
       />

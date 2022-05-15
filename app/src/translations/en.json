@@ -57,6 +57,13 @@
     "boardsModalTextareaPlaceholder": "Board name",
     "boardsModalSubmitButton": "Add",
     "boardsHeadItemImgAlt": "Background item",
+    "errorTitle": "Error: ",
+    "errorTextMinLengthNewTitle": "Min length 5 letters",
+    "errorTextMaxLengthNewTitle": "Max length 60 letters",
+    "errorBoardCreate": "The board was not created! Try to do it later.",
+    "successBoardCreate": "The board was created successfully!",
+    "errorGetBoards": "Bad request address. Try to do it later.",
+    "ariaLabelCloseButton": "Close",
     "boardsInputSearchText": "Search board or task..."
   },
   "Columns": {

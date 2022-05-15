@@ -20,9 +20,12 @@ const app = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
+    logout: (state) => {
+      state.token = null;
+    },
   },
 });
 
-export const { setToken } = app.actions;
+export const { setToken, logout } = app.actions;
 
 export default app.reducer;

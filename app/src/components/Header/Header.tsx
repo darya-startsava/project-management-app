@@ -15,11 +15,18 @@ import css from './Header.module.scss';
 import './Header.scss';
 import KanbanLogo from '$assets/kanban-logo.png';
 import { StyledEngineProvider } from '@mui/material/styles';
+import { logout } from '$store/appSlice';
+import { useDispatch } from 'react-redux';
 
 const Header: FC = () => {
   const { token } = useAppSelector((state) => state.app);
   const { t } = useTranslation();
   const trigger = useScrollTrigger();
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
 
   return (
     <StyledEngineProvider injectFirst>
@@ -32,14 +39,17 @@ const Header: FC = () => {
             <img className={css.header__logo} src={KanbanLogo} alt={t('Header.logo')} />
           </Button>
           <Grid container spacing={0} direction="row" alignItems="center" justifyContent="end">
-            <LanguageToggler />
             {token ? (
               <>
                 <Button href={ROUTES_PATHS.profile} startIcon={<ManageAccountsIcon />}>
                   {t('Header.editProfile')}
                 </Button>
                 <Button startIcon={<TableChartIcon />}>{t('Header.newBoard')}</Button>
-                <Button href={ROUTES_PATHS.logout} startIcon={<LogoutIcon />}>
+                <Button
+                  href={ROUTES_PATHS.logout}
+                  startIcon={<LogoutIcon />}
+                  onClick={handleLogOut}
+                >
                   {t('Header.signOut')}
                 </Button>
                 <Button href={ROUTES_PATHS.boards} startIcon={<HomeIcon />}>
@@ -56,6 +66,7 @@ const Header: FC = () => {
                 </Button>
               </>
             )}
+            <LanguageToggler />
           </Grid>
         </Toolbar>
       </AppBar>

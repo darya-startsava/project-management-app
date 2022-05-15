@@ -7,6 +7,7 @@ $whiteColor: #fff;
 $lightGrey: #efefef;
 $black: #001a33;
 $primary: #1976d2;
+$secondary: #fe6b8b ;
 $lightBlue: #cbdfe0;
 $red: red;
 $green: green;
@@ -27,6 +28,15 @@ $borderRadiusItem: 28px;
 $boardsTitleSize: 28px;
 $modalTitleSize: 40px;
 $oneBoardPageOffset: max(calc(calc(100vw - $wrapper-max-width) / 2), 20px);
-
 $textSize: 20px;
 /* values end */
+
+
+/* common parts styles start */
+%commonHeadItemStyles {
+  box-shadow: $boxShadow;
+  border-radius: $borderRadiusItem;
+  color: $black;
+  background: $whiteColor;
+}
+/* common parts styles end */
