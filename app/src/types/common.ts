@@ -36,6 +36,17 @@ export interface IBoard extends IBoardCreateObj {
 }
 /* boards end */
 
+/* columns start */
+export interface IColumnCreateObj {
+  title: string;
+  order: number;
+}
+
+export interface IColumn extends IColumnCreateObj {
+  id: string;
+}
+/* columns end */
+
 /* routing start */
 export interface IWord {
   en: string;

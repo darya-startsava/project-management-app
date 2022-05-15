@@ -59,6 +59,10 @@
     "boardsHeadItemImgAlt": "Background item",
     "boardsInputSearchText": "Search board or task..."
   },
+  "Columns": {
+    "columnsTitle": "Board:",
+    "addButtonText": "Add new column"
+  },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",
     "githubLogo": "Github logo"

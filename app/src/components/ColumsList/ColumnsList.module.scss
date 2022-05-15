@@ -1,0 +1,111 @@
+@import "$assets/scss/variables";
+@import "$assets/scss/mixins";
+
+%commonHeadItemStyles {
+  box-shadow: $boxShadow;
+  border-radius: $borderRadiusItem;
+  color: $black;
+  background: $whiteColor;
+}
+
+div.columnsList,
+ul.columnsList {
+  @include dflex(flex-start, flex-start);
+
+  flex-wrap: nowrap;
+  flex-grow: 1;
+  padding: 0;
+  margin: 32px 0 0;
+
+  .columnsList__item {
+    flex-shrink: 0;
+    width: 335px;
+    min-height: 100px;
+    padding: 12px 15px;
+    box-shadow: $boxShadow;
+    border-radius: $borderRadiusItem;
+    color: $black;
+    background-color: $columnBg;
+    list-style-type: none;
+
+    & ~ .columnsList__item,
+    & ~ .columnsList__itemButton {
+      margin-left: 53px;
+    }
+  }
+
+  .columnsList__item_name {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .columnsList__item_title {
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: $boardsTitleSize;
+    line-height: 1.5;
+    color: $black;
+    cursor: pointer;
+  }
+
+  .columnsList__item_rename {
+    @include dflex(flex-start, stretch);
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+
+    &_input {
+      width: 70%;
+      padding: 2px 5px;
+      font-size: $textSize;
+      border: 1px solid transparentize($black, 0.5);
+      border-radius: $borderRadius 0 0 $borderRadius;
+      line-height: 1.5;
+      color: $black;
+      background-color: $whiteColor;
+    }
+
+    &_buttons {
+      width: 30%;
+      border-radius: 0 $borderRadius $borderRadius 0;
+    }
+
+    &_accept,
+    &_cancel {
+      min-width: auto;
+      width: 50%;
+      margin: 0;
+
+      svg {
+        fill: $whiteColor;
+      }
+    }
+
+    &_accept {
+      background-color: $green;
+      border-radius: 0;
+    }
+
+    &_cancel {
+      background-color: $red;
+    }
+  }
+
+  .columnsList__itemButton {
+    width: max-content;
+    min-width: 335px;
+    margin-right: $oneBoardPageOffset;
+    padding: 0;
+  }
+
+  .columnsList__item_addButton {
+    @extend %commonHeadItemStyles;
+
+    padding: 12px 25px;
+    font-weight: bold;
+    font-size: $boardsTitleSize;
+    line-height: 1.5;
+    color: $black;
+  }
+}

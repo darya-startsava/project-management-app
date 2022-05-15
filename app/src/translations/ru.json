@@ -59,6 +59,10 @@
     "boardsHeadItemImgAlt": "Фон элемента списка",
     "boardsInputSearchText": "Поиск досок или задач..."
   },
+  "Columns": {
+    "columnsTitle": "Доска:",
+    "addButtonText": "Добавить колонку"
+  },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",
     "githubLogo": "Логотип Github"
