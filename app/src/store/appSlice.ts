@@ -10,7 +10,7 @@ export type IStateApp = {
 };
 
 export const initialState: IStateApp = {
-  token: null,
+  token: localStorage.getItem('kanban-token') || null,
 };
 
 const app = createSlice({

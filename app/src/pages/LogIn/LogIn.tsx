@@ -31,6 +31,7 @@ const LogIn: FC = () => {
     try {
       const result = await signIn(user).unwrap();
       dispatch(setToken(result.token));
+      localStorage.setItem('kanban-token', result.token);
       navigate(ROUTES_PATHS.boards);
     } catch (error) {
       // TODO: add handling error
