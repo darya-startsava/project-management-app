@@ -7,6 +7,7 @@ $whiteColor: #fff;
 $lightGrey: #efefef;
 $black: #001a33;
 $primary: #1976d2;
+$secondary: #fe6b8b ;
 $lightBlue: #cbdfe0;
 $red: red;
 $pageGradient: linear-gradient(243.18deg, rgba(109, 198, 240, 0.4) 32.99%, rgba(248, 160, 120, 0.4) 69.68%);
@@ -21,4 +22,15 @@ $borderRadius: 5px;
 $borderRadiusItem: 28px;
 $boardsTitleSize: 28px;
 $modalTitleSize: 40px;
+$textSize: 20px;
 /* values end */
+
+
+/* common parts styles start */
+%commonHeadItemStyles {
+  box-shadow: $boxShadow;
+  border-radius: $borderRadiusItem;
+  color: $black;
+  background: $whiteColor;
+}
+/* common parts styles end */

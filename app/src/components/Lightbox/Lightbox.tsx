@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Box, IconButton, Modal, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Box, Modal, Typography } from '@mui/material';
+import CloseButton from '$components/CloseButton';
 import { IWrapEl, TSimpleFunction } from '$types/common';
 import css from './LightBox.module.scss';
 
@@ -21,9 +21,7 @@ const LightBox: FC<ILightBoxProps> = ({ modalTitle, showModal, children, closeMo
   return (
     <Modal open={showModal} className={css.lightbox} onClose={closeModalFunction}>
       <Box className={css.lightbox__wrapper}>
-        <IconButton className={css.lightbox__wrapper_closeButton} onClick={closeModalFunction}>
-          <CloseIcon />
-        </IconButton>
+        <CloseButton closeCb={closeModalFunction} className={css.lightbox__wrapper_closeButton} />
 
         {modalTitle ? (
           <Typography
