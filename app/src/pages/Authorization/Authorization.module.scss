@@ -1,11 +1,17 @@
 @import '$assets/scss/variables';
 @import '$assets/scss/mixins';
 
-.authorization__error_message {
-  color: $red;
-}
+.authorization {
+  &__error_message {
+    color: $red;
+  }
 
-.authorization__error_message::before {
-  display: inline;
-  content: '⚠ ';
+  &__error_message::before {
+    display: inline;
+    content: '⚠ ';
+  }
+
+  &__form {
+    @include dflex();
+  }
 }
