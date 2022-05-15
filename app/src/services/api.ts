@@ -55,6 +55,10 @@ export const api = createApi({
       query: (body: IBoardCreateObj) => ({ url: QueryPoints.boards, method: 'POST', body }),
       invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
     }),
+    updateBoard: build.mutation<IBoard, IBoardCreateObj>({
+      query: (body: IBoardCreateObj) => ({ url: QueryPoints.boards, method: 'PUT', body }),
+      invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -64,4 +68,5 @@ export const {
   useGetAllUsersQuery,
   useGetAllBoardsQuery,
   useAddBoardMutation,
+  useUpdateBoardMutation,
 } = api;
