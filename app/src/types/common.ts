@@ -26,6 +26,13 @@ export interface IUser {
   login: string;
 }
 
+/* create new element start */
+export interface INewNameFormState {
+  newTitle: string;
+}
+export type TCreateElement = (data: INewNameFormState) => void;
+/* create new element end */
+
 /* boards start */
 export interface IBoardCreateObj {
   title: string;

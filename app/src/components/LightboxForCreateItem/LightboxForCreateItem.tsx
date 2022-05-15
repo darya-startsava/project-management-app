@@ -1,61 +1,61 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAddBoardMutation } from '$services/api';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useSnackbar } from 'notistack';
 import classNames from 'classnames';
 import { InputBase, Box, TextareaAutosize, Typography } from '@mui/material';
 import LightBox from '$components/Lightbox';
-import CloseButton from '$components/CloseButton';
-import css from './LightboxNewBoard.module.scss';
+import { INewNameFormState, TCreateElement } from '$types/common';
+import css from './LightboxForCreateItem.module.scss';
 
 interface IBoardsModal {
   showModal: boolean;
+  isLoading: boolean;
+  modalTitle: string;
+  placeholderText: string;
   changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  submitCB: TCreateElement;
+  rules?: {
+    required?: boolean;
+    minLength?: {
+      value: number;
+      message: string;
+    };
+    maxLength?: {
+      value: number;
+      message: string;
+    };
+  };
 }
 
-interface IFormState {
-  cardTitle: string;
-}
-
-const LightboxNewBoard: FC<IBoardsModal> = ({ showModal, changeShowModal }) => {
+const LightboxForCreateItem: FC<IBoardsModal> = ({
+  showModal,
+  changeShowModal,
+  placeholderText,
+  submitCB,
+  rules,
+  modalTitle,
+  isLoading,
+}) => {
   const { t } = useTranslation();
-  const [addBoard, { isLoading }] = useAddBoardMutation();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const {
     handleSubmit,
     control,
     reset,
     formState: { isDirty, errors },
-  } = useForm<IFormState>();
+  } = useForm<INewNameFormState>();
 
-  const addNewBoardHandler: SubmitHandler<IFormState> = async (data) => {
-    try {
-      await addBoard({ title: data.cardTitle }).unwrap();
-    } catch (_) {
-      return enqueueSnackbar(t('Boards.errorBoardCreate'), {
-        variant: 'error',
-        autoHideDuration: 5000,
-        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
-      });
-    }
-
-    enqueueSnackbar(t('Boards.successBoardCreate'), {
-      variant: 'success',
-      autoHideDuration: 5000,
-      action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
-    });
-    changeShowModal(false);
+  const addNewBoardHandler: SubmitHandler<INewNameFormState> = (data) => {
+    submitCB({ newTitle: data.newTitle.trim() });
     reset();
   };
 
   const classNameTextarea = classNames(css.modalAddForm_text, {
-    [css.error]: errors?.cardTitle,
+    [css.error]: errors?.newTitle,
   });
 
   const classNameSubmit = classNames(css.modalAddForm_submit, {
-    [css.disabled]: isLoading || !isDirty || errors.cardTitle?.message,
+    [css.disabled]: isLoading || !isDirty || errors.newTitle?.message,
   });
 
   return (
@@ -64,7 +64,7 @@ const LightboxNewBoard: FC<IBoardsModal> = ({ showModal, changeShowModal }) => {
       closeModalFunction={() => {
         changeShowModal(false);
       }}
-      modalTitle={t('Boards.boardsModalTitle')}
+      modalTitle={modalTitle}
     >
       <Box
         className={css.modalAddForm}
@@ -75,32 +75,22 @@ const LightboxNewBoard: FC<IBoardsModal> = ({ showModal, changeShowModal }) => {
       >
         <Controller
           control={control}
-          name="cardTitle"
-          rules={{
-            required: true,
-            minLength: {
-              value: 5,
-              message: t('Boards.errorTextMinLengthNewTitle'),
-            },
-            maxLength: {
-              value: 60,
-              message: t('Boards.errorTextMaxLengthNewTitle'),
-            },
-          }}
+          name="newTitle"
+          rules={rules}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
               <TextareaAutosize
                 value={value}
                 className={classNameTextarea}
-                placeholder={t('Boards.boardsModalTextareaPlaceholder')}
-                area-label={t('Boards.boardsModalTextareaPlaceholder')}
+                placeholder={placeholderText}
+                area-label={placeholderText}
                 onChange={onChange}
               />
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
                   <Box component="span" className={css.modalAddForm_errorText}>
-                    {t('Boards.errorTitle')}
+                    {t('Common.errorTitle')}
                   </Box>
                   <Box component="span">{error.message}</Box>
                 </Typography>
@@ -114,11 +104,11 @@ const LightboxNewBoard: FC<IBoardsModal> = ({ showModal, changeShowModal }) => {
           type="submit"
           disableInjectingGlobalStyles={true}
           disabled={isLoading || !isDirty}
-          value={t('Boards.boardsModalSubmitButton')}
+          value={t('Common.textForSubmitInCreateForm')}
         />
       </Box>
     </LightBox>
   );
 };
 
-export default LightboxNewBoard;
+export default LightboxForCreateItem;

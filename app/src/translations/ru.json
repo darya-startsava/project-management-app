@@ -57,7 +57,6 @@
     "boardsModalTextareaPlaceholder": "Название новой доски",
     "boardsModalSubmitButton": "Добавить",
     "boardsHeadItemImgAlt": "Фон элемента списка",
-    "errorTitle": "Ошибка: ",
     "errorTextMinLengthNewTitle": "Минимальная длина 5 символов",
     "errorTextMaxLengthNewTitle": "Максимальная длина 60 символов",
     "errorBoardCreate": "Доска не создана! Попробуйте повторить позже.",
@@ -68,7 +67,17 @@
   },
   "Columns": {
     "columnsTitle": "Доска:",
+    "columnsModalTitle": "Добавить колонку",
+    "columnsModalTextareaPlaceholder": "Название новой колонки",
+    "errorTextMinLengthNewTitle": "Минимальная длина 5 символов",
+    "errorTextMaxLengthNewTitle": "Максимальная длина 20 символов",
+    "errorColumnCreate": "Колонка не создана! Попробуйте повторить позже.",
+    "successColumnCreate": "Колонка создана!",
     "addButtonText": "Добавить колонку"
+  },
+  "Common": {
+    "errorTitle": "Ошибка: ",
+    "textForSubmitInCreateForm": "Добавить"
   },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",

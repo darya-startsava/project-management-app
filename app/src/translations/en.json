@@ -57,7 +57,6 @@
     "boardsModalTextareaPlaceholder": "Board name",
     "boardsModalSubmitButton": "Add",
     "boardsHeadItemImgAlt": "Background item",
-    "errorTitle": "Error: ",
     "errorTextMinLengthNewTitle": "Min length 5 letters",
     "errorTextMaxLengthNewTitle": "Max length 60 letters",
     "errorBoardCreate": "The board was not created! Try to do it later.",
@@ -68,7 +67,17 @@
   },
   "Columns": {
     "columnsTitle": "Board:",
+    "columnsModalTitle": "Add column",
+    "columnsModalTextareaPlaceholder": "Column name",
+    "errorTextMinLengthNewTitle": "Min length 5 letters",
+    "errorTextMaxLengthNewTitle": "Max length 20 letters",
+    "errorColumnCreate": "The column was not created! Try to do it later.",
+    "successColumnCreate": "The column was created successfully!",
     "addButtonText": "Add new column"
+  },
+  "Common": {
+    "errorTitle": "Error: ",
+    "textForSubmitInCreateForm": "Add"
   },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",

@@ -2,40 +2,50 @@ import React, { FC, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAddColumnMutation, useGetAllColumnsQuery } from '$services/api';
-import { Box, FormLabel, InputBase, TextareaAutosize, Typography } from '@mui/material';
+import { useSnackbar } from 'notistack';
+import { Box, Typography } from '@mui/material';
 import { TableChart as TableChartIcon } from '@mui/icons-material';
 import Section from '$components/Section';
 import ColumnsListItem from '$components/ColumsList';
-import Lightbox from '$components/Lightbox';
+import CloseButton from '$components/CloseButton';
+import LightboxForCreateItem from '$components/LightboxForCreateItem';
 import { randNumber } from '$utils/index';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
+import { INewNameFormState, TCreateElement } from '$types/common';
 import css from './OneBoard.module.scss';
 
 const OneBoard: FC = () => {
   const params = useParams();
   const { t } = useTranslation();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [newCardTitle, setNewCardTitle] = useState<string>('');
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
   const { data: columns = [] } = useGetAllColumnsQuery(params.id || '');
-  const [addColumn] = useAddColumnMutation();
+  const [addColumn, { isLoading: isAddingColumn }] = useAddColumnMutation();
 
-  const typeNewBoardTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewCardTitle(event.target.value);
-  };
-
-  const addNewBoardHandler = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    const title = newCardTitle.trim();
-    if (title !== '') {
-      await addColumn({ body: { title, order: columns.length }, id: params.id || '' }).unwrap();
-      setNewCardTitle('');
-      setShowModal(false);
+  const addNewBoard: TCreateElement = async (data: INewNameFormState) => {
+    try {
+      await addColumn({
+        body: { title: data.newTitle, order: columns.length },
+        id: params.id || '',
+      }).unwrap();
+    } catch (_) {
+      return enqueueSnackbar(t('Columns.errorColumnCreate'), {
+        variant: 'error',
+        autoHideDuration: 5000,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
     }
+
+    enqueueSnackbar(t('Columns.successColumnCreate'), {
+      variant: 'success',
+      autoHideDuration: 5000,
+      action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+    });
+    setShowModal(false);
   };
 
   return (
@@ -48,7 +58,7 @@ const OneBoard: FC = () => {
             backgroundImage: `url(${arrImages[indexImg]})`,
           }}
         ></Box>
-        {t('Columns.columnsTitle')} {params.id || 'Board 1'}
+        {t('Columns.columnsTitle')} {params.id}
         <TableChartIcon />
       </Typography>
 
@@ -59,39 +69,25 @@ const OneBoard: FC = () => {
         }}
       />
 
-      <Lightbox
+      <LightboxForCreateItem
+        modalTitle={t('Columns.columnsModalTitle')}
         showModal={showModal}
-        closeModalFunction={() => {
-          setShowModal(false);
+        changeShowModal={setShowModal}
+        submitCB={addNewBoard}
+        isLoading={isAddingColumn}
+        placeholderText={t('Columns.columnsModalTextareaPlaceholder')}
+        rules={{
+          required: true,
+          minLength: {
+            value: 5,
+            message: t('Columns.errorTextMinLengthNewTitle'),
+          },
+          maxLength: {
+            value: 20,
+            message: t('Columns.errorTextMaxLengthNewTitle'),
+          },
         }}
-        modalTitle={t('Boards.boardsModalTitle')}
-      >
-        <Box
-          className={css.modalAddForm}
-          component="form"
-          autoComplete="off"
-          onSubmit={addNewBoardHandler}
-          noValidate
-        >
-          <TextareaAutosize
-            value={newCardTitle}
-            className={css.modalAddForm_text}
-            placeholder={t('Boards.boardsModalTextareaPlaceholder')}
-            area-label={t('Boards.boardsModalTextareaPlaceholder')}
-            onChange={typeNewBoardTitle}
-          />
-
-          <FormLabel className={css.modalAddForm_submitWrapper}>
-            <Box component="span">{t('Boards.boardsModalSubmitButton')}</Box>
-            <InputBase
-              className={css.modalAddForm_submit}
-              type="submit"
-              disabled={false}
-              value={t('Boards.boardsModalSubmitButton')}
-            />
-          </FormLabel>
-        </Box>
-      </Lightbox>
+      />
     </Section>
   );
 };
