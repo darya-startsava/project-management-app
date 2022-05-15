@@ -1,6 +1,7 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useAddColumnMutation, useGetAllColumnsQuery } from '$services/api';
 import { Box, FormLabel, InputBase, TextareaAutosize, Typography } from '@mui/material';
 import { TableChart as TableChartIcon } from '@mui/icons-material';
 import Section from '$components/Section';
@@ -19,6 +20,8 @@ const OneBoard: FC = () => {
   const [newCardTitle, setNewCardTitle] = useState<string>('');
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
+  const { data: columns = [] } = useGetAllColumnsQuery(params.id || '');
+  const [addColumn] = useAddColumnMutation();
 
   const typeNewBoardTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewCardTitle(event.target.value);
@@ -26,6 +29,13 @@ const OneBoard: FC = () => {
 
   const addNewBoardHandler = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    const title = newCardTitle.trim();
+    if (title !== '') {
+      await addColumn({ body: { title, order: columns.length }, id: params.id || '' }).unwrap();
+      setNewCardTitle('');
+      setShowModal(false);
+    }
   };
 
   return (
@@ -43,7 +53,7 @@ const OneBoard: FC = () => {
       </Typography>
 
       <ColumnsListItem
-        columns={[]}
+        columns={columns}
         addCardHandler={() => {
           setShowModal(true);
         }}
