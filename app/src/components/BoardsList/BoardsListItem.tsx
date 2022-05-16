@@ -20,11 +20,16 @@ import { randNumber } from '$utils/index';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
-import { IBoard } from '$types/common';
+import { IBoard, TSimpleFunction } from '$types/common';
 import css from './BoardsList.module.scss';
 
-const BoardsListItem: FC<IBoard> = ({ id, title }) => {
+interface IBoardListItemProps extends IBoard {
+  updateCardHandler: TSimpleFunction;
+}
+
+const BoardsListItem: FC<IBoardListItemProps> = ({ id, title, updateCardHandler }) => {
   const { t } = useTranslation();
+
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
 
@@ -54,7 +59,11 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
         </Link>
 
         <Stack direction="row">
-          <IconButton className={css.boardsList__item_button} size="small">
+          <IconButton
+            className={css.boardsList__item_button}
+            size="small"
+            onClick={updateCardHandler}
+          >
             <HistoryEduIcon color="inherit" />
           </IconButton>
 

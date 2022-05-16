@@ -7,6 +7,7 @@ import Section from '$components/Section';
 import BoardsHead from './BoardsHead';
 import BoardsList from '$components/BoardsList';
 import LightboxNewBoard from '$components/LightboxNewBoard';
+import LightboxUpdateBoard from '$components/LightboxUpdateBoard';
 import CloseButton from '$components/CloseButton';
 import { IBoard } from '$types/common';
 import css from './Boards.module.scss';
@@ -17,6 +18,7 @@ const Boards: FC = () => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
   const [boards, setBoards] = useState<Array<IBoard>>([]);
   const { data: boardsArray = [], error } = useGetAllBoardsQuery();
 
@@ -50,9 +52,16 @@ const Boards: FC = () => {
         addCardHandler={() => {
           setShowModal(true);
         }}
+        updateCardTitleHandler={() => {
+          setShowModal(true);
+        }}
       />
 
       <LightboxNewBoard showModal={showModal} changeShowModal={setShowModal} />
+      <LightboxUpdateBoard
+        showUpdateModal={showUpdateModal}
+        changeShowUpdateModal={setShowUpdateModal}
+      />
     </Section>
   );
 };

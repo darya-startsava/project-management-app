@@ -64,7 +64,11 @@
     "successBoardCreate": "Доска создана!",
     "errorGetBoards": "Неверный адрес запроса. Попробуйте повторить позже.",
     "ariaLabelCloseButton": "Закрыть",
-    "boardsInputSearchText": "Поиск досок или задач..."
+    "boardsInputSearchText": "Поиск досок или задач...",
+    "boardsUpdateModalTitle": "Изменить название доски",
+    "boardsUpdateModalSubmitButton": "Изменить",
+    "errorUpdateBoardTitle": "Название доски не изменено!",
+    "successUpdateBoardTitle": "Название доски изменено успешно!"
   },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",
