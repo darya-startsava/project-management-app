@@ -14,7 +14,7 @@ const CloseButton: FC<ICloseButtonProps> = ({ closeCb, size = 'small', className
   return (
     <IconButton
       size={size}
-      aria-label={t('Common.ariaLabelCloseButton')}
+      aria-label={t('General.ariaLabelCloseButton')}
       onClick={closeCb}
       className={className}
       color="inherit"

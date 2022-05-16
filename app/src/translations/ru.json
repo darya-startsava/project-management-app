@@ -67,7 +67,7 @@
     "columnsModalTextareaPlaceholder": "Название новой колонки",
     "addButtonText": "Добавить колонку"
   },
-  "Common": {
+  "General": {
     "errorTitle": "Ошибка: ",
     "createModalTitle": "Добавить {{createElementLowerCase}}",
     "errorCreate": "{{createElement}} не создана! Попробуйте повторить позже.",

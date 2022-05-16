@@ -90,7 +90,7 @@ const LightboxForCreateItem: FC<IBoardsModal> = ({
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
                   <Box component="span" className={css.modalAddForm_errorText}>
-                    {t('Common.errorTitle')}
+                    {t('General.errorTitle')}
                   </Box>
                   <Box component="span">{error.message}</Box>
                 </Typography>
@@ -104,7 +104,7 @@ const LightboxForCreateItem: FC<IBoardsModal> = ({
           type="submit"
           disableInjectingGlobalStyles={true}
           disabled={isLoading || !isDirty}
-          value={t('Common.textForSubmitInCreateForm')}
+          value={t('General.textForSubmitInCreateForm')}
         />
       </Box>
     </LightBox>

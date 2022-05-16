@@ -38,13 +38,13 @@ const OneBoard: FC = () => {
         id: params.id || '',
       });
 
-      enqueueSnackbar(t('Common.successCreate', { createElement }), {
+      enqueueSnackbar(t('General.successCreate', { createElement }), {
         variant: 'success',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     } catch (_) {
-      const errorMessage = `${t('Common.errorCreate', { createElement })} ${error || ''}`;
+      const errorMessage = `${t('General.errorCreate', { createElement })} ${error || ''}`;
       return enqueueSnackbar(errorMessage, {
         variant: 'error',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
@@ -76,7 +76,7 @@ const OneBoard: FC = () => {
       />
 
       <LightboxForCreateItem
-        modalTitle={t('Common.createModalTitle', {
+        modalTitle={t('General.createModalTitle', {
           createElementLowerCase: '$t(Columns.createElementLowerCase)',
         })}
         showModal={showModal}
@@ -88,11 +88,11 @@ const OneBoard: FC = () => {
           required: true,
           minLength: {
             value: 5,
-            message: t('Common.errorTextMinLengthNewTitle', { lengthMinLetters }),
+            message: t('General.errorTextMinLengthNewTitle', { lengthMinLetters }),
           },
           maxLength: {
             value: 20,
-            message: t('Columns.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
+            message: t('General.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
           },
         }}
       />

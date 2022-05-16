@@ -52,13 +52,13 @@ const Boards: FC = () => {
   const addNewColumn: TCreateElement = async (data: INewNameFormState) => {
     try {
       await addBoard({ title: data.newTitle });
-      enqueueSnackbar(t('Common.successCreate', { createElement }), {
+      enqueueSnackbar(t('General.successCreate', { createElement }), {
         variant: 'success',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     } catch (_) {
-      const errorMessage = `${t('Common.errorCreate', { createElement })} ${errorAddBoard || ''}`;
+      const errorMessage = `${t('General.errorCreate', { createElement })} ${errorAddBoard || ''}`;
       return enqueueSnackbar(errorMessage, {
         variant: 'error',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
@@ -80,7 +80,7 @@ const Boards: FC = () => {
       />
 
       <LightboxForCreateItem
-        modalTitle={t('Common.createModalTitle', {
+        modalTitle={t('General.createModalTitle', {
           createElementLowerCase: '$t(Boards.createElementLowerCase)',
         })}
         showModal={showModal}
@@ -92,11 +92,11 @@ const Boards: FC = () => {
           required: true,
           minLength: {
             value: 5,
-            message: t('Common.errorTextMinLengthNewTitle', { lengthMinLetters }),
+            message: t('General.errorTextMinLengthNewTitle', { lengthMinLetters }),
           },
           maxLength: {
             value: 60,
-            message: t('Common.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
+            message: t('General.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
           },
         }}
       />
