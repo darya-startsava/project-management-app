@@ -64,7 +64,8 @@
     "successBoardCreate": "The board was created successfully!",
     "errorGetBoards": "Bad request address. Try to do it later.",
     "ariaLabelCloseButton": "Close",
-    "boardsInputSearchText": "Search board or task..."
+    "boardsInputSearchText": "Search board or task...",
+    "arialLabelDeleteBoardButton": "Delete board"
   },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",

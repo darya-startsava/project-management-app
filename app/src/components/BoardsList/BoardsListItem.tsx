@@ -22,11 +22,17 @@ import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
 import { IBoard } from '$types/common';
 import css from './BoardsList.module.scss';
+import { useDeleteBoardMutation } from '$services/api';
 
 const BoardsListItem: FC<IBoard> = ({ id, title }) => {
   const { t } = useTranslation();
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
+  const [deleteBoard] = useDeleteBoardMutation();
+
+  async function deletingBoard({ id, title }: IBoard) {
+    await deleteBoard({ id, title }).unwrap();
+  }
 
   return (
     <Grid item component="li" className={css.boardsList__item} key={id} mb={5}>
@@ -62,7 +68,12 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
             <StarOutlineIcon color="inherit" />
           </IconButton>
 
-          <IconButton className={css.boardsList__item_button} size="small">
+          <IconButton
+            className={css.boardsList__item_button}
+            size="small"
+            aria-label={t('Boards.arialLabelDeleteBoardButton')}
+            onClick={async () => await deletingBoard({ id, title })}
+          >
             <DeleteOutlineIcon color="inherit" />
           </IconButton>
         </Stack>

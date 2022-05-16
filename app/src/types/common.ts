@@ -20,12 +20,6 @@ export interface IUserRegistration extends IUserLogIn {
   name: string;
 }
 
-export interface IUser {
-  id: string;
-  name: string;
-  login: string;
-}
-
 /* boards start */
 export interface IBoardCreateObj {
   title: string;

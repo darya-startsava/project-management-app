@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { serviceURL } from '$settings/index';
-import { IBoard, IBoardCreateObj, IUser, IUserLogIn, IUserRegistration } from '$types/common';
+import { IBoard, IBoardCreateObj, IUserLogIn, IUserRegistration } from '$types/common';
 import { RootState } from '$store/store';
 
 enum QueryPoints {
@@ -31,13 +31,6 @@ export const api = createApi({
     signIn: build.mutation<{ token: string }, IUserLogIn>({
       query: (body: IUserLogIn) => ({ url: QueryPoints.signin, method: 'POST', body }),
     }),
-    // this is the sample of query with common header (prepareHeaders)
-    getAllUsers: build.query<IUser, void>({
-      query: () => ({
-        url: QueryPoints.users,
-      }),
-    }),
-
     // boards page
     getAllBoards: build.query<Array<IBoard>, void>({
       query: () => ({
@@ -55,13 +48,20 @@ export const api = createApi({
       query: (body: IBoardCreateObj) => ({ url: QueryPoints.boards, method: 'POST', body }),
       invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
     }),
+    deleteBoard: build.mutation<null, IBoard>({
+      query: (body: IBoard) => ({
+        url: `${QueryPoints.boards}/${body.id}`,
+        method: 'DELETE',
+        body,
+      }),
+    }),
   }),
 });
 
 export const {
   useSignUpMutation,
   useSignInMutation,
-  useGetAllUsersQuery,
   useGetAllBoardsQuery,
   useAddBoardMutation,
+  useDeleteBoardMutation,
 } = api;
