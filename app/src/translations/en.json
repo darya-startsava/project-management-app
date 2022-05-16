@@ -39,7 +39,9 @@
     "passwordPlaceholder": "Password",
     "signButton": "Sign in",
     "loginFieldRequiredMessage": "This field must be filled",
-    "passwordFieldRequiredMessage": "This field must be filled"
+    "passwordFieldRequiredMessage": "This field must be filled",
+    "error403Message": "Login and/or password are incorrect.",
+    "errorMessage": "Something went wrong. Please, try later."
   },
   "Registration": {
     "signTitle": "Sign up",
@@ -53,7 +55,9 @@
     "nameFieldRequiredMessage": "This field must be filled",
     "loginFieldRequiredMessage": "This field must be filled",
     "passwordFieldRequiredMessage": "This field must be filled",
-    "passwordFieldMinLengthMessage": "Password must contain at least 5 symbols"
+    "passwordFieldMinLengthMessage": "Password must contain at least 5 symbols",
+    "error409Message": "User with this login is already exist. Please, choose another.",
+    "errorMessage": "Something went wrong.Please, try later."
   },
   "Boards": {
     "boardsTitle": "My boards",

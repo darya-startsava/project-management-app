@@ -1,10 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, CircularProgress, TextField, Typography, Grid } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ErrorMessage } from '@hookform/error-message';
+import { useSnackbar } from 'notistack';
 import { IUserLogIn, IUserRegistration } from '$types/common';
 import { setToken } from '$store/appSlice';
 import { useSignInMutation, useSignUpMutation } from '$services/api';
@@ -28,8 +29,57 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
     formState: { errors },
     handleSubmit,
   } = useForm<IUserRegistration>();
-  const [signUp, { isLoading: isLoadingSignUp }] = useSignUpMutation();
-  const [signIn, { isLoading: isLoadingSignIn }] = useSignInMutation();
+  const [signUp, { isLoading: isLoadingSignUp, error: errorSignUp }] = useSignUpMutation();
+  const [signIn, { isLoading: isLoadingSignIn, error: errorSignIn }] = useSignInMutation();
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (errorSignIn && 'data' in errorSignIn) {
+      if (errorSignIn.status === 403) {
+        enqueueSnackbar(t('LogIn.error403Message'), {
+          variant: 'error',
+          autoHideDuration: 5000,
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'center',
+          },
+        });
+      } else {
+        enqueueSnackbar(t('LogIn.errorMessage'), {
+          variant: 'error',
+          autoHideDuration: 5000,
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'center',
+          },
+        });
+      }
+    }
+  }, [errorSignIn, enqueueSnackbar, t]);
+
+  useEffect(() => {
+    if (errorSignUp && 'data' in errorSignUp) {
+      if (errorSignUp.status === 409) {
+        enqueueSnackbar(t('Registration.error409Message'), {
+          variant: 'error',
+          autoHideDuration: 5000,
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'center',
+          },
+        });
+      } else {
+        enqueueSnackbar(t('Registration.errorMessage'), {
+          variant: 'error',
+          autoHideDuration: 5000,
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'center',
+          },
+        });
+      }
+    }
+  }, [errorSignUp, enqueueSnackbar, t]);
 
   const onSubmit: SubmitHandler<IUserRegistration> = async (data) => {
     if (sortOfAuth === 'Registration') {
@@ -48,23 +98,20 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   }
 
   async function userLogIn(user: IUserLogIn) {
-    try {
-      const result = await signIn(user).unwrap();
-      dispatch(setToken(result.token));
-      localStorage.setItem('kanban-token', result.token);
-      navigate(ROUTES_PATHS.boards);
-    } catch (error) {
-      // TODO: add handling error
-      throw error;
-    }
+    const result = await signIn(user).unwrap();
+    dispatch(setToken(result.token));
+    localStorage.setItem('kanban-token', result.token);
+    navigate(ROUTES_PATHS.boards);
   }
 
   return (
     <Section className="Auth" pageAllSpace={true}>
-      <Typography className="Auth" variant="h3">
-        {t(`${sortOfAuth}.signTitle`)}{' '}
-      </Typography>
-
+      <Grid className="Auth" container direction="row">
+        <Typography className="Auth" variant="h3">
+          {t(`${sortOfAuth}.signTitle`)}{' '}
+        </Typography>
+        {(isLoadingSignUp || isLoadingSignIn) && <CircularProgress />}
+      </Grid>
       <form className="Auth" onSubmit={handleSubmit(onSubmit)}>
         <Grid className="Auth" container direction="column">
           {sortOfAuth === 'Registration' && (
@@ -118,7 +165,6 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
           </Button>
         </Grid>
       </form>
-      {(isLoadingSignUp || isLoadingSignIn) && <CircularProgress />}
     </Section>
   );
 };
