@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { InputBase, Box, TextareaAutosize, Typography } from '@mui/material';
 import LightBox from '$components/Lightbox';
@@ -11,7 +12,7 @@ interface IBoardsModal {
   isLoading: boolean;
   modalTitle: string;
   placeholderText: string;
-  textareaErrorText: (errorMessage: string) => string;
+  localizationKeyTextareaErrorText: string;
   submitButtonText: string;
   changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   submitCB: TCreateElement;
@@ -35,7 +36,7 @@ const LightboxForCreateItem: FC<IBoardsModal> = ({
   submitCB,
   rules,
   modalTitle,
-  textareaErrorText,
+  localizationKeyTextareaErrorText,
   submitButtonText,
   isLoading,
 }) => {
@@ -45,7 +46,7 @@ const LightboxForCreateItem: FC<IBoardsModal> = ({
     reset,
     formState: { isDirty, errors },
   } = useForm<INewNameFormState>();
-
+  const { t } = useTranslation();
   const addNewBoardHandler: SubmitHandler<INewNameFormState> = (data) => {
     submitCB({ newTitle: data.newTitle.trim() });
     reset();
@@ -90,7 +91,7 @@ const LightboxForCreateItem: FC<IBoardsModal> = ({
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
-                  {textareaErrorText(error.message)}
+                  {t(localizationKeyTextareaErrorText, { errorMessage: error?.message })}
                 </Typography>
               )}
             </>

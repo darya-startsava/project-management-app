@@ -13,7 +13,6 @@ i18n.use(initReactI18next).init({
   lng: 'en',
   interpolation: {
     escapeValue: false,
-    skipOnVariables: false,
   },
 });
 

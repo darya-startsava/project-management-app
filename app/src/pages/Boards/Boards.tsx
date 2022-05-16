@@ -93,7 +93,7 @@ const Boards: FC = () => {
         submitCB={addNewColumn}
         isLoading={isAddingBoard}
         placeholderText={t('Boards.addModalTextareaPlaceholder')}
-        textareaErrorText={(errorMessage: string) => t('Boards.errorTextarea', { errorMessage })}
+        localizationKeyTextareaErrorText="Boards.errorTextarea"
         submitButtonText={t('Boards.submitButtonTextInFormNewBoard')}
         rules={{
           required: true,

@@ -90,7 +90,7 @@ const OneBoard: FC = () => {
         submitCB={addNewBoard}
         isLoading={isAddingColumn}
         placeholderText={t('Columns.addModalTextareaPlaceholder')}
-        textareaErrorText={(errorMessage: string) => t('Columns.errorTextarea', { errorMessage })}
+        localizationKeyTextareaErrorText="Columns.errorTextarea"
         submitButtonText={t('Columns.submitButtonTextInFormNewColumn')}
         rules={{
           required: true,
