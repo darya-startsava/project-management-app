@@ -41,7 +41,9 @@
     "loginFieldRequiredMessage": "This field must be filled",
     "passwordFieldRequiredMessage": "This field must be filled",
     "error403Message": "Login and/or password are incorrect.",
-    "errorMessage": "Something went wrong. Please, try later."
+    "errorMessage": "Something went wrong. Please, try later.",
+    "questionToChangeSortOfAuth": "Don't have an account?",
+    "linkToChangeSortOfAuth": "Sign up"
   },
   "Registration": {
     "signTitle": "Sign up",
@@ -57,7 +59,9 @@
     "passwordFieldRequiredMessage": "This field must be filled",
     "passwordFieldMinLengthMessage": "Password must contain at least 5 symbols",
     "error409Message": "User with this login is already exist. Please, choose another.",
-    "errorMessage": "Something went wrong.Please, try later."
+    "errorMessage": "Something went wrong.Please, try later.",
+    "questionToChangeSortOfAuth": "Have an account?",
+    "linkToChangeSortOfAuth": "Sign in"
   },
   "Boards": {
     "boardsTitle": "My boards",

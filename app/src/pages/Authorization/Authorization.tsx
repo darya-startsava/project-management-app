@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, CircularProgress, TextField, Typography, Grid } from '@mui/material';
+import { Button, CircularProgress, TextField, Typography, Grid, Box } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,8 @@ import Section from '$components/Section';
 import { ROUTES_PATHS } from '$settings/routing';
 import css from './Authorization.module.scss';
 import './Authorization.scss';
+import { Link } from 'react-router-dom';
+import { tokenAuth } from '$settings/index';
 
 interface IAuthorization {
   sortOfAuth: string;
@@ -20,7 +22,11 @@ interface IAuthorization {
 
 const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   let passwordValue = 0;
-  if (sortOfAuth === 'Registration') passwordValue = 5;
+  let changeSortOfAuth = ROUTES_PATHS.registration;
+  if (sortOfAuth === 'Registration') {
+    passwordValue = 5;
+    changeSortOfAuth = ROUTES_PATHS.login;
+  }
   const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -95,7 +101,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   async function userLogIn(user: IUserLogIn) {
     const result = await signIn(user).unwrap();
     dispatch(setToken(result.token));
-    localStorage.setItem('kanban-token', result.token);
+    localStorage.setItem(tokenAuth, result.token);
     navigate(ROUTES_PATHS.boards);
   }
 
@@ -155,6 +161,12 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
             name="password"
             render={({ message }) => <p className={css.authorization__error_message}>{message}</p>}
           />
+          <Grid className="Auth wrapperToChangeSortOfAuth" container direction="row">
+            <Box>{t(`${sortOfAuth}.questionToChangeSortOfAuth`)}</Box>
+            <Link className={css.authorization__linkToChangeSortOfAuth} to={changeSortOfAuth}>
+              {t(`${sortOfAuth}.linkToChangeSortOfAuth`)}
+            </Link>
+          </Grid>
           <Button className="Auth" type="submit" variant="contained">
             {t(`${sortOfAuth}.signButton`)}
           </Button>

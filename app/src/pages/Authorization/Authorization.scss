@@ -15,12 +15,16 @@ div.Auth.MuiContainer-root {
 div.Auth.MuiFormControl-root {
   width: 280px;
   margin: 10px;
-}
-
-div.Auth.MuiFormControl-root {
+  background-color: #fff;
+  border-radius: 5px;
 }
 
 button.Auth.MuiButton-contained {
   width: 280px;
   height: 50px;
+  margin-top: 10px;
+}
+
+div.wrapperToChangeSortOfAuth.MuiGrid-root {
+  margin-top: 5px;
 }

@@ -17,6 +17,7 @@ import KanbanLogo from '$assets/kanban-logo.png';
 import { StyledEngineProvider } from '@mui/material/styles';
 import { logout } from '$store/appSlice';
 import { useDispatch } from 'react-redux';
+import { tokenAuth } from '$settings/index';
 
 const Header: FC = () => {
   const { token } = useAppSelector((state) => state.app);
@@ -26,7 +27,7 @@ const Header: FC = () => {
 
   const handleLogOut = () => {
     dispatch(logout());
-    localStorage.removeItem('kanban-token');
+    localStorage.removeItem(tokenAuth);
   };
 
   return (

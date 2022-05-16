@@ -41,7 +41,9 @@
     "loginFieldRequiredMessage": "Это поле обязательно для заполнения",
     "passwordFieldRequiredMessage": "Это поле обязательно для заполнения",
     "error403Message": "Логин и/или пароль введены неверно",
-    "errorMessage": "Что-то пошло не так. Пожалуйста, попробуйте позже."
+    "errorMessage": "Что-то пошло не так. Пожалуйста, попробуйте позже.",
+    "questionToChangeSortOfAuth": "Еще нет аккаунта?",
+    "linkToChangeSortOfAuth": "Регистрация"
   },
   "Registration": {
     "signTitle": "Регистрация",
@@ -57,7 +59,9 @@
     "passwordFieldRequiredMessage": "Это поле обязательно для заполнения",
     "passwordFieldMinLengthMessage": "Пароль должен содержать минимум 5 символов",
     "error409Message": "Пользователь с таким логином уже существует. Выберите другой.",
-    "errorMessage": "Что-то пошло не так. Пожалуйста, попробуйте позже."
+    "errorMessage": "Что-то пошло не так. Пожалуйста, попробуйте позже.",
+    "questionToChangeSortOfAuth": "Уже есть аккаунт?",
+    "linkToChangeSortOfAuth": "Вход"
   },
   "Boards": {
     "boardsTitle": "Список досок",
