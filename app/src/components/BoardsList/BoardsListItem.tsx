@@ -49,7 +49,11 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
       </CardContent>
 
       <CardActions className={css.boardsList__item_actionsWrapper}>
-        <Link className={css.boardsList__item_link} to={`${ROUTES_PATHS.boards}/${id}`}>
+        <Link
+          className={css.boardsList__item_link}
+          to={`${ROUTES_PATHS.boards}/${id}`}
+          state={title}
+        >
           {t('Boards.boardsLinkItemText')}
         </Link>
 

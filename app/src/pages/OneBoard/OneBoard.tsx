@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAddColumnMutation, useGetAllColumnsQuery } from '$services/api';
 import { useSnackbar } from 'notistack';
@@ -19,6 +19,7 @@ import css from './OneBoard.module.scss';
 
 const OneBoard: FC = () => {
   const params = useParams();
+  const location = useLocation();
   const { t } = useTranslation();
   const lengthMinLetters = 5;
   const lengthMaxLetters = 20;
@@ -63,7 +64,7 @@ const OneBoard: FC = () => {
             backgroundImage: `url(${arrImages[indexImg]})`,
           }}
         ></Box>
-        {t('Columns.columnsTitle')} {params.id}
+        {t('Columns.columnsTitle')} {location.state as string}
         <TableChartIcon />
       </Typography>
 

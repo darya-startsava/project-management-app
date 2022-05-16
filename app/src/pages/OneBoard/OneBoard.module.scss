@@ -56,5 +56,9 @@
         background-color: transparentize($whiteColor, 0.3);
       }
     }
+
+    svg {
+      margin-left: 5px;
+    }
   }
 }
