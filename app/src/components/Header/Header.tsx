@@ -26,6 +26,7 @@ const Header: FC = () => {
 
   const handleLogOut = () => {
     dispatch(logout());
+    localStorage.removeItem('kanban-token');
   };
 
   return (

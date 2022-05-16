@@ -84,17 +84,12 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   const onSubmit: SubmitHandler<IUserRegistration> = async (data) => {
     if (sortOfAuth === 'Registration') {
       await newUserRegistration(data);
-      await userLogIn({ login: data.login, password: data.password });
-    } else await userLogIn(data);
+    }
+    await userLogIn({ login: data.login, password: data.password });
   };
 
   async function newUserRegistration(user: IUserRegistration) {
-    try {
-      await signUp(user).unwrap();
-    } catch (error) {
-      // TODO: add handling error
-      throw error;
-    }
+    await signUp(user).unwrap();
   }
 
   async function userLogIn(user: IUserLogIn) {
