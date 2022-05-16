@@ -51,32 +51,30 @@
   },
   "Boards": {
     "boardsTitle": "Список досок",
+    "boardsOne": "Доска",
+    "createElementLowerCase": "доску",
     "boardsLinkItemText": "Перейти к доске",
     "boardsAddButtonText": "Создать доску",
-    "boardsModalTitle": "Добавить доску",
     "boardsModalTextareaPlaceholder": "Название новой доски",
-    "boardsModalSubmitButton": "Добавить",
     "boardsHeadItemImgAlt": "Фон элемента списка",
-    "errorTextMinLengthNewTitle": "Минимальная длина 5 символов",
-    "errorTextMaxLengthNewTitle": "Максимальная длина 60 символов",
-    "errorBoardCreate": "Доска не создана! Попробуйте повторить позже.",
-    "successBoardCreate": "Доска создана!",
     "errorGetBoards": "Неверный адрес запроса. Попробуйте повторить позже.",
-    "ariaLabelCloseButton": "Закрыть",
     "boardsInputSearchText": "Поиск досок или задач..."
   },
   "Columns": {
     "columnsTitle": "Доска:",
-    "columnsModalTitle": "Добавить колонку",
+    "columnsOne": "Колонка",
+    "createElementLowerCase": "колонку",
     "columnsModalTextareaPlaceholder": "Название новой колонки",
-    "errorTextMinLengthNewTitle": "Минимальная длина 5 символов",
-    "errorTextMaxLengthNewTitle": "Максимальная длина 20 символов",
-    "errorColumnCreate": "Колонка не создана! Попробуйте повторить позже.",
-    "successColumnCreate": "Колонка создана!",
     "addButtonText": "Добавить колонку"
   },
   "Common": {
     "errorTitle": "Ошибка: ",
+    "createModalTitle": "Добавить {{createElementLowerCase}}",
+    "errorCreate": "{{createElement}} не создана! Попробуйте повторить позже.",
+    "successCreate": "{{createElement}} создана!",
+    "errorTextMinLengthNewTitle": "Минимальная длина {{lengthMinLetters}} символов",
+    "errorTextMaxLengthNewTitle": "Максимальная длина {{lengthMaxLetters}} символов",
+    "ariaLabelCloseButton": "Закрыть",
     "textForSubmitInCreateForm": "Добавить"
   },
   "Footer": {

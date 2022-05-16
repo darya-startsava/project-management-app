@@ -51,32 +51,30 @@
   },
   "Boards": {
     "boardsTitle": "My boards",
+    "boardsOne": "The board",
+    "createElementLowerCase": "board",
     "boardsLinkItemText": "Open board",
     "boardsAddButtonText": "Create board",
-    "boardsModalTitle": "Add board",
     "boardsModalTextareaPlaceholder": "Board name",
-    "boardsModalSubmitButton": "Add",
     "boardsHeadItemImgAlt": "Background item",
-    "errorTextMinLengthNewTitle": "Min length 5 letters",
-    "errorTextMaxLengthNewTitle": "Max length 60 letters",
-    "errorBoardCreate": "The board was not created! Try to do it later.",
-    "successBoardCreate": "The board was created successfully!",
     "errorGetBoards": "Bad request address. Try to do it later.",
-    "ariaLabelCloseButton": "Close",
     "boardsInputSearchText": "Search board or task..."
   },
   "Columns": {
     "columnsTitle": "Board:",
-    "columnsModalTitle": "Add column",
+    "columnsOne": "The column",
+    "createElementLowerCase": "column",
     "columnsModalTextareaPlaceholder": "Column name",
-    "errorTextMinLengthNewTitle": "Min length 5 letters",
-    "errorTextMaxLengthNewTitle": "Max length 20 letters",
-    "errorColumnCreate": "The column was not created! Try to do it later.",
-    "successColumnCreate": "The column was created successfully!",
     "addButtonText": "Add new column"
   },
   "Common": {
     "errorTitle": "Error: ",
+    "createModalTitle": "Add {{createElementLowerCase}}",
+    "errorCreate": "{{createElement}} was not created! Try to do it later.",
+    "successCreate": "{{createElement}}  was created successfully!",
+    "errorTextMinLengthNewTitle": "Min length {{lengthMinLetters}} letters",
+    "errorTextMaxLengthNewTitle": "Max length {{lengthMaxLetters}} letters",
+    "ariaLabelCloseButton": "Close",
     "textForSubmitInCreateForm": "Add"
   },
   "Footer": {
