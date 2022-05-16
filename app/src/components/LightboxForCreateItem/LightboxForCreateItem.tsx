@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { InputBase, Box, TextareaAutosize, Typography } from '@mui/material';
@@ -12,6 +11,8 @@ interface IBoardsModal {
   isLoading: boolean;
   modalTitle: string;
   placeholderText: string;
+  textareaErrorText: (errorMessage: string) => string;
+  submitButtonText: string;
   changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   submitCB: TCreateElement;
   rules?: {
@@ -34,10 +35,10 @@ const LightboxForCreateItem: FC<IBoardsModal> = ({
   submitCB,
   rules,
   modalTitle,
+  textareaErrorText,
+  submitButtonText,
   isLoading,
 }) => {
-  const { t } = useTranslation();
-
   const {
     handleSubmit,
     control,
@@ -89,10 +90,7 @@ const LightboxForCreateItem: FC<IBoardsModal> = ({
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
-                  <Box component="span" className={css.modalAddForm_errorText}>
-                    {t('General.errorTitle')}
-                  </Box>
-                  <Box component="span">{error.message}</Box>
+                  {textareaErrorText(error.message)}
                 </Typography>
               )}
             </>
@@ -104,7 +102,7 @@ const LightboxForCreateItem: FC<IBoardsModal> = ({
           type="submit"
           disableInjectingGlobalStyles={true}
           disabled={isLoading || !isDirty}
-          value={t('General.textForSubmitInCreateForm')}
+          value={submitButtonText}
         />
       </Box>
     </LightBox>

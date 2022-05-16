@@ -35,7 +35,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
           className={css.boardsList__item_img}
           component="img"
           image={arrImages[indexImg]}
-          alt={t('Boards.boardsHeadItemImgAlt')}
+          alt={t('Boards.boardsHeadItemImgAlt', { itemName: title })}
         />
 
         <Typography

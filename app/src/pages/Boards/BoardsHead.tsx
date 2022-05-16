@@ -27,7 +27,7 @@ const BoardsHead: FC<IBoardsHeadProps> = ({ searchCB }) => {
   return (
     <Grid container className={css.boards__head} direction="row" alignItems="flex-start">
       <Grid item className={css.boards__head_name} component="h2">
-        {t('Boards.boardsTitle')}
+        {t('Boards.pageTitle')}
         <TableChartIcon />
       </Grid>
 
@@ -43,9 +43,9 @@ const BoardsHead: FC<IBoardsHeadProps> = ({ searchCB }) => {
           name="searchValue"
           className={css.boards__head_search}
           type="search"
-          placeholder={t('Boards.boardsInputSearchText')}
+          placeholder={t('Boards.inputSearchText')}
           inputProps={{
-            'aria-label': t('Boards.boardsInputSearchText'),
+            'aria-label': t('Boards.inputSearchText'),
           }}
           value={searchValue}
           onChange={inputSearchHandler}

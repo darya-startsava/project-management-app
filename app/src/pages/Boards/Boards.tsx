@@ -1,5 +1,4 @@
-import React, { FC, useState } from 'react';
-import useDidMount from 'beautiful-react-hooks/useDidMount';
+import React, { FC, useEffect, useState } from 'react';
 import { useAddBoardMutation, useGetAllBoardsQuery } from '$services/api';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -9,7 +8,7 @@ import BoardsList from '$components/BoardsList';
 import LightboxForCreateItem from '$components/LightboxForCreateItem';
 import CloseButton from '$components/CloseButton';
 import { CLOSE_SNACKBAR_TIME } from '$settings/index';
-import { IBoard, INewNameFormState, TCreateElement } from '$types/common';
+import { INewNameFormState, TCreateElement } from '$types/common';
 import css from './Boards.module.scss';
 
 export type TChangeBoardsShow = (searchValue: string) => void;
@@ -18,53 +17,61 @@ const Boards: FC = () => {
   const { t } = useTranslation();
   const lengthMinLetters = 5;
   const lengthMaxLetters = 60;
-  const createElement = t('Boards.boardsOne');
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [boards, setBoards] = useState<Array<IBoard>>([]);
-  const [addBoard, { isLoading: isAddingBoard, error: errorAddBoard }] = useAddBoardMutation();
-  const { data: boardsArray = [], error: errorGetBoards } = useGetAllBoardsQuery();
+  const [
+    addBoard,
+    { isLoading: isAddingBoard, error: errorAddBoard, isSuccess: isSuccessAddBoard },
+  ] = useAddBoardMutation();
+  const { data: boards = [], error: errorGetBoards } = useGetAllBoardsQuery();
 
-  useDidMount(() => {
+  useEffect(() => {
     if (errorGetBoards) {
-      const errorMessage = `${t('Boards.errorGetBoards', { createElement })} ${
-        errorGetBoards || ''
-      }`;
+      const errorMessage = t('Boards.errorGetBoards', { errorGetBoards: errorGetBoards });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  });
+  }, [errorGetBoards, t, enqueueSnackbar, closeSnackbar]);
 
-  const changeBoardsListShow: TChangeBoardsShow = (searchValue: string) => {
-    if (!searchValue.trim().length) {
-      setBoards(boardsArray);
-      return;
-    }
-    const filteredBoards: Array<IBoard> = boardsArray.filter((board: IBoard) =>
-      board.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-    setBoards(filteredBoards);
-  };
-
-  const addNewColumn: TCreateElement = async (data: INewNameFormState) => {
-    try {
-      await addBoard({ title: data.newTitle });
-      enqueueSnackbar(t('General.successCreate', { createElement }), {
+  useEffect(() => {
+    if (isSuccessAddBoard) {
+      enqueueSnackbar(t('Boards.successCreate'), {
         variant: 'success',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
-    } catch (_) {
-      const errorMessage = `${t('General.errorCreate', { createElement })} ${errorAddBoard || ''}`;
-      return enqueueSnackbar(errorMessage, {
+    }
+  }, [isSuccessAddBoard, t, enqueueSnackbar, closeSnackbar]);
+
+  useEffect(() => {
+    if (errorAddBoard) {
+      const errorMessage = t('Boards.errorCreate', { errorText: errorAddBoard });
+      enqueueSnackbar(errorMessage, {
         variant: 'error',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
+  }, [t, errorAddBoard, enqueueSnackbar, closeSnackbar]);
+
+  useEffect(() => {}, [t, enqueueSnackbar, closeSnackbar]);
+
+  const changeBoardsListShow: TChangeBoardsShow = (searchValue: string) => {
+    if (!searchValue.trim().length) {
+      return;
+    }
+    // for better time
+    // const filteredBoards: Array<IBoard> = boardsArray.filter((board: IBoard) =>
+    //   board.title.toLowerCase().includes(searchValue.toLowerCase())
+    // );
+    // setBoards(filteredBoards);
+  };
+
+  const addNewColumn: TCreateElement = (data: INewNameFormState) => {
+    addBoard({ title: data.newTitle });
     setShowModal(false);
   };
 
@@ -73,30 +80,30 @@ const Boards: FC = () => {
       <BoardsHead searchCB={changeBoardsListShow} />
 
       <BoardsList
-        boards={boardsArray || boards}
+        boards={boards}
         addCardHandler={() => {
           setShowModal(true);
         }}
       />
 
       <LightboxForCreateItem
-        modalTitle={t('General.createModalTitle', {
-          createElementLowerCase: '$t(Boards.createElementLowerCase)',
-        })}
+        modalTitle={t('Boards.createModalTitle')}
         showModal={showModal}
         changeShowModal={setShowModal}
         submitCB={addNewColumn}
         isLoading={isAddingBoard}
-        placeholderText={t('Boards.boardsModalTextareaPlaceholder')}
+        placeholderText={t('Boards.addModalTextareaPlaceholder')}
+        textareaErrorText={(errorMessage: string) => t('Boards.errorTextarea', { errorMessage })}
+        submitButtonText={t('Boards.submitButtonTextInFormNewBoard')}
         rules={{
           required: true,
           minLength: {
-            value: 5,
-            message: t('General.errorTextMinLengthNewTitle', { lengthMinLetters }),
+            value: lengthMinLetters,
+            message: t('Boards.errorTextMinLengthNewTitle', { lengthMinLetters }),
           },
           maxLength: {
-            value: 60,
-            message: t('General.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
+            value: lengthMaxLetters,
+            message: t('Boards.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
           },
         }}
       />

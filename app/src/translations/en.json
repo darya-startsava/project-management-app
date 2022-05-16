@@ -50,32 +50,35 @@
     "signUpButton": "Sign up"
   },
   "Boards": {
-    "boardsTitle": "My boards",
-    "boardsOne": "The board",
-    "createElementLowerCase": "board",
-    "boardsLinkItemText": "Open board",
-    "boardsAddButtonText": "Create board",
-    "boardsModalTextareaPlaceholder": "Board name",
-    "boardsHeadItemImgAlt": "Background item",
-    "errorGetBoards": "Bad request address. Try to do it later.",
-    "boardsInputSearchText": "Search board or task..."
-  },
-  "Columns": {
-    "columnsTitle": "Board:",
-    "columnsOne": "The column",
-    "createElementLowerCase": "column",
-    "columnsModalTextareaPlaceholder": "Column name",
-    "addButtonText": "Add new column"
-  },
-  "General": {
-    "errorTitle": "Error: ",
-    "createModalTitle": "Add {{createElementLowerCase}}",
-    "errorCreate": "{{createElement}} was not created! Try to do it later.",
-    "successCreate": "{{createElement}}  was created successfully!",
+    "pageTitle": "My boards",
+    "inputSearchText": "Search board or task...",
+    "errorGetBoards": "Bad request address. Try to do it later. Error: {{errorText}}",
+    "successCreate": "The board  was created successfully!",
+    "errorCreate": "The board was not created! Try to do it later. Error: {{errorText}}",
+    "createModalTitle": "Add board",
+    "addModalTextareaPlaceholder": "Board name",
+    "errorTextarea": "Error: {{errorMessage}}",
     "errorTextMinLengthNewTitle": "Min length {{lengthMinLetters}} letters",
     "errorTextMaxLengthNewTitle": "Max length {{lengthMaxLetters}} letters",
-    "ariaLabelCloseButton": "Close",
-    "textForSubmitInCreateForm": "Add"
+    "submitButtonTextInFormNewBoard": "Add new board",
+    "addNewBoardButtonText": "Create board",
+    "boardsHeadItemImgAlt": "Background item {{itemName}}",
+    "boardsLinkItemText": "Open board"
+  },
+  "Columns": {
+    "pageTitle": "Board: {{boardName}}",
+    "successCreate": "The column was created successfully!",
+    "errorCreate": "The column was not created! Try to do it later. Error: {{errorText}",
+    "createModalTitle": "Add column",
+    "addModalTextareaPlaceholder": "Column name",
+    "errorTextarea": "Error: {{errorMessage}}",
+    "errorTextMinLengthNewTitle": "Min length {{lengthMinLetters}} letters",
+    "errorTextMaxLengthNewTitle": "Max length {{lengthMaxLetters}} letters",
+    "submitButtonTextInFormNewColumn": "Add new column",
+    "addNewColumnButtonText": "Create column"
+  },
+  "General": {
+    "ariaLabelCloseButton": "Close"
   },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",

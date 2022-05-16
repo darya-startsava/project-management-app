@@ -21,7 +21,7 @@ const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler }) => {
 
       <ListItem component="li" className={css.columnsList__itemButton}>
         <Button className={css.columnsList__item_addButton} onClick={addCardHandler}>
-          + {t('Columns.addButtonText')}
+          + {t('Columns.addNewColumnButtonText')}
         </Button>
       </ListItem>
     </List>

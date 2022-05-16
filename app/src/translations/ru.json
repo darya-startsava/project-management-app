@@ -50,32 +50,35 @@
     "signUpButton": "Регистрация"
   },
   "Boards": {
-    "boardsTitle": "Список досок",
-    "boardsOne": "Доска",
-    "createElementLowerCase": "доску",
-    "boardsLinkItemText": "Перейти к доске",
-    "boardsAddButtonText": "Создать доску",
-    "boardsModalTextareaPlaceholder": "Название новой доски",
-    "boardsHeadItemImgAlt": "Фон элемента списка",
-    "errorGetBoards": "Неверный адрес запроса. Попробуйте повторить позже.",
-    "boardsInputSearchText": "Поиск досок или задач..."
-  },
-  "Columns": {
-    "columnsTitle": "Доска:",
-    "columnsOne": "Колонка",
-    "createElementLowerCase": "колонку",
-    "columnsModalTextareaPlaceholder": "Название новой колонки",
-    "addButtonText": "Добавить колонку"
-  },
-  "General": {
-    "errorTitle": "Ошибка: ",
-    "createModalTitle": "Добавить {{createElementLowerCase}}",
-    "errorCreate": "{{createElement}} не создана! Попробуйте повторить позже.",
-    "successCreate": "{{createElement}} создана!",
+    "pageTitle": "Список досок",
+    "inputSearchText": "Поиск досок или задач...",
+    "errorGetBoards": "Неверный адрес запроса. Попробуйте повторить позже. Ошибка: {{errorText}}",
+    "successCreate": "Доска создана!",
+    "errorCreate": "Доска не создана! Попробуйте повторить позже. Ошибка: {{errorText}}",
+    "createModalTitle": "Добавить доску",
+    "addModalTextareaPlaceholder": "Название новой доски",
+    "errorTextarea": "Ошибка: {{errorMessage}}",
     "errorTextMinLengthNewTitle": "Минимальная длина {{lengthMinLetters}} символов",
     "errorTextMaxLengthNewTitle": "Максимальная длина {{lengthMaxLetters}} символов",
-    "ariaLabelCloseButton": "Закрыть",
-    "textForSubmitInCreateForm": "Добавить"
+    "submitButtonTextInFormNewBoard": "Создать новую доску",
+    "addNewBoardButtonText": "Создать доску",
+    "boardsHeadItemImgAlt": "Фон элемента {{itemName}}",
+    "boardsLinkItemText": "Перейти к доске"
+  },
+  "Columns": {
+    "pageTitle": "Доска: {{boardName}}",
+    "successCreate": "Колонка создана!",
+    "errorCreate": "Колонка не создана! Попробуйте повторить позже. Ошибка: {{errorText}}",
+    "createModalTitle": "Добавить колонку",
+    "addModalTextareaPlaceholder": "Название новой колонки",
+    "errorTextarea": "Ошибка: {{errorMessage}}",
+    "errorTextMinLengthNewTitle": "Минимальная длина {{lengthMinLetters}} символов",
+    "errorTextMaxLengthNewTitle": "Максимальная длина {{lengthMaxLetters}} символов",
+    "submitButtonTextInFormNewColumn": "Создать новую колонку",
+    "addNewColumnButtonText": "Добавить колонку"
+  },
+  "General": {
+    "ariaLabelCloseButton": "Закрыть"
   },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",

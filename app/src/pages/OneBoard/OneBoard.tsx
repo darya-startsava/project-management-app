@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAddColumnMutation, useGetAllColumnsQuery } from '$services/api';
@@ -23,34 +23,42 @@ const OneBoard: FC = () => {
   const { t } = useTranslation();
   const lengthMinLetters = 5;
   const lengthMaxLetters = 20;
-  const createElement = t('Columns.columnsOne');
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModal, setShowModal] = useState<boolean>(false);
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
   const { data: columns = [] } = useGetAllColumnsQuery(params.id || '');
-  const [addColumn, { isLoading: isAddingColumn, error }] = useAddColumnMutation();
+  const [addColumn, { isLoading: isAddingColumn, error, isSuccess: isSuccessAddBoard }] =
+    useAddColumnMutation();
 
-  const addNewBoard: TCreateElement = async (data: INewNameFormState) => {
-    try {
-      await addColumn({
-        body: { title: data.newTitle, order: columns.length },
-        id: params.id || '',
-      });
-
-      enqueueSnackbar(t('General.successCreate', { createElement }), {
+  useEffect(() => {
+    if (isSuccessAddBoard) {
+      enqueueSnackbar(t('Columns.successCreate'), {
         variant: 'success',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
-    } catch (_) {
-      const errorMessage = `${t('General.errorCreate', { createElement })} ${error || ''}`;
-      return enqueueSnackbar(errorMessage, {
+    }
+  }, [isSuccessAddBoard, t, enqueueSnackbar, closeSnackbar]);
+
+  useEffect(() => {
+    if (error) {
+      const errorMessage = t('Columns.errorCreate', {
+        errorText: error,
+      });
+      enqueueSnackbar(errorMessage, {
         variant: 'error',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
+  }, [error, t, enqueueSnackbar, closeSnackbar]);
+
+  const addNewBoard: TCreateElement = (data: INewNameFormState) => {
+    addColumn({
+      body: { title: data.newTitle, order: columns.length },
+      id: params.id || '',
+    });
     setShowModal(false);
   };
 
@@ -63,8 +71,8 @@ const OneBoard: FC = () => {
           style={{
             backgroundImage: `url(${arrImages[indexImg]})`,
           }}
-        ></Box>
-        {t('Columns.columnsTitle')} {location.state as string}
+        />
+        <Box component="span">{t('Columns.pageTitle', { boardName: location.state })}</Box>
         <TableChartIcon />
       </Typography>
 
@@ -76,23 +84,23 @@ const OneBoard: FC = () => {
       />
 
       <LightboxForCreateItem
-        modalTitle={t('General.createModalTitle', {
-          createElementLowerCase: '$t(Columns.createElementLowerCase)',
-        })}
+        modalTitle={t('Columns.createModalTitle')}
         showModal={showModal}
         changeShowModal={setShowModal}
         submitCB={addNewBoard}
         isLoading={isAddingColumn}
-        placeholderText={t('Columns.columnsModalTextareaPlaceholder')}
+        placeholderText={t('Columns.addModalTextareaPlaceholder')}
+        textareaErrorText={(errorMessage: string) => t('Columns.errorTextarea', { errorMessage })}
+        submitButtonText={t('Columns.submitButtonTextInFormNewColumn')}
         rules={{
           required: true,
           minLength: {
             value: 5,
-            message: t('General.errorTextMinLengthNewTitle', { lengthMinLetters }),
+            message: t('Columns.errorTextMinLengthNewTitle', { lengthMinLetters }),
           },
           maxLength: {
             value: 20,
-            message: t('General.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
+            message: t('Columns.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
           },
         }}
       />
