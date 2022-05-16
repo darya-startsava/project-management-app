@@ -66,6 +66,11 @@
     "ariaLabelCloseButton": "Закрыть",
     "boardsInputSearchText": "Поиск досок или задач..."
   },
+  "NotFoundPage": {
+    "heading": "Страница не найдена",
+    "text": "Мы не смогли найти то, что вы искали.",
+    "checkUrlText": "Пожалуйста, проверьте URL адрес."
+  },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",
     "githubLogo": "Логотип Github"
