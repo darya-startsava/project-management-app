@@ -4,6 +4,7 @@
 
 export type TSimpleFunction = () => void;
 export type TChangeElHandler<T> = (event: React.ChangeEvent<T>) => void;
+export type TClickHandler = (event: React.MouseEvent) => void;
 
 export interface IWrapEl {
   className?: string;
@@ -16,7 +17,7 @@ export interface IUserLogIn {
 }
 
 export interface IUserRegistration extends IUserLogIn {
-  name: string;
+  name?: string;
 }
 
 export interface IUser {

@@ -32,22 +32,36 @@
     "goToMainPage": "Go to main page"
   },
   "LogIn": {
-    "signInTitle": "Sign in",
+    "signTitle": "Sign in",
     "loginLabel": "Login",
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signInButton": "Sign in"
+    "signButton": "Sign in",
+    "loginFieldRequiredMessage": "This field must be filled",
+    "passwordFieldRequiredMessage": "This field must be filled",
+    "error403Message": "Login and/or password are incorrect.",
+    "errorMessage": "Something went wrong. Please, try later.",
+    "questionToChangeSortOfAuth": "Don't have an account?",
+    "linkToChangeSortOfAuth": "Sign up"
   },
   "Registration": {
-    "signUpTitle": "Sign up",
+    "signTitle": "Sign up",
     "nameLabel": "Name",
     "namePlaceholder": "Name",
     "loginLabel": "Login",
     "loginPlaceholder": "Login",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Password",
-    "signUpButton": "Sign up"
+    "signButton": "Sign up",
+    "nameFieldRequiredMessage": "This field must be filled",
+    "loginFieldRequiredMessage": "This field must be filled",
+    "passwordFieldRequiredMessage": "This field must be filled",
+    "passwordFieldMinLengthMessage": "Password must contain at least 5 symbols",
+    "error409Message": "User with this login is already exist. Please, choose another.",
+    "errorMessage": "Something went wrong.Please, try later.",
+    "questionToChangeSortOfAuth": "Have an account?",
+    "linkToChangeSortOfAuth": "Sign in"
   },
   "Boards": {
     "boardsTitle": "My boards",
@@ -57,6 +71,13 @@
     "boardsModalTextareaPlaceholder": "Board name",
     "boardsModalSubmitButton": "Add",
     "boardsHeadItemImgAlt": "Background item",
+    "errorTitle": "Error: ",
+    "errorTextMinLengthNewTitle": "Min length 5 letters",
+    "errorTextMaxLengthNewTitle": "Max length 60 letters",
+    "errorBoardCreate": "The board was not created! Try to do it later.",
+    "successBoardCreate": "The board was created successfully!",
+    "errorGetBoards": "Bad request address. Try to do it later.",
+    "ariaLabelCloseButton": "Close",
     "boardsInputSearchText": "Search board or task..."
   },
   "Profile": {
@@ -72,6 +93,11 @@
     "profileConfirmChangeProfile": "Are you sure you want to change the user info?",
     "profileAgreeButtonText": "Agree",
     "profileDisagreeButtonText": "Disagree"
+  },
+  "NotFoundPage": {
+    "heading": "Page Not Found",
+    "text": "We couldn't find what you were looking for.",
+    "checkUrlText": "Please check URL."
   },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",
