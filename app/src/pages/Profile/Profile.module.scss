@@ -11,7 +11,7 @@
   }
 
   &__title {
-    font-size: 36px;
+    font-size: $pageTitleText;
     text-align: center;
   }
 
@@ -28,7 +28,7 @@
     .profile__content_deleteButton{
       margin-top: 30px;
       width: 100%;
-      padding: 10px;
+      padding: 13px 10px;
       border-radius: $borderRadius;
       color: $whiteColor;
       background-color: $red;
@@ -39,25 +39,29 @@
     }
   }
 
-  .profile__form{
+  .profile__form_wrapper {
     width: 100%;
     max-width: 380px;
     margin-left: 30px;
+  }
+
+  .profile__form{
+    width: 100%;
 
     &_title {
       font-weight: 600;
-      font-size: 18px;
+      font-size: $textSize;
       text-align: center;
     }
     .profile__form_inputWrapper {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     .profile__form_input {
       width: 100%;
       padding: 15px 10px 15px 30px;
       font-weight: 500;
-      font-size: 18px;
+      font-size: 1rem;
       border-color: #FAFAFA;
       border-radius: 10px;
       border: 2px solid #E6E6E6;
@@ -74,10 +78,10 @@
 
     &_submit {
       width: 100%;
-      margin-top: 20px;
-      padding: 15px;
-      font-size: 18px;
-      border-radius: 10px;
+      margin-top: 29px;
+      padding: 13px 15px;
+      font-size: 1rem;
+      border-radius: $borderRadius;
       color: $whiteColor;
       background-color: $primary;
       cursor: pointer;

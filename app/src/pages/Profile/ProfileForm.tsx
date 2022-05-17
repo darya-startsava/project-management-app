@@ -98,7 +98,7 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
   });
 
   return (
-    <Grid item className={css.profile__form}>
+    <Grid item className={css.profile__form_wrapper}>
       <Box
         className={css.profile__form}
         component="form"

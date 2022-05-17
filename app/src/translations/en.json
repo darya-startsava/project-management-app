@@ -93,7 +93,7 @@
     "addNewColumnButtonText": "Create column"
   },
   "Profile": {
-    "pageTitle": "Profile {{name}}",
+    "pageTitle": "User profile - {{name}}",
     "userImage": "User image.",
     "deleteButtonText": "Delete user",
     "confirmDeleteModalTitle": "Are you sure you want to delete the profile?",

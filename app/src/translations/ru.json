@@ -93,7 +93,7 @@
     "addNewColumnButtonText": "Добавить колонку"
   },
   "Profile": {
-    "pageTitle": "Профиль {{name}}",
+    "pageTitle": "Профиль пользователя - {{name}}",
     "userImage": "Картинка пользователя.",
     "deleteButtonText": "Удалить профиль",
     "confirmDeleteModalTitle": "Вы уверены, что хотите удалить профиль?",
