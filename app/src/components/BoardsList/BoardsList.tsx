@@ -29,7 +29,7 @@ const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler, updateCardTi
       <Grid item component="li" className={css.boardsList__item} mb={5}>
         <Button className={css.boardsList__item_addButton} onClick={addCardHandler}>
           <Box className={css.boardsList__item_addButtonText} component="span">
-            {t('Boards.boardsAddButtonText')}
+            {t('Boards.addNewBoardButtonText')}
           </Box>
           <Box className={css.boardsList__item_buttonIconWrapper} component="span">
             <TableChartIcon />

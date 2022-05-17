@@ -1,16 +1,16 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Welcome from '$pages/Welcome';
 import Boards from '$pages/Boards';
 import OneBoard from '$pages/OneBoard';
-import LogIn from '$pages/LogIn/LogIn';
-import Registration from '$pages/Registration';
+import Authorization from '$pages/Authorization';
 import ErrorPage from '$pages/ErrorPage';
 import RequiredAuth from '$components/RequiredAuth';
 import Profile from '$pages/Profile';
 import { ROUTES_PATHS } from '$settings/routing';
 import NotFoundPage from '$pages/NotFoundPage';
+import NoDoubleLogin from '$components/NoDoubleLogin';
 
 const AppRoutes: FC = () => {
   return (
@@ -32,7 +32,14 @@ const AppRoutes: FC = () => {
           </RequiredAuth>
         }
       />
-      <Route path={ROUTES_PATHS.login} element={<LogIn />} />
+      <Route
+        path={ROUTES_PATHS.login}
+        element={
+          <NoDoubleLogin redirect={ROUTES_PATHS.boards}>
+            <Authorization sortOfAuth={'LogIn'} />
+          </NoDoubleLogin>
+        }
+      />
       <Route
         path={ROUTES_PATHS.logout}
         element={
@@ -41,7 +48,14 @@ const AppRoutes: FC = () => {
           </RequiredAuth>
         }
       />
-      <Route path={ROUTES_PATHS.registration} element={<Registration />} />
+      <Route
+        path={ROUTES_PATHS.registration}
+        element={
+          <NoDoubleLogin redirect={ROUTES_PATHS.boards}>
+            <Authorization sortOfAuth={'Registration'} />
+          </NoDoubleLogin>
+        }
+      />
       <Route
         path={ROUTES_PATHS.profile}
         element={
