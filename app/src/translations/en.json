@@ -66,6 +66,11 @@
     "ariaLabelCloseButton": "Close",
     "boardsInputSearchText": "Search board or task..."
   },
+  "NotFoundPage": {
+    "heading": "Page Not Found",
+    "text": "We couldn't find what you were looking for.",
+    "checkUrlText": "Please check URL."
+  },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",
     "githubLogo": "Github logo"
