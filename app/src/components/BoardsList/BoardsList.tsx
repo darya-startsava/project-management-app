@@ -11,19 +11,15 @@ import css from './BoardsList.module.scss';
 interface IBoardsListProps {
   boards: Array<IBoard>;
   addCardHandler: TSimpleFunction;
-  updateCardTitleHandler: TSimpleFunction;
+  updateCardHandler: TSimpleFunction;
 }
-const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler, updateCardTitleHandler }) => {
+const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler, updateCardHandler }) => {
   const { t } = useTranslation();
 
   return (
     <Grid container component="ul" className={css.boardsList}>
       {boards.map((boardItem: IBoard) => (
-        <BoardsListItem
-          updateCardHandler={updateCardTitleHandler}
-          key={boardItem.id}
-          {...boardItem}
-        />
+        <BoardsListItem updateCardHandler={updateCardHandler} key={boardItem.id} {...boardItem} />
       ))}
 
       <Grid item component="li" className={css.boardsList__item} mb={5}>

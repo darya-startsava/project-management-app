@@ -77,7 +77,11 @@
     "submitButtonTextInFormNewBoard": "Add new board",
     "addNewBoardButtonText": "Create board",
     "boardsHeadItemImgAlt": "Background item {{itemName}}",
-    "boardsLinkItemText": "Open board"
+    "boardsLinkItemText": "Open board",
+    "updateModalTitle": "Edit board title",
+    "updateModalSubmitButton": "Edit",
+    "errorUpdateBoardTitle": "Board title has not been changed! Error: {{errorText}}",
+    "successUpdateBoardTitle": "Board title changed successfully!"
   },
   "Columns": {
     "pageTitle": "Board: {{boardName}}",

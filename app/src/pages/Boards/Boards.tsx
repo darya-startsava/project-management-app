@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useAddBoardMutation, useGetAllBoardsQuery } from '$services/api';
+import { useAddBoardMutation, useGetAllBoardsQuery, useUpdateBoardMutation } from '$services/api';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import Section from '$components/Section';
@@ -8,8 +8,16 @@ import BoardsList from '$components/BoardsList';
 import LightboxForCreateItem from '$components/LightboxForCreateItem';
 import CloseButton from '$components/CloseButton';
 import { CLOSE_SNACKBAR_TIME } from '$settings/index';
-import { IError, INewNameFormState, TCreateElement } from '$types/common';
+import {
+  // IBoard,
+  IError,
+  INewNameFormState,
+  // IUpdateTitleFormState,
+  TCreateElement,
+  // TUpdateElement,
+} from '$types/common';
 import css from './Boards.module.scss';
+import LightboxForUpdateItem from '$components/LightboxForUpdateItem';
 
 export type TChangeBoardsShow = (searchValue: string) => void;
 
@@ -19,10 +27,23 @@ const Boards: FC = () => {
   const lengthMaxLetters = 60;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+  // const [clickedCard, setClickedCard] = useState<IBoard[]>([]);
+
+  // const handleClickCard = (card: IBoard) => {
+  //   if (clickedCard.find((boardItem: IBoard) => boardItem.id === card.id)) {
+  //     setClickedCard([card]);
+  //   }
+  // };
+
   const [
     addBoard,
     { isLoading: isAddingBoard, error: errorAddBoard, isSuccess: isSuccessAddBoard },
   ] = useAddBoardMutation();
+  const [
+    updateBoard,
+    { isLoading: isUpdateBoard, error: errorUpdateBoard, isSuccess: isSuccessUpdateBoard },
+  ] = useUpdateBoardMutation();
   const { data: boards = [], error: errorGetBoards } = useGetAllBoardsQuery();
 
   useEffect(() => {
@@ -59,6 +80,27 @@ const Boards: FC = () => {
     }
   }, [t, errorAddBoard, enqueueSnackbar, closeSnackbar]);
 
+  useEffect(() => {
+    if (errorUpdateBoard) {
+      const errorMessage = t('Boards.errorUpdateBoardTitle', { errorText: errorUpdateBoard });
+      enqueueSnackbar(errorMessage, {
+        variant: 'error',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [closeSnackbar, enqueueSnackbar, errorUpdateBoard, t]);
+
+  useEffect(() => {
+    if (isSuccessUpdateBoard) {
+      enqueueSnackbar(t('Boards.successUpdateBoardTitle'), {
+        variant: 'success',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [closeSnackbar, enqueueSnackbar, isSuccessUpdateBoard, t]);
+
   useEffect(() => {}, [t, enqueueSnackbar, closeSnackbar]);
 
   const changeBoardsListShow: TChangeBoardsShow = (searchValue: string) => {
@@ -77,6 +119,11 @@ const Boards: FC = () => {
     setShowModal(false);
   };
 
+  const updateBoardTitle = () => {
+    updateBoard({ body: clickedCard, id: boardId });
+    setShowUpdateModal(false);
+  };
+
   return (
     <Section className={css.boards} pageAllSpace={true}>
       <BoardsHead searchCB={changeBoardsListShow} />
@@ -86,8 +133,8 @@ const Boards: FC = () => {
         addCardHandler={() => {
           setShowModal(true);
         }}
-        updateCardTitleHandler={() => {
-          setShowModal(true);
+        updateCardHandler={() => {
+          setShowUpdateModal(true);
         }}
       />
 
@@ -111,6 +158,26 @@ const Boards: FC = () => {
             message: t('Boards.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
           },
         }}
+      />
+
+      <LightboxForUpdateItem
+        modalTitle={t('Boards.updateModalTitle')}
+        showUpdateModal={showUpdateModal}
+        changeShowUpdateModal={setShowUpdateModal}
+        submitCB={updateBoardTitle}
+        isLoading={isUpdateBoard}
+        localizationKeyTextareaErrorText="Boards.errorTextarea"
+        // rules={{
+        //   required: true,
+        //   minLength: {
+        //     value: lengthMinLetters,
+        //     message: t('Boards.errorTextMinLengthNewTitle', { lengthMinLetters }),
+        //   },
+        //   maxLength: {
+        //     value: lengthMaxLetters,
+        //     message: t('Boards.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
+        //   },
+        // }}
       />
     </Section>
   );

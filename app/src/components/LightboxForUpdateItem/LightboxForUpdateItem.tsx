@@ -1,27 +1,34 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useUpdateBoardMutation } from '$services/api';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useSnackbar } from 'notistack';
 import classNames from 'classnames';
 import { InputBase, Box, TextareaAutosize, Typography } from '@mui/material';
 import LightBox from '$components/Lightbox';
-import CloseButton from '$components/CloseButton';
-import css from './LightboxUpdateBoard.module.scss';
+import { TUpdateElement } from '$types/common';
+import css from './LightboxUpdateItem.module.scss';
 
 interface IBoardsModal {
   showUpdateModal: boolean;
   changeShowUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
+  submitCB: TUpdateElement;
+  localizationKeyTextareaErrorText: string;
+  modalTitle: string;
+  isLoading: boolean;
 }
 
 interface IFormState {
   cardTitle: string;
 }
 
-const LightboxUpdateBoard: FC<IBoardsModal> = ({ showUpdateModal, changeShowUpdateModal }) => {
+const LightboxUpdateBoard: FC<IBoardsModal> = ({
+  showUpdateModal,
+  changeShowUpdateModal,
+  modalTitle,
+  submitCB,
+  localizationKeyTextareaErrorText,
+  isLoading,
+}) => {
   const { t } = useTranslation();
-  const [updateBoard, { isLoading }] = useUpdateBoardMutation();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const {
     handleSubmit,
@@ -30,23 +37,11 @@ const LightboxUpdateBoard: FC<IBoardsModal> = ({ showUpdateModal, changeShowUpda
     formState: { isDirty, errors },
   } = useForm<IFormState>();
 
-  const updateBoardHandler: SubmitHandler<IFormState> = async (data) => {
-    try {
-      await updateBoard({ title: data.cardTitle }).unwrap();
-    } catch (_) {
-      return enqueueSnackbar(t('Boards.errorUpdateBoardTitle'), {
-        variant: 'error',
-        autoHideDuration: 5000,
-        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
-      });
-    }
-
-    enqueueSnackbar(t('Boards.successUpdateBoardTitle'), {
-      variant: 'success',
-      autoHideDuration: 5000,
-      action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+  const updateBoardHandler: SubmitHandler<IFormState> = (data) => {
+    submitCB({
+      newTitle: data.cardTitle.trim(),
+      id: '',
     });
-    changeShowUpdateModal(false);
     reset();
   };
 
@@ -64,7 +59,7 @@ const LightboxUpdateBoard: FC<IBoardsModal> = ({ showUpdateModal, changeShowUpda
       closeModalFunction={() => {
         changeShowUpdateModal(false);
       }}
-      modalTitle={t('Boards.boardsUpdateModalTitle')}
+      modalTitle={modalTitle}
     >
       <Box
         className={css.modalAddForm}
@@ -92,17 +87,14 @@ const LightboxUpdateBoard: FC<IBoardsModal> = ({ showUpdateModal, changeShowUpda
               <TextareaAutosize
                 value={value}
                 className={classNameTextarea}
-                placeholder={t('Boards.boardsModalTextareaPlaceholder')}
-                area-label={t('Boards.boardsModalTextareaPlaceholder')}
+                placeholder={t('Boards.addModalTextareaPlaceholder')}
+                aria-label={t('Boards.addModalTextareaPlaceholder')}
                 onChange={onChange}
               />
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
-                  <Box component="span" className={css.modalAddForm_errorText}>
-                    {t('Boards.errorTitle')}
-                  </Box>
-                  <Box component="span">{error.message}</Box>
+                  {t(localizationKeyTextareaErrorText, { errorMessage: error?.message })}
                 </Typography>
               )}
             </>
@@ -114,7 +106,7 @@ const LightboxUpdateBoard: FC<IBoardsModal> = ({ showUpdateModal, changeShowUpda
           type="submit"
           disableInjectingGlobalStyles={true}
           disabled={isLoading || !isDirty}
-          value={t('Boards.boardsUpdateModalSubmitButton')}
+          value={t('Boards.updateModalSubmitButton')}
         />
       </Box>
     </LightBox>

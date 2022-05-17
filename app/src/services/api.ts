@@ -64,6 +64,14 @@ export const api = createApi({
       query: (body: IBoardCreateObj) => ({ url: QueryPoints.boards, method: 'POST', body }),
       invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
     }),
+    updateBoard: build.mutation<IBoard, { body: IBoard; id: string }>({
+      query: ({ body, id }) => ({
+        url: `/${QueryPoints.boards}/${id}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
+    }),
 
     // columns page
     getAllColumns: build.query<Array<IColumn>, string>({
@@ -96,6 +104,7 @@ export const {
   useGetAllUsersQuery,
   useGetAllBoardsQuery,
   useAddBoardMutation,
+  useUpdateBoardMutation,
   useGetAllColumnsQuery,
   useAddColumnMutation,
 } = api;

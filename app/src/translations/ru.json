@@ -77,7 +77,11 @@
     "submitButtonTextInFormNewBoard": "Создать новую доску",
     "addNewBoardButtonText": "Создать доску",
     "boardsHeadItemImgAlt": "Фон элемента {{itemName}}",
-    "boardsLinkItemText": "Перейти к доске"
+    "boardsLinkItemText": "Перейти к доске",
+    "UpdateModalTitle": "Изменить название доски",
+    "UpdateModalSubmitButton": "Изменить",
+    "errorUpdateBoardTitle": "Название доски не изменено!",
+    "successUpdateBoardTitle": "Название доски изменено успешно!"
   },
   "Columns": {
     "pageTitle": "Доска: {{boardName}}",
