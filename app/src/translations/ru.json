@@ -92,27 +92,38 @@
     "submitButtonTextInFormNewColumn": "Создать новую колонку",
     "addNewColumnButtonText": "Добавить колонку"
   },
-  "General": {
-    "ariaLabelCloseButton": "Закрыть"
-  },
   "Profile": {
-    "profileTitle": "Профиль",
-    "profileFormTitle": "Поля для редактирования профиля",
-    "profileNameLabel": "Имя",
-    "profileLoginLabel": "Логин",
-    "profilePasswordLabel": "Пароль",
-    "profileSubmit": "Обновить профиль",
-    "profileImage": "Картинка пользователя.",
-    "profileDelete": "Удалить профиль",
-    "profileConfirmDelete": "Вы уверены, что хотите удалить профиль?",
-    "profileConfirmChangeProfile": "Вы уверены, что хотите изменить данные?",
-    "profileAgreeButtonText": "Согласиться",
-    "profileDisagreeButtonText": "Не соглашаться"
+    "pageTitle": "Профиль {{name}}",
+    "userImage": "Картинка пользователя.",
+    "deleteButtonText": "Удалить профиль",
+    "confirmDeleteModalTitle": "Вы уверены, что хотите удалить профиль?",
+    "titleChangeForm": "Поля для редактирования профиля",
+    "errorTextMinLengthNewName": "Минимальная длина {{minLetters}} символов для имени",
+    "errorTextMaxLengthNewName": "Максимальная длина {{maxLetters}} символов для имени",
+    "nameLabel": "Имя",
+    "errorTextMinLengthNewLogin": "Минимальная длина {{minLetters}} символов для логина",
+    "errorTextMaxLengthNewLogin": "Максимальная длина {{maxLetters}} символов для логина",
+    "loginLabel": "Логин",
+    "errorTextMinLengthNewPassword": "Минимальная длина {{minLetters}} символов для пароля",
+    "errorTextMaxLengthNewPassword": "Максимальная длина {{maxLetters}} символов для пароля",
+    "passwordLabel": "Пароль",
+    "submitChangeFormText": "Обновить профиль",
+    "errorUpdate": "Ошибка обновления профиля: {{errorText}}",
+    "successUpdate": "Профиль успешно обновлен!",
+    "errorGetAllUsers": "Ошибка. Профиль не найден.",
+    "errorDeleteProfile": "Профиль не удален! Ошибка: {{errorText}}",
+    "successDeleteUser": "Профиль был удален!",
+    "confirmUpdateModalTitle": "Вы уверены, что хотите изменить данные?"
   },
   "NotFoundPage": {
     "heading": "Страница не найдена",
     "text": "Мы не смогли найти то, что вы искали.",
     "checkUrlText": "Пожалуйста, проверьте URL адрес."
+  },
+  "General": {
+    "ariaLabelCloseButton": "Закрыть",
+    "agreeButtonText": "Согласиться",
+    "disagreeButtonText": "Не соглашаться"
   },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",

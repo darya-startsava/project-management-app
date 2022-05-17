@@ -31,11 +31,11 @@ const ConfirmWindow: FC<IConfirmWindowProps> = ({
 
       <DialogActions className={css.profile__confirmModal_buttonsWrapper}>
         <Button onClick={disAgreeHandler} className={css.profile__confirmModal_red} autoFocus>
-          {t('Profile.profileDisagreeButtonText')}
+          {t('General.disagreeButtonText')}
         </Button>
 
         <Button onClick={agreeHandler} className={css.profile__confirmModal_green}>
-          {t('Profile.profileAgreeButtonText')}
+          {t('General.agreeButtonText')}
         </Button>
       </DialogActions>
     </Dialog>

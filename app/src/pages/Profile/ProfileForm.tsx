@@ -1,16 +1,20 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from '$store/store';
+import { setLogin } from '$store/appSlice';
 import { useUpdateUserMutation } from '$services/api';
 import classNames from 'classnames';
 import { Box, Grid, InputBase, Typography } from '@mui/material';
 import ConfirmWindow from '$components/ConfirmWindow';
-import { setLogin } from '$store/appSlice';
+import CloseButton from '$components/CloseButton';
+import { CLOSE_SNACKBAR_TIME, LOGIN_NAME_LOCALSTORAGE } from '$settings/index';
+import { IError } from '$types/common';
 import css from './Profile.module.scss';
 
 interface IFormState {
-  username: string;
+  name: string;
   login: string;
   password: string;
 }
@@ -21,43 +25,66 @@ interface IProfileFormProps {
 
 const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
   const { t } = useTranslation();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isShowConfirmModalChange, setIsShowConfirmModalChange] = useState<boolean>(false);
   const [userNewInfo, setUserNewInfo] = useState<IFormState | null>(null);
-  const { handleSubmit, control, reset } = useForm<IFormState>({
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { isDirty, isSubmitting },
+  } = useForm<IFormState>({
     defaultValues: {
-      username: '',
+      name: '',
       login: '',
       password: '',
     },
   });
   const dispatch = useAppDispatch();
-  const [updateUser] = useUpdateUserMutation();
+  const [updateUser, { isLoading, error, isSuccess }] = useUpdateUserMutation();
+
+  useEffect(() => {
+    if (error) {
+      const errorMessage = t('Profile.errorUpdate', {
+        errorText: (error as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        variant: 'error',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [error, t, enqueueSnackbar, closeSnackbar]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      const errorMessage = t('Profile.successUpdate');
+      enqueueSnackbar(errorMessage, {
+        variant: 'success',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [isSuccess, t, enqueueSnackbar, closeSnackbar]);
 
   const changeUserInfoHandler: SubmitHandler<IFormState> = (data) => {
     setIsShowConfirmModalChange(true);
     setUserNewInfo(data);
   };
 
-  const changeUserInfo = async () => {
-    try {
-      if (userNewInfo) {
-        const newData = {
-          name: userNewInfo.username,
-          login: userNewInfo.login,
-          password: userNewInfo.password,
-        };
-
-        await updateUser({ body: newData, id: userId }).unwrap();
-        setIsShowConfirmModalChange(false);
-        reset({
-          username: '',
-          login: '',
-          password: '',
-        });
-        dispatch(setLogin(userNewInfo?.login));
-      }
-    } catch (_) {}
-    setUserNewInfo(null);
+  const changeUserInfo = () => {
+    if (userNewInfo) {
+      updateUser({ body: userNewInfo, id: userId });
+      reset({
+        name: '',
+        login: '',
+        password: '',
+      });
+      dispatch(setLogin(userNewInfo.login));
+      localStorage.setItem(LOGIN_NAME_LOCALSTORAGE, userNewInfo.login);
+      setUserNewInfo(null);
+    }
+    setIsShowConfirmModalChange(false);
   };
 
   const inputClassName = (isError: boolean): string => {
@@ -80,21 +107,21 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
         noValidate
       >
         <Typography variant="inherit" component="p" className={css.profile__form_title} mb={2}>
-          {t('Profile.profileFormTitle')}
+          {t('Profile.titleChangeForm')}
         </Typography>
 
         <Controller
           control={control}
-          name="username"
+          name="name"
           rules={{
             required: true,
             minLength: {
               value: 5,
-              message: t('Profile.errorTextMinLengthNewTitle'),
+              message: t('Profile.errorTextMinLengthNewName', { minLetters: 5 }),
             },
             maxLength: {
-              value: 60,
-              message: t('Profile.errorTextMaxLengthNewTitle'),
+              value: 20,
+              message: t('Profile.errorTextMaxLengthNewName', { minLetters: 20 }),
             },
           }}
           render={({ field: { ...field }, fieldState: { error } }) => (
@@ -102,9 +129,9 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
               <InputBase
                 className={inputClassName(!!error?.message)}
                 type="text"
-                placeholder={t('Profile.profileNameLabel')}
+                placeholder={t('Profile.nameLabel')}
                 inputProps={{
-                  'aria-label': t('Profile.profileNameLabel'),
+                  'aria-label': t('Profile.nameLabel'),
                 }}
                 {...field}
               />
@@ -125,11 +152,11 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
             required: true,
             minLength: {
               value: 5,
-              message: t('Profile.errorTextMinLengthNewTitle'),
+              message: t('Profile.errorTextMinLengthNewLogin', { minLetters: 5 }),
             },
             maxLength: {
-              value: 60,
-              message: t('Profile.errorTextMaxLengthNewTitle'),
+              value: 20,
+              message: t('Profile.errorTextMaxLengthNewLogin', { minLetters: 20 }),
             },
           }}
           render={({ field: { ...field }, fieldState: { error } }) => (
@@ -137,9 +164,9 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
               <InputBase
                 className={inputClassName(!!error?.message)}
                 type="text"
-                placeholder={t('Profile.profileLoginLabel')}
+                placeholder={t('Profile.loginLabel')}
                 inputProps={{
-                  'aria-label': t('Profile.profileLoginLabel'),
+                  'aria-label': t('Profile.loginLabel'),
                 }}
                 {...field}
               />
@@ -160,11 +187,11 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
             required: true,
             minLength: {
               value: 5,
-              message: t('Profile.errorTextMinLengthNewTitle'),
+              message: t('Profile.errorTextMinLengthNewPassword', { minLetters: 5 }),
             },
             maxLength: {
-              value: 60,
-              message: t('Profile.errorTextMaxLengthNewTitle'),
+              value: 15,
+              message: t('Profile.errorTextMaxLengthNewPassword', { minLetters: 15 }),
             },
           }}
           render={({ field: { ...field }, fieldState: { error } }) => (
@@ -172,9 +199,9 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
               <InputBase
                 className={inputClassName(!!error?.message)}
                 type="password"
-                placeholder={t('Profile.profilePasswordLabel')}
+                placeholder={t('Profile.passwordLabel')}
                 inputProps={{
-                  'aria-label': t('Profile.profilePasswordLabel'),
+                  'aria-label': t('Profile.passwordLabel'),
                 }}
                 {...field}
               />
@@ -192,14 +219,14 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
           className={classNameSubmit}
           type="submit"
           disableInjectingGlobalStyles={true}
-          // disabled={isLoading || !isDirty}
-          value={t('Profile.profileSubmit')}
+          disabled={isLoading || !isDirty || isSubmitting}
+          value={t('Profile.submitChangeFormText')}
         />
       </Box>
 
       <ConfirmWindow
         isShow={isShowConfirmModalChange}
-        title={t('Profile.profileConfirmChangeProfile')}
+        title={t('Profile.confirmUpdateModalTitle')}
         disAgreeHandler={() => setIsShowConfirmModalChange(false)}
         agreeHandler={changeUserInfo}
       />
