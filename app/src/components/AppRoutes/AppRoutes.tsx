@@ -55,7 +55,7 @@ const AppRoutes: FC = () => {
             <Authorization sortOfAuth={'Registration'} />
           </NoDoubleLogin>
         }
-      />{' '}
+      />
       <Route
         path={ROUTES_PATHS.profile}
         element={

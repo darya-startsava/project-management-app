@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ErrorMessage } from '@hookform/error-message';
-import { useSnackbar } from 'notistack';
+import { useSnackbar, OptionsObject } from 'notistack';
 import { IUserLogIn, IUserRegistration } from '$types/common';
 import { setToken } from '$store/appSlice';
 import { useSignInMutation, useSignUpMutation } from '$services/api';
@@ -20,10 +20,24 @@ interface IAuthorization {
   sortOfAuth: string;
 }
 
+enum SortOfAuth {
+  Registration = 'Registration',
+  LogIn = 'LogIn',
+}
+
+const messageOptions: OptionsObject = {
+  variant: 'error',
+  autoHideDuration: 5000,
+  anchorOrigin: {
+    vertical: 'top',
+    horizontal: 'center',
+  },
+};
+
 const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   let passwordValue = 0;
   let changeSortOfAuth = ROUTES_PATHS.registration;
-  if (sortOfAuth === 'Registration') {
+  if (sortOfAuth === SortOfAuth.Registration) {
     passwordValue = 5;
     changeSortOfAuth = ROUTES_PATHS.login;
   }
@@ -42,23 +56,9 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   useEffect(() => {
     if (errorSignIn && 'data' in errorSignIn) {
       if (errorSignIn.status === 403) {
-        enqueueSnackbar(t('LogIn.error403Message'), {
-          variant: 'error',
-          autoHideDuration: 5000,
-          anchorOrigin: {
-            vertical: 'top',
-            horizontal: 'center',
-          },
-        });
+        enqueueSnackbar(t('LogIn.error403Message'), messageOptions);
       } else {
-        enqueueSnackbar(t('LogIn.errorMessage'), {
-          variant: 'error',
-          autoHideDuration: 5000,
-          anchorOrigin: {
-            vertical: 'top',
-            horizontal: 'center',
-          },
-        });
+        enqueueSnackbar(t('LogIn.errorMessage'), messageOptions);
       }
     }
   }, [errorSignIn, enqueueSnackbar, t]);
@@ -88,7 +88,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   }, [errorSignUp, enqueueSnackbar, t]);
 
   const onSubmit: SubmitHandler<IUserRegistration> = async (data) => {
-    if (sortOfAuth === 'Registration') {
+    if (sortOfAuth === SortOfAuth.Registration) {
       await newUserRegistration(data);
     }
     await userLogIn({ login: data.login, password: data.password });
@@ -115,7 +115,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
       </Grid>
       <form className="Auth" onSubmit={handleSubmit(onSubmit)}>
         <Grid className="Auth" container direction="column">
-          {sortOfAuth === 'Registration' && (
+          {sortOfAuth === SortOfAuth.Registration && (
             <>
               <TextField
                 className="Auth"
