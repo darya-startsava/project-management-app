@@ -14,9 +14,10 @@ const CloseButton: FC<ICloseButtonProps> = ({ closeCb, size = 'small', className
   return (
     <IconButton
       size={size}
-      aria-label={t('Boards.ariaLabelCloseButton')}
+      aria-label={t('General.ariaLabelCloseButton')}
       onClick={closeCb}
       className={className}
+      color="inherit"
     >
       <CloseIcon fontSize="small" />
     </IconButton>
