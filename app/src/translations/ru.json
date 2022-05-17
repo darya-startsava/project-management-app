@@ -66,7 +66,7 @@
   "Boards": {
     "pageTitle": "Список досок",
     "inputSearchText": "Поиск досок или задач...",
-    "errorGetBoards": "Неверный адрес запроса. Попробуйте повторить позже. Ошибка: {{errorText}}",
+    "errorGetBoards": "Что-то пошло не так. Попробуйте повторить позже. Ошибка: {{errorText}}",
     "successCreate": "Доска создана!",
     "errorCreate": "Доска не создана! Попробуйте повторить позже. Ошибка: {{errorText}}",
     "createModalTitle": "Добавить доску",
@@ -81,6 +81,7 @@
   },
   "Columns": {
     "pageTitle": "Доска: {{boardName}}",
+    "errorGetColumns": "Что-то пошло не так. Попробуйте повторить позже. Ошибка: {{errorText}}",
     "successCreate": "Колонка создана!",
     "errorCreate": "Колонка не создана! Попробуйте повторить позже. Ошибка: {{errorText}}",
     "createModalTitle": "Добавить колонку",

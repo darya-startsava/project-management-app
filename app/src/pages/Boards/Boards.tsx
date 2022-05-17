@@ -8,7 +8,7 @@ import BoardsList from '$components/BoardsList';
 import LightboxForCreateItem from '$components/LightboxForCreateItem';
 import CloseButton from '$components/CloseButton';
 import { CLOSE_SNACKBAR_TIME } from '$settings/index';
-import { INewNameFormState, TCreateElement } from '$types/common';
+import { IError, INewNameFormState, TCreateElement } from '$types/common';
 import css from './Boards.module.scss';
 
 export type TChangeBoardsShow = (searchValue: string) => void;
@@ -27,7 +27,9 @@ const Boards: FC = () => {
 
   useEffect(() => {
     if (errorGetBoards) {
-      const errorMessage = t('Boards.errorGetBoards', { errorGetBoards: errorGetBoards });
+      const errorMessage = t('Boards.errorGetBoards', {
+        errorText: (errorGetBoards as IError).data.message || '',
+      });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
         autoHideDuration: CLOSE_SNACKBAR_TIME,

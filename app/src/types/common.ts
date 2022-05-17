@@ -26,6 +26,15 @@ export interface IUser {
   login: string;
 }
 
+export interface IError {
+  status: number;
+  data: {
+    statusCode: number;
+    message: string;
+    error: string;
+  };
+}
+
 /* create new element start */
 export interface INewNameFormState {
   newTitle: string;

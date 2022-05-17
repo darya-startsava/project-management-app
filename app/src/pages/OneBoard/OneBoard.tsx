@@ -11,7 +11,7 @@ import CloseButton from '$components/CloseButton';
 import LightboxForCreateItem from '$components/LightboxForCreateItem';
 import { randNumber } from '$utils/index';
 import { CLOSE_SNACKBAR_TIME } from '$settings/index';
-import { INewNameFormState, TCreateElement } from '$types/common';
+import { IError, INewNameFormState, TCreateElement } from '$types/common';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
@@ -27,9 +27,22 @@ const OneBoard: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
-  const { data: columns = [] } = useGetAllColumnsQuery(params.id || '');
+  const { data: columns = [], error: errorGetColumns } = useGetAllColumnsQuery(params.id || '');
   const [addColumn, { isLoading: isAddingColumn, error, isSuccess: isSuccessAddBoard }] =
     useAddColumnMutation();
+
+  useEffect(() => {
+    if (errorGetColumns) {
+      const errorMessage = t('Columns.errorGetColumns', {
+        errorText: (errorGetColumns as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        variant: 'error',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorGetColumns, t, enqueueSnackbar, closeSnackbar]);
 
   useEffect(() => {
     if (isSuccessAddBoard) {
