@@ -5,26 +5,36 @@
 $withOutColor: transparent;
 $whiteColor: #fff;
 $lightGrey: #efefef;
+$darkGrey: #a9a9a9;
 $black: #001a33;
 $primary: #1976d2;
-$secondary: #fe6b8b ;
+$secondary: #fe6b8b;
 $lightBlue: #cbdfe0;
 $red: red;
-$pageGradient: linear-gradient(243.18deg, rgba(109, 198, 240, 0.4) 32.99%, rgba(248, 160, 120, 0.4) 69.68%);
+$green: green;
+$orange: #ef9401;
+$columnBg: #f4f5f7;
+$scrollBarItemThumb: #c4c4c4;
+$scrollBarItemBg: #d9d9d9;
+$pageGradient: linear-gradient(
+  243.18deg,
+  rgba(109, 198, 240, 0.4) 32.99%,
+  rgba(248, 160, 120, 0.4) 69.68%
+);
 $boxShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 /* colors end */
 
 //В values основные значения
 /* values start */
-$wrapper-max-width: 1300px;
+$wrapper-max-width: 1152px;
 $transitionTime: 0.3s;
 $borderRadius: 5px;
 $borderRadiusItem: 28px;
-$boardsTitleSize: 28px;
-$modalTitleSize: 40px;
+$pageSumTitleText: 28px;
+$pageTitleText: 40px;
+$oneBoardPageOffset: max(calc(calc(100vw - $wrapper-max-width) / 2), 20px);
 $textSize: 20px;
 /* values end */
-
 
 /* common parts styles start */
 %commonHeadItemStyles {

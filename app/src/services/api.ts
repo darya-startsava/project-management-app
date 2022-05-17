@@ -1,6 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { serviceURL } from '$settings/index';
-import { IBoard, IBoardCreateObj, IUserLogIn, IUserRegistration } from '$types/common';
+import {
+  IBoard,
+  IBoardCreateObj,
+  IColumn,
+  IColumnCreateObj,
+  IUserLogIn,
+  IUserRegistration,
+} from '$types/common';
 import { RootState } from '$store/store';
 
 enum QueryPoints {
@@ -8,6 +15,7 @@ enum QueryPoints {
   signin = 'signin',
   users = 'users',
   boards = 'boards',
+  columns = 'columns',
 }
 
 export const api = createApi({
@@ -23,7 +31,7 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Boards'],
+  tagTypes: ['Boards', 'Columns'],
   endpoints: (build) => ({
     signUp: build.mutation<{ id: string }, IUserRegistration>({
       query: (body: IUserRegistration) => ({ url: QueryPoints.signup, method: 'POST', body }),
@@ -55,6 +63,28 @@ export const api = createApi({
         body,
       }),
     }),
+    // columns page
+    getAllColumns: build.query<Array<IColumn>, string>({
+      query: (id: string) => ({
+        url: `${QueryPoints.boards}/${id}/${QueryPoints.columns}`,
+      }),
+
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Columns' as const, id })),
+              { type: 'Columns', id: 'LIST' },
+            ]
+          : [{ type: 'Columns', id: 'LIST' }],
+    }),
+    addColumn: build.mutation<IColumn, { body: IColumnCreateObj; id: string }>({
+      query: ({ body, id }) => ({
+        url: `${QueryPoints.boards}/${id}/${QueryPoints.columns}`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -64,4 +94,6 @@ export const {
   useGetAllBoardsQuery,
   useAddBoardMutation,
   useDeleteBoardMutation,
+  useGetAllColumnsQuery,
+  useAddColumnMutation,
 } = api;

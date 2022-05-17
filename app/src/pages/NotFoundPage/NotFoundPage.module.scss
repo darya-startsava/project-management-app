@@ -1,4 +1,23 @@
-.error_page {
-  color: #fff;
-  background-color: #000;
+@import '$assets/scss/variables';
+@import '$assets/scss/mixins';
+
+@include xs_mobile_start() {
+  .error {
+    &_page {
+      font-size: 0.6em;
+    }
+  }
+}
+.error {
+  &_page {
+    background-color: $darkGrey;
+  }
+}
+
+h3.error_heading {
+  margin-bottom: 20px;
+}
+
+h5.error_text {
+  margin: 20px 0;
 }
