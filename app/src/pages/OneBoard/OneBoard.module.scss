@@ -1,3 +1,64 @@
+@import "$assets/scss/variables";
+@import "$assets/scss/mixins";
+
 .one_board {
-  background-color: #fff;
+  @include dflex(flex-start, flex-start);
+
+  flex-direction: column;
+  overflow-x: auto;
+
+  & > div {
+    @include dflex(flex-start, flex-start);
+
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 100%;
+    padding-left: $oneBoardPageOffset;
+    padding-right: $oneBoardPageOffset;
+  }
+
+  &__title {
+    @include dflex(space-between);
+
+    position: relative;
+    z-index: 1;
+    min-width: 29%;
+    max-width: 100%;
+    padding: 14px 34px;
+    font-weight: bold;
+    font-size: $pageSumTitleText;
+    font-size: $pageSumTitleText;
+    line-height: 1.5;
+    box-shadow: $boxShadow;
+    border-radius: $borderRadiusItem;
+    color: $black;
+    background-color: $whiteColor;
+    overflow: hidden;
+
+    &_img {
+      position: absolute;
+      top: -5%;
+      left: -5%;
+      z-index: -1;
+      display: block;
+      width: 110%;
+      height: 110%;
+      filter: blur(4px);
+
+      &:before {
+        @include psevdo("", absolute, 0);
+
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        background-color: transparentize($whiteColor, 0.3);
+      }
+    }
+
+    svg {
+      margin-left: 5px;
+    }
+  }
 }

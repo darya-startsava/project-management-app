@@ -64,21 +64,36 @@
     "linkToChangeSortOfAuth": "Вход"
   },
   "Boards": {
-    "boardsTitle": "Список досок",
-    "boardsLinkItemText": "Перейти к доске",
-    "boardsAddButtonText": "Создать доску",
-    "boardsModalTitle": "Добавить доску",
-    "boardsModalTextareaPlaceholder": "Название новой доски",
-    "boardsModalSubmitButton": "Добавить",
-    "boardsHeadItemImgAlt": "Фон элемента списка",
-    "errorTitle": "Ошибка: ",
-    "errorTextMinLengthNewTitle": "Минимальная длина 5 символов",
-    "errorTextMaxLengthNewTitle": "Максимальная длина 60 символов",
-    "errorBoardCreate": "Доска не создана! Попробуйте повторить позже.",
-    "successBoardCreate": "Доска создана!",
-    "errorGetBoards": "Неверный адрес запроса. Попробуйте повторить позже.",
-    "ariaLabelCloseButton": "Закрыть",
-    "boardsInputSearchText": "Поиск досок или задач..."
+    "pageTitle": "Список досок",
+    "inputSearchText": "Поиск досок или задач...",
+    "errorGetBoards": "Что-то пошло не так. Попробуйте повторить позже. Ошибка: {{errorText}}",
+    "successCreate": "Доска создана!",
+    "errorCreate": "Доска не создана! Попробуйте повторить позже. Ошибка: {{errorText}}",
+    "createModalTitle": "Добавить доску",
+    "addModalTextareaPlaceholder": "Название новой доски",
+    "errorTextarea": "Ошибка: {{errorMessage}}",
+    "errorTextMinLengthNewTitle": "Минимальная длина {{lengthMinLetters}} символов",
+    "errorTextMaxLengthNewTitle": "Максимальная длина {{lengthMaxLetters}} символов",
+    "submitButtonTextInFormNewBoard": "Создать новую доску",
+    "addNewBoardButtonText": "Создать доску",
+    "boardsHeadItemImgAlt": "Фон элемента {{itemName}}",
+    "boardsLinkItemText": "Перейти к доске"
+  },
+  "Columns": {
+    "pageTitle": "Доска: {{boardName}}",
+    "errorGetColumns": "Что-то пошло не так. Попробуйте повторить позже. Ошибка: {{errorText}}",
+    "successCreate": "Колонка создана!",
+    "errorCreate": "Колонка не создана! Попробуйте повторить позже. Ошибка: {{errorText}}",
+    "createModalTitle": "Добавить колонку",
+    "addModalTextareaPlaceholder": "Название новой колонки",
+    "errorTextarea": "Ошибка: {{errorMessage}}",
+    "errorTextMinLengthNewTitle": "Минимальная длина {{lengthMinLetters}} символов",
+    "errorTextMaxLengthNewTitle": "Максимальная длина {{lengthMaxLetters}} символов",
+    "submitButtonTextInFormNewColumn": "Создать новую колонку",
+    "addNewColumnButtonText": "Добавить колонку"
+  },
+  "General": {
+    "ariaLabelCloseButton": "Закрыть"
   },
   "Profile": {
     "profileTitle": "Профиль",

@@ -26,6 +26,22 @@ export interface IUser {
   login: string;
 }
 
+export interface IError {
+  status: number;
+  data: {
+    statusCode: number;
+    message: string;
+    error: string;
+  };
+}
+
+/* create new element start */
+export interface INewNameFormState {
+  newTitle: string;
+}
+export type TCreateElement = (data: INewNameFormState) => void;
+/* create new element end */
+
 /* boards start */
 export interface IBoardCreateObj {
   title: string;
@@ -36,6 +52,17 @@ export interface IBoard extends IBoardCreateObj {
   title: string;
 }
 /* boards end */
+
+/* columns start */
+export interface IColumnCreateObj {
+  title: string;
+  order: number;
+}
+
+export interface IColumn extends IColumnCreateObj {
+  id: string;
+}
+/* columns end */
 
 /* routing start */
 export interface IWord {

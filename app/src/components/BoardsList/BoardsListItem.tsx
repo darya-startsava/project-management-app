@@ -35,7 +35,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
           className={css.boardsList__item_img}
           component="img"
           image={arrImages[indexImg]}
-          alt={t('Boards.boardsHeadItemImgAlt')}
+          alt={t('Boards.boardsHeadItemImgAlt', { itemName: title })}
         />
 
         <Typography
@@ -49,7 +49,11 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
       </CardContent>
 
       <CardActions className={css.boardsList__item_actionsWrapper}>
-        <Link className={css.boardsList__item_link} to={`${ROUTES_PATHS.boards}/${id}`}>
+        <Link
+          className={css.boardsList__item_link}
+          to={`${ROUTES_PATHS.boards}/${id}`}
+          state={title}
+        >
           {t('Boards.boardsLinkItemText')}
         </Link>
 
