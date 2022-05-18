@@ -23,18 +23,18 @@ const ConfirmWindow: FC<IConfirmWindowProps> = ({
       open={isShow}
       onClose={disAgreeHandler}
       aria-labelledby="alert-dialog-title"
-      className={css.profile__confirmModal}
+      className={css.confirmWindow}
     >
-      <DialogTitle id="alert-dialog-title" className={css.profile__confirmModal_title}>
+      <DialogTitle id="alert-dialog-title" className={css.confirmWindow_title}>
         {title}
       </DialogTitle>
 
-      <DialogActions className={css.profile__confirmModal_buttonsWrapper}>
-        <Button onClick={disAgreeHandler} className={css.profile__confirmModal_red} autoFocus>
+      <DialogActions className={css.confirmWindow_buttonsWrapper}>
+        <Button onClick={disAgreeHandler} className={css.confirmWindow_red} autoFocus>
           {t('General.disagreeButtonText')}
         </Button>
 
-        <Button onClick={agreeHandler} className={css.profile__confirmModal_green}>
+        <Button onClick={agreeHandler} className={css.confirmWindow_green}>
           {t('General.agreeButtonText')}
         </Button>
       </DialogActions>

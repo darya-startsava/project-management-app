@@ -1,28 +1,28 @@
 @import "$assets/scss/variables";
 
-.profile__confirmModal {
-  .profile__confirmModal_title {
+.confirmWindow {
+  .confirmWindow_title {
     font-size: 20px;
   }
-  .profile__confirmModal_buttonsWrapper {
+  .confirmWindow_buttonsWrapper {
     justify-content: space-between;
   }
 
-  .profile__confirmModal_red,
-  .profile__confirmModal_green {
+  .confirmWindow_red,
+  .confirmWindow_green {
     width: 49%;
     margin: 0;
     color: $whiteColor;
   }
 
-  .profile__confirmModal_red {
+  .confirmWindow_red {
     background-color: $red;
 
     &:hover {
       background-color: darken($red, 15);
     }
   }
-  .profile__confirmModal_green {
+  .confirmWindow_green {
     background-color: green;
 
     &:hover {
