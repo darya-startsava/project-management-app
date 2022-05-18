@@ -24,11 +24,11 @@ const OneBoard: FC = () => {
   const lengthMinLetters = 5;
   const lengthMaxLetters = 20;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModalAddColumn, setShowModalAddColumn] = useState<boolean>(false);
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
   const { data: columns = [], error: errorGetColumns } = useGetAllColumnsQuery(params.id || '');
-  const [addColumn, { isLoading: isAddingColumn, error, isSuccess: isSuccessAddBoard }] =
+  const [addColumn, { isLoading: isAddingColumn, error, isSuccess: isSuccessAddColumn }] =
     useAddColumnMutation();
 
   useEffect(() => {
@@ -45,14 +45,14 @@ const OneBoard: FC = () => {
   }, [errorGetColumns, t, enqueueSnackbar, closeSnackbar]);
 
   useEffect(() => {
-    if (isSuccessAddBoard) {
+    if (isSuccessAddColumn) {
       enqueueSnackbar(t('Columns.successCreate'), {
         variant: 'success',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [isSuccessAddBoard, t, enqueueSnackbar, closeSnackbar]);
+  }, [isSuccessAddColumn, t, enqueueSnackbar, closeSnackbar]);
 
   useEffect(() => {
     if (error) {
@@ -67,12 +67,12 @@ const OneBoard: FC = () => {
     }
   }, [error, t, enqueueSnackbar, closeSnackbar]);
 
-  const addNewBoard: TCreateElement = (data: INewNameFormState) => {
+  const addNewColumn: TCreateElement<INewNameFormState> = (data: INewNameFormState) => {
     addColumn({
       body: { title: data.newTitle, order: columns.length },
       id: params.id || '',
     });
-    setShowModal(false);
+    setShowModalAddColumn(false);
   };
 
   return (
@@ -91,16 +91,17 @@ const OneBoard: FC = () => {
 
       <ColumnsListItem
         columns={columns}
+        boardId={params.id || ''}
         addCardHandler={() => {
-          setShowModal(true);
+          setShowModalAddColumn(true);
         }}
       />
 
       <LightboxForCreateItem
         modalTitle={t('Columns.createModalTitle')}
-        showModal={showModal}
-        changeShowModal={setShowModal}
-        submitCB={addNewBoard}
+        showModal={showModalAddColumn}
+        changeShowModal={setShowModalAddColumn}
+        submitCB={addNewColumn}
         isLoading={isAddingColumn}
         placeholderText={t('Columns.addModalTextareaPlaceholder')}
         localizationKeyTextareaErrorText="Columns.errorTextarea"

@@ -5,6 +5,8 @@ import {
   IBoardCreateObj,
   IColumn,
   IColumnCreateObj,
+  ITask,
+  ITaskCreateObj,
   IUser,
   IUserLogIn,
   IUserRegistration,
@@ -17,6 +19,7 @@ enum QueryPoints {
   users = 'users',
   boards = 'boards',
   columns = 'columns',
+  tasks = 'tasks',
 }
 
 export const api = createApi({
@@ -32,7 +35,7 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Boards', 'Columns'],
+  tagTypes: ['Boards', 'Columns', 'Tasks'],
   endpoints: (build) => ({
     signUp: build.mutation<{ id: string }, IUserRegistration>({
       query: (body: IUserRegistration) => ({ url: QueryPoints.signup, method: 'POST', body }),
@@ -87,6 +90,30 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
     }),
+
+    // tasks page
+    getAllTasks: build.query<Array<ITask>, { boardId: string; columnId: string }>({
+      query: ({ boardId, columnId }) => ({
+        url: `${QueryPoints.boards}/${boardId}/columns/${columnId}/${QueryPoints.tasks}`,
+      }),
+
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Tasks' as const, id })),
+              { type: 'Tasks', id: 'LIST' },
+            ]
+          : [{ type: 'Tasks', id: 'LIST' }],
+    }),
+
+    addTask: build.mutation<ITask, { body: ITaskCreateObj; boardId: string; columnId: string }>({
+      query: ({ body, boardId, columnId }) => ({
+        url: `${QueryPoints.boards}/${boardId}/columns/${columnId}/${QueryPoints.tasks}`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -98,4 +125,6 @@ export const {
   useAddBoardMutation,
   useGetAllColumnsQuery,
   useAddColumnMutation,
+  useGetAllTasksQuery,
+  useAddTaskMutation,
 } = api;

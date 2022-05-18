@@ -92,6 +92,23 @@
     "submitButtonTextInFormNewColumn": "Add new column",
     "addNewColumnButtonText": "Create column"
   },
+  "Tasks": {
+    "addNewTaskButtonText": "Add new task",
+    "createModalTitle": "Add task",
+    "addModalTextareaPlaceholder": "Task name",
+    "errorTextarea": "Error: {{errorMessage}}",
+    "submitButtonTextInFormNewTask": "Add new task",
+    "errorTextMinLengthNewTitle": "Min length {{lengthMinLetters}} letters",
+    "errorTextMaxLengthNewTitle": "Max length {{lengthMaxLetters}} letters",
+
+
+
+    "errorGetColumns": "Something went wrong. Try to do it later. Error: {{errorText}}",
+    "successCreate": "The column was created successfully!",
+    "errorCreate": "The column was not created! Try to do it later. Error: {{errorText}",
+
+    "e": ""
+  },
   "General": {
     "ariaLabelCloseButton": "Close"
   },

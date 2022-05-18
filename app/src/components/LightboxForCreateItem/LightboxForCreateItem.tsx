@@ -15,7 +15,7 @@ interface IBoardsModal {
   localizationKeyTextareaErrorText: string;
   submitButtonText: string;
   changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  submitCB: TCreateElement;
+  submitCB: TCreateElement<INewNameFormState>;
   rules?: {
     required?: boolean;
     minLength?: {

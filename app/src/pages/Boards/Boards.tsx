@@ -72,7 +72,7 @@ const Boards: FC = () => {
     // setBoards(filteredBoards);
   };
 
-  const addNewColumn: TCreateElement = (data: INewNameFormState) => {
+  const addNewColumn: TCreateElement<INewNameFormState> = (data: INewNameFormState) => {
     addBoard({ title: data.newTitle });
     setShowModal(false);
   };
