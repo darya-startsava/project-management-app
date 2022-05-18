@@ -97,13 +97,38 @@
     "submitButtonTextInFormNewColumn": "Add new column",
     "addNewColumnButtonText": "Create column"
   },
-  "General": {
-    "ariaLabelCloseButton": "Close"
+  "Profile": {
+    "pageTitle": "User profile - {{name}}",
+    "userImage": "User image.",
+    "deleteButtonText": "Delete user",
+    "confirmDeleteModalTitle": "Are you sure you want to delete the profile?",
+    "titleChangeForm": "Profile editing fields",
+    "errorTextMinLengthNewName": "Min {{minLetters}} letters for username",
+    "errorTextMaxLengthNewName": "Max {{maxLetters}} letters for username",
+    "nameLabel": "Username",
+    "errorTextMinLengthNewLogin": "Min {{minLetters}} letters for login",
+    "errorTextMaxLengthNewLogin": "Max {{maxLetters}} letters for login",
+    "loginLabel": "Login",
+    "errorTextMinLengthNewPassword": "Min {{minLetters}} letters for password",
+    "errorTextMaxLengthNewPassword": "Max {{maxLetters}} letters for password",
+    "passwordLabel": "Password",
+    "submitChangeFormText": "Update profile",
+    "errorUpdate": "Update profile error: {{errorText}}",
+    "successUpdate": "The profile update was successful!",
+    "errorGetAllUsers": "Error. The profile was not found.",
+    "errorDeleteProfile": "The profile was not deleted! Error: {{errorText}}",
+    "successDeleteUser": "The profile was deleted!",
+    "confirmUpdateModalTitle": "Are you sure you want to change the user info?"
   },
   "NotFoundPage": {
     "heading": "Page Not Found",
     "text": "We couldn't find what you were looking for.",
     "checkUrlText": "Please check URL."
+  },
+  "General": {
+    "ariaLabelCloseButton": "Close",
+    "agreeButtonText": "Agree",
+    "disagreeButtonText": "Disagree"
   },
   "Footer": {
     "RSSchoolLogo": "RSSchool logo",

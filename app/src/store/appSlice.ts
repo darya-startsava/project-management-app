@@ -3,23 +3,28 @@
  ** один для usera, а второй для бордеров
  */
 
-import { tokenAuth } from '$settings/index';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LOGIN_NAME_LOCALSTORAGE, tokenAuth } from '$settings/index';
 
 export type IStateApp = {
   token: string | null;
+  login: string | null;
 };
 
 export const initialState: IStateApp = {
   token: localStorage.getItem(tokenAuth) || null,
+  login: localStorage.getItem(LOGIN_NAME_LOCALSTORAGE) || null,
 };
 
 const app = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setToken: (state, action: PayloadAction<string>) => {
+    setToken: (state, action: PayloadAction<string | null>) => {
       state.token = action.payload;
+    },
+    setLogin: (state, action: PayloadAction<string | null>) => {
+      state.login = action.payload;
     },
     logout: (state) => {
       state.token = null;
@@ -27,6 +32,6 @@ const app = createSlice({
   },
 });
 
-export const { setToken, logout } = app.actions;
+export const { setToken, setLogin, logout } = app.actions;
 
 export default app.reducer;

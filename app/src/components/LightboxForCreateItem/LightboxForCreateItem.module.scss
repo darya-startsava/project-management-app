@@ -3,15 +3,16 @@
 .modalAddForm {
   position: relative;
   z-index: 1;
-  min-width: 600px;
+  width: 600px;
 
-  &_text {
+  .modalAddForm_text {
     @extend %commonHeadItemStyles;
 
     width: 100%;
     min-height: 120px;
     padding: 15px 30px;
     font-size: $pageSumTitleText;
+    border-radius: $borderRadius;
     border: 2px solid transparentize($black, 0.8);
     resize: vertical;
 
@@ -33,7 +34,7 @@
     font-weight: bold;
     font-size: $pageSumTitleText;
     text-align: center;
-    border-radius: $borderRadiusItem;
+    border-radius: $borderRadius;
     color: $whiteColor;
     background-color: $primary;
     cursor: pointer;

@@ -32,19 +32,33 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Boards', 'Columns'],
+  tagTypes: ['Boards', 'Columns', 'Users'],
   endpoints: (build) => ({
+    // user
     signUp: build.mutation<{ id: string }, IUserRegistration>({
       query: (body: IUserRegistration) => ({ url: QueryPoints.signup, method: 'POST', body }),
     }),
     signIn: build.mutation<{ token: string }, IUserLogIn>({
       query: (body: IUserLogIn) => ({ url: QueryPoints.signin, method: 'POST', body }),
     }),
-    // this is the sample of query with common header (prepareHeaders)
-    getAllUsers: build.query<IUser, void>({
+    getAllUsers: build.query<Array<IUser>, void>({
       query: () => ({
         url: QueryPoints.users,
       }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Users' as const, id })),
+              { type: 'Users', id: 'LIST' },
+            ]
+          : [{ type: 'Users', id: 'LIST' }],
+    }),
+    deleteUser: build.mutation<void, string>({
+      query: (id) => ({ url: `${QueryPoints.users}/${id}`, method: 'DELETE' }),
+    }),
+    updateUser: build.mutation<IUser, { body: IUserRegistration; id: string }>({
+      query: ({ body, id }) => ({ url: `${QueryPoints.users}/${id}`, method: 'PUT', body }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
     }),
 
     // boards page
@@ -102,6 +116,8 @@ export const {
   useSignUpMutation,
   useSignInMutation,
   useGetAllUsersQuery,
+  useDeleteUserMutation,
+  useUpdateUserMutation,
   useGetAllBoardsQuery,
   useAddBoardMutation,
   useUpdateBoardMutation,
