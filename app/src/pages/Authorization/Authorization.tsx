@@ -1,20 +1,20 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, CircularProgress, TextField, Typography, Grid, Box } from '@mui/material';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ErrorMessage } from '@hookform/error-message';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSnackbar, OptionsObject } from 'notistack';
-import { IUserLogIn, IUserRegistration } from '$types/common';
-import { setToken } from '$store/appSlice';
 import { useSignInMutation, useSignUpMutation } from '$services/api';
+import { ErrorMessage } from '@hookform/error-message';
+import { Button, CircularProgress, TextField, Typography, Grid, Box } from '@mui/material';
 import Section from '$components/Section';
+import { setLogin, setToken } from '$store/appSlice';
 import { ROUTES_PATHS } from '$settings/routing';
+import { LOGIN_NAME_LOCALSTORAGE, tokenAuth } from '$settings/index';
+import { IUserLogIn, IUserRegistration } from '$types/common';
 import css from './Authorization.module.scss';
 import './Authorization.scss';
-import { Link } from 'react-router-dom';
-import { tokenAuth } from '$settings/index';
 
 interface IAuthorization {
   sortOfAuth: string;
@@ -101,7 +101,9 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   async function userLogIn(user: IUserLogIn) {
     const result = await signIn(user).unwrap();
     dispatch(setToken(result.token));
+    dispatch(setLogin(user.login));
     localStorage.setItem(tokenAuth, result.token);
+    localStorage.setItem(LOGIN_NAME_LOCALSTORAGE, user.login);
     navigate(ROUTES_PATHS.boards);
   }
 

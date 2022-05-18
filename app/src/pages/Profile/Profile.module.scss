@@ -1,0 +1,94 @@
+
+@import "$assets/scss/variables";
+@import "$assets/scss/mixins";
+
+.profile {
+  &__loader {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin: 50px auto 0;
+  }
+
+  &__title {
+    font-size: $pageTitleText;
+    text-align: center;
+  }
+
+  &__content {
+    &_user{
+      width: 25%;
+    }
+
+    &_img{
+      width: 100%;
+      height: auto;
+    }
+
+    .profile__content_deleteButton{
+      margin-top: 30px;
+      width: 100%;
+      padding: 13px 10px;
+      border-radius: $borderRadius;
+      color: $whiteColor;
+      background-color: $red;
+
+      &:hover {
+        background-color: $red;
+      }
+    }
+  }
+
+  .profile__form_wrapper {
+    width: 100%;
+    max-width: 380px;
+    margin-left: 30px;
+  }
+
+  .profile__form{
+    width: 100%;
+
+    &_title {
+      font-weight: 600;
+      font-size: $textSize;
+      text-align: center;
+    }
+    .profile__form_inputWrapper {
+      margin-bottom: 15px;
+    }
+
+    .profile__form_input {
+      width: 100%;
+      padding: 15px 10px 15px 30px;
+      font-weight: 500;
+      font-size: 1rem;
+      border-color: #FAFAFA;
+      border-radius: 10px;
+      border: 2px solid #E6E6E6;
+      background-color: $whiteColor;
+
+      &.error {
+        border-color: $red;
+      }
+    }
+
+    .formErrorText {
+      color: $red;
+    }
+
+    &_submit {
+      width: 100%;
+      margin-top: 29px;
+      padding: 13px 15px;
+      font-size: 1rem;
+      border-radius: $borderRadius;
+      color: $whiteColor;
+      background-color: $primary;
+      cursor: pointer;
+
+      input {
+        cursor: inherit;
+      }
+    }
+  }
+}
