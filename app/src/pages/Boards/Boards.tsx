@@ -12,9 +12,9 @@ import {
   // IBoard,
   IError,
   INewNameFormState,
-  // IUpdateTitleFormState,
+  IUpdateTitleFormState,
   TCreateElement,
-  // TUpdateElement,
+  TUpdateElement,
 } from '$types/common';
 import css from './Boards.module.scss';
 import LightboxForUpdateItem from '$components/LightboxForUpdateItem';
@@ -31,8 +31,10 @@ const Boards: FC = () => {
   // const [clickedCard, setClickedCard] = useState<IBoard[]>([]);
 
   // const handleClickCard = (card: IBoard) => {
-  //   if (clickedCard.find((boardItem: IBoard) => boardItem.id === card.id)) {
-  //     setClickedCard([card]);
+  //   // const clickedCard = IBoard.find((boardItem: { id: string }) => boardItem.id === card.id);
+  //   // setClickedCard(clickedCard);
+  //   if (clickedCard.find((boardItem: { id: string }) => boardItem.id === card.id)) {
+  //     setClickedCard(clickedCard);
   //   }
   // };
 
@@ -119,8 +121,8 @@ const Boards: FC = () => {
     setShowModal(false);
   };
 
-  const updateBoardTitle = () => {
-    updateBoard({ body: clickedCard, id: boardId });
+  const updateBoardTitle: TUpdateElement = (data: IUpdateTitleFormState) => {
+    updateBoard({ id: data.cardId, title: data.cardTitle });
     setShowUpdateModal(false);
   };
 
@@ -167,17 +169,17 @@ const Boards: FC = () => {
         submitCB={updateBoardTitle}
         isLoading={isUpdateBoard}
         localizationKeyTextareaErrorText="Boards.errorTextarea"
-        // rules={{
-        //   required: true,
-        //   minLength: {
-        //     value: lengthMinLetters,
-        //     message: t('Boards.errorTextMinLengthNewTitle', { lengthMinLetters }),
-        //   },
-        //   maxLength: {
-        //     value: lengthMaxLetters,
-        //     message: t('Boards.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
-        //   },
-        // }}
+        rules={{
+          required: true,
+          minLength: {
+            value: lengthMinLetters,
+            message: t('Boards.errorTextMinLengthNewTitle', { lengthMinLetters }),
+          },
+          maxLength: {
+            value: lengthMaxLetters,
+            message: t('Boards.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
+          },
+        }}
       />
     </Section>
   );

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { InputBase, Box, TextareaAutosize, Typography } from '@mui/material';
 import LightBox from '$components/Lightbox';
 import { TUpdateElement } from '$types/common';
-import css from './LightboxUpdateItem.module.scss';
+import css from './LightboxForUpdateItem.module.scss';
 
 interface IBoardsModal {
   showUpdateModal: boolean;
@@ -14,10 +14,22 @@ interface IBoardsModal {
   localizationKeyTextareaErrorText: string;
   modalTitle: string;
   isLoading: boolean;
+  rules?: {
+    required?: boolean;
+    minLength?: {
+      value: number;
+      message: string;
+    };
+    maxLength?: {
+      value: number;
+      message: string;
+    };
+  };
 }
 
 interface IFormState {
   cardTitle: string;
+  cardId: string;
 }
 
 const LightboxUpdateBoard: FC<IBoardsModal> = ({
@@ -27,6 +39,7 @@ const LightboxUpdateBoard: FC<IBoardsModal> = ({
   submitCB,
   localizationKeyTextareaErrorText,
   isLoading,
+  rules,
 }) => {
   const { t } = useTranslation();
 
@@ -39,9 +52,11 @@ const LightboxUpdateBoard: FC<IBoardsModal> = ({
 
   const updateBoardHandler: SubmitHandler<IFormState> = (data) => {
     submitCB({
-      newTitle: data.cardTitle.trim(),
-      id: '',
+      cardTitle: data.cardTitle.trim(),
+      cardId: data.cardId,
     });
+    console.log(data.cardTitle);
+    console.log(data.cardId);
     reset();
   };
 
@@ -71,24 +86,14 @@ const LightboxUpdateBoard: FC<IBoardsModal> = ({
         <Controller
           control={control}
           name="cardTitle"
-          rules={{
-            required: true,
-            minLength: {
-              value: 5,
-              message: t('Boards.errorTextMinLengthNewTitle'),
-            },
-            maxLength: {
-              value: 60,
-              message: t('Boards.errorTextMaxLengthNewTitle'),
-            },
-          }}
+          rules={rules}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
               <TextareaAutosize
                 value={value}
                 className={classNameTextarea}
-                placeholder={t('Boards.addModalTextareaPlaceholder')}
-                aria-label={t('Boards.addModalTextareaPlaceholder')}
+                placeholder={t('Boards.updateModalTextareaPlaceholder')}
+                aria-label={t('Boards.updateModalTextareaPlaceholder')}
                 onChange={onChange}
               />
 

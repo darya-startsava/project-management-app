@@ -78,8 +78,9 @@
     "addNewBoardButtonText": "Создать доску",
     "boardsHeadItemImgAlt": "Фон элемента {{itemName}}",
     "boardsLinkItemText": "Перейти к доске",
-    "UpdateModalTitle": "Изменить название доски",
-    "UpdateModalSubmitButton": "Изменить",
+    "updateModalTitle": "Изменить название доски",
+    "updateModalTextareaPlaceholder": "Новое название доски",
+    "updateModalSubmitButton": "Изменить",
     "errorUpdateBoardTitle": "Название доски не изменено!",
     "successUpdateBoardTitle": "Название доски изменено успешно!"
   },

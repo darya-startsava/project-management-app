@@ -43,8 +43,8 @@ export type TCreateElement = (data: INewNameFormState) => void;
 /* create new element end */
 
 export interface IUpdateTitleFormState {
-  id: string;
-  newTitle: string;
+  cardId: string;
+  cardTitle: string;
 }
 
 export type TUpdateElement = (data: IUpdateTitleFormState) => void;

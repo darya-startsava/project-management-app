@@ -79,6 +79,7 @@
     "boardsHeadItemImgAlt": "Background item {{itemName}}",
     "boardsLinkItemText": "Open board",
     "updateModalTitle": "Edit board title",
+    "updateModalTextareaPlaceholder": "New title of the board",
     "updateModalSubmitButton": "Edit",
     "errorUpdateBoardTitle": "Board title has not been changed! Error: {{errorText}}",
     "successUpdateBoardTitle": "Board title changed successfully!"
