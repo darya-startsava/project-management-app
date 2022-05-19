@@ -25,16 +25,6 @@ const Boards: FC = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  // const [clickedCard, setClickedCard] = useState<IBoard[]>([]);
-
-  // const handleClickCard = (card: IBoard) => {
-  //   // const clickedCard = IBoard.find((boardItem: { id: string }) => boardItem.id === card.id);
-  //   // setClickedCard(clickedCard);
-  //   if (clickedCard.find((boardItem: { id: string }) => boardItem.id === card.id)) {
-  //     setClickedCard(clickedCard);
-  //   }
-  // };
-
   const [
     addBoard,
     { isLoading: isAddingBoard, error: errorAddBoard, isSuccess: isSuccessAddBoard },
