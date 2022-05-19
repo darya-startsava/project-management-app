@@ -4,7 +4,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { InputBase, Box, TextareaAutosize, Typography } from '@mui/material';
 import LightBox from '$components/Lightbox';
-import { TUpdateElement } from '$types/common';
+import { TUpdateElement, IUpdateTitleFormState } from '$types/common';
 import css from './LightboxForUpdateItem.module.scss';
 
 interface IBoardsModal {
@@ -12,6 +12,7 @@ interface IBoardsModal {
   changeShowUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
   submitCB: TUpdateElement;
   localizationKeyTextareaErrorText: string;
+  placeholderText: string;
   modalTitle: string;
   isLoading: boolean;
   rules?: {
@@ -27,17 +28,13 @@ interface IBoardsModal {
   };
 }
 
-interface IFormState {
-  cardTitle: string;
-  cardId: string;
-}
-
 const LightboxUpdateBoard: FC<IBoardsModal> = ({
   showUpdateModal,
   changeShowUpdateModal,
   modalTitle,
   submitCB,
   localizationKeyTextareaErrorText,
+  placeholderText,
   isLoading,
   rules,
 }) => {
@@ -48,24 +45,21 @@ const LightboxUpdateBoard: FC<IBoardsModal> = ({
     control,
     reset,
     formState: { isDirty, errors },
-  } = useForm<IFormState>();
+  } = useForm<IUpdateTitleFormState>();
 
-  const updateBoardHandler: SubmitHandler<IFormState> = (data) => {
+  const updateBoardHandler: SubmitHandler<IUpdateTitleFormState> = (data) => {
     submitCB({
-      cardTitle: data.cardTitle.trim(),
-      cardId: data.cardId,
+      title: data.title.trim(),
     });
-    console.log(data.cardTitle);
-    console.log(data.cardId);
     reset();
   };
 
   const classNameTextarea = classNames(css.modalAddForm_text, {
-    [css.error]: errors?.cardTitle,
+    [css.error]: errors?.title,
   });
 
   const classNameSubmit = classNames(css.modalAddForm_submit, {
-    [css.disabled]: isLoading || !isDirty || errors.cardTitle?.message,
+    [css.disabled]: isLoading || !isDirty || errors.title?.message,
   });
 
   return (
@@ -85,14 +79,14 @@ const LightboxUpdateBoard: FC<IBoardsModal> = ({
       >
         <Controller
           control={control}
-          name="cardTitle"
+          name="title"
           rules={rules}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
               <TextareaAutosize
                 value={value}
                 className={classNameTextarea}
-                placeholder={t('Boards.updateModalTextareaPlaceholder')}
+                placeholder={placeholderText}
                 aria-label={t('Boards.updateModalTextareaPlaceholder')}
                 onChange={onChange}
               />

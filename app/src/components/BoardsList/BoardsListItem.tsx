@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import {
-  Box,
   CardActions,
   CardContent,
   CardMedia,
   Grid,
   IconButton,
-  InputBase,
   Stack,
-  TextareaAutosize,
   Typography,
 } from '@mui/material';
 import {
@@ -20,26 +17,23 @@ import {
   StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
 import { ROUTES_PATHS } from '$settings/routing';
+import { CLOSE_SNACKBAR_TIME, LENGTH_MIN_LETTERS, LENGTH_MAX_LETTERS } from '$settings/index';
 import { randNumber } from '$utils/index';
 import CloseButton from '$components/CloseButton';
-import { CLOSE_SNACKBAR_TIME } from '$settings/index';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
-import { IBoard, TUpdateElement, IUpdateTitleFormState, INewNameFormState } from '$types/common';
+import { IBoard, IUpdateTitleFormState } from '$types/common';
 import css from './BoardsList.module.scss';
 import LightboxForUpdateItem from '$components/LightboxForUpdateItem';
 import { useUpdateBoardMutation } from '$services/api';
-import Lightbox from '$components/Lightbox';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler } from 'react-hook-form';
 
 const BoardsListItem: FC<IBoard> = ({ id, title }) => {
   const { t } = useTranslation();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
 
-  const lengthMinLetters = 5;
-  const lengthMaxLetters = 60;
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
 
@@ -47,17 +41,6 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
     updateBoard,
     { isLoading: isUpdateBoard, error: errorUpdateBoard, isSuccess: isSuccessUpdateBoard },
   ] = useUpdateBoardMutation();
-
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { isDirty, errors },
-  } = useForm<INewNameFormState>({
-    defaultValues: {
-      newTitle: title,
-    },
-  });
 
   useEffect(() => {
     if (errorUpdateBoard) {
@@ -82,8 +65,8 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
 
   useEffect(() => {}, [t, enqueueSnackbar, closeSnackbar]);
 
-  const updateBoardTitle: SubmitHandler<INewNameFormState> = (data: IUpdateTitleFormState) => {
-    updateBoard({ id: data.cardId, title: data.cardTitle });
+  const updateBoardTitle: SubmitHandler<IUpdateTitleFormState> = (data) => {
+    updateBoard({ body: data, id });
     setShowUpdateModal(false);
   };
 
@@ -137,71 +120,26 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
         </CardActions>
       </Grid>
 
-      {/* <LightboxForUpdateItem
+      <LightboxForUpdateItem
         modalTitle={t('Boards.updateModalTitle')}
         showUpdateModal={showUpdateModal}
         changeShowUpdateModal={setShowUpdateModal}
         submitCB={updateBoardTitle}
         isLoading={isUpdateBoard}
+        placeholderText={title}
         localizationKeyTextareaErrorText="Boards.errorTextarea"
         rules={{
           required: true,
           minLength: {
-            value: lengthMinLetters,
-            message: t('Boards.errorTextMinLengthNewTitle', { lengthMinLetters }),
+            value: LENGTH_MIN_LETTERS,
+            message: t('Boards.errorTextMinLengthNewTitle', { LENGTH_MIN_LETTERS }),
           },
           maxLength: {
-            value: lengthMaxLetters,
-            message: t('Boards.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
+            value: LENGTH_MAX_LETTERS,
+            message: t('Boards.errorTextMaxLengthNewTitle', { LENGTH_MAX_LETTERS }),
           },
         }}
-      /> */}
-      <Lightbox
-        showModal={showUpdateModal}
-        closeModalFunction={() => {
-          setShowUpdateModal(false);
-        }}
-        modalTitle="Change item"
-      >
-        <Box
-          component="form"
-          autoComplete="off"
-          onSubmit={handleSubmit(updateBoardTitle)}
-          noValidate
-        >
-          <Controller
-            control={control}
-            name="newTitle"
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <>
-                <TextareaAutosize
-                  value={value}
-                  placeholder={'title'}
-                  area-label=""
-                  onChange={onChange}
-                />
-
-                {error?.message && (
-                  <Typography
-                    variant="inherit"
-                    component="p"
-                    className={css.modalAddForm_errorText}
-                  >
-                    Error
-                  </Typography>
-                )}
-              </>
-            )}
-          />
-
-          <InputBase
-            type="submit"
-            disableInjectingGlobalStyles={true}
-            // disabled={isLoading || !isDirty}
-            value="Change"
-          />
-        </Box>
-      </Lightbox>
+      />
     </>
   );
 };

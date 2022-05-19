@@ -14,7 +14,6 @@ interface IBoardsListProps {
 }
 const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler }) => {
   const { t } = useTranslation();
-  console.log(boards);
 
   return (
     <Grid container component="ul" className={css.boardsList}>
