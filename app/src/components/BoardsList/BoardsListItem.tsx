@@ -17,7 +17,11 @@ import {
   StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
 import { ROUTES_PATHS } from '$settings/routing';
-import { CLOSE_SNACKBAR_TIME, LENGTH_MIN_LETTERS, LENGTH_MAX_LETTERS } from '$settings/index';
+import {
+  CLOSE_SNACKBAR_TIME,
+  BOARDS_LENGTH_MIN_LETTERS,
+  BOARDS_LENGTH_MAX_LETTERS,
+} from '$settings/index';
 import { randNumber } from '$utils/index';
 import CloseButton from '$components/CloseButton';
 import img1 from '$assets/img/1.jpg';
@@ -131,12 +135,12 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
         rules={{
           required: true,
           minLength: {
-            value: LENGTH_MIN_LETTERS,
-            message: t('Boards.errorTextMinLengthNewTitle', { LENGTH_MIN_LETTERS }),
+            value: BOARDS_LENGTH_MIN_LETTERS,
+            message: t('Boards.errorTextMinLengthNewTitle', { BOARDS_LENGTH_MIN_LETTERS }),
           },
           maxLength: {
-            value: LENGTH_MAX_LETTERS,
-            message: t('Boards.errorTextMaxLengthNewTitle', { LENGTH_MAX_LETTERS }),
+            value: BOARDS_LENGTH_MAX_LETTERS,
+            message: t('Boards.errorTextMaxLengthNewTitle', { BOARDS_LENGTH_MAX_LETTERS }),
           },
         }}
       />

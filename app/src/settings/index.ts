@@ -8,5 +8,7 @@ export const LOGIN_NAME_LOCALSTORAGE = 'kanban-login';
 
 // Validation constants
 
-export const LENGTH_MIN_LETTERS = 5;
-export const LENGTH_MAX_LETTERS = 60;
+export const BOARDS_LENGTH_MIN_LETTERS = 5;
+export const BOARDS_LENGTH_MAX_LETTERS = 60;
+export const COLUMNS_LENGTH_MIN_LETTERS = 5;
+export const COLUMNS_LENGTH_MAX_LETTERS = 60;
