@@ -108,17 +108,18 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
             <IconButton
               className={css.boardsList__item_button}
               size="small"
+              aria-label={t('Boards.editBoardTitleLabel')}
               onClick={() => setShowUpdateModal(true)}
             >
               <HistoryEduIcon color="inherit" />
             </IconButton>
 
             <IconButton className={css.boardsList__item_button} size="small">
-              <StarOutlineIcon color="inherit" />
+              <StarOutlineIcon color="inherit" aria-label={t('Boards.addBoardToFavoritesLabel')} />
             </IconButton>
 
             <IconButton className={css.boardsList__item_button} size="small">
-              <DeleteOutlineIcon color="inherit" />
+              <DeleteOutlineIcon color="inherit" aria-label={t('Boards.deleteBoardLabel')} />
             </IconButton>
           </Stack>
         </CardActions>

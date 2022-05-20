@@ -82,7 +82,10 @@
     "updateModalTextareaPlaceholder": "Новое название доски",
     "updateModalSubmitButton": "Изменить",
     "errorUpdateBoardTitle": "Название доски не изменено!",
-    "successUpdateBoardTitle": "Название доски изменено успешно!"
+    "successUpdateBoardTitle": "Название доски изменено успешно!",
+    "editBoardTitleLabel": "Изменить название доски",
+    "addBoardToFavoritesLabel": "Добавить доску в избранное",
+    "deleteBoardLabel": "Удалить доску"
   },
   "Columns": {
     "pageTitle": "Доска: {{boardName}}",

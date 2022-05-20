@@ -82,7 +82,10 @@
     "updateModalTextareaPlaceholder": "New title of the board",
     "updateModalSubmitButton": "Edit",
     "errorUpdateBoardTitle": "Board title has not been changed! Error: {{errorText}}",
-    "successUpdateBoardTitle": "Board title changed successfully!"
+    "successUpdateBoardTitle": "Board title changed successfully!",
+    "editBoardTitleLabel": "Edit board title",
+    "addBoardToFavoritesLabel": "Add board to favorites",
+    "deleteBoardLabel": "Delete board"
   },
   "Columns": {
     "pageTitle": "Board: {{boardName}}",
