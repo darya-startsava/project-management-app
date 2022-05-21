@@ -93,7 +93,7 @@ const LightboxColumn: FC<IBoardsModal> = ({
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.modalForm_errorText}>
-                  {t('Columns.errorTextarea', { errorMessage: error?.message })}
+                  {t('Columns.errorTextarea', { ERROR_MESSAGE: error?.message })}
                 </Typography>
               )}
             </>

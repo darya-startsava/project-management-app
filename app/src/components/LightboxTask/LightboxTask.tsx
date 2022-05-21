@@ -45,7 +45,6 @@ const LightboxTask: FC<IBoardsModal> = ({
     },
   });
 
-  // , isLoading, error: errorGetAllUsers
   const { data: users = [], isLoading: isLoadingUsers } = useGetAllUsersQuery();
 
   const addNewBoardHandler: SubmitHandler<INewNTaskFormState> = (data) => {

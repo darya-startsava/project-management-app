@@ -22,7 +22,7 @@ import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
 import { randNumber } from '$utils/index';
 import { ROUTES_PATHS } from '$settings/routing';
-import { CLOSE_SNACKBAR_TIME } from '$settings/index';
+import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
@@ -46,8 +46,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
     if (errorUpdateBoard) {
       const errorMessage = t('Boards.errorUpdateBoardTitle', { ERROR_MESSAGE: errorUpdateBoard });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -56,8 +55,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
   useEffect(() => {
     if (isSuccessUpdateBoard) {
       enqueueSnackbar(t('Boards.successUpdateBoardTitle'), {
-        variant: 'success',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -76,7 +74,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
             className={css.boardsList__item_img}
             component="img"
             image={arrImages[indexImg]}
-            alt={t('Boards.boardsHeadItemImgAlt', { itemName: title })}
+            alt={t('Boards.boardsHeadItemImgAlt', { ITEM_NAME: title })}
           />
 
           <Typography

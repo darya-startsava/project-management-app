@@ -22,6 +22,7 @@ const Welcome = () => {
           {t('Welcome.titleText')}
         </Typography>
       </Grid>
+
       <Grid>
         <Grid
           container
@@ -39,6 +40,7 @@ const Welcome = () => {
           <img src={youtubeBigSign} alt={t('Welcome.youtubeSign')} />
         </Grid>
       </Grid>
+
       <Grid
         item
         color="#fff"
@@ -53,6 +55,7 @@ const Welcome = () => {
           {t('Welcome.welcomeText')}
         </Typography>
       </Grid>
+
       <Grid item>
         <Button
           variant="contained"
@@ -62,6 +65,7 @@ const Welcome = () => {
         >
           {t('Welcome.aboutUs')}
         </Button>
+
         <Modal
           open={showAuthors}
           onClose={handleClose}
@@ -72,20 +76,24 @@ const Welcome = () => {
             <Typography variant="h6" component="h2" align="center" sx={{ mb: 6 }}>
               {t('Welcome.aboutUs')}
             </Typography>
+
             <Grid container sx={{ justifyContent: 'center', gap: '20px' }}>
               <Box className={css.developer}>
                 <Avatar alt={t('Welcome.author1')} src={author1} sx={{ width: 200, height: 200 }} />
                 <Typography sx={{ mt: 2 }}>{t('Welcome.author1')}</Typography>
               </Box>
+
               <Box className={css.developer}>
                 <Avatar alt={t('Welcome.author2')} src={author2} sx={{ width: 200, height: 200 }} />
                 <Typography sx={{ mt: 2 }}>{t('Welcome.author2')}</Typography>
               </Box>
+
               <Box className={css.developer}>
                 <Avatar alt={t('Welcome.author3')} src={author3} sx={{ width: 200, height: 200 }} />
                 <Typography sx={{ mt: 2 }}>{t('Welcome.author3')}</Typography>
               </Box>
             </Grid>
+
             <Typography sx={{ mt: 4 }} align="center">
               {t('Welcome.modalText')}
             </Typography>

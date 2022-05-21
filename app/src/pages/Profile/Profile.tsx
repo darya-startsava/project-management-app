@@ -55,7 +55,7 @@ const Profile: FC = () => {
   useEffect(() => {
     if (errorDeleteProfile) {
       const errorMessage = t('Profile.errorDeleteProfile', {
-        errorText: (errorDeleteProfile as IError).data.message || '',
+        ERROR_MESSAGE: (errorDeleteProfile as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
@@ -96,7 +96,7 @@ const Profile: FC = () => {
       ) : (
         <>
           <Typography variant="inherit" component="h2" className={css.profile__title} mb={5}>
-            {t('Profile.pageTitle', { name: userInfo?.login || '' })}
+            {t('Profile.pageTitle', { NAME: userInfo?.login || '' })}
           </Typography>
 
           <Grid

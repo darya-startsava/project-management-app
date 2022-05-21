@@ -1,24 +1,48 @@
 @import '$assets/scss/variables';
 @import '$assets/scss/mixins';
 
-.authorization {
-  &__error_message {
-    margin: -5px 0;
-    color: $red;
+.authPage {
+  .authPage__title {
+    @extend %pageTitle;
 
-    &:before {
-      content: '⚠ ';
-      display: inline;
+    margin-bottom: 50px;
+  }
+
+  .authPage__loader {
+    width: fit-content;
+    margin: 30px auto;
+  }
+
+  .authForm {
+    width: $formAuthSize;
+    margin: 0 auto;
+  }
+
+  .authForm_element {
+    @extend %modalElement;
+  }
+
+  .authForm_errorText {
+    @extend %formError;
+  }
+
+  .authForm__text {
+    text-align: center;
+
+    .authForm__text_linkToChangeSortOfAuth {
+      display: inline-block;
+      margin-left: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color $transitionTime;
+
+      &:hover {
+        color: $secondary;
+      }
     }
   }
 
-  &__form {
-    @include dflex();
-  }
-
-  &__linkToChangeSortOfAuth {
-    margin-left: 5px;
-    font-weight: bold;
-    text-decoration: none;
+  .authForm_submit {
+    @extend %submitButton;
   }
 }

@@ -85,7 +85,7 @@ const OneBoard: FC = () => {
             backgroundImage: `url(${arrImages[indexImg]})`,
           }}
         />
-        <Box component="span">{t('Columns.pageTitle', { boardName: location.state })}</Box>
+        <Box component="span">{t('Columns.pageTitle', { BOARD_NAME: location.state })}</Box>
         <TableChartIcon />
       </Typography>
 

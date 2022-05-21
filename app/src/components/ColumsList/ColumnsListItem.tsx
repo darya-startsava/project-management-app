@@ -7,8 +7,7 @@ import LightboxTask from '$components/LightboxTask';
 import TasksList from './TasksList';
 import { Box, Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from '@mui/material';
 import { Add as AddIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
-import { CLOSE_SNACKBAR_TIME } from '$settings/index';
-
+import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import {
   IColumn,
   IError,
@@ -39,8 +38,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
         ERROR_MESSAGE: (errorGetTasks as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -52,8 +50,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
         ERROR_MESSAGE: (errorAddTask as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -62,8 +59,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   useEffect(() => {
     if (isSuccessAddTask) {
       enqueueSnackbar(t('Tasks.isSuccessAddTask'), {
-        variant: 'success',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
