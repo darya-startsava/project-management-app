@@ -19,18 +19,14 @@ import {
   StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
 import CloseButton from '$components/CloseButton';
-import LightboxForUpdateItem from '$components/LightboxForUpdateItem';
+import LightboxBoard from '$components/LightboxBoard';
 import { randNumber } from '$utils/index';
 import { ROUTES_PATHS } from '$settings/routing';
-import {
-  CLOSE_SNACKBAR_TIME,
-  BOARDS_LENGTH_MIN_LETTERS,
-  BOARDS_LENGTH_MAX_LETTERS,
-} from '$settings/index';
+import { CLOSE_SNACKBAR_TIME } from '$settings/index';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
-import { IBoard, IUpdateTitleFormState } from '$types/common';
+import { IBoard, IBoardCreateObj } from '$types/common';
 import css from './BoardsList.module.scss';
 
 const BoardsListItem: FC<IBoard> = ({ id, title }) => {
@@ -48,7 +44,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
 
   useEffect(() => {
     if (errorUpdateBoard) {
-      const errorMessage = t('Boards.errorUpdateBoardTitle', { errorText: errorUpdateBoard });
+      const errorMessage = t('Boards.errorUpdateBoardTitle', { ERROR_MESSAGE: errorUpdateBoard });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
@@ -67,7 +63,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
     }
   }, [isSuccessUpdateBoard, closeSnackbar, enqueueSnackbar, t]);
 
-  const updateBoardTitle: SubmitHandler<IUpdateTitleFormState> = (data) => {
+  const updateBoardTitle: SubmitHandler<IBoardCreateObj> = (data) => {
     updateBoard({ body: data, id });
     setShowUpdateModal(false);
   };
@@ -123,25 +119,15 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
         </CardActions>
       </Grid>
 
-      <LightboxForUpdateItem
-        modalTitle={t('Boards.updateModalTitle')}
-        showUpdateModal={showUpdateModal}
-        changeShowUpdateModal={setShowUpdateModal}
-        submitCB={updateBoardTitle}
+      <LightboxBoard
+        showModal={showUpdateModal}
         isLoading={isUpdateBoard}
-        placeholderText={title}
-        localizationKeyTextareaErrorText="Boards.errorTextarea"
-        rules={{
-          required: true,
-          minLength: {
-            value: BOARDS_LENGTH_MIN_LETTERS,
-            message: t('Boards.errorTextMinLengthNewTitle', { BOARDS_LENGTH_MIN_LETTERS }),
-          },
-          maxLength: {
-            value: BOARDS_LENGTH_MAX_LETTERS,
-            message: t('Boards.errorTextMaxLengthNewTitle', { BOARDS_LENGTH_MAX_LETTERS }),
-          },
-        }}
+        isUpdate={true}
+        closeModalHandler={() => setShowUpdateModal(false)}
+        submitCB={updateBoardTitle}
+        modalTitle={t('Boards.updateModalTitle')}
+        submitButtonText={t('Boards.updateModalSubmitButton')}
+        formState={{ title: title }}
       />
     </>
   );

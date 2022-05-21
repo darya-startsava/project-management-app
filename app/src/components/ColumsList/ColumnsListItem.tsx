@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAddTaskMutation, useGetAllTasksQuery } from '$services/api';
 import { useSnackbar } from 'notistack';
 import CloseButton from '$components/CloseButton';
-import LightboxForCreateTask from '$components/LightboxForCreateTask';
+import LightboxTask from '$components/LightboxTask';
 import TasksList from './TasksList';
 import { Box, Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from '@mui/material';
 import { Add as AddIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
@@ -138,16 +138,13 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
         </Box>
       </ListItem>
 
-      <LightboxForCreateTask
+      <LightboxTask
         showModal={showModalAddTasks}
         isLoading={isAddingTask}
         changeShowModal={setShowModalAddTasks}
         submitCB={addNewBoard}
         modalTitle={t('Tasks.createModalTitle')}
-        nameLabel={t('Tasks.addModalNameLabel')}
-        descriptionLabel={t('Tasks.addModalDescriptionLabel')}
-        userLabel={t('Tasks.addModalUserLabel')}
-        submitButtonText={t('Tasks.submitButtonTextInFormNewTask')}
+        submitButtonText={t('Tasks.submitButtonTextAddTaskForm')}
       />
     </>
   );

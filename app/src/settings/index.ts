@@ -8,10 +8,10 @@ export const CLOSE_SNACKBAR_TIME = 5000;
 export const SIZE_DESCRIPTION_TASK_IN_COLUMN = 30;
 
 // Validation constants
-export const BOARDS_LENGTH_MIN_LETTERS = 5;
-export const BOARDS_LENGTH_MAX_LETTERS = 60;
-export const COLUMNS_LENGTH_MIN_LETTERS = 5;
-export const COLUMNS_LENGTH_MAX_LETTERS = 60;
+export const BOARDS_TITLE_MIN_LENGTH = 5;
+export const BOARDS_TITLE_MAX_LENGTH = 40;
+export const COLUMNS_TITLE_MIN_LENGTH = 5;
+export const COLUMNS_TITLE_MAX_LENGTH = 60;
 export const TASKS_TITLE_MIN_LENGTH = 5;
 export const TASKS_TITLE_MAX_LENGTH = 30;
 export const TASKS_DESCRIPTION_MIN_LENGTH = 5;

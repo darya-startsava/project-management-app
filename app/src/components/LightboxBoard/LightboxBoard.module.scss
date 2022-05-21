@@ -1,0 +1,19 @@
+@import "$assets/scss/variables";
+
+.modalForm {
+  position: relative;
+  z-index: 1;
+  width: $modalFormWidth;
+
+  .modalForm_text {
+    @extend %modalElement;
+  }
+
+  .modalForm_errorText {
+    @extend %formError;
+  }
+
+  .modalForm_submit {
+    @extend %submitButton;
+  }
+}

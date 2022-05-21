@@ -12,7 +12,7 @@ import {
   TASKS_DESCRIPTION_MAX_LENGTH,
 } from '$settings/index';
 import { INewNTaskFormState, TCreateElement } from '$types/common';
-import css from './LightboxForCreateTask.module.scss';
+import css from './LightboxTask.module.scss';
 
 interface IBoardsModal {
   showModal: boolean;
@@ -20,21 +20,15 @@ interface IBoardsModal {
   changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   submitCB: TCreateElement<INewNTaskFormState>;
   modalTitle: string;
-  nameLabel: string;
-  descriptionLabel: string;
-  userLabel: string;
   submitButtonText: string;
 }
 
-const LightboxForCreateTask: FC<IBoardsModal> = ({
+const LightboxTask: FC<IBoardsModal> = ({
   showModal,
   isLoading,
   changeShowModal,
   submitCB,
   modalTitle,
-  nameLabel,
-  descriptionLabel,
-  userLabel,
   submitButtonText,
 }) => {
   const { t } = useTranslation();
@@ -63,7 +57,7 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
     });
   };
 
-  const classNameSubmit = classNames(css.modalAddForm_submit, {
+  const classNameSubmit = classNames(css.modalForm_submit, {
     [css.disabled]:
       isLoading ||
       !isDirty ||
@@ -81,7 +75,7 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
       modalTitle={modalTitle}
     >
       <Box
-        className={css.modalAddForm}
+        className={css.modalForm}
         component="form"
         autoComplete="off"
         onSubmit={handleSubmit(addNewBoardHandler)}
@@ -91,7 +85,7 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
           control={control}
           name="title"
           rules={{
-            required: true,
+            required: t('Tasks.errorEmptyField'),
             minLength: {
               value: TASKS_TITLE_MIN_LENGTH,
               message: t('Tasks.errorMinLengthTitle', { TASKS_TITLE_MIN_LENGTH }),
@@ -106,17 +100,17 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
               <TextField
                 type="text"
                 value={value}
-                className={classNames(css.modalAddForm_element, {
+                className={classNames(css.modalForm_element, {
                   [css.error]: error?.message,
                 })}
-                label={nameLabel}
+                label={t('Tasks.titleLabelForm')}
                 onChange={onChange}
                 autoFocus
                 fullWidth
               />
 
               {error?.message && (
-                <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
+                <Typography variant="inherit" component="p" className={css.modalForm_errorText}>
                   {t('Tasks.errorText', { ERROR_MESSAGE: error?.message })}
                 </Typography>
               )}
@@ -128,7 +122,7 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
           control={control}
           name="description"
           rules={{
-            required: true,
+            required: t('Tasks.errorEmptyField'),
             minLength: {
               value: TASKS_DESCRIPTION_MIN_LENGTH,
               message: t('Tasks.errorMinLengthDescription', { TASKS_DESCRIPTION_MIN_LENGTH }),
@@ -142,17 +136,17 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
             <>
               <TextField
                 value={value}
-                className={classNames([css.modalAddForm_description, css.modalAddForm_element], {
+                className={classNames([css.modalForm_description, css.modalForm_element], {
                   [css.error]: error?.message,
                 })}
-                label={descriptionLabel}
+                label={t('Tasks.descriptionLabelForm')}
                 onChange={onChange}
                 multiline
                 fullWidth
               />
 
               {error?.message && (
-                <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
+                <Typography variant="inherit" component="p" className={css.modalForm_errorText}>
                   {t('Tasks.errorText', { ERROR_MESSAGE: error?.message })}
                 </Typography>
               )}
@@ -174,10 +168,10 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
                 <TextField
                   id="users"
                   select
-                  label={userLabel}
+                  label={t('Tasks.userLabelForm')}
                   value={value}
                   onChange={onChange}
-                  className={classNames(css.modalAddForm_element, {
+                  className={classNames(css.modalForm_element, {
                     [css.error]: error?.message,
                   })}
                   fullWidth
@@ -190,11 +184,7 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
                 </TextField>
 
                 {error?.message && (
-                  <Typography
-                    variant="inherit"
-                    component="p"
-                    className={css.modalAddForm_errorText}
-                  >
+                  <Typography variant="inherit" component="p" className={css.modalForm_errorText}>
                     {t('Tasks.errorText', { ERROR_MESSAGE: error?.message })}
                   </Typography>
                 )}
@@ -216,4 +206,4 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
   );
 };
 
-export default LightboxForCreateTask;
+export default LightboxTask;

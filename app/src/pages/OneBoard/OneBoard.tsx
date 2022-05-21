@@ -8,14 +8,10 @@ import { TableChart as TableChartIcon } from '@mui/icons-material';
 import Section from '$components/Section';
 import ColumnsListItem from '$components/ColumsList';
 import CloseButton from '$components/CloseButton';
-import LightboxForCreateItem from '$components/LightboxForCreateItem';
+import LightboxColumn from '$components/LightboxColumn';
 import { randNumber } from '$utils/index';
-import {
-  CLOSE_SNACKBAR_TIME,
-  COLUMNS_LENGTH_MIN_LETTERS,
-  COLUMNS_LENGTH_MAX_LETTERS,
-} from '$settings/index';
-import { IError, INewNameFormState, TCreateElement } from '$types/common';
+import { CLOSE_SNACKBAR_TIME } from '$settings/index';
+import { IColumnFormState, IError, TCreateElement } from '$types/common';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
@@ -30,13 +26,15 @@ const OneBoard: FC = () => {
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
   const { data: columns = [], error: errorGetColumns } = useGetAllColumnsQuery(params.id || '');
-  const [addColumn, { isLoading: isAddingColumn, error, isSuccess: isSuccessAddColumn }] =
-    useAddColumnMutation();
+  const [
+    addColumn,
+    { isLoading: isAddingColumn, error: errorAddColumn, isSuccess: isSuccessAddColumn },
+  ] = useAddColumnMutation();
 
   useEffect(() => {
     if (errorGetColumns) {
       const errorMessage = t('Columns.errorGetColumns', {
-        errorText: (errorGetColumns as IError).data.message || '',
+        ERROR_MESSAGE: (errorGetColumns as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
@@ -48,7 +46,7 @@ const OneBoard: FC = () => {
 
   useEffect(() => {
     if (isSuccessAddColumn) {
-      enqueueSnackbar(t('Columns.successCreate'), {
+      enqueueSnackbar(t('Columns.successCreateColumn'), {
         variant: 'success',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
@@ -57,9 +55,9 @@ const OneBoard: FC = () => {
   }, [isSuccessAddColumn, t, enqueueSnackbar, closeSnackbar]);
 
   useEffect(() => {
-    if (error) {
-      const errorMessage = t('Columns.errorCreate', {
-        errorText: error,
+    if (errorAddColumn) {
+      const errorMessage = t('Columns.errorCreateColumn', {
+        ERROR_MESSAGE: (errorAddColumn as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
@@ -67,11 +65,11 @@ const OneBoard: FC = () => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [error, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorAddColumn, t, enqueueSnackbar, closeSnackbar]);
 
-  const addNewColumn: TCreateElement<INewNameFormState> = (data: INewNameFormState) => {
+  const addNewColumn: TCreateElement<IColumnFormState> = (data: IColumnFormState) => {
     addColumn({
-      body: { title: data.newTitle, order: columns.length },
+      body: { title: data.title, order: columns.length },
       id: params.id || '',
     });
     setShowModalAddColumn(false);
@@ -99,26 +97,15 @@ const OneBoard: FC = () => {
         }}
       />
 
-      <LightboxForCreateItem
-        modalTitle={t('Columns.createModalTitle')}
+      <LightboxColumn
         showModal={showModalAddColumn}
-        changeShowModal={setShowModalAddColumn}
-        submitCB={addNewColumn}
         isLoading={isAddingColumn}
-        placeholderText={t('Columns.addModalTextareaPlaceholder')}
-        localizationKeyTextareaErrorText="Columns.errorTextarea"
-        submitButtonText={t('Columns.submitButtonTextInFormNewColumn')}
-        rules={{
-          required: true,
-          minLength: {
-            value: 5,
-            message: t('Columns.errorTextMinLengthNewTitle', { COLUMNS_LENGTH_MIN_LETTERS }),
-          },
-          maxLength: {
-            value: 20,
-            message: t('Columns.errorTextMaxLengthNewTitle', { COLUMNS_LENGTH_MAX_LETTERS }),
-          },
-        }}
+        isUpdate={true}
+        closeModalHandler={() => setShowModalAddColumn(false)}
+        submitCB={addNewColumn}
+        modalTitle={t('Columns.createModalTitle')}
+        submitButtonText={t('Columns.submitButtonTextAddColumnForm')}
+        formState={{ title: '' }}
       />
     </Section>
   );
