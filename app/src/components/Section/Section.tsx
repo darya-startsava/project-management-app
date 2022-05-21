@@ -5,7 +5,7 @@ import { Container, ContainerProps } from '@mui/material';
 import classNames from 'classnames';
 import css from './Section.module.scss';
 
-// Принимает пропсы для контейнера из material ui и прередает их в контейнер
+// Принимает пропсы для контейнера из material ui и передает их в контейнер
 interface ISectionProps extends ContainerProps {
   className?: string;
   pageAllSpace?: boolean;

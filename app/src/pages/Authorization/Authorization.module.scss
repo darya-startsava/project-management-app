@@ -3,12 +3,12 @@
 
 .authorization {
   &__error_message {
-    color: $red;
     margin: -5px 0;
+    color: $red;
 
     &:before {
-      display: inline;
       content: '⚠ ';
+      display: inline;
     }
   }
 
@@ -17,8 +17,8 @@
   }
 
   &__linkToChangeSortOfAuth {
-    text-decoration: none;
-    font-weight: bold;
     margin-left: 5px;
+    font-weight: bold;
+    text-decoration: none;
   }
 }

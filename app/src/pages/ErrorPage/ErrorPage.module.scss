@@ -1,4 +1,11 @@
-.error_page {
-  color: #fff;
-  background-color: #000;
+@import '$assets/scss/variables';
+
+.errorPage {
+  .errorPage__title {
+    @extend %pageTitle;
+  }
+  .errorPage__text {
+    font-size: $textSize;
+    text-align: center;
+  }
 }

@@ -153,6 +153,9 @@
     "agreeButtonText": "Согласиться",
     "disagreeButtonText": "Не соглашаться"
   },
+  "ErrorPage": {
+    "pageTitle": "Ошибка"
+  },
   "Footer": {
     "RSSchoolLogo": "Логотип RSSchool",
     "githubLogo": "Логотип Github"

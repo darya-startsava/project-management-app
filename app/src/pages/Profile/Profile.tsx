@@ -12,7 +12,11 @@ import ProfileForm from './ProfileForm';
 import ConfirmWindow from '$components/ConfirmWindow';
 import CloseButton from '$components/CloseButton';
 import { ROUTES_PATHS } from '$settings/routing';
-import { CLOSE_SNACKBAR_TIME, LOGIN_NAME_LOCALSTORAGE, tokenAuth } from '$settings/index';
+import {
+  CLOSE_SNACKBAR_TIME,
+  LOGIN_NAME_LOCALSTORAGE,
+  TOKEN_AUTH_LOCALSTORAGE,
+} from '$settings/index';
 import { IError, IUser } from '$types/common';
 import profileImg from '$assets/img/user.png';
 import css from './Profile.module.scss';
@@ -70,7 +74,7 @@ const Profile: FC = () => {
       });
       dispatch(setToken(null));
       dispatch(setLogin(null));
-      localStorage.removeItem(tokenAuth);
+      localStorage.removeItem(TOKEN_AUTH_LOCALSTORAGE);
       localStorage.removeItem(LOGIN_NAME_LOCALSTORAGE);
       navigate(ROUTES_PATHS.welcome, { replace: true });
     }

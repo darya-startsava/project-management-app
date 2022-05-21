@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
-
 import { ROUTES_PATHS } from '$settings/routing';
 
 interface IProps {
@@ -18,9 +17,6 @@ class ErrorBoundary extends React.PureComponent<IProps, IState> {
     this.state = { error: false, errorText: '' };
   }
 
-  static getDerivedStateFromError(error: Error) {
-    return { errorText: error.message };
-  }
   componentDidCatch(error: Error): void {
     this.setState({
       error: true,

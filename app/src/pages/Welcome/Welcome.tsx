@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Grid, Button, Modal, Typography, Avatar, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import youtubeBigSign from '../../assets/svg/youtubeBigSign.svg';
-import author1 from '../../assets/images/Dmitrij.jpg';
-import author2 from '../../assets/images/Andrey.jpg';
-import author3 from '../../assets/images/Darya.jpeg';
-
+import youtubeBigSign from '$assets/svg/youtubeBigSign.svg';
+import author1 from '$assets/images/Dmitrij.jpg';
+import author2 from '$assets/images/Andrey.jpg';
+import author3 from '$assets/images/Darya.jpeg';
 import css from './Welcome.module.scss';
 
 //TODO: Заменить текст-заглушку "Об авторах" в модальном окне
@@ -17,12 +16,7 @@ const Welcome = () => {
   const handleClose = () => setShowAuthors(false);
 
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      sx={{ background: 'linear-gradient(45deg,#f8a078,#6dc6f0)' }}
-    >
+    <Grid container direction="column" alignItems="center">
       <Grid item color="#fff" sx={{ marginTop: '31px' }}>
         <Typography sx={{ fontSize: '72px', fontWeight: '600', lineHeight: '144px' }}>
           {t('Welcome.titleText')}

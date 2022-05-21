@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import Section from '$components/Section';
-import { useTranslation } from 'react-i18next';
-
 import css from './NotFoundPage.module.scss';
 
 const NotFoundPage: FC = () => {
@@ -13,9 +11,11 @@ const NotFoundPage: FC = () => {
       <Typography className={css.error_heading} variant="h3">
         {t('NotFoundPage.heading')}
       </Typography>
+
       <Typography className={css.error_text} variant="h5">
         {t('NotFoundPage.text')}
       </Typography>
+
       <Typography variant="h6">{t('NotFoundPage.checkUrlText')}</Typography>
     </Section>
   );

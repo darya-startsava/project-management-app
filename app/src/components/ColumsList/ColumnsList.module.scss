@@ -1,13 +1,6 @@
 @import "$assets/scss/variables";
 @import "$assets/scss/mixins";
 
-%commonHeadItemStyles {
-  box-shadow: $boxShadow;
-  border-radius: $borderRadiusBig;
-  color: $black;
-  background: $whiteColor;
-}
-
 div.columnsList,
 ul.columnsList {
   @include dflex(flex-start, flex-start);
@@ -42,7 +35,7 @@ ul.columnsList {
   .columnsList__item_title {
     margin-bottom: 0;
     font-weight: bold;
-    font-size: $pageSumTitleText;
+    font-size: $bigTextSize;
     line-height: 1.5;
     color: $black;
     cursor: pointer;
@@ -110,7 +103,7 @@ ul.columnsList {
 
     padding: 12px 25px;
     font-weight: bold;
-    font-size: $pageSumTitleText;
+    font-size: $bigTextSize;
     line-height: 1.5;
     color: $black;
   }

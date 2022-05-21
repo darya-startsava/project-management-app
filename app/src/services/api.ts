@@ -41,6 +41,7 @@ export const api = createApi({
     // user
     signUp: build.mutation<{ id: string }, IUserRegistration>({
       query: (body: IUserRegistration) => ({ url: QueryPoints.signup, method: 'POST', body }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
     }),
     signIn: build.mutation<{ token: string }, IUserLogIn>({
       query: (body: IUserLogIn) => ({ url: QueryPoints.signin, method: 'POST', body }),
@@ -59,6 +60,7 @@ export const api = createApi({
     }),
     deleteUser: build.mutation<void, string>({
       query: (id) => ({ url: `${QueryPoints.users}/${id}`, method: 'DELETE' }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
     }),
     updateUser: build.mutation<IUser, { body: IUserRegistration; id: string }>({
       query: ({ body, id }) => ({ url: `${QueryPoints.users}/${id}`, method: 'PUT', body }),

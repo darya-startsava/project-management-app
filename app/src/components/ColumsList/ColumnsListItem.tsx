@@ -1,9 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAddTaskMutation, useGetAllTasksQuery } from '$services/api';
+import { useSnackbar } from 'notistack';
+import CloseButton from '$components/CloseButton';
 import LightboxForCreateTask from '$components/LightboxForCreateTask';
 import TasksList from './TasksList';
 import { Box, Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from '@mui/material';
 import { Add as AddIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
+import { CLOSE_SNACKBAR_TIME } from '$settings/index';
+
 import {
   IColumn,
   IError,
@@ -13,10 +18,6 @@ import {
   TSimpleFunction,
 } from '$types/common';
 import css from './ColumnsList.module.scss';
-import { useAddTaskMutation, useGetAllTasksQuery } from '$services/api';
-import CloseButton from '$components/CloseButton';
-import { useSnackbar } from 'notistack';
-import { CLOSE_SNACKBAR_TIME } from '$settings/index';
 
 interface IColumnsListItemProps extends IColumn {
   boardId: string;

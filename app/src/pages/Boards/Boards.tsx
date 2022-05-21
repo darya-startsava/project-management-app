@@ -60,7 +60,7 @@ const Boards: FC = () => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [t, errorAddBoard, enqueueSnackbar, closeSnackbar]);
+  }, [errorAddBoard, t, enqueueSnackbar, closeSnackbar]);
 
   useEffect(() => {}, [t, enqueueSnackbar, closeSnackbar]);
 

@@ -1,7 +1,7 @@
 /* Основные переменные цсс. */
 
 // В colors помещаем цвета
-/* colors start */
+/* common colors start */
 $withOutColor: transparent;
 $whiteColor: #fff;
 $lightGrey: #efefef;
@@ -13,25 +13,20 @@ $lightBlue: #cbdfe0;
 $red: red;
 $green: green;
 $orange: #ef9401;
-$columnBg: #f4f5f7;
-$scrollBarItemThumb: #c4c4c4;
-$scrollBarItemBg: #d9d9d9;
 $pageGradient: linear-gradient(45deg,#f8a078,#6dc6f0);
 $boxShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-/* colors end */
+/* common colors end */
 
-//В values основные значения
-/* values start */
+/* common values start */
 $wrapper-max-width: 1152px;
 $transitionTime: 0.3s;
 $borderRadiusMin: 10px;
 $borderRadiusBig: 28px;
-$pageSumTitleText: 28px;
 $pageTitleText: 40px;
-$oneBoardPageOffset: max(calc(calc(100vw - $wrapper-max-width) / 2), 20px);
+$bigTextSize: 28px;
 $textSize: 20px;
-$headTaskSize: 40px;
-/* values end */
+$oneBoardPageOffset: max(calc(calc(100vw - $wrapper-max-width) / 2), 20px);
+/* common values end */
 
 /* common parts styles start */
 %commonHeadItemStyles {
@@ -40,4 +35,25 @@ $headTaskSize: 40px;
   color: $black;
   background: $whiteColor;
 }
+
+%pageTitle {
+  font-size: $pageTitleText;
+  text-align: center;
+}
 /* common parts styles end */
+
+
+// scroll
+$scrollBarItemThumb: #c4c4c4;
+$scrollBarItemBg: #d9d9d9;
+
+// boards
+$columnBg: #f4f5f7;
+
+// columns
+
+// tasks
+$headTaskSize: 40px;
+
+
+

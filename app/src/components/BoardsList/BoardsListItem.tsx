@@ -2,6 +2,8 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
+import { useUpdateBoardMutation } from '$services/api';
+import { SubmitHandler } from 'react-hook-form';
 import {
   CardActions,
   CardContent,
@@ -16,22 +18,20 @@ import {
   HistoryEdu as HistoryEduIcon,
   StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
+import CloseButton from '$components/CloseButton';
+import LightboxForUpdateItem from '$components/LightboxForUpdateItem';
+import { randNumber } from '$utils/index';
 import { ROUTES_PATHS } from '$settings/routing';
 import {
   CLOSE_SNACKBAR_TIME,
   BOARDS_LENGTH_MIN_LETTERS,
   BOARDS_LENGTH_MAX_LETTERS,
 } from '$settings/index';
-import { randNumber } from '$utils/index';
-import CloseButton from '$components/CloseButton';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
 import { IBoard, IUpdateTitleFormState } from '$types/common';
 import css from './BoardsList.module.scss';
-import LightboxForUpdateItem from '$components/LightboxForUpdateItem';
-import { useUpdateBoardMutation } from '$services/api';
-import { SubmitHandler } from 'react-hook-form';
 
 const BoardsListItem: FC<IBoard> = ({ id, title }) => {
   const { t } = useTranslation();
@@ -55,7 +55,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [closeSnackbar, enqueueSnackbar, errorUpdateBoard, t]);
+  }, [errorUpdateBoard, closeSnackbar, enqueueSnackbar, t]);
 
   useEffect(() => {
     if (isSuccessUpdateBoard) {
@@ -65,9 +65,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [closeSnackbar, enqueueSnackbar, isSuccessUpdateBoard, t]);
-
-  useEffect(() => {}, [t, enqueueSnackbar, closeSnackbar]);
+  }, [isSuccessUpdateBoard, closeSnackbar, enqueueSnackbar, t]);
 
   const updateBoardTitle: SubmitHandler<IUpdateTitleFormState> = (data) => {
     updateBoard({ body: data, id });

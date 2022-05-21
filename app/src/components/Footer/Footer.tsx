@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
-import { Grid, Link, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import RSSchoolSign from '../../assets/svg/RSSchoolSign.svg';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import CopyrightIcon from '@mui/icons-material/Copyright';
-
+import { Grid, Link, Box } from '@mui/material';
+import { GitHub as GitHubIcon, Copyright as CopyrightIcon } from '@mui/icons-material';
+import RSSchoolSign from '$assets/svg/RSSchoolSign.svg';
 import css from './Footer.module.scss';
 
 const Footer: FC = () => {
