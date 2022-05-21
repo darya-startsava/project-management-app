@@ -28,18 +28,19 @@ $boxShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 /* values start */
 $wrapper-max-width: 1152px;
 $transitionTime: 0.3s;
-$borderRadius: 10px;
-$borderRadiusItem: 28px;
+$borderRadiusMin: 10px;
+$borderRadiusBig: 28px;
 $pageSumTitleText: 28px;
 $pageTitleText: 40px;
 $oneBoardPageOffset: max(calc(calc(100vw - $wrapper-max-width) / 2), 20px);
 $textSize: 20px;
+$headTaskSize: 40px;
 /* values end */
 
 /* common parts styles start */
 %commonHeadItemStyles {
   box-shadow: $boxShadow;
-  border-radius: $borderRadiusItem;
+  border-radius: $borderRadiusBig;
   color: $black;
   background: $whiteColor;
 }

@@ -3,7 +3,7 @@
 
 %commonHeadItemStyles {
   box-shadow: $boxShadow;
-  border-radius: $borderRadiusItem;
+  border-radius: $borderRadiusBig;
   color: $black;
   background: $whiteColor;
 }
@@ -23,7 +23,7 @@ ul.columnsList {
     min-height: 100px;
     padding: 12px 15px;
     box-shadow: $boxShadow;
-    border-radius: $borderRadiusItem;
+    border-radius: $borderRadiusBig;
     color: $black;
     background-color: $columnBg;
     list-style-type: none;
@@ -60,7 +60,7 @@ ul.columnsList {
       padding: 2px 5px;
       font-size: $textSize;
       border: 1px solid transparentize($black, 0.5);
-      border-radius: $borderRadius 0 0 $borderRadius;
+      border-radius: $borderRadiusMin 0 0 $borderRadiusMin;
       line-height: 1.5;
       color: $black;
       background-color: $whiteColor;
@@ -68,7 +68,7 @@ ul.columnsList {
 
     &_buttons {
       width: 30%;
-      border-radius: 0 $borderRadius $borderRadius 0;
+      border-radius: 0 $borderRadiusMin $borderRadiusMin 0;
     }
 
     &_accept,
@@ -90,6 +90,12 @@ ul.columnsList {
     &_cancel {
       background-color: $red;
     }
+  }
+
+  .columnsList__item_addTaskButton {
+    font-weight: 500;
+    font-size: 18px;
+    color: $black;
   }
 
   .columnsList__itemButton {

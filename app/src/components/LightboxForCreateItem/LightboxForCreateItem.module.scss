@@ -12,7 +12,7 @@
     min-height: 120px;
     padding: 15px 30px;
     font-size: $pageSumTitleText;
-    border-radius: $borderRadius;
+    border-radius: $borderRadiusMin;
     border: 2px solid transparentize($black, 0.8);
     resize: vertical;
 
@@ -34,7 +34,7 @@
     font-weight: bold;
     font-size: $pageSumTitleText;
     text-align: center;
-    border-radius: $borderRadius;
+    border-radius: $borderRadiusMin;
     color: $whiteColor;
     background-color: $primary;
     cursor: pointer;

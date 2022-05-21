@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LightboxForCreateTask from '$components/LightboxForCreateTask';
 import TasksList from './TasksList';
@@ -6,6 +6,7 @@ import { Box, Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from
 import { Add as AddIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
 import {
   IColumn,
+  IError,
   INewNTaskFormState,
   TChangeElHandler,
   TCreateElement,
@@ -13,6 +14,9 @@ import {
 } from '$types/common';
 import css from './ColumnsList.module.scss';
 import { useAddTaskMutation, useGetAllTasksQuery } from '$services/api';
+import CloseButton from '$components/CloseButton';
+import { useSnackbar } from 'notistack';
+import { CLOSE_SNACKBAR_TIME } from '$settings/index';
 
 interface IColumnsListItemProps extends IColumn {
   boardId: string;
@@ -20,14 +24,49 @@ interface IColumnsListItemProps extends IColumn {
 
 const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: columnId }) => {
   const { t } = useTranslation();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isChangeColumnNameMode, setIsChangeColumnNameMode] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>(title);
   const [showModalAddTasks, setShowModalAddTasks] = useState<boolean>(false);
+  const { data: tasks = [], error: errorGetTasks } = useGetAllTasksQuery({ boardId, columnId });
+  const [addTask, { isLoading: isAddingTask, error: errorAddTask, isSuccess: isSuccessAddTask }] =
+    useAddTaskMutation();
 
-  // , error: errorGetTasks
-  const { data: tasks = [] } = useGetAllTasksQuery({ boardId, columnId });
-  // , { isLoading: isAddingTask, error, isSuccess: isSuccessAddTask }
-  const [addTask] = useAddTaskMutation();
+  useEffect(() => {
+    if (errorGetTasks) {
+      const errorMessage = t('Tasks.errorGetTasks', {
+        ERROR_MESSAGE: (errorGetTasks as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        variant: 'error',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorGetTasks, t, enqueueSnackbar, closeSnackbar]);
+
+  useEffect(() => {
+    if (errorAddTask) {
+      const errorMessage = t('Tasks.errorAddTask', {
+        ERROR_MESSAGE: (errorAddTask as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        variant: 'error',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorAddTask, t, enqueueSnackbar, closeSnackbar]);
+
+  useEffect(() => {
+    if (isSuccessAddTask) {
+      enqueueSnackbar(t('Tasks.isSuccessAddTask'), {
+        variant: 'success',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [isSuccessAddTask, t, enqueueSnackbar, closeSnackbar]);
 
   const addNewBoard: TCreateElement<INewNTaskFormState> = (data: INewNTaskFormState) => {
     addTask({
@@ -38,6 +77,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
       boardId,
       columnId,
     });
+    setShowModalAddTasks(false);
   };
 
   const changeHandler: TChangeElHandler<HTMLInputElement> = (event) => {
@@ -85,19 +125,27 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
           )}
 
           <TasksList tasks={tasks} />
+
+          <Button
+            className={css.columnsList__item_addTaskButton}
+            onClick={() => {
+              setShowModalAddTasks(true);
+            }}
+          >
+            + {t('Tasks.addNewTaskButtonText')}
+          </Button>
         </Box>
       </ListItem>
 
       <LightboxForCreateTask
-        modalTitle={t('Tasks.createModalTitle')}
         showModal={showModalAddTasks}
+        isLoading={isAddingTask}
         changeShowModal={setShowModalAddTasks}
         submitCB={addNewBoard}
-        isLoading={false}
-        // submitCB={addNewBoard}
-        // isLoading={isAddingColumn}
-        placeholderText={t('Tasks.addModalTextareaPlaceholder')}
-        localizationKeyTextareaErrorText="Tasks.errorTextarea"
+        modalTitle={t('Tasks.createModalTitle')}
+        nameLabel={t('Tasks.addModalNameLabel')}
+        descriptionLabel={t('Tasks.addModalDescriptionLabel')}
+        userLabel={t('Tasks.addModalUserLabel')}
         submitButtonText={t('Tasks.submitButtonTextInFormNewTask')}
       />
     </>

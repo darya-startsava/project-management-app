@@ -1,33 +1,43 @@
 import React, { FC } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useGetAllUsersQuery } from '$services/api';
 import classNames from 'classnames';
-import { InputBase, Box, TextareaAutosize, Typography } from '@mui/material';
+import { InputBase, Box, Typography, MenuItem, CircularProgress, TextField } from '@mui/material';
 import LightBox from '$components/Lightbox';
+import {
+  TASKS_TITLE_MIN_LENGTH,
+  TASKS_TITLE_MAX_LENGTH,
+  TASKS_DESCRIPTION_MIN_LENGTH,
+  TASKS_DESCRIPTION_MAX_LENGTH,
+} from '$settings/index';
 import { INewNTaskFormState, TCreateElement } from '$types/common';
 import css from './LightboxForCreateTask.module.scss';
 
 interface IBoardsModal {
   showModal: boolean;
   isLoading: boolean;
-  modalTitle: string;
-  placeholderText: string;
-  localizationKeyTextareaErrorText: string;
-  submitButtonText: string;
   changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   submitCB: TCreateElement<INewNTaskFormState>;
+  modalTitle: string;
+  nameLabel: string;
+  descriptionLabel: string;
+  userLabel: string;
+  submitButtonText: string;
 }
 
 const LightboxForCreateTask: FC<IBoardsModal> = ({
   showModal,
+  isLoading,
   changeShowModal,
-  placeholderText,
   submitCB,
   modalTitle,
-  localizationKeyTextareaErrorText,
+  nameLabel,
+  descriptionLabel,
+  userLabel,
   submitButtonText,
-  isLoading,
 }) => {
+  const { t } = useTranslation();
   const {
     handleSubmit,
     control,
@@ -40,7 +50,10 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
       userId: '',
     },
   });
-  const { t } = useTranslation();
+
+  // , isLoading, error: errorGetAllUsers
+  const { data: users = [], isLoading: isLoadingUsers } = useGetAllUsersQuery();
+
   const addNewBoardHandler: SubmitHandler<INewNTaskFormState> = (data) => {
     submitCB(data);
     reset({
@@ -80,29 +93,31 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
           rules={{
             required: true,
             minLength: {
-              value: 5,
-              message: t('Tasks.errorTextMinLengthNewTitle', { lengthMinLetters: 5 }),
+              value: TASKS_TITLE_MIN_LENGTH,
+              message: t('Tasks.errorMinLengthTitle', { TASKS_TITLE_MIN_LENGTH }),
             },
             maxLength: {
-              value: 20,
-              message: t('Tasks.errorTextMaxLengthNewTitle', { lengthMaxLetters: 20 }),
+              value: TASKS_TITLE_MAX_LENGTH,
+              message: t('Tasks.errorMaxLengthTitle', { TASKS_TITLE_MAX_LENGTH }),
             },
           }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
-              <TextareaAutosize
+              <TextField
+                type="text"
                 value={value}
-                className={classNames(css.modalAddForm_text, {
+                className={classNames(css.modalAddForm_element, {
                   [css.error]: error?.message,
                 })}
-                placeholder={placeholderText}
-                area-label={placeholderText}
+                label={nameLabel}
                 onChange={onChange}
+                autoFocus
+                fullWidth
               />
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
-                  {t(localizationKeyTextareaErrorText, { errorMessage: error?.message })}
+                  {t('Tasks.errorText', { ERROR_MESSAGE: error?.message })}
                 </Typography>
               )}
             </>
@@ -115,64 +130,78 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
           rules={{
             required: true,
             minLength: {
-              value: 2,
-              message: t('Tasks.errorTextMinLengthNewTitle', { lengthMinLetters: 2 }),
+              value: TASKS_DESCRIPTION_MIN_LENGTH,
+              message: t('Tasks.errorMinLengthDescription', { TASKS_DESCRIPTION_MIN_LENGTH }),
             },
             maxLength: {
-              value: 400,
-              message: t('Tasks.errorTextMaxLengthNewTitle', { lengthMaxLetters: 400 }),
+              value: TASKS_DESCRIPTION_MAX_LENGTH,
+              message: t('Tasks.errorMaxLengthDescription', { TASKS_DESCRIPTION_MAX_LENGTH }),
             },
           }}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
-              <TextareaAutosize
+              <TextField
                 value={value}
-                className={classNames(css.modalAddForm_text, {
+                className={classNames([css.modalAddForm_description, css.modalAddForm_element], {
                   [css.error]: error?.message,
                 })}
-                placeholder={placeholderText}
-                area-label={placeholderText}
+                label={descriptionLabel}
                 onChange={onChange}
+                multiline
+                fullWidth
               />
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
-                  {t(localizationKeyTextareaErrorText, { errorMessage: error?.message })}
+                  {t('Tasks.errorText', { ERROR_MESSAGE: error?.message })}
                 </Typography>
               )}
             </>
           )}
         />
 
-        <Controller
-          control={control}
-          name="userId"
-          rules={{
-            maxLength: {
-              value: 20,
-              message: t('Tasks.errorTextMaxLengthNewTitle', { lengthMaxLetters: 20 }),
-            },
-          }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <>
-              <TextareaAutosize
-                value={value}
-                className={classNames(css.modalAddForm_text, {
-                  [css.error]: error?.message,
-                })}
-                placeholder={placeholderText}
-                area-label={placeholderText}
-                onChange={onChange}
-              />
+        {isLoadingUsers ? (
+          <CircularProgress />
+        ) : (
+          <Controller
+            control={control}
+            name="userId"
+            rules={{
+              required: t('Tasks.errorChoiceUser'),
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <TextField
+                  id="users"
+                  select
+                  label={userLabel}
+                  value={value}
+                  onChange={onChange}
+                  className={classNames(css.modalAddForm_element, {
+                    [css.error]: error?.message,
+                  })}
+                  fullWidth
+                >
+                  {users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.login}
+                    </MenuItem>
+                  ))}
+                </TextField>
 
-              {error?.message && (
-                <Typography variant="inherit" component="p" className={css.modalAddForm_errorText}>
-                  {t(localizationKeyTextareaErrorText, { errorMessage: error?.message })}
-                </Typography>
-              )}
-            </>
-          )}
-        />
+                {error?.message && (
+                  <Typography
+                    variant="inherit"
+                    component="p"
+                    className={css.modalAddForm_errorText}
+                  >
+                    {t('Tasks.errorText', { ERROR_MESSAGE: error?.message })}
+                  </Typography>
+                )}
+              </>
+            )}
+          />
+        )}
 
         <InputBase
           className={classNameSubmit}
@@ -180,6 +209,7 @@ const LightboxForCreateTask: FC<IBoardsModal> = ({
           disableInjectingGlobalStyles={true}
           disabled={isLoading || !isDirty}
           value={submitButtonText}
+          fullWidth={true}
         />
       </Box>
     </LightBox>
