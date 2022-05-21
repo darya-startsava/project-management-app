@@ -3,17 +3,18 @@ import { useTranslation } from 'react-i18next';
 import LightboxForCreateTask from '$components/LightboxForCreateTask';
 import TasksList from './TasksList';
 import { Box, Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from '@mui/material';
-import { Add as AddIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
+import { Check as CheckIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
 import {
   IColumn,
   IError,
   INewNTaskFormState,
+  IUpdateTitleFormState,
   TChangeElHandler,
   TCreateElement,
   TSimpleFunction,
 } from '$types/common';
 import css from './ColumnsList.module.scss';
-import { useAddTaskMutation, useGetAllTasksQuery } from '$services/api';
+import { useAddTaskMutation, useGetAllTasksQuery, useUpdateColumnMutation } from '$services/api';
 import CloseButton from '$components/CloseButton';
 import { useSnackbar } from 'notistack';
 import { CLOSE_SNACKBAR_TIME } from '$settings/index';
@@ -29,6 +30,9 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   const [newTitle, setNewTitle] = useState<string>(title);
   const [showModalAddTasks, setShowModalAddTasks] = useState<boolean>(false);
   const { data: tasks = [], error: errorGetTasks } = useGetAllTasksQuery({ boardId, columnId });
+
+  const [updateColumn, { error: errorUpdateColumn, isSuccess: isSuccessUpdateColumn }] =
+    useUpdateColumnMutation();
   const [addTask, { isLoading: isAddingTask, error: errorAddTask, isSuccess: isSuccessAddTask }] =
     useAddTaskMutation();
 
@@ -44,6 +48,27 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
       });
     }
   }, [errorGetTasks, t, enqueueSnackbar, closeSnackbar]);
+
+  useEffect(() => {
+    if (errorUpdateColumn) {
+      const errorMessage = t('Columns.errorUpdateBoardTitle', { errorText: errorUpdateColumn });
+      enqueueSnackbar(errorMessage, {
+        variant: 'error',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [closeSnackbar, enqueueSnackbar, errorUpdateColumn, t]);
+
+  useEffect(() => {
+    if (isSuccessUpdateColumn) {
+      enqueueSnackbar(t('Columns.successUpdateBoardTitle'), {
+        variant: 'success',
+        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [closeSnackbar, enqueueSnackbar, isSuccessUpdateColumn, t]);
 
   useEffect(() => {
     if (errorAddTask) {
@@ -80,14 +105,25 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
     setShowModalAddTasks(false);
   };
 
-  const changeHandler: TChangeElHandler<HTMLInputElement> = (event) => {
+  const changeTitleHandler: TChangeElHandler<HTMLInputElement> = (event) => {
     setNewTitle(event.target.value);
   };
 
-  const cancelHandler: TSimpleFunction = () => {
+  const cancelTitleHandler: TSimpleFunction = () => {
     setNewTitle(title);
     setIsChangeColumnNameMode(false);
   };
+
+  const submitTitleHandler: TSimpleFunction<IUpdateTitleFormState> = (data) => {
+    setNewTitle(title);
+    updateColumn({ body: data, id });
+    setIsChangeColumnNameMode(false);
+  };
+
+  // const updateColumnTitle: SubmitHandler<IUpdateTitleFormState> = (data) => {
+  //   updateColumn({ body: data, id });
+  //   setIsChangeColumnNameMode(false);
+  // };
 
   return (
     <>
@@ -98,16 +134,22 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
               <InputBase
                 className={css.columnsList__item_rename_input}
                 value={newTitle}
-                onChange={changeHandler}
+                onChange={changeTitleHandler}
                 name={title}
               />
 
               <ButtonGroup className={css.columnsList__item_rename_buttons}>
-                <Button className={css.columnsList__item_rename_accept} onClick={() => {}}>
-                  <AddIcon />
+                <Button
+                  className={css.columnsList__item_rename_accept}
+                  onClick={submitTitleHandler}
+                >
+                  <CheckIcon />
                 </Button>
 
-                <Button className={css.columnsList__item_rename_cancel} onClick={cancelHandler}>
+                <Button
+                  className={css.columnsList__item_rename_cancel}
+                  onClick={cancelTitleHandler}
+                >
                   <DoNotDisturbIcon />
                 </Button>
               </ButtonGroup>

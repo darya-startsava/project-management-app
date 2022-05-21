@@ -113,6 +113,14 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
     }),
+    updateColumn: build.mutation<IColumn, { body: IUpdateTitleFormState; id: string }>({
+      query: ({ body, id }) => ({
+        url: `/${QueryPoints.boards}/${id}/${QueryPoints.columns}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
+    }),
 
     // tasks page
     getAllTasks: build.query<Array<ITask>, { boardId: string; columnId: string }>({
@@ -151,6 +159,7 @@ export const {
   useUpdateBoardMutation,
   useGetAllColumnsQuery,
   useAddColumnMutation,
+  useUpdateColumnMutation,
   useGetAllTasksQuery,
   useAddTaskMutation,
 } = api;

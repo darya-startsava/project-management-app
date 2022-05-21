@@ -98,7 +98,9 @@
     "errorTextMinLengthNewTitle": "Min length {{COLUMNS_LENGTH_MIN_LETTERS}} letters",
     "errorTextMaxLengthNewTitle": "Max length {{COLUMNS_LENGTH_MAX_LETTERS}} letters",
     "submitButtonTextInFormNewColumn": "Add new column",
-    "addNewColumnButtonText": "Create column"
+    "addNewColumnButtonText": "Create column",
+    "errorUpdateColumnTitle": "Column title has not been changed! Error: {{errorText}}",
+    "successUpdateColumnTitle": "Column title changed successfully!"
   },
   "Tasks": {
     "addNewTaskButtonText": "Add new task",
