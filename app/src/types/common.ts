@@ -39,7 +39,7 @@ export interface IError {
 export interface INewNameFormState {
   newTitle: string;
 }
-export type TCreateElement = (data: INewNameFormState) => void;
+export type TCreateElement<T> = (data: T) => void;
 /* create new element end */
 
 export interface IUpdateTitleFormState {
@@ -69,6 +69,27 @@ export interface IColumn extends IColumnCreateObj {
   id: string;
 }
 /* columns end */
+
+/* tasks start */
+export interface ITaskCreateObj {
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+}
+
+export interface ITask extends ITaskCreateObj {
+  id: string;
+  boardId: string;
+  columnId: string;
+}
+
+export interface INewNTaskFormState {
+  title: string;
+  description: string;
+  userId: string;
+}
+/* tasks end */
 
 /* routing start */
 export interface IWord {

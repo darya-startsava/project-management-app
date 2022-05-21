@@ -3,36 +3,55 @@
 .modalAddForm {
   position: relative;
   z-index: 1;
-  width: 600px;
+  width: 500px;
 
-  .modalAddForm_text {
-    @extend %commonHeadItemStyles;
-
+  .modalAddForm_element {
     width: 100%;
-    min-height: 120px;
-    padding: 15px 30px;
-    font-size: $pageSumTitleText;
+    margin-bottom: 15px;
     border-radius: $borderRadiusMin;
-    border: 2px solid transparentize($black, 0.8);
-    resize: vertical;
+    background-color: $whiteColor;
+
+    label {
+      font-weight: bold;
+    }
+    textarea,
+    input {
+      padding: 15px;
+      font-size: $textSize;
+      border-radius: $borderRadiusMin;
+    }
+
+    fieldset {
+      border-radius: $borderRadiusMin;
+      border: 2px solid transparentize($black, 0.8);
+      box-shadow: $boxShadow;
+    }
 
     &.error {
-      border-color: $red;
+      margin-bottom: 0;
+
+      fieldset {
+        border-color: $red;
+      }
     }
   }
 
+  .modalAddForm_description > div {
+    padding: 0;
+  }
+
+
   .modalAddForm_errorText {
+    margin-bottom: 15px;
     font-size: $textSize;
     color: $red;
   }
 
   .modalAddForm_submit {
-    display: block;
-    width: 100%;
     margin-top: 15px;
     padding: 10px;
     font-weight: bold;
-    font-size: $pageSumTitleText;
+    font-size: $textSize;
     text-align: center;
     border-radius: $borderRadiusMin;
     color: $whiteColor;

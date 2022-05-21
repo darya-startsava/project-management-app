@@ -100,6 +100,26 @@
     "submitButtonTextInFormNewColumn": "Add new column",
     "addNewColumnButtonText": "Create column"
   },
+  "Tasks": {
+    "addNewTaskButtonText": "Add new task",
+    "isSuccessAddTask": "The task was created successfully!",
+    "errorAddTask": "The task was not created! Try to do it later. Error: {{ERROR_MESSAGE}",
+    "errorGetTasks": "Something went wrong. Try to do it later. Error: {{ERROR_MESSAGE}}",
+    "createModalTitle": "Add task",
+    "addModalNameLabel": "Task name",
+    "addModalDescriptionLabel": "Task description",
+    "addModalUserLabel": "Responsible user",
+    "submitButtonTextInFormNewTask": "Add new task",
+    "errorText": "Error: {{ERROR_MESSAGE}}",
+    "errorMinLengthTitle": "Min length {{TASKS_TITLE_MIN_LENGTH}} letters",
+    "errorMaxLengthTitle": "Max length {{TASKS_TITLE_MAX_LENGTH}} letters",
+    "errorMinLengthDescription": "Min length {{TASKS_DESCRIPTION_MIN_LENGTH}} letters",
+    "errorMaxLengthDescription": "Max length {{TASKS_DESCRIPTION_MAX_LENGTH}} letters",
+    "responsible": "Responsible: {{USER}}",
+    "unknownUser": "Responsible: none",
+    "defaultResponsibleUser": "Choice user",
+    "errorChoiceUser": "Need to choice responsible user"
+  },
   "Profile": {
     "pageTitle": "User profile - {{name}}",
     "userImage": "User image.",

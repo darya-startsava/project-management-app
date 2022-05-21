@@ -29,7 +29,7 @@
       margin-top: 30px;
       width: 100%;
       padding: 13px 10px;
-      border-radius: $borderRadius;
+      border-radius: $borderRadiusMin;
       color: $whiteColor;
       background-color: $red;
 
@@ -81,7 +81,7 @@
       margin-top: 29px;
       padding: 13px 15px;
       font-size: 1rem;
-      border-radius: $borderRadius;
+      border-radius: $borderRadiusMin;
       color: $whiteColor;
       background-color: $primary;
       cursor: pointer;

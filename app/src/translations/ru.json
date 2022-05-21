@@ -100,6 +100,26 @@
     "submitButtonTextInFormNewColumn": "Создать новую колонку",
     "addNewColumnButtonText": "Добавить колонку"
   },
+  "Tasks": {
+    "addNewTaskButtonText": "Добавить новую задачу",
+    "isSuccessAddTask": "Задача создана!",
+    "errorAddTask": "Задача не создана! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
+    "errorGetTasks": "Что-то пошло не так. Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
+    "createModalTitle": "Добавить задачу",
+    "addModalNameLabel": "Название задачи",
+    "addModalDescriptionLabel": "Описание задачи",
+    "addModalUserLabel": "Ответственный пользователь",
+    "submitButtonTextInFormNewTask": "Добавить новую задачу",
+    "errorText": "Ошибка: {{ERROR_MESSAGE}}",
+    "errorMinLengthTitle": "Минимальная длина {{TASKS_TITLE_MIN_LENGTH}} символов",
+    "errorMaxLengthTitle": "Максимальная длина {{TASKS_TITLE_MAX_LENGTH}} символов",
+    "errorMinLengthDescription": "Минимальная длина {{TASKS_DESCRIPTION_MIN_LENGTH}} символов",
+    "errorMaxLengthDescription": "Максимальная длина {{TASKS_DESCRIPTION_MAX_LENGTH}} символов",
+    "responsible": "Ответственный: {{USER}}",
+    "unknownUser": "Ответственный: ненайден",
+    "defaultResponsibleUser": "Выберите пользователя",
+    "errorChoiceUser": "Необходимость выбора ответственного пользователя"
+  },
   "Profile": {
     "pageTitle": "Профиль пользователя - {{name}}",
     "userImage": "Картинка пользователя.",
