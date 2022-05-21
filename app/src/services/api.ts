@@ -10,6 +10,7 @@ import {
   IUser,
   IUserLogIn,
   IUserRegistration,
+  IUpdateTitleFormState,
 } from '$types/common';
 import { RootState } from '$store/store';
 
@@ -81,6 +82,14 @@ export const api = createApi({
       query: (body: IBoardCreateObj) => ({ url: QueryPoints.boards, method: 'POST', body }),
       invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
     }),
+    updateBoard: build.mutation<IBoard, { body: IUpdateTitleFormState; id: string }>({
+      query: ({ body, id }) => ({
+        url: `/${QueryPoints.boards}/${id}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
+    }),
 
     // columns page
     getAllColumns: build.query<Array<IColumn>, string>({
@@ -139,6 +148,7 @@ export const {
   useUpdateUserMutation,
   useGetAllBoardsQuery,
   useAddBoardMutation,
+  useUpdateBoardMutation,
   useGetAllColumnsQuery,
   useAddColumnMutation,
   useGetAllTasksQuery,

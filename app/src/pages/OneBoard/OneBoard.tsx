@@ -10,7 +10,11 @@ import ColumnsListItem from '$components/ColumsList';
 import CloseButton from '$components/CloseButton';
 import LightboxForCreateItem from '$components/LightboxForCreateItem';
 import { randNumber } from '$utils/index';
-import { CLOSE_SNACKBAR_TIME } from '$settings/index';
+import {
+  CLOSE_SNACKBAR_TIME,
+  COLUMNS_LENGTH_MIN_LETTERS,
+  COLUMNS_LENGTH_MAX_LETTERS,
+} from '$settings/index';
 import { IError, INewNameFormState, TCreateElement } from '$types/common';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
@@ -21,8 +25,6 @@ const OneBoard: FC = () => {
   const params = useParams();
   const location = useLocation();
   const { t } = useTranslation();
-  const lengthMinLetters = 5;
-  const lengthMaxLetters = 20;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModalAddColumn, setShowModalAddColumn] = useState<boolean>(false);
   const arrImages = [img1, img2, img3];
@@ -110,11 +112,11 @@ const OneBoard: FC = () => {
           required: true,
           minLength: {
             value: 5,
-            message: t('Columns.errorTextMinLengthNewTitle', { lengthMinLetters }),
+            message: t('Columns.errorTextMinLengthNewTitle', { COLUMNS_LENGTH_MIN_LETTERS }),
           },
           maxLength: {
             value: 20,
-            message: t('Columns.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
+            message: t('Columns.errorTextMaxLengthNewTitle', { COLUMNS_LENGTH_MAX_LETTERS }),
           },
         }}
       />

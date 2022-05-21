@@ -7,7 +7,11 @@ import BoardsHead from './BoardsHead';
 import BoardsList from '$components/BoardsList';
 import LightboxForCreateItem from '$components/LightboxForCreateItem';
 import CloseButton from '$components/CloseButton';
-import { CLOSE_SNACKBAR_TIME } from '$settings/index';
+import {
+  CLOSE_SNACKBAR_TIME,
+  BOARDS_LENGTH_MIN_LETTERS,
+  BOARDS_LENGTH_MAX_LETTERS,
+} from '$settings/index';
 import { IError, INewNameFormState, TCreateElement } from '$types/common';
 import css from './Boards.module.scss';
 
@@ -15,10 +19,9 @@ export type TChangeBoardsShow = (searchValue: string) => void;
 
 const Boards: FC = () => {
   const { t } = useTranslation();
-  const lengthMinLetters = 5;
-  const lengthMaxLetters = 60;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModal, setShowModal] = useState<boolean>(false);
+
   const [
     addBoard,
     { isLoading: isAddingBoard, error: errorAddBoard, isSuccess: isSuccessAddBoard },
@@ -100,12 +103,12 @@ const Boards: FC = () => {
         rules={{
           required: true,
           minLength: {
-            value: lengthMinLetters,
-            message: t('Boards.errorTextMinLengthNewTitle', { lengthMinLetters }),
+            value: BOARDS_LENGTH_MIN_LETTERS,
+            message: t('Boards.errorTextMinLengthNewTitle', { BOARDS_LENGTH_MIN_LETTERS }),
           },
           maxLength: {
-            value: lengthMaxLetters,
-            message: t('Boards.errorTextMaxLengthNewTitle', { lengthMaxLetters }),
+            value: BOARDS_LENGTH_MAX_LETTERS,
+            message: t('Boards.errorTextMaxLengthNewTitle', { BOARDS_LENGTH_MAX_LETTERS }),
           },
         }}
       />

@@ -42,6 +42,12 @@ export interface INewNameFormState {
 export type TCreateElement<T> = (data: T) => void;
 /* create new element end */
 
+export interface IUpdateTitleFormState {
+  title: string;
+}
+
+export type TUpdateElement = (data: IUpdateTitleFormState) => void;
+
 /* boards start */
 export interface IBoardCreateObj {
   title: string;
