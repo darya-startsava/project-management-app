@@ -1,8 +1,7 @@
 import React, { FC, Ref } from 'react';
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { LinkProps } from '@mui/material';
-import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const MuiTheme: FC<{ children: React.ReactNode }> = (props) => {
   const LinkBehavior = React.forwardRef((props, ref) => {

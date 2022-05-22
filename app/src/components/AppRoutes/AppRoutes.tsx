@@ -1,16 +1,15 @@
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
 import Welcome from '$pages/Welcome';
+import RequiredAuth from '$components/RequiredAuth';
 import Boards from '$pages/Boards';
 import OneBoard from '$pages/OneBoard';
-import Authorization from '$pages/Authorization';
-import ErrorPage from '$pages/ErrorPage';
-import RequiredAuth from '$components/RequiredAuth';
 import Profile from '$pages/Profile';
-import { ROUTES_PATHS } from '$settings/routing';
+import Authorization from '$pages/Authorization';
 import NotFoundPage from '$pages/NotFoundPage';
+import ErrorPage from '$pages/ErrorPage';
 import NoDoubleLogin from '$components/NoDoubleLogin';
+import { ROUTES_PATHS } from '$settings/routing';
 
 const AppRoutes: FC = () => {
   return (
@@ -38,14 +37,6 @@ const AppRoutes: FC = () => {
           <NoDoubleLogin redirect={ROUTES_PATHS.boards}>
             <Authorization sortOfAuth={'LogIn'} />
           </NoDoubleLogin>
-        }
-      />
-      <Route
-        path={ROUTES_PATHS.logout}
-        element={
-          <RequiredAuth redirect={ROUTES_PATHS.login}>
-            <Welcome />
-          </RequiredAuth>
         }
       />
       <Route

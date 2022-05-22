@@ -21,6 +21,7 @@ const LanguageToggler = () => {
       <ToggleButton value="en" arial-label={t('LanguageToggler.AriaLabelButtonEn')}>
         {t('LanguageToggler.ButtonEn')}
       </ToggleButton>
+
       <ToggleButton value="ru" arial-label={t('LanguageToggler.AriaLabelButtonRu')}>
         {t('LanguageToggler.ButtonRu')}
       </ToggleButton>

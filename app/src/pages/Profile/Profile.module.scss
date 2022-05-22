@@ -11,8 +11,7 @@
   }
 
   &__title {
-    font-size: $pageTitleText;
-    text-align: center;
+    @extend %pageTitle;
   }
 
   &__content {
@@ -53,42 +52,17 @@
       font-size: $textSize;
       text-align: center;
     }
-    .profile__form_inputWrapper {
-      margin-bottom: 15px;
-    }
 
     .profile__form_input {
-      width: 100%;
-      padding: 15px 10px 15px 30px;
-      font-weight: 500;
-      font-size: 1rem;
-      border-color: #FAFAFA;
-      border-radius: 10px;
-      border: 2px solid #E6E6E6;
-      background-color: $whiteColor;
-
-      &.error {
-        border-color: $red;
-      }
+      @extend %modalElement;
     }
 
     .formErrorText {
-      color: $red;
+      @extend %formError;
     }
 
     &_submit {
-      width: 100%;
-      margin-top: 29px;
-      padding: 13px 15px;
-      font-size: 1rem;
-      border-radius: $borderRadiusMin;
-      color: $whiteColor;
-      background-color: $primary;
-      cursor: pointer;
-
-      input {
-        cursor: inherit;
-      }
+      @extend %submitButton;
     }
   }
 }

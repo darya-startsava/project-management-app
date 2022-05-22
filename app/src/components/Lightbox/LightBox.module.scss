@@ -1,7 +1,7 @@
 @import "$assets/scss/variables";
 @import "$assets/scss/mixins";
 
-.lightbox {
+.lightBox {
   @include dflex();
 
   height: 100%;
@@ -16,7 +16,7 @@
     border-radius: $borderRadiusMin;
   }
 
-  button.lightbox__wrapper_closeButton {
+  button.lightBox__wrapper_closeButton {
     position: absolute;
     top: 5px;
     right: 5px;

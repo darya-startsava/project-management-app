@@ -19,15 +19,15 @@ interface ILightBoxProps extends IWrapEl {
 }
 const LightBox: FC<ILightBoxProps> = ({ modalTitle, showModal, children, closeModalFunction }) => {
   return (
-    <Modal open={showModal} className={css.lightbox} onClose={closeModalFunction}>
-      <Box className={css.lightbox__wrapper}>
-        <CloseButton closeCb={closeModalFunction} className={css.lightbox__wrapper_closeButton} />
+    <Modal open={showModal} className={css.lightBox} onClose={closeModalFunction}>
+      <Box className={css.lightBox__wrapper}>
+        <CloseButton closeCb={closeModalFunction} className={css.lightBox__wrapper_closeButton} />
 
         {modalTitle ? (
           <Typography
             variant="inherit"
             component="p"
-            className={css.lightbox__wrapper_title}
+            className={css.lightBox__wrapper_title}
             mb={3}
           >
             {modalTitle}

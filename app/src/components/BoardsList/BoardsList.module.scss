@@ -4,16 +4,14 @@
 .boardsList {
   padding: 0;
 
-  &__item {
+  .boardsList__item {
+    @extend %commonHeadItemStyles;
+
     display: flex;
-    flex-direction: column!important;
+    flex-direction: column;
     width: 30%;
     min-height: 300px;
     margin-bottom: 37px;
-    box-shadow: $boxShadow;
-    border-radius: $borderRadiusBig;
-    color: $black;
-    background: $whiteColor;
     list-style-type: none;
     overflow: hidden;
 
@@ -53,7 +51,7 @@
 
   &__item_title {
     font-weight: bold;
-    font-size: $pageSumTitleText;
+    font-size: $bigTextSize;
     line-height: 1.5;
     color: $whiteColor;
   }
@@ -97,7 +95,7 @@
 
   &__item_addButtonText {
     font-weight: 600;
-    font-size: $pageSumTitleText;
+    font-size: $bigTextSize;
     line-height: 1.5;
     color: $black;
   }

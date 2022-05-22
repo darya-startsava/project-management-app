@@ -6,10 +6,19 @@ import { useAppDispatch } from '$store/store';
 import { setLogin } from '$store/appSlice';
 import { useUpdateUserMutation } from '$services/api';
 import classNames from 'classnames';
-import { Box, Grid, InputBase, Typography } from '@mui/material';
+import { Box, Grid, InputBase, TextField, Typography } from '@mui/material';
 import ConfirmWindow from '$components/ConfirmWindow';
 import CloseButton from '$components/CloseButton';
-import { CLOSE_SNACKBAR_TIME, LOGIN_NAME_LOCALSTORAGE } from '$settings/index';
+import {
+  CLOSE_SNACKBAR_TIME,
+  LOGIN_NAME_LOCALSTORAGE,
+  USER_LOGIN_MAX_LENGTH,
+  USER_LOGIN_MIN_LENGTH,
+  USER_NAME_MAX_LENGTH,
+  USER_NAME_MIN_LENGTH,
+  USER_PASSWORD_MAX_LENGTH,
+  USER_PASSWORD_MIN_LENGTH,
+} from '$settings/index';
 import { IError } from '$types/common';
 import css from './Profile.module.scss';
 
@@ -46,7 +55,7 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
   useEffect(() => {
     if (error) {
       const errorMessage = t('Profile.errorUpdate', {
-        errorText: (error as IError).data.message || '',
+        ERROR_MESSAGE: (error as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
@@ -114,34 +123,32 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
           control={control}
           name="name"
           rules={{
-            required: true,
+            required: t('Profile.errorEmptyField'),
             minLength: {
-              value: 5,
-              message: t('Profile.errorTextMinLengthNewName', { minLetters: 5 }),
+              value: USER_NAME_MIN_LENGTH,
+              message: t('Profile.errorMinLengthName', { USER_NAME_MIN_LENGTH }),
             },
             maxLength: {
-              value: 20,
-              message: t('Profile.errorTextMaxLengthNewName', { minLetters: 20 }),
+              value: USER_NAME_MAX_LENGTH,
+              message: t('Profile.errorMaxLengthName', { USER_NAME_MAX_LENGTH }),
             },
           }}
           render={({ field: { ...field }, fieldState: { error } }) => (
-            <Box className={css.profile__form_inputWrapper}>
-              <InputBase
-                className={inputClassName(!!error?.message)}
+            <>
+              <TextField
                 type="text"
-                placeholder={t('Profile.nameLabel')}
-                inputProps={{
-                  'aria-label': t('Profile.nameLabel'),
-                }}
+                label={t('Profile.nameLabel')}
                 {...field}
+                className={inputClassName(!!error?.message)}
+                fullWidth
               />
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.formErrorText}>
-                  {error.message}
+                  {t('Profile.errorText', { ERROR_MESSAGE: error.message })}
                 </Typography>
               )}
-            </Box>
+            </>
           )}
         />
 
@@ -149,34 +156,32 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
           control={control}
           name="login"
           rules={{
-            required: true,
+            required: t('Profile.errorEmptyField'),
             minLength: {
-              value: 5,
-              message: t('Profile.errorTextMinLengthNewLogin', { minLetters: 5 }),
+              value: USER_LOGIN_MIN_LENGTH,
+              message: t('Profile.errorMinLengthLogin', { USER_LOGIN_MIN_LENGTH }),
             },
             maxLength: {
-              value: 20,
-              message: t('Profile.errorTextMaxLengthNewLogin', { minLetters: 20 }),
+              value: USER_LOGIN_MAX_LENGTH,
+              message: t('Profile.errorMaxLengthLogin', { USER_LOGIN_MAX_LENGTH }),
             },
           }}
           render={({ field: { ...field }, fieldState: { error } }) => (
-            <Box className={css.profile__form_inputWrapper}>
-              <InputBase
-                className={inputClassName(!!error?.message)}
+            <>
+              <TextField
                 type="text"
-                placeholder={t('Profile.loginLabel')}
-                inputProps={{
-                  'aria-label': t('Profile.loginLabel'),
-                }}
+                label={t('Profile.loginLabel')}
                 {...field}
+                className={inputClassName(!!error?.message)}
+                fullWidth
               />
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.formErrorText}>
-                  {error.message}
+                  {t('Profile.errorText', { ERROR_MESSAGE: error.message })}
                 </Typography>
               )}
-            </Box>
+            </>
           )}
         />
 
@@ -184,34 +189,32 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
           control={control}
           name="password"
           rules={{
-            required: true,
+            required: t('Profile.errorEmptyField'),
             minLength: {
-              value: 5,
-              message: t('Profile.errorTextMinLengthNewPassword', { minLetters: 5 }),
+              value: USER_PASSWORD_MIN_LENGTH,
+              message: t('Profile.errorMinLengthPassword', { USER_PASSWORD_MIN_LENGTH }),
             },
             maxLength: {
-              value: 15,
-              message: t('Profile.errorTextMaxLengthNewPassword', { minLetters: 15 }),
+              value: USER_PASSWORD_MAX_LENGTH,
+              message: t('Profile.errorMaxLengthPassword', { USER_PASSWORD_MAX_LENGTH }),
             },
           }}
           render={({ field: { ...field }, fieldState: { error } }) => (
-            <Box className={css.profile__form_inputWrapper}>
-              <InputBase
-                className={inputClassName(!!error?.message)}
+            <>
+              <TextField
                 type="password"
-                placeholder={t('Profile.passwordLabel')}
-                inputProps={{
-                  'aria-label': t('Profile.passwordLabel'),
-                }}
+                label={t('Profile.passwordLabel')}
                 {...field}
+                className={inputClassName(!!error?.message)}
+                fullWidth
               />
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.formErrorText}>
-                  {error.message}
+                  {t('Profile.errorText', { ERROR_MESSAGE: error.message })}
                 </Typography>
               )}
-            </Box>
+            </>
           )}
         />
 
