@@ -52,9 +52,12 @@ export interface IColumnCreateObj {
   title: string;
 }
 
-export interface IColumn extends IColumnCreateObj {
-  id: string;
+export interface IColumnUpdateObj extends IColumnCreateObj {
   order: number;
+}
+
+export interface IColumn extends IColumnUpdateObj {
+  id: string;
 }
 /* columns end */
 

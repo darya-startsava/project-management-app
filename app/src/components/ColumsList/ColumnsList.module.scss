@@ -13,6 +13,7 @@ ul.columnsList {
   .columnsList__item {
     flex-shrink: 0;
     width: 335px;
+    display: block;
     min-height: 100px;
     padding: 12px 15px;
     box-shadow: $boxShadow;

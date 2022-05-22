@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 import CloseButton from '$components/CloseButton';
 import LightboxTask from '$components/LightboxTask';
 import TasksList from './TasksList';
-import { Box, Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from '@mui/material';
+import { Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from '@mui/material';
 import { Add as AddIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import {
@@ -16,13 +16,15 @@ import {
   TCreateElement,
   TSimpleFunction,
 } from '$types/common';
+import { DraggableProvided } from 'react-beautiful-dnd';
 import css from './ColumnsList.module.scss';
 
 interface IColumnsListItemProps extends IColumn {
   boardId: string;
+  provided: DraggableProvided;
 }
 
-const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: columnId }) => {
+const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: columnId, provided }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isChangeColumnNameMode, setIsChangeColumnNameMode] = useState<boolean>(false);
@@ -85,50 +87,54 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
 
   return (
     <>
-      <ListItem component="li" className={css.columnsList__item}>
-        <Box className={css.columnsList__item_name}>
-          {isChangeColumnNameMode ? (
-            <Stack className={css.columnsList__item_rename}>
-              <InputBase
-                className={css.columnsList__item_rename_input}
-                value={newTitle}
-                onChange={changeHandler}
-                name={title}
-              />
+      <ListItem
+        component="li"
+        className={css.columnsList__item}
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+      >
+        {isChangeColumnNameMode ? (
+          <Stack className={css.columnsList__item_rename}>
+            <InputBase
+              className={css.columnsList__item_rename_input}
+              value={newTitle}
+              onChange={changeHandler}
+              name={title}
+            />
 
-              <ButtonGroup className={css.columnsList__item_rename_buttons}>
-                <Button className={css.columnsList__item_rename_accept} onClick={() => {}}>
-                  <AddIcon />
-                </Button>
+            <ButtonGroup className={css.columnsList__item_rename_buttons}>
+              <Button className={css.columnsList__item_rename_accept} onClick={() => {}}>
+                <AddIcon />
+              </Button>
 
-                <Button className={css.columnsList__item_rename_cancel} onClick={cancelHandler}>
-                  <DoNotDisturbIcon />
-                </Button>
-              </ButtonGroup>
-            </Stack>
-          ) : (
-            <Typography
-              className={css.columnsList__item_title}
-              gutterBottom
-              variant="inherit"
-              component="h3"
-              onClick={() => setIsChangeColumnNameMode(true)}
-            >
-              {title}
-            </Typography>
-          )}
-
-          <TasksList tasks={tasks} />
-
-          <Button
-            className={css.columnsList__item_addTaskButton}
-            onClick={() => {
-              setShowModalAddTasks(true);
-            }}
+              <Button className={css.columnsList__item_rename_cancel} onClick={cancelHandler}>
+                <DoNotDisturbIcon />
+              </Button>
+            </ButtonGroup>
+          </Stack>
+        ) : (
+          <Typography
+            className={css.columnsList__item_title}
+            gutterBottom
+            variant="inherit"
+            component="h3"
+            onClick={() => setIsChangeColumnNameMode(true)}
           >
-            + {t('Tasks.addNewTaskButtonText')}
-          </Button>
-        </Box>
+            {title}
+          </Typography>
+        )}
+
+        <TasksList tasks={tasks} />
+
+        <Button
+          className={css.columnsList__item_addTaskButton}
+          onClick={() => {
+            setShowModalAddTasks(true);
+          }}
+        >
+          + {t('Tasks.addNewTaskButtonText')}
+        </Button>
       </ListItem>
 
       <LightboxTask
