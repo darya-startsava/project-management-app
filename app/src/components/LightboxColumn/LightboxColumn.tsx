@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { InputBase, Box, Typography, TextField } from '@mui/material';
 import LightBox from '$components/Lightbox';
 import { COLUMNS_TITLE_MIN_LENGTH, COLUMNS_TITLE_MAX_LENGTH } from '$settings/index';
-import { IColumnFormState, TCreateElement, TSimpleFunction } from '$types/common';
+import { IColumnCreateObj, TCreateElement, TSimpleFunction } from '$types/common';
 import css from './LightboxColumn.module.scss';
 
 interface IBoardsModal {
@@ -13,10 +13,10 @@ interface IBoardsModal {
   isLoading: boolean;
   isUpdate?: boolean;
   closeModalHandler: TSimpleFunction;
-  submitCB: TCreateElement<IColumnFormState>;
+  submitCB: TCreateElement<IColumnCreateObj>;
   modalTitle: string;
   submitButtonText: string;
-  formState: IColumnFormState;
+  formState: IColumnCreateObj;
 }
 
 const LightboxColumn: FC<IBoardsModal> = ({
@@ -34,11 +34,11 @@ const LightboxColumn: FC<IBoardsModal> = ({
     control,
     reset,
     formState: { isDirty, errors },
-  } = useForm<IColumnFormState>({
+  } = useForm<IColumnCreateObj>({
     defaultValues: formState,
   });
   const { t } = useTranslation();
-  const addNewBoardHandler: SubmitHandler<IColumnFormState> = (data) => {
+  const addNewBoardHandler: SubmitHandler<IColumnCreateObj> = (data) => {
     const newData = {
       title: data.title.trim(),
     };
