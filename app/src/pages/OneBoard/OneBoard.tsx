@@ -10,8 +10,8 @@ import ColumnsListItem from '$components/ColumsList';
 import CloseButton from '$components/CloseButton';
 import LightboxColumn from '$components/LightboxColumn';
 import { randNumber } from '$utils/index';
-import { CLOSE_SNACKBAR_TIME } from '$settings/index';
-import { IColumnFormState, IError, TCreateElement } from '$types/common';
+import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
+import { IColumnCreateObj, IError, TCreateElement } from '$types/common';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
@@ -37,8 +37,7 @@ const OneBoard: FC = () => {
         ERROR_MESSAGE: (errorGetColumns as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -47,8 +46,7 @@ const OneBoard: FC = () => {
   useEffect(() => {
     if (isSuccessAddColumn) {
       enqueueSnackbar(t('Columns.successCreateColumn'), {
-        variant: 'success',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -60,16 +58,15 @@ const OneBoard: FC = () => {
         ERROR_MESSAGE: (errorAddColumn as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
   }, [errorAddColumn, t, enqueueSnackbar, closeSnackbar]);
 
-  const addNewColumn: TCreateElement<IColumnFormState> = (data: IColumnFormState) => {
+  const addNewColumn: TCreateElement<IColumnCreateObj> = (data: IColumnCreateObj) => {
     addColumn({
-      body: { title: data.title, order: columns.length },
+      body: data,
       id: params.id || '',
     });
     setShowModalAddColumn(false);

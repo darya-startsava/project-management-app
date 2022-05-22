@@ -4,7 +4,9 @@
 
 import { OptionsObject } from 'notistack';
 
-export const serviceURL = 'https://pure-brushlands-15604.herokuapp.com';
+// old backend
+// export const serviceURL = 'https://pure-brushlands-15604.herokuapp.com';
+export const serviceURL = 'https://immense-stream-76423.herokuapp.com';
 export const TOKEN_AUTH_LOCALSTORAGE = 'kanban-token';
 export const LOGIN_NAME_LOCALSTORAGE = 'kanban-login';
 export const CLOSE_SNACKBAR_TIME = 5000;
@@ -21,6 +23,8 @@ export const USER_PASSWORD_MAX_LENGTH = 30;
 // Validation boards
 export const BOARDS_TITLE_MIN_LENGTH = 5;
 export const BOARDS_TITLE_MAX_LENGTH = 40;
+export const BOARDS_DESCRIPTION_MIN_LENGTH = 5;
+export const BOARDS_DESCRIPTION_MAX_LENGTH = 80;
 export const COLUMNS_TITLE_MIN_LENGTH = 5;
 export const COLUMNS_TITLE_MAX_LENGTH = 60;
 export const TASKS_TITLE_MIN_LENGTH = 5;

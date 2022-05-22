@@ -39,33 +39,28 @@ export interface IError {
 /* boards start */
 export interface IBoardCreateObj {
   title: string;
+  description: string;
 }
 
 export interface IBoard extends IBoardCreateObj {
   id: string;
-  title: string;
 }
 /* boards end */
 
 /* columns start */
-export interface IColumnFormState {
-  title: string;
-}
-
 export interface IColumnCreateObj {
   title: string;
-  order: number;
 }
 
 export interface IColumn extends IColumnCreateObj {
   id: string;
+  order: number;
 }
 /* columns end */
 
 /* tasks start */
 export interface ITaskCreateObj {
   title: string;
-  order: number;
   description: string;
   userId: string;
 }
