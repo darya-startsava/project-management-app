@@ -57,6 +57,11 @@ export interface IColumnCreateObj {
   order: number;
 }
 
+export interface IColumnUpdateTitle {
+  title: string;
+  id: string;
+}
+
 export interface IColumn extends IColumnCreateObj {
   id: string;
 }

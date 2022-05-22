@@ -5,6 +5,8 @@ import {
   IBoardCreateObj,
   IColumn,
   IColumnCreateObj,
+  // IColumnFormState,
+  IColumnUpdateTitle,
   ITask,
   ITaskCreateObj,
   IUser,
@@ -114,7 +116,7 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
     }),
-    updateColumn: build.mutation<IColumn, { body: IUpdateTitleFormState; id: string }>({
+    updateColumn: build.mutation<IColumn, { body: IColumnUpdateTitle; id: string }>({
       query: ({ body, id }) => ({
         url: `/${QueryPoints.boards}/${id}/${QueryPoints.columns}`,
         method: 'PUT',

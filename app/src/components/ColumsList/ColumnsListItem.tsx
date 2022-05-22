@@ -2,19 +2,30 @@ import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAddTaskMutation, useGetAllTasksQuery, useUpdateColumnMutation } from '$services/api';
 import { useSnackbar } from 'notistack';
+import { Controller, useForm } from 'react-hook-form';
 import CloseButton from '$components/CloseButton';
 import LightboxTask from '$components/LightboxTask';
 import TasksList from './TasksList';
-import { Box, Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  // InputBase,
+  ListItem,
+  Stack,
+  Typography,
+  TextField,
+} from '@mui/material';
 import { Check as CheckIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import {
   IColumn,
   IError,
   INewNTaskFormState,
-  TChangeElHandler,
+  // TChangeElHandler,
   TCreateElement,
   TSimpleFunction,
+  IColumnUpdateTitle,
 } from '$types/common';
 import css from './ColumnsList.module.scss';
 import { CLOSE_SNACKBAR_TIME } from '$settings/index';
@@ -27,14 +38,27 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isChangeColumnNameMode, setIsChangeColumnNameMode] = useState<boolean>(false);
-  const [newTitle, setNewTitle] = useState<string>(title);
+  // const [newTitle, setNewTitle] = useState<string>(title);
   const [showModalAddTasks, setShowModalAddTasks] = useState<boolean>(false);
+  const [columnNewTitle, setColumnNewTitle] = useState<IColumnUpdateTitle | null>(null);
+
   const { data: tasks = [], error: errorGetTasks } = useGetAllTasksQuery({ boardId, columnId });
 
   const [updateColumn, { error: errorUpdateColumn, isSuccess: isSuccessUpdateColumn }] =
     useUpdateColumnMutation();
   const [addTask, { isLoading: isAddingTask, error: errorAddTask, isSuccess: isSuccessAddTask }] =
     useAddTaskMutation();
+
+  const {
+    // handleSubmit,
+    control,
+    reset,
+    // formState: { isDirty, errors },
+  } = useForm<IColumnUpdateTitle>({
+    defaultValues: {
+      title: title,
+    },
+  });
 
   useEffect(() => {
     if (errorGetTasks) {
@@ -50,7 +74,9 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
 
   useEffect(() => {
     if (errorUpdateColumn) {
-      const errorMessage = t('Columns.errorUpdateBoardTitle', { errorText: errorUpdateColumn });
+      const errorMessage = t('Columns.errorUpdateColumnTitle', {
+        ERROR_MESSAGE: errorUpdateColumn,
+      });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
@@ -61,7 +87,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
 
   useEffect(() => {
     if (isSuccessUpdateColumn) {
-      enqueueSnackbar(t('Columns.successUpdateBoardTitle'), {
+      enqueueSnackbar(t('Columns.successUpdateColumnTitle'), {
         variant: 'success',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
@@ -102,23 +128,33 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
     setShowModalAddTasks(false);
   };
 
-  const changeTitleHandler: TChangeElHandler<HTMLInputElement> = (event) => {
-    setNewTitle(event.target.value);
-  };
+  // const changeTitleHandler: TChangeElHandler<HTMLInputElement> = (event) => {
+  //   setNewTitle(event.target.value);
+  // };
 
   const cancelTitleHandler: TSimpleFunction = () => {
-    setNewTitle(title);
+    // setNewTitle(title);
     setIsChangeColumnNameMode(false);
   };
 
   const submitTitleHandler = () => {
-    setNewTitle(title);
-    updateColumn({ body: data, id });
+    // setNewTitle(title);
+    if (columnNewTitle) {
+      updateColumn({ body: columnNewTitle, id: columnId });
+      reset({
+        title: '',
+      });
+    }
+    setColumnNewTitle(null);
     setIsChangeColumnNameMode(false);
   };
 
-  // const updateColumnTitle: SubmitHandler<IUpdateTitleFormState> = (data) => {
+  // const submitTitleHandler = (data: IColumnUpdateTitle, id: string) => {
+  //   setNewTitle(title);
   //   updateColumn({ body: data, id });
+  //   reset({
+  //     title: data.title,
+  //   });
   //   setIsChangeColumnNameMode(false);
   // };
 
@@ -127,12 +163,37 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
       <ListItem component="li" className={css.columnsList__item}>
         <Box className={css.columnsList__item_name}>
           {isChangeColumnNameMode ? (
-            <Stack className={css.columnsList__item_rename}>
-              <InputBase
-                className={css.columnsList__item_rename_input}
-                value={newTitle}
-                onChange={changeTitleHandler}
-                name={title}
+            <Stack
+              className={css.columnsList__item_rename}
+              component="form"
+              autoComplete="off"
+              // onSubmit={handleSubmit(submitTitleHandler)}
+              noValidate
+            >
+              <Controller
+                control={control}
+                name="title"
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  <>
+                    <TextField
+                      type="text"
+                      value={value}
+                      placeholder={t('Columns.errorEmptyField')}
+                      aria-label={t('Columns.updateColumnTitleLabel')}
+                      onChange={onChange}
+                    />
+
+                    {error?.message && (
+                      <Typography
+                        variant="inherit"
+                        component="p"
+                        className={css.modalAddForm_errorText}
+                      >
+                        Error
+                      </Typography>
+                    )}
+                  </>
+                )}
               />
 
               <ButtonGroup className={css.columnsList__item_rename_buttons}>
