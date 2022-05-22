@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
-
 import { ROUTES_PATHS } from '$settings/routing';
 
 interface IProps {
@@ -8,34 +7,28 @@ interface IProps {
 }
 
 interface IState {
-  error: boolean;
+  hasError: boolean;
   errorText: string;
 }
 
 class ErrorBoundary extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-    this.state = { error: false, errorText: '' };
+    this.state = { hasError: false, errorText: '' };
   }
 
   static getDerivedStateFromError(error: Error) {
-    return { errorText: error.message };
-  }
-  componentDidCatch(error: Error): void {
-    this.setState({
-      error: true,
-      errorText: error.message,
-    });
+    return { hasError: true, errorText: error.message };
   }
 
   showErrorPage = () => {
     const errorText = this.state.errorText;
-    this.setState({ error: false, errorText: '' });
+    this.setState({ hasError: false, errorText: '' });
     return <Navigate to={ROUTES_PATHS.error_page} replace state={{ errorText }} />;
   };
 
   render() {
-    if (this.state.error) {
+    if (this.state.hasError) {
       return this.showErrorPage();
     }
 

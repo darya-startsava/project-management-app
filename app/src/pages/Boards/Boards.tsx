@@ -5,14 +5,10 @@ import { useSnackbar } from 'notistack';
 import Section from '$components/Section';
 import BoardsHead from './BoardsHead';
 import BoardsList from '$components/BoardsList';
-import LightboxForCreateItem from '$components/LightboxForCreateItem';
 import CloseButton from '$components/CloseButton';
-import {
-  CLOSE_SNACKBAR_TIME,
-  BOARDS_LENGTH_MIN_LETTERS,
-  BOARDS_LENGTH_MAX_LETTERS,
-} from '$settings/index';
-import { IError, INewNameFormState, TCreateElement } from '$types/common';
+import LightboxBoard from '$components/LightboxBoard';
+import { CLOSE_SNACKBAR_TIME } from '$settings/index';
+import { IBoardCreateObj, IError, TCreateElement } from '$types/common';
 import css from './Boards.module.scss';
 
 export type TChangeBoardsShow = (searchValue: string) => void;
@@ -31,7 +27,7 @@ const Boards: FC = () => {
   useEffect(() => {
     if (errorGetBoards) {
       const errorMessage = t('Boards.errorGetBoards', {
-        errorText: (errorGetBoards as IError).data.message || '',
+        ERROR_MESSAGE: (errorGetBoards as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
@@ -53,14 +49,16 @@ const Boards: FC = () => {
 
   useEffect(() => {
     if (errorAddBoard) {
-      const errorMessage = t('Boards.errorCreate', { errorText: errorAddBoard });
+      const errorMessage = t('Boards.errorCreate', {
+        ERROR_MESSAGE: (errorAddBoard as IError).data.message || '',
+      });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
         autoHideDuration: CLOSE_SNACKBAR_TIME,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [t, errorAddBoard, enqueueSnackbar, closeSnackbar]);
+  }, [errorAddBoard, t, enqueueSnackbar, closeSnackbar]);
 
   useEffect(() => {}, [t, enqueueSnackbar, closeSnackbar]);
 
@@ -75,8 +73,8 @@ const Boards: FC = () => {
     // setBoards(filteredBoards);
   };
 
-  const addNewColumn: TCreateElement<INewNameFormState> = (data: INewNameFormState) => {
-    addBoard({ title: data.newTitle });
+  const addNewColumn: TCreateElement<IBoardCreateObj> = (data: IBoardCreateObj) => {
+    addBoard({ title: data.title });
     setShowModal(false);
   };
 
@@ -91,26 +89,15 @@ const Boards: FC = () => {
         }}
       />
 
-      <LightboxForCreateItem
-        modalTitle={t('Boards.createModalTitle')}
+      <LightboxBoard
         showModal={showModal}
-        changeShowModal={setShowModal}
-        submitCB={addNewColumn}
         isLoading={isAddingBoard}
-        placeholderText={t('Boards.addModalTextareaPlaceholder')}
-        localizationKeyTextareaErrorText="Boards.errorTextarea"
-        submitButtonText={t('Boards.submitButtonTextInFormNewBoard')}
-        rules={{
-          required: true,
-          minLength: {
-            value: BOARDS_LENGTH_MIN_LETTERS,
-            message: t('Boards.errorTextMinLengthNewTitle', { BOARDS_LENGTH_MIN_LETTERS }),
-          },
-          maxLength: {
-            value: BOARDS_LENGTH_MAX_LETTERS,
-            message: t('Boards.errorTextMaxLengthNewTitle', { BOARDS_LENGTH_MAX_LETTERS }),
-          },
-        }}
+        isUpdate={false}
+        closeModalHandler={() => setShowModal(false)}
+        submitCB={addNewColumn}
+        modalTitle={t('Boards.createModalTitle')}
+        submitButtonText={t('Boards.submitButtonTextAddForm')}
+        formState={{ title: '' }}
       />
     </Section>
   );

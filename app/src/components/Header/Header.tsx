@@ -1,33 +1,39 @@
 import { FC } from 'react';
-
-import { AppBar, useScrollTrigger, Toolbar, Button, Grid, Typography } from '@mui/material';
-import LanguageToggler from '$components/general/LanguageToggler';
 import { useTranslation } from 'react-i18next';
-import LogoutIcon from '@mui/icons-material/Logout';
-import LoginIcon from '@mui/icons-material/Login';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import HomeIcon from '@mui/icons-material/Home';
-import TableChartIcon from '@mui/icons-material/TableChart';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '$store/store';
+import { StyledEngineProvider } from '@mui/material/styles';
+import { AppBar, useScrollTrigger, Toolbar, Button, Grid, Typography } from '@mui/material';
+import {
+  Logout as LogoutIcon,
+  Login as LoginIcon,
+  AppRegistration as AppRegistrationIcon,
+  ManageAccounts as ManageAccountsIcon,
+  Home as HomeIcon,
+  TableChart as TableChartIcon,
+} from '@mui/icons-material';
+import LanguageToggler from '$components/LanguageToggler';
+import { setToken, setLogin } from '$store/appSlice';
 import { ROUTES_PATHS } from '$settings/routing';
+import { TOKEN_AUTH_LOCALSTORAGE, LOGIN_NAME_LOCALSTORAGE } from '$settings/index';
+import KanbanLogo from '$assets/kanban-logo.png';
 import css from './Header.module.scss';
 import './Header.scss';
-import KanbanLogo from '$assets/kanban-logo.png';
-import { StyledEngineProvider } from '@mui/material/styles';
-import { logout } from '$store/appSlice';
-import { useDispatch } from 'react-redux';
-import { tokenAuth } from '$settings/index';
 
 const Header: FC = () => {
   const { token } = useAppSelector((state) => state.app);
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const trigger = useScrollTrigger();
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
-    dispatch(logout());
-    localStorage.removeItem(tokenAuth);
+    dispatch(setToken(null));
+    dispatch(setLogin(null));
+    localStorage.removeItem(TOKEN_AUTH_LOCALSTORAGE);
+    localStorage.removeItem(LOGIN_NAME_LOCALSTORAGE);
+    navigate(ROUTES_PATHS.welcome, { replace: true });
   };
 
   return (
@@ -48,7 +54,7 @@ const Header: FC = () => {
                 </Button>
                 <Button startIcon={<TableChartIcon />}>{t('Header.newBoard')}</Button>
                 <Button
-                  href={ROUTES_PATHS.logout}
+                  href={ROUTES_PATHS.welcome}
                   startIcon={<LogoutIcon />}
                   onClick={handleLogOut}
                 >

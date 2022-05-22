@@ -4,7 +4,7 @@
  */
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { LOGIN_NAME_LOCALSTORAGE, tokenAuth } from '$settings/index';
+import { LOGIN_NAME_LOCALSTORAGE, TOKEN_AUTH_LOCALSTORAGE } from '$settings/index';
 
 export type IStateApp = {
   token: string | null;
@@ -12,7 +12,7 @@ export type IStateApp = {
 };
 
 export const initialState: IStateApp = {
-  token: localStorage.getItem(tokenAuth) || null,
+  token: localStorage.getItem(TOKEN_AUTH_LOCALSTORAGE) || null,
   login: localStorage.getItem(LOGIN_NAME_LOCALSTORAGE) || null,
 };
 
@@ -26,12 +26,9 @@ const app = createSlice({
     setLogin: (state, action: PayloadAction<string | null>) => {
       state.login = action.payload;
     },
-    logout: (state) => {
-      state.token = null;
-    },
   },
 });
 
-export const { setToken, setLogin, logout } = app.actions;
+export const { setToken, setLogin } = app.actions;
 
 export default app.reducer;

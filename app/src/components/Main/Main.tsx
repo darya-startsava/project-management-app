@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-
 import { IWrapEl } from '$types/common';
 import css from './Main.module.scss';
 

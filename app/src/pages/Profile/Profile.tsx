@@ -12,7 +12,11 @@ import ProfileForm from './ProfileForm';
 import ConfirmWindow from '$components/ConfirmWindow';
 import CloseButton from '$components/CloseButton';
 import { ROUTES_PATHS } from '$settings/routing';
-import { CLOSE_SNACKBAR_TIME, LOGIN_NAME_LOCALSTORAGE, tokenAuth } from '$settings/index';
+import {
+  CLOSE_SNACKBAR_TIME,
+  LOGIN_NAME_LOCALSTORAGE,
+  TOKEN_AUTH_LOCALSTORAGE,
+} from '$settings/index';
 import { IError, IUser } from '$types/common';
 import profileImg from '$assets/img/user.png';
 import css from './Profile.module.scss';
@@ -51,7 +55,7 @@ const Profile: FC = () => {
   useEffect(() => {
     if (errorDeleteProfile) {
       const errorMessage = t('Profile.errorDeleteProfile', {
-        errorText: (errorDeleteProfile as IError).data.message || '',
+        ERROR_MESSAGE: (errorDeleteProfile as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
         variant: 'error',
@@ -70,7 +74,7 @@ const Profile: FC = () => {
       });
       dispatch(setToken(null));
       dispatch(setLogin(null));
-      localStorage.removeItem(tokenAuth);
+      localStorage.removeItem(TOKEN_AUTH_LOCALSTORAGE);
       localStorage.removeItem(LOGIN_NAME_LOCALSTORAGE);
       navigate(ROUTES_PATHS.welcome, { replace: true });
     }
@@ -92,7 +96,7 @@ const Profile: FC = () => {
       ) : (
         <>
           <Typography variant="inherit" component="h2" className={css.profile__title} mb={5}>
-            {t('Profile.pageTitle', { name: userInfo?.login || '' })}
+            {t('Profile.pageTitle', { NAME: userInfo?.login || '' })}
           </Typography>
 
           <Grid

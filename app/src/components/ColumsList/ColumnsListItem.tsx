@@ -1,22 +1,22 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import LightboxForCreateTask from '$components/LightboxForCreateTask';
+import { useAddTaskMutation, useGetAllTasksQuery, useUpdateColumnMutation } from '$services/api';
+import { useSnackbar } from 'notistack';
+import CloseButton from '$components/CloseButton';
+import LightboxTask from '$components/LightboxTask';
 import TasksList from './TasksList';
 import { Box, Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from '@mui/material';
 import { Check as CheckIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
+import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import {
   IColumn,
   IError,
   INewNTaskFormState,
-  IUpdateTitleFormState,
   TChangeElHandler,
   TCreateElement,
   TSimpleFunction,
 } from '$types/common';
 import css from './ColumnsList.module.scss';
-import { useAddTaskMutation, useGetAllTasksQuery, useUpdateColumnMutation } from '$services/api';
-import CloseButton from '$components/CloseButton';
-import { useSnackbar } from 'notistack';
 import { CLOSE_SNACKBAR_TIME } from '$settings/index';
 
 interface IColumnsListItemProps extends IColumn {
@@ -42,8 +42,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
         ERROR_MESSAGE: (errorGetTasks as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -76,8 +75,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
         ERROR_MESSAGE: (errorAddTask as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -86,8 +84,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   useEffect(() => {
     if (isSuccessAddTask) {
       enqueueSnackbar(t('Tasks.isSuccessAddTask'), {
-        variant: 'success',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -114,7 +111,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
     setIsChangeColumnNameMode(false);
   };
 
-  const submitTitleHandler: TSimpleFunction<IUpdateTitleFormState> = (data) => {
+  const submitTitleHandler = () => {
     setNewTitle(title);
     updateColumn({ body: data, id });
     setIsChangeColumnNameMode(false);
@@ -179,16 +176,13 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
         </Box>
       </ListItem>
 
-      <LightboxForCreateTask
+      <LightboxTask
         showModal={showModalAddTasks}
         isLoading={isAddingTask}
         changeShowModal={setShowModalAddTasks}
         submitCB={addNewBoard}
         modalTitle={t('Tasks.createModalTitle')}
-        nameLabel={t('Tasks.addModalNameLabel')}
-        descriptionLabel={t('Tasks.addModalDescriptionLabel')}
-        userLabel={t('Tasks.addModalUserLabel')}
-        submitButtonText={t('Tasks.submitButtonTextInFormNewTask')}
+        submitButtonText={t('Tasks.submitButtonTextAddTaskForm')}
       />
     </>
   );
