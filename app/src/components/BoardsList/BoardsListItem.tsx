@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import { useUpdateBoardMutation } from '$services/api';
+import { useDeleteBoardMutation } from '$services/api';
 import { SubmitHandler } from 'react-hook-form';
 import {
   CardActions,
@@ -20,6 +21,7 @@ import {
 } from '@mui/icons-material';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
+import ConfirmWindow from '$components/ConfirmWindow';
 import { randNumber } from '$utils/index';
 import { ROUTES_PATHS } from '$settings/routing';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
@@ -28,20 +30,15 @@ import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
 import { IBoard, IBoardCreateObj } from '$types/common';
 import css from './BoardsList.module.scss';
-import { useDeleteBoardMutation } from '$services/api';
 
 const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+  const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
 
   const arrImages = [img1, img2, img3];
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
-  const [deleteBoard] = useDeleteBoardMutation();
-
-  async function deletingBoard({ id, title }: IBoard) {
-    await deleteBoard({ id, title }).unwrap();
-  }
 
   const [
     updateBoard,
@@ -70,6 +67,37 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
   const updateBoardTitle: SubmitHandler<IBoardCreateObj> = (data) => {
     updateBoard({ body: data, id });
     setShowUpdateModal(false);
+  };
+
+  const [deleteBoard, { error: errorDeletingBoard, isSuccess: isSuccessDeletingBoard }] =
+    useDeleteBoardMutation();
+
+  useEffect(() => {
+    if (errorDeletingBoard) {
+      const errorMessage = t('Boards.errorDeletingBoard', { ERROR_MESSAGE: errorDeletingBoard });
+      enqueueSnackbar(errorMessage, {
+        ...messageErrorOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorDeletingBoard, closeSnackbar, enqueueSnackbar, t]);
+
+  useEffect(() => {
+    if (isSuccessDeletingBoard) {
+      enqueueSnackbar(t('Boards.successDeletingBoard'), {
+        ...messageSuccessOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [isSuccessDeletingBoard, closeSnackbar, enqueueSnackbar, t]);
+
+  const deletingBoard = ({ id, title }: IBoard) => {
+    deleteBoard({ id, title, description });
+  };
+
+  const removeHandler = async () => {
+    deletingBoard({ id, title, description });
+    setIsShowConfirmModalDelete(false);
   };
 
   return (
@@ -128,7 +156,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
             <IconButton
               className={css.boardsList__item_button}
               size="small"
-              onClick={async () => await deletingBoard({ id, title })}
+              onClick={() => setIsShowConfirmModalDelete(true)}
               aria-label={t('Boards.deleteBoardLabel')}
             >
               <DeleteOutlineIcon color="inherit" />
@@ -136,6 +164,13 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
           </Stack>
         </CardActions>
       </Grid>
+
+      <ConfirmWindow
+        isShow={isShowConfirmModalDelete}
+        title={t('Boards.confirmDeleteBoardModalTitle')}
+        disAgreeHandler={() => setIsShowConfirmModalDelete(false)}
+        agreeHandler={removeHandler}
+      />
 
       <LightboxBoard
         showModal={showUpdateModal}

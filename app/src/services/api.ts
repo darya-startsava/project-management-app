@@ -89,6 +89,7 @@ export const api = createApi({
         method: 'DELETE',
         body,
       }),
+      invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
     }),
     updateBoard: build.mutation<IBoard, { body: IBoardCreateObj; id: string }>({
       query: ({ body, id }) => ({
