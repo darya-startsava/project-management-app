@@ -74,7 +74,7 @@ const Boards: FC = () => {
   };
 
   const addNewColumn: TCreateElement<IBoardCreateObj> = (data: IBoardCreateObj) => {
-    addBoard({ title: data.title });
+    addBoard(data);
     setShowModal(false);
   };
 
@@ -97,7 +97,7 @@ const Boards: FC = () => {
         submitCB={addNewColumn}
         modalTitle={t('Boards.createModalTitle')}
         submitButtonText={t('Boards.submitButtonTextAddForm')}
-        formState={{ title: '' }}
+        formState={{ title: '', description: '' }}
       />
     </Section>
   );

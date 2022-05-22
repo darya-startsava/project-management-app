@@ -56,6 +56,11 @@
     color: $whiteColor;
   }
 
+  &__item_description {
+    font-size: $textSize;
+    color: $whiteColor;
+  }
+
   &__item_actionsWrapper {
     position: relative;
     z-index: 1;
