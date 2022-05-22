@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
-
-import { Container, ContainerProps } from '@mui/material';
-
 import classNames from 'classnames';
+import { Container, ContainerProps } from '@mui/material';
 import css from './Section.module.scss';
 
-// Принимает пропсы для контейнера из material ui и прередает их в контейнер
+// Принимает пропсы для контейнера из material ui и передает их в контейнер
 interface ISectionProps extends ContainerProps {
   className?: string;
   pageAllSpace?: boolean;
@@ -17,12 +15,12 @@ const Section: FC<ISectionProps> = ({
   pageAllSpace = false,
   ...containerProps
 }) => {
-  const elClassName = classNames(className, {
+  const sectionClassName = classNames(className, {
     [css.page_all_space]: pageAllSpace,
   });
 
   return (
-    <section className={elClassName}>
+    <section className={sectionClassName}>
       <Container {...containerProps}>{children}</Container>
     </section>
   );

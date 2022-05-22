@@ -7,16 +7,17 @@ import css from './ColumnsList.module.scss';
 
 interface IColumnsListProps {
   columns: Array<IColumn>;
+  boardId: string;
   addCardHandler: TSimpleFunction;
 }
 
-const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler }) => {
+const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }) => {
   const { t } = useTranslation();
 
   return (
     <List component="ul" className={css.columnsList}>
       {columns.map((columnItem: IColumn) => (
-        <ColumnsListItem key={columnItem.id} {...columnItem} />
+        <ColumnsListItem key={columnItem.id} {...columnItem} boardId={boardId} />
       ))}
 
       <ListItem component="li" className={css.columnsList__itemButton}>

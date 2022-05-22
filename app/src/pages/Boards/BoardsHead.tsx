@@ -18,7 +18,6 @@ const BoardsHead: FC<IBoardsHeadProps> = ({ searchCB }) => {
     setSearchValue(event.target.value);
   };
 
-  //
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     searchCB(searchValue);

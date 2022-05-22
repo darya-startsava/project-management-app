@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Grid } from '@mui/material';
-import { Box } from '@mui/system';
-import TableChartIcon from '@mui/icons-material/TableChart';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import { Box, Button, Grid } from '@mui/material';
+import { TableChart as TableChartIcon, AddOutlined as AddOutlinedIcon } from '@mui/icons-material';
 import BoardsListItem from './BoardsListItem';
 import { IBoard, TSimpleFunction } from '$types/common';
 import css from './BoardsList.module.scss';

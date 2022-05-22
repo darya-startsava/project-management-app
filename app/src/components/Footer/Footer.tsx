@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
-import { Grid, Link, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import RSSchoolSign from '../../assets/svg/RSSchoolSign.svg';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import CopyrightIcon from '@mui/icons-material/Copyright';
-
+import { Grid, Link, Box } from '@mui/material';
+import { GitHub as GitHubIcon, Copyright as CopyrightIcon } from '@mui/icons-material';
+import RSSchoolSign from '$assets/svg/RSSchoolSign.svg';
 import css from './Footer.module.scss';
 
 const Footer: FC = () => {
@@ -20,6 +18,7 @@ const Footer: FC = () => {
             </Link>
           </Box>
         </Grid>
+
         <Grid item xs={8}>
           <Box className={css.githubContainer}>
             <Box className={css.centerBox}>
@@ -32,12 +31,14 @@ const Footer: FC = () => {
                 TarasiukDima
               </Link>
             </Box>
+
             <Box className={css.centerBox}>
               <GitHubIcon sx={{ color: '#001A33' }} />
               <Link href="https://github.com/exekuta" underline="none" sx={{ color: '#001A33' }}>
                 exekuta
               </Link>
             </Box>
+
             <Box className={css.centerBox}>
               <GitHubIcon sx={{ color: '#001A33' }} />
               <Link
@@ -50,6 +51,7 @@ const Footer: FC = () => {
             </Box>
           </Box>
         </Grid>
+
         <Grid item xs={2}>
           <Box className={css.centerBox}>
             <CopyrightIcon sx={{ color: '#001A33' }} />

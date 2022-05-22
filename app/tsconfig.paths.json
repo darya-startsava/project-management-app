@@ -5,7 +5,6 @@
       "$assets/*": ["./assets/*"],
       "$components/*": ["./components/*"],
       "$pages/*": ["./pages/*"],
-      "$hoc/*": ["./hoc/*"],
       "$translations/*": ["./translations/*"],
       "$general/*": ["./general/*"],
       "$settings/*": ["./settings/*"],

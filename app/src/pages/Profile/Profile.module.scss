@@ -1,0 +1,68 @@
+
+@import "$assets/scss/variables";
+@import "$assets/scss/mixins";
+
+.profile {
+  &__loader {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin: 50px auto 0;
+  }
+
+  &__title {
+    @extend %pageTitle;
+  }
+
+  &__content {
+    &_user{
+      width: 25%;
+    }
+
+    &_img{
+      width: 100%;
+      height: auto;
+    }
+
+    .profile__content_deleteButton{
+      margin-top: 30px;
+      width: 100%;
+      padding: 13px 10px;
+      border-radius: $borderRadiusMin;
+      color: $whiteColor;
+      background-color: $red;
+
+      &:hover {
+        background-color: $red;
+      }
+    }
+  }
+
+  .profile__form_wrapper {
+    width: 100%;
+    max-width: 380px;
+    margin-left: 30px;
+  }
+
+  .profile__form{
+    width: 100%;
+
+    &_title {
+      font-weight: 600;
+      font-size: $textSize;
+      text-align: center;
+    }
+
+    .profile__form_input {
+      @extend %modalElement;
+    }
+
+    .formErrorText {
+      @extend %formError;
+    }
+
+    &_submit {
+      @extend %submitButton;
+    }
+  }
+}
