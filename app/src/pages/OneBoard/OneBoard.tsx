@@ -30,10 +30,6 @@ const OneBoard: FC = () => {
     addColumn,
     { isLoading: isAddingColumn, error: errorAddColumn, isSuccess: isSuccessAddColumn },
   ] = useAddColumnMutation();
-  // eslint-disable-next-line no-console
-  console.log(columns);
-  // eslint-disable-next-line no-console
-  console.log(params);
 
   useEffect(() => {
     if (errorGetColumns) {
