@@ -1,12 +1,26 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAddTaskMutation, useGetAllTasksQuery } from '$services/api';
+import { useAddTaskMutation, useGetAllTasksQuery, useDeleteColumnMutation } from '$services/api';
 import { useSnackbar } from 'notistack';
 import CloseButton from '$components/CloseButton';
 import LightboxTask from '$components/LightboxTask';
+import ConfirmWindow from '$components/ConfirmWindow';
 import TasksList from './TasksList';
-import { Box, Button, ButtonGroup, InputBase, ListItem, Stack, Typography } from '@mui/material';
-import { Add as AddIcon, DoNotDisturb as DoNotDisturbIcon } from '@mui/icons-material';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  IconButton,
+  InputBase,
+  ListItem,
+  Stack,
+  Typography,
+} from '@mui/material';
+import {
+  Add as AddIcon,
+  DoNotDisturb as DoNotDisturbIcon,
+  DeleteOutline as DeleteOutlineIcon,
+} from '@mui/icons-material';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import {
   IColumn,
@@ -31,6 +45,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   const { data: tasks = [], error: errorGetTasks } = useGetAllTasksQuery({ boardId, columnId });
   const [addTask, { isLoading: isAddingTask, error: errorAddTask, isSuccess: isSuccessAddTask }] =
     useAddTaskMutation();
+  const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
 
   useEffect(() => {
     if (errorGetTasks) {
@@ -83,6 +98,35 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
     setIsChangeColumnNameMode(false);
   };
 
+  const [deleteColumn, { error: errorDeleteColumn, isSuccess: isSuccessDeleteColumn }] =
+    useDeleteColumnMutation();
+
+  useEffect(() => {
+    if (errorDeleteColumn) {
+      const errorMessage = t('Columns.errorDeleteColumn', {
+        ERROR_MESSAGE: (errorDeleteColumn as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        ...messageErrorOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorDeleteColumn, closeSnackbar, enqueueSnackbar, t]);
+
+  useEffect(() => {
+    if (isSuccessDeleteColumn) {
+      enqueueSnackbar(t('Columns.successDeleteColumn'), {
+        ...messageSuccessOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [isSuccessDeleteColumn, closeSnackbar, enqueueSnackbar, t]);
+
+  const removeHandler = async () => {
+    deleteColumn({ boardId, columnId });
+    setIsShowConfirmModalDelete(false);
+  };
+
   return (
     <>
       <ListItem component="li" className={css.columnsList__item}>
@@ -128,8 +172,24 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
           >
             + {t('Tasks.addNewTaskButtonText')}
           </Button>
+
+          <IconButton
+            className={css.ColumnList_item_delete_button}
+            size="small"
+            onClick={() => setIsShowConfirmModalDelete(true)}
+            aria-label={t('Boards.deleteColumnLabel')}
+          >
+            <DeleteOutlineIcon color="inherit" />
+          </IconButton>
         </Box>
       </ListItem>
+
+      <ConfirmWindow
+        isShow={isShowConfirmModalDelete}
+        title={t('Columns.confirmDeleteColumnModalTitle')}
+        disAgreeHandler={() => setIsShowConfirmModalDelete(false)}
+        agreeHandler={removeHandler}
+      />
 
       <LightboxTask
         showModal={showModalAddTasks}

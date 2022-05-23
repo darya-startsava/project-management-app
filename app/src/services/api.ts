@@ -122,6 +122,14 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
     }),
+    deleteColumn: build.mutation<null, { boardId: string; columnId: string }>({
+      query: (body: { boardId: string; columnId: string }) => ({
+        url: `${QueryPoints.boards}/${body.boardId}/${QueryPoints.columns}/${body.columnId}`,
+        method: 'DELETE',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
+    }),
 
     // tasks page
     getAllTasks: build.query<Array<ITask>, { boardId: string; columnId: string }>({
@@ -161,6 +169,7 @@ export const {
   useUpdateBoardMutation,
   useGetAllColumnsQuery,
   useAddColumnMutation,
+  useDeleteColumnMutation,
   useGetAllTasksQuery,
   useAddTaskMutation,
 } = api;

@@ -116,7 +116,11 @@
     "errorEmptyField": "Это поле обязательно для заполнения",
     "errorMinLengthTitle": "Минимальная длина {{COLUMNS_TITLE_MIN_LENGTH}} символов",
     "errorMaxLengthTitle": "Максимальная длина {{COLUMNS_TITLE_MAX_LENGTH}} символов",
-    "addNewColumnButtonText": "Добавить колонку"
+    "addNewColumnButtonText": "Добавить колонку",
+    "deleteColumnLabel": "Удалить колонку",
+    "confirmDeleteColumnModalTitle": "Вы уверены, что хотите удалить эту колонку?",
+    "errorDeleteColumn": "Колонка не удалена! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
+    "successDeleteColumn": "Колонка успешно удалена!"
   },
   "Tasks": {
     "addNewTaskButtonText": "Добавить новую задачу",
