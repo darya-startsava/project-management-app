@@ -118,10 +118,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
 
   const addNewBoard: TCreateElement<INewNTaskFormState> = (data: INewNTaskFormState) => {
     addTask({
-      body: {
-        ...data,
-        order: tasks.length + 1,
-      },
+      body: data,
       boardId,
       columnId,
     });

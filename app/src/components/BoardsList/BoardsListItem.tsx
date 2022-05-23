@@ -29,7 +29,7 @@ import img3 from '$assets/img/3.jpg';
 import { IBoard, IBoardCreateObj } from '$types/common';
 import css from './BoardsList.module.scss';
 
-const BoardsListItem: FC<IBoard> = ({ id, title }) => {
+const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
@@ -85,6 +85,15 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
           >
             {title}
           </Typography>
+
+          <Typography
+            className={css.boardsList__item_description}
+            gutterBottom
+            variant="inherit"
+            component="p"
+          >
+            {description}
+          </Typography>
         </CardContent>
 
         <CardActions className={css.boardsList__item_actionsWrapper}>
@@ -125,7 +134,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title }) => {
         submitCB={updateBoardTitle}
         modalTitle={t('Boards.updateModalTitle')}
         submitButtonText={t('Boards.updateModalSubmitButton')}
-        formState={{ title: title }}
+        formState={{ title, description }}
       />
     </>
   );
