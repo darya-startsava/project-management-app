@@ -54,7 +54,7 @@ export interface IColumnCreateObj {
 
 export interface IColumnUpdateTitle {
   title: string;
-  id: string;
+  order: number;
 }
 
 export interface IColumn extends IColumnCreateObj {

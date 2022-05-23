@@ -116,9 +116,12 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
     }),
-    updateColumn: build.mutation<IColumn, { body: IColumnUpdateTitle; id: string }>({
-      query: ({ body, id }) => ({
-        url: `/${QueryPoints.boards}/${id}/${QueryPoints.columns}`,
+    updateColumn: build.mutation<
+      IColumn,
+      { body: IColumnUpdateTitle; boardId: string; columnId: string }
+    >({
+      query: ({ body, boardId, columnId }) => ({
+        url: `/${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}`,
         method: 'PUT',
         body,
       }),
