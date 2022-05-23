@@ -22,9 +22,10 @@ import { CLOSE_SNACKBAR_TIME } from '$settings/index';
 
 interface IColumnsListItemProps extends IColumn {
   boardId: string;
+  order: number;
 }
 
-const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: columnId }) => {
+const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: columnId, order }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isChangeColumnNameMode, setIsChangeColumnNameMode] = useState<boolean>(false);
@@ -113,7 +114,6 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   };
 
   const submitTitleHandler = () => {
-    const order = 1;
     submitTitle({ title: newTitle, order });
   };
 
