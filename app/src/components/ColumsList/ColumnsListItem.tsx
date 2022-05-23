@@ -18,7 +18,6 @@ import {
   IColumnUpdateTitle,
 } from '$types/common';
 import css from './ColumnsList.module.scss';
-import { CLOSE_SNACKBAR_TIME } from '$settings/index';
 
 interface IColumnsListItemProps extends IColumn {
   boardId: string;
@@ -57,8 +56,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
         ERROR_MESSAGE: errorUpdateColumn,
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -67,8 +65,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   useEffect(() => {
     if (isSuccessUpdateColumn) {
       enqueueSnackbar(t('Columns.successUpdateColumnTitle'), {
-        variant: 'success',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
