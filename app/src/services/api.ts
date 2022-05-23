@@ -83,6 +83,14 @@ export const api = createApi({
       query: (body: IBoardCreateObj) => ({ url: QueryPoints.boards, method: 'POST', body }),
       invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
     }),
+    deleteBoard: build.mutation<null, IBoard>({
+      query: (body: IBoard) => ({
+        url: `${QueryPoints.boards}/${body.id}`,
+        method: 'DELETE',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
+    }),
     updateBoard: build.mutation<IBoard, { body: IBoardCreateObj; id: string }>({
       query: ({ body, id }) => ({
         url: `/${QueryPoints.boards}/${id}`,
@@ -149,6 +157,7 @@ export const {
   useUpdateUserMutation,
   useGetAllBoardsQuery,
   useAddBoardMutation,
+  useDeleteBoardMutation,
   useUpdateBoardMutation,
   useGetAllColumnsQuery,
   useAddColumnMutation,
