@@ -98,6 +98,9 @@
     "editBoardTitleLabel": "Изменить название доски",
     "addBoardToFavoritesLabel": "Добавить доску в избранное",
     "deleteBoardLabel": "Удалить доску",
+    "confirmDeleteBoardModalTitle": "Вы уверены, что хотите удалить эту доску?",
+    "errorDeletingBoard": "Доска не удалена! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
+    "successDeletingBoard": "Доска была удалена успешно!",
     "updateModalTitle": "Изменить название доски",
     "updateModalSubmitButton": "Изменить"
   },
