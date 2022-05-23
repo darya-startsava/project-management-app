@@ -5,7 +5,6 @@ import {
   IBoardCreateObj,
   IColumn,
   IColumnCreateObj,
-  // IColumnFormState,
   IColumnUpdateTitle,
   ITask,
   ITaskCreateObj,

@@ -118,8 +118,6 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   };
 
   const submitTitle = (data: IColumnUpdateTitle) => {
-    console.log(data);
-
     setNewTitle(newTitle);
     updateColumn({ body: data, boardId, columnId });
     setIsChangeColumnNameMode(false);
