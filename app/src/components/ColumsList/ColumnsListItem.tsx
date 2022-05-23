@@ -114,15 +114,14 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
 
   const submitTitleHandler = () => {
     const order = 1;
-    submitTitle({ title, order });
+    submitTitle({ title: newTitle, order });
   };
 
   const submitTitle = (data: IColumnUpdateTitle) => {
-    setNewTitle(title);
     console.log(data);
-    if (newTitle) {
-      updateColumn({ body: data, boardId, columnId });
-    }
+
+    setNewTitle(newTitle);
+    updateColumn({ body: data, boardId, columnId });
     setIsChangeColumnNameMode(false);
   };
 
@@ -165,7 +164,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
               component="h3"
               onClick={() => setIsChangeColumnNameMode(true)}
             >
-              {title}
+              {newTitle}
             </Typography>
           )}
 
