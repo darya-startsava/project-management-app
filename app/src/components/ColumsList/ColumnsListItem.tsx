@@ -28,21 +28,28 @@ import {
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import {
   IColumn,
+  IColumnUpdateObj,
   IError,
   INewNTaskFormState,
   TChangeElHandler,
   TCreateElement,
   TSimpleFunction,
-  IColumnUpdateTitle,
 } from '$types/common';
+import { DraggableProvided } from 'react-beautiful-dnd';
 import css from './ColumnsList.module.scss';
 
 interface IColumnsListItemProps extends IColumn {
   boardId: string;
-  order: number;
+  draggableProvided: DraggableProvided;
 }
 
-const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: columnId, order }) => {
+const ColumnsListItem: FC<IColumnsListItemProps> = ({
+  title,
+  boardId,
+  id: columnId,
+  draggableProvided,
+  order,
+}) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isChangeColumnNameMode, setIsChangeColumnNameMode] = useState<boolean>(false);
@@ -162,7 +169,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
     submitTitle({ title: newTitle, order });
   };
 
-  const submitTitle = (data: IColumnUpdateTitle) => {
+  const submitTitle = (data: IColumnUpdateObj) => {
     setNewTitle(newTitle);
     updateColumn({ body: data, boardId, columnId });
     setIsChangeColumnNameMode(false);
@@ -170,7 +177,13 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
 
   return (
     <>
-      <ListItem component="li" className={css.columnsList__item}>
+      <ListItem
+        component="li"
+        className={css.columnsList__item}
+        ref={draggableProvided.innerRef}
+        {...draggableProvided.draggableProps}
+        {...draggableProvided.dragHandleProps}
+      >
         {isChangeColumnNameMode ? (
           <Stack className={css.columnsList__item_rename}>
             <InputBase

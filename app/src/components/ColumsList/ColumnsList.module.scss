@@ -6,6 +6,7 @@ ul.columnsList {
   @include dflex(flex-start, flex-start);
 
   flex-wrap: nowrap;
+  flex-grow: 1;
   margin-top: 32px;
   padding: 0;
   overflow-y: hidden;
