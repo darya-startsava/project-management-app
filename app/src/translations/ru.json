@@ -143,7 +143,11 @@
     "errorMaxLengthDescription": "Максимальная длина {{TASKS_DESCRIPTION_MAX_LENGTH}} символов",
     "errorChoiceUser": "Необходимость выбора ответственного пользователя",
     "unknownUser": "Ответственный: ненайден",
-    "responsible": "Ответственный: {{USER}}"
+    "responsible": "Ответственный: {{USER}}",
+    "deleteTaskLabel": "Удалить задачу",
+    "confirmDeleteTaskModalTitle": "Вы уверены, что хотите удалить эту задачу?",
+    "errorDeleteTask": "Задача не удалена! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
+    "successDeleteTask": "Задача успешно удалена!"
   },
   "Profile": {
     "pageTitle": "Профиль пользователя - {{NAME}}",
