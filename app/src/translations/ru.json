@@ -113,6 +113,7 @@
     "errorEmptyField": "Это поле обязательно для заполнения",
     "errorMinLengthTitle": "Минимальная длина {{COLUMNS_TITLE_MIN_LENGTH}} символов",
     "errorMaxLengthTitle": "Максимальная длина {{COLUMNS_TITLE_MAX_LENGTH}} символов",
+    "dragDropError": "Ошибка изменения порядкового номера колонки: {{ERROR_MESSAGE}}",
     "addNewColumnButtonText": "Добавить колонку"
   },
   "Tasks": {

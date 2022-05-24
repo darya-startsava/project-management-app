@@ -21,10 +21,15 @@ import css from './ColumnsList.module.scss';
 
 interface IColumnsListItemProps extends IColumn {
   boardId: string;
-  provided: DraggableProvided;
+  draggableProvided: DraggableProvided;
 }
 
-const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: columnId, provided }) => {
+const ColumnsListItem: FC<IColumnsListItemProps> = ({
+  title,
+  boardId,
+  id: columnId,
+  draggableProvided,
+}) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isChangeColumnNameMode, setIsChangeColumnNameMode] = useState<boolean>(false);
@@ -90,9 +95,9 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
       <ListItem
         component="li"
         className={css.columnsList__item}
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
+        ref={draggableProvided.innerRef}
+        {...draggableProvided.draggableProps}
+        {...draggableProvided.dragHandleProps}
       >
         {isChangeColumnNameMode ? (
           <Stack className={css.columnsList__item_rename}>

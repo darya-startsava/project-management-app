@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useUpdateColumnMutation } from '$services/api';
+import { useUpdateDragAndDropColumnMutation } from '$services/api';
+import { useSnackbar } from 'notistack';
 import { Button, List, ListItem } from '@mui/material';
 import ColumnsListItem from './ColumnsListItem';
 import {
@@ -11,7 +12,9 @@ import {
   DroppableProvided,
   DropResult,
 } from 'react-beautiful-dnd';
-import { IColumn, TSimpleFunction } from '$types/common';
+import CloseButton from '$components/CloseButton';
+import { messageErrorOptions } from '$settings/index';
+import { IColumn, IError, TSimpleFunction } from '$types/common';
 import css from './ColumnsList.module.scss';
 
 interface IColumnsListProps {
@@ -22,7 +25,21 @@ interface IColumnsListProps {
 
 const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }) => {
   const { t } = useTranslation();
-  const [updateColumn, { isLoading: isLoadingUpdateColumn }] = useUpdateColumnMutation();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const [updateColumn, { isLoading: isLoadingUpdateColumn, error: errorChangeOrderColumn }] =
+    useUpdateDragAndDropColumnMutation();
+
+  useEffect(() => {
+    if (errorChangeOrderColumn) {
+      const errorMessage = t('Columns.dragDropError', {
+        ERROR_MESSAGE: (errorChangeOrderColumn as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        ...messageErrorOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorChangeOrderColumn, t, enqueueSnackbar, closeSnackbar]);
 
   const dragEndListItemHandler = (result: DropResult) => {
     if (!result.destination) return;
@@ -30,6 +47,8 @@ const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }
     const newOrder = result.destination.index;
     const columnId = result.draggableId;
     const columnDrag = columns.filter((oneColumn) => oneColumn.id === columnId)[0];
+
+    if (newOrder === result.source.index) return;
 
     updateColumn({
       boardId,
@@ -59,7 +78,7 @@ const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }
                 isDragDisabled={isLoadingUpdateColumn}
               >
                 {(provided: DraggableProvided) => (
-                  <ColumnsListItem {...columnItem} provided={provided} boardId={boardId} />
+                  <ColumnsListItem {...columnItem} draggableProvided={provided} boardId={boardId} />
                 )}
               </Draggable>
             ))}
