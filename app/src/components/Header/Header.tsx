@@ -38,7 +38,7 @@ const Header: FC = () => {
 
   return (
     <StyledEngineProvider injectFirst>
-      <AppBar position="sticky" color={trigger ? 'primary' : 'inherit'}>
+      <AppBar position="sticky" color={trigger ? 'primary' : 'inherit'} className={css.header}>
         <Toolbar>
           <Button href={ROUTES_PATHS.welcome}>
             <Typography className={css.header__heading} variant="h6" component="h1">

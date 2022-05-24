@@ -84,9 +84,17 @@ export const api = createApi({
       query: (body: IBoardCreateObj) => ({ url: QueryPoints.boards, method: 'POST', body }),
       invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
     }),
+    deleteBoard: build.mutation<null, IBoard>({
+      query: (body: IBoard) => ({
+        url: `${QueryPoints.boards}/${body.id}`,
+        method: 'DELETE',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Boards', id: 'LIST' }],
+    }),
     updateBoard: build.mutation<IBoard, { body: IBoardCreateObj; id: string }>({
       query: ({ body, id }) => ({
-        url: `/${QueryPoints.boards}/${id}`,
+        url: `${QueryPoints.boards}/${id}`,
         method: 'PUT',
         body,
       }),
@@ -111,6 +119,25 @@ export const api = createApi({
       query: ({ body, id }) => ({
         url: `${QueryPoints.boards}/${id}/${QueryPoints.columns}`,
         method: 'POST',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
+    }),
+    deleteColumn: build.mutation<null, { boardId: string; columnId: string }>({
+      query: (body: { boardId: string; columnId: string }) => ({
+        url: `${QueryPoints.boards}/${body.boardId}/${QueryPoints.columns}/${body.columnId}`,
+        method: 'DELETE',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
+    }),
+    updateColumn: build.mutation<
+      IColumn,
+      { body: IColumnUpdateObj; boardId: string; columnId: string }
+    >({
+      query: ({ body, boardId, columnId }) => ({
+        url: `${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}`,
+        method: 'PUT',
         body,
       }),
       invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
@@ -193,6 +220,14 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
     }),
+
+    deleteTask: build.mutation<null, { boardId: string; columnId: string; taskId: string }>({
+      query: ({ boardId, columnId, taskId }) => ({
+        url: `${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}/${QueryPoints.tasks}/${taskId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -204,10 +239,14 @@ export const {
   useUpdateUserMutation,
   useGetAllBoardsQuery,
   useAddBoardMutation,
+  useDeleteBoardMutation,
   useUpdateBoardMutation,
   useGetAllColumnsQuery,
   useAddColumnMutation,
   useUpdateDragAndDropColumnMutation,
+  useDeleteColumnMutation,
+  useUpdateColumnMutation,
   useGetAllTasksQuery,
   useAddTaskMutation,
+  useDeleteTaskMutation,
 } = api;

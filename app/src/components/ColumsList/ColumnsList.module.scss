@@ -7,20 +7,24 @@ ul.columnsList {
 
   flex-wrap: nowrap;
   flex-grow: 1;
+  margin-top: 32px;
   padding: 0;
-  margin: 32px 0 0;
+  overflow-y: hidden;
 
   .columnsList__item {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: stretch;
     flex-shrink: 0;
     width: 335px;
-    display: block;
-    min-height: 100px;
+    max-height: calc(100% - 5px);
     padding: 12px 15px;
     box-shadow: $boxShadow;
     border-radius: $borderRadiusBig;
     color: $black;
     background-color: $columnBg;
     list-style-type: none;
+    overflow: hidden;
 
     & ~ .columnsList__item,
     & ~ .columnsList__itemButton {
@@ -28,17 +32,14 @@ ul.columnsList {
     }
   }
 
-  .columnsList__item_name {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-
   .columnsList__item_title {
+    width: 100%;
     margin-bottom: 0;
     font-weight: bold;
     font-size: $bigTextSize;
     line-height: 1.5;
     color: $black;
+    word-wrap: break-word;
     cursor: pointer;
   }
 
@@ -95,7 +96,6 @@ ul.columnsList {
   .columnsList__itemButton {
     width: max-content;
     min-width: 335px;
-    margin-right: $oneBoardPageOffset;
     padding: 0;
   }
 
