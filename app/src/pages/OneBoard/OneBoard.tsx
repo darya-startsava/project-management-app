@@ -9,7 +9,7 @@ import Section from '$components/Section';
 import ColumnsListItem from '$components/ColumsList';
 import CloseButton from '$components/CloseButton';
 import LightboxColumn from '$components/LightboxColumn';
-import { randNumber } from '$utils/index';
+import { getSortColumns, randNumber } from '$utils/index';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import { IColumnCreateObj, IError, TCreateElement } from '$types/common';
 import img1 from '$assets/img/1.jpg';
@@ -87,7 +87,7 @@ const OneBoard: FC = () => {
       </Typography>
 
       <ColumnsListItem
-        columns={columns}
+        columns={getSortColumns(columns)}
         boardId={params.id || ''}
         addCardHandler={() => {
           setShowModalAddColumn(true);

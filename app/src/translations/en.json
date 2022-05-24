@@ -116,7 +116,10 @@
     "errorEmptyField": "This field must be filled",
     "errorMinLengthTitle": "Min length {{COLUMNS_TITLE_MIN_LENGTH}} letters",
     "errorMaxLengthTitle": "Max length {{COLUMNS_TITLE_MAX_LENGTH}} letters",
-    "addNewColumnButtonText": "Create column"
+    "addNewColumnButtonText": "Create column",
+    "errorUpdateColumnTitle": "Column title has not been changed! Error: {{ERROR_MESSAGE}}",
+    "successUpdateColumnTitle": "Column title changed successfully!",
+    "updateColumnTitleLabel": "Column title edit form"
   },
   "Tasks": {
     "addNewTaskButtonText": "Add new task",
