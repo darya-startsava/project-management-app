@@ -5,6 +5,7 @@ import {
   IBoardCreateObj,
   IColumn,
   IColumnCreateObj,
+  IColumnUpdateTitle,
   ITask,
   ITaskCreateObj,
   IUser,
@@ -130,6 +131,17 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
     }),
+    updateColumn: build.mutation<
+      IColumn,
+      { body: IColumnUpdateTitle; boardId: string; columnId: string }
+    >({
+      query: ({ body, boardId, columnId }) => ({
+        url: `/${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
+    }),
 
     // tasks page
     getAllTasks: build.query<Array<ITask>, { boardId: string; columnId: string }>({
@@ -170,6 +182,7 @@ export const {
   useGetAllColumnsQuery,
   useAddColumnMutation,
   useDeleteColumnMutation,
+  useUpdateColumnMutation,
   useGetAllTasksQuery,
   useAddTaskMutation,
 } = api;
