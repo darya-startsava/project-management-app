@@ -143,7 +143,9 @@
     "errorMaxLengthDescription": "Max length {{TASKS_DESCRIPTION_MAX_LENGTH}} letters",
     "errorChoiceUser": "Need to choice responsible user",
     "unknownUser": "Responsible: none",
-    "responsible": "Responsible: {{USER}}"
+    "responsible": "Responsible: {{USER}}",
+    "errorUpdateTask": "Task has not been changed! Error: {{ERROR_MESSAGE}}",
+    "successUpdateTask": "Task changed successfully!"
   },
   "Profile": {
     "pageTitle": "User profile - {{NAME}}",

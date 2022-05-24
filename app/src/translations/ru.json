@@ -143,7 +143,9 @@
     "errorMaxLengthDescription": "Максимальная длина {{TASKS_DESCRIPTION_MAX_LENGTH}} символов",
     "errorChoiceUser": "Необходимость выбора ответственного пользователя",
     "unknownUser": "Ответственный: ненайден",
-    "responsible": "Ответственный: {{USER}}"
+    "responsible": "Ответственный: {{USER}}",
+    "errorUpdateTask": "Задача не изменена! Ошибка: {{ERROR_MESSAGE}}",
+    "successUpdateTask": "Задача изменена успешно!"
   },
   "Profile": {
     "pageTitle": "Профиль пользователя - {{NAME}}",

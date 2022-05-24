@@ -72,6 +72,8 @@ export interface ITaskCreateObj {
 
 export interface ITask extends ITaskCreateObj {
   id: string;
+  order: number;
+  title: string;
   boardId: string;
   columnId: string;
 }
@@ -86,6 +88,15 @@ export interface ITaskUpdateObj {
   boardId: string;
   columnId: string;
   taskId: string;
+}
+
+export interface ITaskUpdate {
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+  boardId: string;
+  columnId: string;
 }
 /* tasks end */
 

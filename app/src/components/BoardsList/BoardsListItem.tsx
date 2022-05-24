@@ -2,8 +2,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
-import { useUpdateBoardMutation } from '$services/api';
-import { useDeleteBoardMutation } from '$services/api';
+import { useUpdateBoardMutation, useDeleteBoardMutation } from '$services/api';
 import { SubmitHandler } from 'react-hook-form';
 import {
   CardActions,
