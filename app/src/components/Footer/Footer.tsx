@@ -9,7 +9,7 @@ const Footer: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <footer>
+    <Box component="footer" className={css.footer}>
       <Grid container className={css.footerContainer}>
         <Grid item xs={2}>
           <Box className={css.centerBox}>
@@ -59,7 +59,7 @@ const Footer: FC = () => {
           </Box>
         </Grid>
       </Grid>
-    </footer>
+    </Box>
   );
 };
 

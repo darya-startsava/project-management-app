@@ -12,7 +12,6 @@ import LightboxTask from '$components/LightboxTask';
 import ConfirmWindow from '$components/ConfirmWindow';
 import TasksList from './TasksList';
 import {
-  Box,
   Button,
   ButtonGroup,
   IconButton,
@@ -172,66 +171,58 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   return (
     <>
       <ListItem component="li" className={css.columnsList__item}>
-        <Box className={css.columnsList__item_name}>
-          {isChangeColumnNameMode ? (
-            <Stack className={css.columnsList__item_rename}>
-              <InputBase
-                className={css.columnsList__item_rename_input}
-                value={newTitle}
-                onChange={changeTitleHandler}
-                placeholder={t('Columns.errorEmptyField')}
-                aria-label={t('Columns.updateColumnTitleLabel')}
-                name={title}
-              />
+        {isChangeColumnNameMode ? (
+          <Stack className={css.columnsList__item_rename}>
+            <InputBase
+              className={css.columnsList__item_rename_input}
+              value={newTitle}
+              onChange={changeTitleHandler}
+              placeholder={t('Columns.errorEmptyField')}
+              aria-label={t('Columns.updateColumnTitleLabel')}
+              name={title}
+            />
 
-              <ButtonGroup className={css.columnsList__item_rename_buttons}>
-                <Button
-                  className={css.columnsList__item_rename_accept}
-                  onClick={submitTitleHandler}
-                >
-                  <CheckIcon />
-                </Button>
+            <ButtonGroup className={css.columnsList__item_rename_buttons}>
+              <Button className={css.columnsList__item_rename_accept} onClick={submitTitleHandler}>
+                <CheckIcon />
+              </Button>
 
-                <Button
-                  className={css.columnsList__item_rename_cancel}
-                  onClick={cancelTitleHandler}
-                >
-                  <DoNotDisturbIcon />
-                </Button>
-              </ButtonGroup>
-            </Stack>
-          ) : (
-            <Typography
-              className={css.columnsList__item_title}
-              gutterBottom
-              variant="inherit"
-              component="h3"
-              onClick={() => setIsChangeColumnNameMode(true)}
-            >
-              {newTitle}
-            </Typography>
-          )}
-
-          <TasksList tasks={tasks} />
-
-          <Button
-            className={css.columnsList__item_addTaskButton}
-            onClick={() => {
-              setShowModalAddTasks(true);
-            }}
+              <Button className={css.columnsList__item_rename_cancel} onClick={cancelTitleHandler}>
+                <DoNotDisturbIcon />
+              </Button>
+            </ButtonGroup>
+          </Stack>
+        ) : (
+          <Typography
+            className={css.columnsList__item_title}
+            gutterBottom
+            variant="inherit"
+            component="h3"
+            onClick={() => setIsChangeColumnNameMode(true)}
           >
-            + {t('Tasks.addNewTaskButtonText')}
-          </Button>
+            {newTitle}
+          </Typography>
+        )}
 
-          <IconButton
-            className={css.ColumnList_item_delete_button}
-            size="small"
-            onClick={() => setIsShowConfirmModalDelete(true)}
-            aria-label={t('Boards.deleteColumnLabel')}
-          >
-            <DeleteOutlineIcon color="inherit" />
-          </IconButton>
-        </Box>
+        <TasksList tasks={tasks} />
+
+        <Button
+          className={css.columnsList__item_addTaskButton}
+          onClick={() => {
+            setShowModalAddTasks(true);
+          }}
+        >
+          + {t('Tasks.addNewTaskButtonText')}
+        </Button>
+
+        <IconButton
+          className={css.ColumnList_item_delete_button}
+          size="small"
+          onClick={() => setIsShowConfirmModalDelete(true)}
+          aria-label={t('Boards.deleteColumnLabel')}
+        >
+          <DeleteOutlineIcon color="inherit" />
+        </IconButton>
       </ListItem>
 
       <ConfirmWindow
