@@ -1,6 +1,8 @@
 @import '$assets/scss/variables';
 
 .header {
+  flex-shrink: 0;
+
   &__heading {
     text-transform: uppercase;
     color: $black;

@@ -32,6 +32,12 @@ const OneBoard: FC = () => {
   ] = useAddColumnMutation();
 
   useEffect(() => {
+    document.body.style.setProperty('--screenOverflowY', 'hidden');
+
+    return () => document.body.style.setProperty('--screenOverflowY', 'auto');
+  }, []);
+
+  useEffect(() => {
     if (errorGetColumns) {
       const errorMessage = t('Columns.errorGetColumns', {
         ERROR_MESSAGE: (errorGetColumns as IError).data.message || '',
