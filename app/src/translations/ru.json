@@ -117,6 +117,10 @@
     "errorMinLengthTitle": "Минимальная длина {{COLUMNS_TITLE_MIN_LENGTH}} символов",
     "errorMaxLengthTitle": "Максимальная длина {{COLUMNS_TITLE_MAX_LENGTH}} символов",
     "addNewColumnButtonText": "Добавить колонку",
+    "deleteColumnLabel": "Удалить колонку",
+    "confirmDeleteColumnModalTitle": "Вы уверены, что хотите удалить эту колонку?",
+    "errorDeleteColumn": "Колонка не удалена! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
+    "successDeleteColumn": "Колонка успешно удалена!",
     "errorUpdateColumnTitle": "Название колонки не изменено! Ошибка: {{ERROR_MESSAGE}}",
     "successUpdateColumnTitle": "Название колонки изменено успешно!",
     "updateColumnTitleLabel": "Форма редактирования названия колонки"

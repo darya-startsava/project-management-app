@@ -28,7 +28,7 @@ import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import img1 from '$assets/img/1.jpg';
 import img2 from '$assets/img/2.jpg';
 import img3 from '$assets/img/3.jpg';
-import { IBoard, IBoardCreateObj } from '$types/common';
+import { IBoard, IBoardCreateObj, IError } from '$types/common';
 import css from './BoardsList.module.scss';
 
 const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
@@ -47,7 +47,9 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
 
   useEffect(() => {
     if (errorUpdateBoard) {
-      const errorMessage = t('Boards.errorUpdateBoardTitle', { ERROR_MESSAGE: errorUpdateBoard });
+      const errorMessage = t('Boards.errorUpdateBoardTitle', {
+        ERROR_MESSAGE: (errorUpdateBoard as IError).data.message || '',
+      });
       enqueueSnackbar(errorMessage, {
         ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
@@ -74,7 +76,9 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
 
   useEffect(() => {
     if (errorDeletingBoard) {
-      const errorMessage = t('Boards.errorDeletingBoard', { ERROR_MESSAGE: errorDeletingBoard });
+      const errorMessage = t('Boards.errorDeletingBoard', {
+        ERROR_MESSAGE: (errorDeletingBoard as IError).data.message || '',
+      });
       enqueueSnackbar(errorMessage, {
         ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
@@ -91,12 +95,8 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
     }
   }, [isSuccessDeletingBoard, closeSnackbar, enqueueSnackbar, t]);
 
-  const deletingBoard = ({ id, title }: IBoard) => {
-    deleteBoard({ id, title, description });
-  };
-
   const removeHandler = async () => {
-    deletingBoard({ id, title, description });
+    deleteBoard({ id, title, description });
     setIsShowConfirmModalDelete(false);
   };
 
