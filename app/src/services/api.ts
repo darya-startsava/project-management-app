@@ -8,6 +8,7 @@ import {
   IColumnUpdateTitle,
   ITask,
   ITaskCreateObj,
+  ITaskUpdateObj,
   IUser,
   IUserLogIn,
   IUserRegistration,
@@ -166,6 +167,18 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
     }),
+
+    updateTask: build.mutation<
+      IColumn,
+      { body: ITaskUpdateObj; boardId: string; columnId: string; taskId: string }
+    >({
+      query: ({ body, boardId, columnId, taskId }) => ({
+        url: `/${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}/${QueryPoints.tasks}/${taskId}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -185,4 +198,5 @@ export const {
   useUpdateColumnMutation,
   useGetAllTasksQuery,
   useAddTaskMutation,
+  useUpdateTaskMutation,
 } = api;
