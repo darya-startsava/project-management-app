@@ -166,6 +166,14 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
     }),
+
+    deleteTask: build.mutation<null, { boardId: string; columnId: string; taskId: string }>({
+      query: ({ boardId, columnId, taskId }) => ({
+        url: `${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}/${QueryPoints.tasks}/${taskId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -185,4 +193,5 @@ export const {
   useUpdateColumnMutation,
   useGetAllTasksQuery,
   useAddTaskMutation,
+  useDeleteTaskMutation,
 } = api;
