@@ -53,7 +53,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({ title, boardId, id: column
   useEffect(() => {
     if (errorUpdateColumn) {
       const errorMessage = t('Columns.errorUpdateColumnTitle', {
-        ERROR_MESSAGE: errorUpdateColumn,
+        ERROR_MESSAGE: (errorUpdateColumn as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
         ...messageErrorOptions,
