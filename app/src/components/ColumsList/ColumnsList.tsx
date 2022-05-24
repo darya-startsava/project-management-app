@@ -17,7 +17,12 @@ const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }
   return (
     <List component="ul" className={css.columnsList}>
       {columns.map((columnItem: IColumn) => (
-        <ColumnsListItem key={columnItem.id} {...columnItem} boardId={boardId} />
+        <ColumnsListItem
+          key={columnItem.id}
+          {...columnItem}
+          boardId={boardId}
+          order={columnItem.order}
+        />
       ))}
 
       <ListItem component="li" className={css.columnsList__itemButton}>
