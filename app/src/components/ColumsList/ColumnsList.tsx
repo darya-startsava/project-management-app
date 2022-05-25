@@ -63,12 +63,12 @@ const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }
   return (
     <DragDropContext onDragEnd={dragEndListItemHandler}>
       <Droppable droppableId="kanbanList" direction="horizontal">
-        {(provided: DroppableProvided) => (
+        {(droppableColumnProvided: DroppableProvided) => (
           <List
             component="ul"
             className={css.columnsList}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
+            ref={droppableColumnProvided.innerRef}
+            {...droppableColumnProvided.droppableProps}
           >
             {columns.map((columnItem: IColumn) => (
               <Draggable
@@ -77,13 +77,17 @@ const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }
                 index={columnItem.order}
                 isDragDisabled={isLoadingUpdateColumn}
               >
-                {(provided: DraggableProvided) => (
-                  <ColumnsListItem {...columnItem} draggableProvided={provided} boardId={boardId} />
+                {(draggableColumnProvided: DraggableProvided) => (
+                  <ColumnsListItem
+                    {...columnItem}
+                    draggableColumnProvided={draggableColumnProvided}
+                    boardId={boardId}
+                  />
                 )}
               </Draggable>
             ))}
 
-            {provided.placeholder}
+            {droppableColumnProvided.placeholder}
 
             <ListItem component="li" className={css.columnsList__itemButton}>
               <Button className={css.columnsList__item_addButton} onClick={addCardHandler}>
