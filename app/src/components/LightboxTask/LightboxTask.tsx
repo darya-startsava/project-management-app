@@ -104,8 +104,8 @@ const LightboxTask: FC<IBoardsModal> = ({
                 })}
                 label={t('Tasks.titleLabelForm')}
                 onChange={onChange}
-                autoFocus
                 fullWidth
+                autoFocus={true}
               />
 
               {error?.message && (

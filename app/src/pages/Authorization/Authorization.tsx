@@ -138,6 +138,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
               label={t('Registration.nameLabel')}
               placeholder={t('Registration.namePlaceholder')}
               fullWidth
+              autoFocus={sortOfAuth === SortOfAuth.Registration ? true : false}
             />
 
             {errors?.name?.message && (
@@ -166,6 +167,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
           label={t(`${sortOfAuth}.loginLabel`)}
           placeholder={t(`${sortOfAuth}.loginPlaceholder`)}
           fullWidth
+          autoFocus={sortOfAuth !== SortOfAuth.Registration ? true : false}
         />
 
         {errors?.login?.message && (
