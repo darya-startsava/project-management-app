@@ -18,14 +18,10 @@ import {
   messageSuccessOptions,
   SIZE_DESCRIPTION_TASK_IN_COLUMN,
 } from '$settings/index';
-import { IError, ITask, ITaskUpdate } from '$types/common';
+import { IError, ITask, ITaskUpdateObj } from '$types/common';
 import css from './TasksList.module.scss';
 
-// interface TasksListItemProps extends ITask {
-//   order: number;
-// }
-
-const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, boardId, columnId }) => {
+const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, columnId }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { data: users = [], error: errorGetUsers } = useGetAllUsersQuery();
@@ -78,8 +74,8 @@ const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, board
     return t('Tasks.responsible', { USER: needUserData.login });
   };
 
-  const updateTaskObj: SubmitHandler<ITaskUpdate> = (data) => {
-    updateTask({ body: data, title, order, description, userId });
+  const updateTaskObj: SubmitHandler<ITaskUpdateObj> = (data) => {
+    updateTask({ body: data, boardId, columnId, taskId: id });
     setShowUpdateModal(false);
   };
 

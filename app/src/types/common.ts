@@ -83,12 +83,6 @@ export interface INewNTaskFormState {
 }
 
 export interface ITaskUpdateObj {
-  boardId: string;
-  columnId: string;
-  taskId: string;
-}
-
-export interface ITaskUpdate {
   title: string;
   order: number;
   description: string;

@@ -11,14 +11,14 @@ import {
   TASKS_DESCRIPTION_MIN_LENGTH,
   TASKS_DESCRIPTION_MAX_LENGTH,
 } from '$settings/index';
-import { ITaskUpdate, TCreateElement } from '$types/common';
-import css from './LightboxTask.module.scss';
+import { ITaskUpdateObj, TCreateElement } from '$types/common';
+import css from './LightboxUpdateTask.module.scss';
 
 interface IBoardsModal {
   showModal: boolean;
   isLoading: boolean;
   changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  submitCB: TCreateElement<ITaskUpdate>;
+  submitCB: TCreateElement<ITaskUpdateObj>;
   modalTitle: string;
   submitButtonText: string;
 }
@@ -37,7 +37,7 @@ const LightboxTask: FC<IBoardsModal> = ({
     control,
     reset,
     formState: { isDirty, errors },
-  } = useForm<ITaskUpdate>({
+  } = useForm<ITaskUpdateObj>({
     defaultValues: {
       title: '',
       order: 1,
@@ -50,7 +50,7 @@ const LightboxTask: FC<IBoardsModal> = ({
 
   const { data: users = [], isLoading: isLoadingUsers } = useGetAllUsersQuery();
 
-  const addNewBoardHandler: SubmitHandler<ITaskUpdate> = (data) => {
+  const addNewBoardHandler: SubmitHandler<ITaskUpdateObj> = (data) => {
     submitCB(data);
     reset({
       title: '',
