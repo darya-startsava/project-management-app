@@ -7,7 +7,7 @@ import BoardsHead from './BoardsHead';
 import BoardsList from '$components/BoardsList';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
-import { CLOSE_SNACKBAR_TIME } from '$settings/index';
+import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import { IBoardCreateObj, IError, TCreateElement } from '$types/common';
 import css from './Boards.module.scss';
 
@@ -30,8 +30,7 @@ const Boards: FC = () => {
         ERROR_MESSAGE: (errorGetBoards as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -40,8 +39,7 @@ const Boards: FC = () => {
   useEffect(() => {
     if (isSuccessAddBoard) {
       enqueueSnackbar(t('Boards.successCreate'), {
-        variant: 'success',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -53,8 +51,7 @@ const Boards: FC = () => {
         ERROR_MESSAGE: (errorAddBoard as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }

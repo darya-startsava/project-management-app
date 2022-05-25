@@ -5,7 +5,7 @@ import {
   IBoardCreateObj,
   IColumn,
   IColumnCreateObj,
-  IColumnUpdateTitle,
+  IColumnUpdateObj,
   ITask,
   ITaskCreateObj,
   ITaskUpdateObj,
@@ -95,7 +95,7 @@ export const api = createApi({
     }),
     updateBoard: build.mutation<IBoard, { body: IBoardCreateObj; id: string }>({
       query: ({ body, id }) => ({
-        url: `/${QueryPoints.boards}/${id}`,
+        url: `${QueryPoints.boards}/${id}`,
         method: 'PUT',
         body,
       }),
@@ -134,14 +134,68 @@ export const api = createApi({
     }),
     updateColumn: build.mutation<
       IColumn,
-      { body: IColumnUpdateTitle; boardId: string; columnId: string }
+      { body: IColumnUpdateObj; boardId: string; columnId: string }
     >({
       query: ({ body, boardId, columnId }) => ({
-        url: `/${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}`,
+        url: `${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}`,
         method: 'PUT',
         body,
       }),
       invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
+    }),
+    updateDragAndDropColumn: build.mutation<
+      IColumn,
+      { body: IColumnUpdateObj; boardId: string; columnId: string }
+    >({
+      query: ({ body, boardId, columnId }) => ({
+        url: `${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
+      async onQueryStarted({ body, boardId, columnId, ...patch }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          api.util.updateQueryData('getAllColumns', boardId, (draftColumns) => {
+            const dragAndDropColumnIndex = draftColumns.findIndex(
+              (column) => column.id === columnId
+            );
+            if (dragAndDropColumnIndex > -1) {
+              const oldOrder = draftColumns[dragAndDropColumnIndex].order;
+              const step = oldOrder - body.order;
+              const dragAndDropToStart = step > 0;
+
+              draftColumns.map((el) => {
+                if (el.id === columnId) {
+                  el.order = body.order;
+                  return el;
+                }
+
+                if (
+                  (dragAndDropToStart && (el.order < body.order || el.order > oldOrder)) ||
+                  (!dragAndDropToStart && (el.order > body.order || el.order < oldOrder))
+                ) {
+                  return el;
+                }
+
+                if (dragAndDropToStart) {
+                  el.order = el.order + 1;
+                  return el;
+                } else {
+                  el.order = el.order - 1;
+                  return el;
+                }
+              });
+            }
+
+            Object.assign(draftColumns, patch);
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
 
     // tasks page
@@ -179,6 +233,14 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
     }),
+
+    deleteTask: build.mutation<null, { boardId: string; columnId: string; taskId: string }>({
+      query: ({ boardId, columnId, taskId }) => ({
+        url: `${QueryPoints.boards}/${boardId}/${QueryPoints.columns}/${columnId}/${QueryPoints.tasks}/${taskId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -194,9 +256,11 @@ export const {
   useUpdateBoardMutation,
   useGetAllColumnsQuery,
   useAddColumnMutation,
+  useUpdateDragAndDropColumnMutation,
   useDeleteColumnMutation,
   useUpdateColumnMutation,
   useGetAllTasksQuery,
   useAddTaskMutation,
   useUpdateTaskMutation,
+  useDeleteTaskMutation,
 } = api;

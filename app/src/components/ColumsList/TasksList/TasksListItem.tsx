@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useGetAllUsersQuery, useUpdateTaskMutation } from '$services/api';
+import { useGetAllUsersQuery, useDeleteTaskMutation, useUpdateTaskMutation } from '$services/api';
 import { useSnackbar } from 'notistack';
 import { SubmitHandler } from 'react-hook-form';
 import { IconButton, ListItem, Stack, Typography } from '@mui/material';
@@ -10,10 +10,14 @@ import {
   StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
 import CloseButton from '$components/CloseButton';
+import ConfirmWindow from '$components/ConfirmWindow';
 import LightboxUpdateTask from '$components/LightboxUpdateTask';
 import { randNumber } from '$utils/index';
-import { SIZE_DESCRIPTION_TASK_IN_COLUMN } from '$settings/index';
-import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
+import {
+  messageErrorOptions,
+  messageSuccessOptions,
+  SIZE_DESCRIPTION_TASK_IN_COLUMN,
+} from '$settings/index';
 import { IError, ITask, ITaskUpdate } from '$types/common';
 import css from './TasksList.module.scss';
 
@@ -21,15 +25,7 @@ import css from './TasksList.module.scss';
 //   order: number;
 // }
 
-const TasksListItem: FC<ITask> = ({
-  title,
-  order,
-  description,
-  userId,
-  // boardId,
-  // columnId,
-  // taskId,
-}) => {
+const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, boardId, columnId }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { data: users = [], error: errorGetUsers } = useGetAllUsersQuery();
@@ -38,6 +34,7 @@ const TasksListItem: FC<ITask> = ({
   const randomColorPart2 = useMemo(() => randNumber(255, 0), []);
   const randomColorPart3 = useMemo(() => randNumber(255, 0), []);
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+  const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
 
   const [
     updateTask,
@@ -84,6 +81,35 @@ const TasksListItem: FC<ITask> = ({
   const updateTaskObj: SubmitHandler<ITaskUpdate> = (data) => {
     updateTask({ body: data, title, order, description, userId });
     setShowUpdateModal(false);
+  };
+
+  const [deleteTask, { error: errorDeleteTask, isSuccess: isSuccessDeleteTask }] =
+    useDeleteTaskMutation();
+
+  useEffect(() => {
+    if (errorDeleteTask) {
+      const errorMessage = t('Tasks.errorDeleteTask', {
+        ERROR_MESSAGE: (errorDeleteTask as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        ...messageErrorOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorDeleteTask, closeSnackbar, enqueueSnackbar, t]);
+
+  useEffect(() => {
+    if (isSuccessDeleteTask) {
+      enqueueSnackbar(t('Tasks.successDeleteTask'), {
+        ...messageSuccessOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [isSuccessDeleteTask, closeSnackbar, enqueueSnackbar, t]);
+
+  const removeHandler = async () => {
+    deleteTask({ boardId, columnId, taskId: id });
+    setIsShowConfirmModalDelete(false);
   };
 
   return (
@@ -135,11 +161,23 @@ const TasksListItem: FC<ITask> = ({
             <StarOutlineIcon color="inherit" />
           </IconButton>
 
-          <IconButton className={css.tasksList__item_button} size="small">
+          <IconButton
+            className={css.tasksList__item_button}
+            size="small"
+            onClick={() => setIsShowConfirmModalDelete(true)}
+            aria-label={t('Tasks.deleteTaskLabel')}
+          >
             <DeleteOutlineIcon color="inherit" />
           </IconButton>
         </Stack>
       </ListItem>
+
+      <ConfirmWindow
+        isShow={isShowConfirmModalDelete}
+        title={t('Tasks.confirmDeleteTaskModalTitle')}
+        disAgreeHandler={() => setIsShowConfirmModalDelete(false)}
+        agreeHandler={removeHandler}
+      />
 
       <LightboxUpdateTask
         showModal={showUpdateModal}
