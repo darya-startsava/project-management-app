@@ -22,6 +22,8 @@ $wrapper-max-width: 1152px;
 $transitionTime: 0.3s;
 $borderRadiusMin: 10px;
 $borderRadiusBig: 28px;
+$pageTitleTextMobile: 30px;
+$pageTitleTextBig: 40px;
 $pageTitleText: 40px;
 $bigTextSize: 28px;
 $textSize: 20px;
@@ -39,7 +41,7 @@ $formAuthSize: 400px;
 }
 
 %pageTitle {
-  font-size: $pageTitleText;
+  font-size: $pageTitleTextMobile;
   text-align: center;
 }
 
@@ -74,7 +76,7 @@ $formAuthSize: 400px;
   }
 }
 
-%submitButton {
+%buttonFormStyles {
   display: block;
   width: 100%;
   margin-top: 15px;
@@ -87,6 +89,10 @@ $formAuthSize: 400px;
   background-color: $primary;
   cursor: pointer;
   transition: $transitionTime;
+}
+
+%submitButton {
+  @extend %buttonFormStyles;
 
   input {
     cursor: inherit;

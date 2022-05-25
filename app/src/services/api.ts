@@ -58,6 +58,12 @@ export const api = createApi({
             ]
           : [{ type: 'Users', id: 'LIST' }],
     }),
+    getUserInfo: build.query<IUser, string>({
+      query: (id) => ({
+        url: `${QueryPoints.users}/${id}`,
+      }),
+      providesTags: [{ type: 'Users', id: 'LIST' }],
+    }),
     deleteUser: build.mutation<void, string>({
       query: (id) => ({ url: `${QueryPoints.users}/${id}`, method: 'DELETE' }),
       invalidatesTags: [{ type: 'Users', id: 'LIST' }],
@@ -234,6 +240,7 @@ export const api = createApi({
 export const {
   useSignUpMutation,
   useSignInMutation,
+  useGetUserInfoQuery,
   useGetAllUsersQuery,
   useDeleteUserMutation,
   useUpdateUserMutation,
