@@ -11,13 +11,13 @@ import {
   TASKS_DESCRIPTION_MIN_LENGTH,
   TASKS_DESCRIPTION_MAX_LENGTH,
 } from '$settings/index';
-import { INewNTaskFormState, TCreateElement } from '$types/common';
+import { INewNTaskFormState, TCreateElement, TSimpleFunction } from '$types/common';
 import css from './LightboxTask.module.scss';
 
 interface IBoardsModal {
   showModal: boolean;
   isLoading: boolean;
-  changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModalHandler: TSimpleFunction;
   submitCB: TCreateElement<INewNTaskFormState>;
   modalTitle: string;
   submitButtonText: string;
@@ -26,7 +26,7 @@ interface IBoardsModal {
 const LightboxTask: FC<IBoardsModal> = ({
   showModal,
   isLoading,
-  changeShowModal,
+  closeModalHandler,
   submitCB,
   modalTitle,
   submitButtonText,
@@ -56,6 +56,15 @@ const LightboxTask: FC<IBoardsModal> = ({
     });
   };
 
+  const closeHandler: TSimpleFunction = () => {
+    closeModalHandler();
+    reset({
+      title: '',
+      description: '',
+      userId: '',
+    });
+  };
+
   const classNameSubmit = classNames(css.modalForm_submit, {
     [css.disabled]:
       isLoading ||
@@ -66,13 +75,7 @@ const LightboxTask: FC<IBoardsModal> = ({
   });
 
   return (
-    <LightBox
-      showModal={showModal}
-      closeModalFunction={() => {
-        changeShowModal(false);
-      }}
-      modalTitle={modalTitle}
-    >
+    <LightBox showModal={showModal} closeModalFunction={closeHandler} modalTitle={modalTitle}>
       <Box
         className={css.modalForm}
         component="form"

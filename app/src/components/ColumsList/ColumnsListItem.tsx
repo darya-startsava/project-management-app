@@ -248,7 +248,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
       <LightboxTask
         showModal={showModalAddTasks}
         isLoading={isAddingTask}
-        changeShowModal={setShowModalAddTasks}
+        closeModalHandler={() => setShowModalAddTasks(false)}
         submitCB={addNewBoard}
         modalTitle={t('Tasks.createModalTitle')}
         submitButtonText={t('Tasks.submitButtonTextAddTaskForm')}

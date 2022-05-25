@@ -57,12 +57,17 @@ const LightboxBoard: FC<IBoardsModal> = ({
     }
   };
 
+  const closeHandler: TSimpleFunction = () => {
+    closeModalHandler();
+    reset(formState);
+  };
+
   const classNameSubmit = classNames(css.modalForm_submit, {
     [css.disabled]: isLoading || !isDirty || errors.title?.message,
   });
 
   return (
-    <LightBox showModal={showModal} closeModalFunction={closeModalHandler} modalTitle={modalTitle}>
+    <LightBox showModal={showModal} closeModalFunction={closeHandler} modalTitle={modalTitle}>
       <Box
         className={css.modalForm}
         component="form"
