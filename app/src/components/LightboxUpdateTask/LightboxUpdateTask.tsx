@@ -50,7 +50,7 @@ const LightboxTask: FC<IBoardsModal> = ({
 
   const { data: users = [], isLoading: isLoadingUsers } = useGetAllUsersQuery();
 
-  const addNewBoardHandler: SubmitHandler<ITaskUpdateObj> = (data) => {
+  const updateTaskHandler: SubmitHandler<ITaskUpdateObj> = (data) => {
     submitCB(data);
     reset({
       title: '',
@@ -83,7 +83,7 @@ const LightboxTask: FC<IBoardsModal> = ({
         className={css.modalForm}
         component="form"
         autoComplete="off"
-        onSubmit={handleSubmit(addNewBoardHandler)}
+        onSubmit={handleSubmit(updateTaskHandler)}
         noValidate
       >
         <Controller

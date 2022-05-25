@@ -75,6 +75,9 @@ const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, col
   };
 
   const updateTaskObj: SubmitHandler<ITaskUpdateObj> = (data) => {
+    // eslint-disable-next-line no-console
+    console.log(data);
+
     updateTask({ body: data, boardId, columnId, taskId: id });
     setShowUpdateModal(false);
   };
@@ -178,12 +181,10 @@ const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, col
       <LightboxUpdateTask
         showModal={showUpdateModal}
         isLoading={isUpdateTask}
-        // isUpdate={true}
         changeShowModal={() => setShowUpdateModal(false)}
         submitCB={updateTaskObj}
         modalTitle={t('Boards.updateModalTitle')}
         submitButtonText={t('Boards.updateModalSubmitButton')}
-        // formState={{ title, description }}
       />
     </>
   );

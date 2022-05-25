@@ -223,7 +223,7 @@ export const api = createApi({
     }),
 
     updateTask: build.mutation<
-      IColumn,
+      ITask,
       { body: ITaskUpdateObj; boardId: string; columnId: string; taskId: string }
     >({
       query: ({ body, boardId, columnId, taskId }) => ({

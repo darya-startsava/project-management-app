@@ -12,7 +12,13 @@ const TasksList: FC<ITasksListProps> = ({ tasks }) => {
   return (
     <List component="ul" className={css.tasksList}>
       {tasks.map((tasksItem: ITask) => (
-        <TasksListItem key={tasksItem.id} {...tasksItem} order={tasksItem.order} />
+        <TasksListItem
+          key={tasksItem.id}
+          {...tasksItem}
+          order={tasksItem.order}
+          columnId={tasksItem.columnId}
+          boardId={tasksItem.boardId}
+        />
       ))}
     </List>
   );
