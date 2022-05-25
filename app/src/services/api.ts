@@ -172,22 +172,22 @@ export const api = createApi({
               draftColumns.forEach((el) => {
                 if (el.id === columnId) {
                   el.order = body.order;
-                  return el;
+                  return;
                 }
 
                 if (
                   (dragAndDropToStart && (el.order < body.order || el.order > oldOrder)) ||
                   (!dragAndDropToStart && (el.order > body.order || el.order < oldOrder))
                 ) {
-                  return el;
+                  return;
                 }
 
                 if (dragAndDropToStart) {
                   el.order = el.order + 1;
-                  return el;
+                  return;
                 } else {
                   el.order = el.order - 1;
-                  return el;
+                  return;
                 }
               });
             }
