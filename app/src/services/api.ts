@@ -152,7 +152,7 @@ export const api = createApi({
         body,
       }),
       invalidatesTags: [{ type: 'Columns', id: 'LIST' }],
-      async onQueryStarted({ body, boardId, columnId, ...patch }, { dispatch, queryFulfilled }) {
+      async onQueryStarted({ body, boardId, columnId }, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
           api.util.updateQueryData('getAllColumns', boardId, (draftColumns) => {
             const dragAndDropColumnIndex = draftColumns.findIndex(
@@ -163,7 +163,7 @@ export const api = createApi({
               const step = oldOrder - body.order;
               const dragAndDropToStart = step > 0;
 
-              draftColumns.map((el) => {
+              draftColumns.forEach((el) => {
                 if (el.id === columnId) {
                   el.order = body.order;
                   return el;
@@ -185,8 +185,6 @@ export const api = createApi({
                 }
               });
             }
-
-            Object.assign(draftColumns, patch);
           })
         );
         try {
