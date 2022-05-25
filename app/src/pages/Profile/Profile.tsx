@@ -14,6 +14,7 @@ import ProfileForm from './ProfileForm';
 import ProfilePhotoLightbox from './ProfilePhotoLightbox';
 import ConfirmWindow from '$components/ConfirmWindow';
 import CloseButton from '$components/CloseButton';
+import { importAllFiles } from '$utils/index';
 import { ROUTES_PATHS } from '$settings/routing';
 import {
   messageErrorOptions,
@@ -22,26 +23,9 @@ import {
   AVATAR_INDEX_LOCALSTORAGE,
 } from '$settings/index';
 import { IError } from '$types/common';
-import profileImg0 from '$assets/img/user.png';
-import profileImg1 from '$assets/img/user1.png';
-import profileImg2 from '$assets/img/user2.png';
-import profileImg3 from '$assets/img/user3.png';
-import profileImg4 from '$assets/img/user4.png';
-import profileImg5 from '$assets/img/user5.png';
-import profileImg6 from '$assets/img/user6.png';
-import profileImg7 from '$assets/img/user7.png';
 import css from './Profile.module.scss';
 
-const avatarsArray = [
-  profileImg0,
-  profileImg1,
-  profileImg2,
-  profileImg3,
-  profileImg4,
-  profileImg5,
-  profileImg6,
-  profileImg7,
-];
+const avatarsArray = importAllFiles(require.context('$assets/images/avatars', false, /\.png$/));
 
 interface ITokenDecodeObj {
   userId: string;

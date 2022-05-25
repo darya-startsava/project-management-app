@@ -30,14 +30,9 @@ const LightBox: FC<ILightBoxProps> = ({
   return (
     <Modal open={showModal} className={css.lightBox} onClose={closeModalFunction}>
       <Box
-        className={classNames(
-          css.lightBox__wrapper,
-          classNameContentWrapper
-            ? {
-                [classNameContentWrapper]: !!classNameContentWrapper,
-              }
-            : {}
-        )}
+        className={classNames(css.lightBox__wrapper, {
+          [classNameContentWrapper as string]: !!classNameContentWrapper,
+        })}
       >
         <CloseButton closeCb={closeModalFunction} className={css.lightBox__wrapper_closeButton} />
 

@@ -11,3 +11,7 @@ export const getSortColumns: TSortArray<Array<IColumn>> = (columns: Array<IColum
   const sortingColumns = [...columns].sort((el1: IColumn, el2: IColumn) => el1.order - el2.order);
   return sortingColumns;
 };
+
+export const importAllFiles = (r: __WebpackModuleApi.RequireContext): Array<string> => {
+  return r.keys().map(r) as Array<string>;
+};

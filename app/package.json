@@ -66,6 +66,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@types/webpack-env": "^1.17.0",
     "craco-alias": "^3.0.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react": "^1.1.7",
