@@ -6,7 +6,8 @@ import { OptionsObject } from 'notistack';
 
 // old backend
 // export const serviceURL = 'https://pure-brushlands-15604.herokuapp.com';
-export const serviceURL = 'https://immense-stream-76423.herokuapp.com';
+// export const serviceURL = 'https://immense-stream-76423.herokuapp.com';
+export const serviceURL = 'https://immense-sea-07745.herokuapp.com';
 export const TOKEN_AUTH_LOCALSTORAGE = 'kanban-token';
 export const LOGIN_NAME_LOCALSTORAGE = 'kanban-login';
 export const CLOSE_SNACKBAR_TIME = 5000;
