@@ -6,7 +6,6 @@ import { IconButton, ListItem, Stack, Typography } from '@mui/material';
 import {
   DeleteOutline as DeleteOutlineIcon,
   HistoryEdu as HistoryEduIcon,
-  StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
 import ConfirmWindow from '$components/ConfirmWindow';
 import CloseButton from '$components/CloseButton';
@@ -107,10 +106,6 @@ const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, col
       <Stack direction="row" className={css.tasksList__item_buttonsWrapper}>
         <IconButton className={css.tasksList__item_button} size="small">
           <HistoryEduIcon color="inherit" />
-        </IconButton>
-
-        <IconButton className={css.tasksList__item_button} size="small">
-          <StarOutlineIcon color="inherit" />
         </IconButton>
 
         <IconButton
