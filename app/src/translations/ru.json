@@ -145,6 +145,7 @@
     "errorChoiceUser": "Необходимость выбора ответственного пользователя",
     "unknownUser": "Ответственный: ненайден",
     "responsible": "Ответственный: {{USER}}",
+    "dragDropError": "Ошибка перемещения задачи внутри колонки: {{ERROR_MESSAGE}}",
     "deleteTaskLabel": "Удалить задачу",
     "confirmDeleteTaskModalTitle": "Вы уверены, что хотите удалить эту задачу?",
     "errorDeleteTask": "Задача не удалена! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
