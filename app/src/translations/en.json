@@ -178,7 +178,7 @@
     "submitChangeFormText": "Update profile",
     "confirmUpdateModalTitle": "Are you sure you want to change the user info?",
     "showAvatarUpdateModalButton": "Change avatar",
-    "avatarUpdateModalTitle": "Choice new avatar",
+    "avatarUpdateModalTitle": "Choose new avatar",
     "avatarUpdateModalImgAlt": "Variant avatar {{NUMBER_AVATAR}}",
     "avatarUpdateModalChangeButtonText": "Change avatar"
   },

@@ -42,7 +42,6 @@ const ProfilePhotoLightbox: FC<IProfilePhotoLightboxProps> = ({
   return (
     <Lightbox
       showModal={showModal}
-      className="lol"
       closeModalFunction={closeModalHandler}
       modalTitle={modalTitle}
       classNameContentWrapper={css.avatarWrapper}

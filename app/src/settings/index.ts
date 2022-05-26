@@ -12,6 +12,9 @@ export const AVATAR_INDEX_LOCALSTORAGE = 'kanban-avatar';
 export const CLOSE_SNACKBAR_TIME = 5000;
 export const SIZE_DESCRIPTION_TASK_IN_COLUMN = 30;
 
+/*
+ ** TODO: CHANGE THE VALIDATION VALUES BEFORE BUILD PRODUCTION
+ */
 // Validation user
 export const USER_NAME_MIN_LENGTH = 1;
 export const USER_NAME_MAX_LENGTH = 30;
