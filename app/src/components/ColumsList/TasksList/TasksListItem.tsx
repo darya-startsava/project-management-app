@@ -21,7 +21,7 @@ import {
 import { IError, ITask, ITaskUpdateObj } from '$types/common';
 import css from './TasksList.module.scss';
 
-const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, columnId }) => {
+const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, boardId, columnId }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { data: users = [], error: errorGetUsers } = useGetAllUsersQuery();
@@ -75,10 +75,7 @@ const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, col
   };
 
   const updateTaskObj: SubmitHandler<ITaskUpdateObj> = (data) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
-
-    updateTask({ body: data, boardId, columnId, taskId: id });
+    updateTask({ body: { ...data, boardId, columnId, order }, boardId, columnId, taskId: id });
     setShowUpdateModal(false);
   };
 
