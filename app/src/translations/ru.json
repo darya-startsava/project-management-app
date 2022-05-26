@@ -143,14 +143,16 @@
     "errorMinLengthDescription": "Минимальная длина {{TASKS_DESCRIPTION_MIN_LENGTH}} символов",
     "errorMaxLengthDescription": "Максимальная длина {{TASKS_DESCRIPTION_MAX_LENGTH}} символов",
     "errorChoiceUser": "Необходимость выбора ответственного пользователя",
-    "unknownUser": "Ответственный: ненайден",
+    "unknownUser": "Ответственный: не найден!",
     "responsible": "Ответственный: {{USER}}",
     "errorUpdateTask": "Задача не изменена! Ошибка: {{ERROR_MESSAGE}}",
     "successUpdateTask": "Задача изменена успешно!",
     "deleteTaskLabel": "Удалить задачу",
     "confirmDeleteTaskModalTitle": "Вы уверены, что хотите удалить эту задачу?",
     "errorDeleteTask": "Задача не удалена! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
-    "successDeleteTask": "Задача успешно удалена!"
+    "successDeleteTask": "Задача успешно удалена!",
+    "updateModalTitle": "Изменить задачу",
+    "updateModalSubmitButton": "Изменить"
   },
   "Profile": {
     "pageTitle": "Профиль пользователя - {{NAME}}",

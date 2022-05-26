@@ -40,11 +40,8 @@ const LightboxTask: FC<IBoardsModal> = ({
   } = useForm<ITaskUpdateObj>({
     defaultValues: {
       title: '',
-      order: 1,
       description: '',
       userId: '',
-      boardId: '',
-      columnId: '',
     },
   });
 
@@ -54,11 +51,8 @@ const LightboxTask: FC<IBoardsModal> = ({
     submitCB(data);
     reset({
       title: '',
-      order: 1,
       description: '',
       userId: '',
-      boardId: '',
-      columnId: '',
     });
   };
 

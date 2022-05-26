@@ -180,8 +180,8 @@ const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, board
         isLoading={isUpdateTask}
         changeShowModal={() => setShowUpdateModal(false)}
         submitCB={updateTaskObj}
-        modalTitle={t('Boards.updateModalTitle')}
-        submitButtonText={t('Boards.updateModalSubmitButton')}
+        modalTitle={t('Tasks.updateModlTitle')}
+        submitButtonText={t('Tasks.updateModalSubmitButton')}
       />
     </>
   );
