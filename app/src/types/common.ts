@@ -71,7 +71,6 @@ export interface ITaskCreateObj {
 export interface ITask extends ITaskCreateObj {
   id: string;
   order: number;
-  title: string;
   boardId: string;
   columnId: string;
 }
