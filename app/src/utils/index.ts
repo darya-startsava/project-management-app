@@ -1,10 +1,17 @@
-import { IColumn, ITask } from '$types/common';
+import { IColumn, IBoard, ITask } from '$types/common';
 
 type TRandNumber = (max: number, min?: number) => number;
 type TSortArray<T> = (array: T) => T;
 
 export const randNumber: TRandNumber = (max, min = 0) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const getSortBoards: TSortArray<Array<IBoard>> = (boards: Array<IBoard>) => {
+  const sortingBoards = [...boards].sort((el1: IBoard, el2: IBoard) =>
+    el1.title > el2.title ? 1 : -1
+  );
+  return sortingBoards;
 };
 
 export const getSortColumns: TSortArray<Array<IColumn>> = (columns: Array<IColumn>) => {
