@@ -91,7 +91,7 @@ const TasksListItem: FC<ITasksListItemProps> = ({
     <ListItem
       component="li"
       className={css.tasksList__item}
-      style={{
+      sx={{
         backgroundColor: `rgb(${randomColorPart1}, ${randomColorPart2}, ${randomColorPart3})`,
       }}
       ref={draggableTaskProvided.innerRef}
