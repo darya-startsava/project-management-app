@@ -35,7 +35,7 @@ const AppRoutes: FC = () => {
         path={ROUTES_PATHS.login}
         element={
           <NoDoubleLogin redirect={ROUTES_PATHS.boards}>
-            <Authorization sortOfAuth={'LogIn'} />
+            <Authorization key={'LogIn'} sortOfAuth={'LogIn'} />
           </NoDoubleLogin>
         }
       />
@@ -43,7 +43,7 @@ const AppRoutes: FC = () => {
         path={ROUTES_PATHS.registration}
         element={
           <NoDoubleLogin redirect={ROUTES_PATHS.boards}>
-            <Authorization sortOfAuth={'Registration'} />
+            <Authorization key={'Registration'} sortOfAuth={'Registration'} />
           </NoDoubleLogin>
         }
       />

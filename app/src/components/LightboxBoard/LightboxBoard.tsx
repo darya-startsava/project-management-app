@@ -100,6 +100,7 @@ const LightboxBoard: FC<IBoardsModal> = ({
                   [css.error]: !!error?.message,
                 })}
                 fullWidth
+                autoFocus={true}
               />
 
               {error?.message && (
