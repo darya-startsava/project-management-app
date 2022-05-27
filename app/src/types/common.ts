@@ -83,6 +83,15 @@ export interface INewNTaskFormState {
   description: string;
   userId: string;
 }
+
+export interface ITaskUpdateObj {
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+  boardId: string;
+  columnId: string;
+}
 /* tasks end */
 
 /* routing start */
