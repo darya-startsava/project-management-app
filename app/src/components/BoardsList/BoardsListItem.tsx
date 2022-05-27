@@ -17,7 +17,6 @@ import {
 import {
   DeleteOutline as DeleteOutlineIcon,
   HistoryEdu as HistoryEduIcon,
-  StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
@@ -147,10 +146,6 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
               onClick={() => setShowUpdateModal(true)}
             >
               <HistoryEduIcon color="inherit" />
-            </IconButton>
-
-            <IconButton className={css.boardsList__item_button} size="small">
-              <StarOutlineIcon color="inherit" aria-label={t('Boards.addBoardToFavoritesLabel')} />
             </IconButton>
 
             <IconButton
