@@ -49,20 +49,12 @@ const LightboxTask: FC<IBoardsModal> = ({
 
   const addNewBoardHandler: SubmitHandler<INewNTaskFormState> = (data) => {
     submitCB(data);
-    reset({
-      title: '',
-      description: '',
-      userId: '',
-    });
+    reset();
   };
 
   const closeHandler: TSimpleFunction = () => {
     closeModalHandler();
-    reset({
-      title: '',
-      description: '',
-      userId: '',
-    });
+    reset();
   };
 
   const classNameSubmit = classNames(css.modalForm_submit, {

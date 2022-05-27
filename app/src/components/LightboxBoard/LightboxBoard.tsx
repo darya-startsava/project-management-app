@@ -53,13 +53,13 @@ const LightboxBoard: FC<IBoardsModal> = ({
     if (isUpdate) {
       reset(newData);
     } else {
-      reset(formState);
+      reset();
     }
   };
 
   const closeHandler: TSimpleFunction = () => {
     closeModalHandler();
-    reset(formState);
+    reset();
   };
 
   const classNameSubmit = classNames(css.modalForm_submit, {
