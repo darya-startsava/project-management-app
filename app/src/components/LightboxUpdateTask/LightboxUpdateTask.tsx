@@ -11,14 +11,14 @@ import {
   TASKS_DESCRIPTION_MIN_LENGTH,
   TASKS_DESCRIPTION_MAX_LENGTH,
 } from '$settings/index';
-import { INewNTaskFormState, TCreateElement, TSimpleFunction } from '$types/common';
-import css from './LightboxTask.module.scss';
+import { ITaskUpdateObj, TCreateElement } from '$types/common';
+import css from './LightboxUpdateTask.module.scss';
 
 interface IBoardsModal {
   showModal: boolean;
   isLoading: boolean;
-  closeModalHandler: TSimpleFunction;
-  submitCB: TCreateElement<INewNTaskFormState>;
+  changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  submitCB: TCreateElement<ITaskUpdateObj>;
   modalTitle: string;
   submitButtonText: string;
 }
@@ -26,7 +26,7 @@ interface IBoardsModal {
 const LightboxTask: FC<IBoardsModal> = ({
   showModal,
   isLoading,
-  closeModalHandler,
+  changeShowModal,
   submitCB,
   modalTitle,
   submitButtonText,
@@ -37,7 +37,7 @@ const LightboxTask: FC<IBoardsModal> = ({
     control,
     reset,
     formState: { isDirty, errors },
-  } = useForm<INewNTaskFormState>({
+  } = useForm<ITaskUpdateObj>({
     defaultValues: {
       title: '',
       description: '',
@@ -47,14 +47,13 @@ const LightboxTask: FC<IBoardsModal> = ({
 
   const { data: users = [], isLoading: isLoadingUsers } = useGetAllUsersQuery();
 
-  const addNewBoardHandler: SubmitHandler<INewNTaskFormState> = (data) => {
+  const updateTaskHandler: SubmitHandler<ITaskUpdateObj> = (data) => {
     submitCB(data);
-    reset();
-  };
-
-  const closeHandler: TSimpleFunction = () => {
-    closeModalHandler();
-    reset();
+    reset({
+      title: '',
+      description: '',
+      userId: '',
+    });
   };
 
   const classNameSubmit = classNames(css.modalForm_submit, {
@@ -67,12 +66,18 @@ const LightboxTask: FC<IBoardsModal> = ({
   });
 
   return (
-    <LightBox showModal={showModal} closeModalFunction={closeHandler} modalTitle={modalTitle}>
+    <LightBox
+      showModal={showModal}
+      closeModalFunction={() => {
+        changeShowModal(false);
+      }}
+      modalTitle={modalTitle}
+    >
       <Box
         className={css.modalForm}
         component="form"
         autoComplete="off"
-        onSubmit={handleSubmit(addNewBoardHandler)}
+        onSubmit={handleSubmit(updateTaskHandler)}
         noValidate
       >
         <Controller
@@ -99,8 +104,8 @@ const LightboxTask: FC<IBoardsModal> = ({
                 })}
                 label={t('Tasks.titleLabelForm')}
                 onChange={onChange}
+                autoFocus
                 fullWidth
-                autoFocus={true}
               />
 
               {error?.message && (

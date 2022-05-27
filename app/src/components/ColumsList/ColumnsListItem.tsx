@@ -26,6 +26,7 @@ import {
   DeleteOutline as DeleteOutlineIcon,
 } from '@mui/icons-material';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
+import { getSortTasks } from '$utils/index';
 import {
   IColumn,
   IColumnUpdateObj,
@@ -217,7 +218,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
           </Typography>
         )}
 
-        <TasksList tasks={tasks} />
+        <TasksList tasks={getSortTasks(tasks)} />
 
         <Button
           className={css.columnsList__item_addTaskButton}
@@ -248,7 +249,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
       <LightboxTask
         showModal={showModalAddTasks}
         isLoading={isAddingTask}
-        changeShowModal={setShowModalAddTasks}
+        closeModalHandler={() => setShowModalAddTasks(false)}
         submitCB={addNewBoard}
         modalTitle={t('Tasks.createModalTitle')}
         submitButtonText={t('Tasks.submitButtonTextAddTaskForm')}

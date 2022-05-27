@@ -147,6 +147,7 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
                 {...field}
                 className={inputClassName(!!error?.message)}
                 fullWidth
+                autoFocus={true}
               />
 
               {error?.message && (

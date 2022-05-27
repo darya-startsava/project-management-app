@@ -2,8 +2,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
-import { useUpdateBoardMutation } from '$services/api';
-import { useDeleteBoardMutation } from '$services/api';
+import { useUpdateBoardMutation, useDeleteBoardMutation } from '$services/api';
 import { SubmitHandler } from 'react-hook-form';
 import {
   CardActions,
@@ -17,7 +16,6 @@ import {
 import {
   DeleteOutline as DeleteOutlineIcon,
   HistoryEdu as HistoryEduIcon,
-  StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
@@ -143,10 +141,6 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
               onClick={() => setShowUpdateModal(true)}
             >
               <HistoryEduIcon color="inherit" />
-            </IconButton>
-
-            <IconButton className={css.boardsList__item_button} size="small">
-              <StarOutlineIcon color="inherit" aria-label={t('Boards.addBoardToFavoritesLabel')} />
             </IconButton>
 
             <IconButton
