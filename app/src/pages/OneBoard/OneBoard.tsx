@@ -103,7 +103,7 @@ const OneBoard: FC = () => {
       <LightboxColumn
         showModal={showModalAddColumn}
         isLoading={isAddingColumn}
-        isUpdate={true}
+        isUpdate={false}
         closeModalHandler={() => setShowModalAddColumn(false)}
         submitCB={addNewColumn}
         modalTitle={t('Columns.createModalTitle')}
