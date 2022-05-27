@@ -8,7 +8,6 @@ import BoardsList from '$components/BoardsList';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
-import { getSortBoards } from '$utils/index';
 import { IBoardCreateObj, IError, TCreateElement } from '$types/common';
 import css from './Boards.module.scss';
 
@@ -81,7 +80,7 @@ const Boards: FC = () => {
       <BoardsHead searchCB={changeBoardsListShow} />
 
       <BoardsList
-        boards={getSortBoards(boards)}
+        boards={boards}
         addCardHandler={() => {
           setShowModal(true);
         }}

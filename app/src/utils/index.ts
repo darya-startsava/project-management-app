@@ -9,7 +9,7 @@ export const randNumber: TRandNumber = (max, min = 0) => {
 
 export const getSortBoards: TSortArray<Array<IBoard>> = (boards: Array<IBoard>) => {
   const sortingBoards = [...boards].sort((el1: IBoard, el2: IBoard) =>
-    el1.id.localeCompare(el2.id)
+    el1.title > el2.title ? 1 : -1
   );
   return sortingBoards;
 };

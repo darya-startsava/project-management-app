@@ -14,6 +14,7 @@ import {
   IUserRegistration,
 } from '$types/common';
 import { RootState } from '$store/store';
+import { getSortBoards } from '$utils/index';
 
 enum QueryPoints {
   signup = 'signup',
@@ -73,6 +74,9 @@ export const api = createApi({
       query: () => ({
         url: QueryPoints.boards,
       }),
+      transformResponse: async (response: Promise<Array<IBoard>>) => {
+        return getSortBoards(await response);
+      },
       providesTags: (result) =>
         result
           ? [
