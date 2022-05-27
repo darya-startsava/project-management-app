@@ -1,25 +1,47 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  useGetAllUsersQuery,
+  useDeleteTaskMutation,
+  useUpdateDragAndDropTaskMutation,
+} from '$services/api';
 import { useSnackbar } from 'notistack';
-import { useDeleteTaskMutation, useGetAllUsersQuery } from '$services/api';
+import { SubmitHandler } from 'react-hook-form';
 import { IconButton, ListItem, Stack, Typography } from '@mui/material';
 import {
   DeleteOutline as DeleteOutlineIcon,
   HistoryEdu as HistoryEduIcon,
-  StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
-import ConfirmWindow from '$components/ConfirmWindow';
 import CloseButton from '$components/CloseButton';
+import ConfirmWindow from '$components/ConfirmWindow';
+import LightboxUpdateTask from '$components/LightboxUpdateTask';
 import { randNumber } from '$utils/index';
 import {
   messageErrorOptions,
   messageSuccessOptions,
   SIZE_DESCRIPTION_TASK_IN_COLUMN,
 } from '$settings/index';
-import { IError, ITask } from '$types/common';
+// import { IError, ITask, ITaskUpdateObj } from '$types/common';
+
+// const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, boardId, columnId }) => {
+import { IError, ITask, ITaskUpdateObj } from '$types/common';
+import { DraggableProvided } from 'react-beautiful-dnd';
 import css from './TasksList.module.scss';
 
-const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, columnId }) => {
+interface ITasksListItemProps extends ITask {
+  draggableTaskProvided: DraggableProvided;
+}
+
+const TasksListItem: FC<ITasksListItemProps> = ({
+  title,
+  description,
+  order,
+  userId,
+  id,
+  boardId,
+  columnId,
+  draggableTaskProvided,
+}) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { data: users = [], error: errorGetUsers } = useGetAllUsersQuery();
@@ -27,7 +49,34 @@ const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, col
   const randomColorPart1 = useMemo(() => randNumber(255, 0), []);
   const randomColorPart2 = useMemo(() => randNumber(255, 0), []);
   const randomColorPart3 = useMemo(() => randNumber(255, 0), []);
+  const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
   const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
+
+  const [
+    updateTask,
+    { isLoading: isUpdateTask, error: errorUpdateTask, isSuccess: isSuccessUpdateTask },
+  ] = useUpdateDragAndDropTaskMutation();
+
+  useEffect(() => {
+    if (errorUpdateTask) {
+      const errorMessage = t('Tasks.errorUpdateTask', {
+        ERROR_MESSAGE: (errorUpdateTask as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        ...messageErrorOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [closeSnackbar, enqueueSnackbar, errorUpdateTask, t]);
+
+  useEffect(() => {
+    if (isSuccessUpdateTask) {
+      enqueueSnackbar(t('Tasks.successUpdateTask'), {
+        ...messageSuccessOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [closeSnackbar, enqueueSnackbar, isSuccessUpdateTask, t]);
 
   const getDescription = () => {
     if (description.length > SIZE_DESCRIPTION_TASK_IN_COLUMN) {
@@ -43,6 +92,11 @@ const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, col
       return unknownUser;
     }
     return t('Tasks.responsible', { USER: needUserData.login });
+  };
+
+  const updateTaskObj: SubmitHandler<ITaskUpdateObj> = (data) => {
+    updateTask({ body: { ...data, boardId, columnId, order }, boardId, columnId, taskId: id });
+    setShowUpdateModal(false);
   };
 
   const [deleteTask, { error: errorDeleteTask, isSuccess: isSuccessDeleteTask }] =
@@ -75,60 +129,80 @@ const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, col
   };
 
   return (
-    <ListItem
-      component="li"
-      className={css.tasksList__item}
-      style={{
-        backgroundColor: `rgb(${randomColorPart1}, ${randomColorPart2}, ${randomColorPart3})`,
-      }}
-    >
-      <Typography
-        className={css.tasksList__item_title}
-        gutterBottom
-        variant="inherit"
-        component="h4"
+    <>
+      <ListItem
+        component="li"
+        className={css.tasksList__item}
+        sx={{
+          backgroundColor: `rgb(${randomColorPart1}, ${randomColorPart2}, ${randomColorPart3})`,
+        }}
+        ref={draggableTaskProvided.innerRef}
+        {...draggableTaskProvided.draggableProps}
+        {...draggableTaskProvided.dragHandleProps}
       >
-        {title}
-      </Typography>
-
-      <Typography
-        className={css.tasksList__item_description}
-        gutterBottom
-        variant="inherit"
-        component="p"
-      >
-        {getDescription()}
-      </Typography>
-
-      <Typography className={css.tasksList__item_user} gutterBottom variant="inherit" component="p">
-        {errorGetUsers ? unknownUser : getUser()}
-      </Typography>
-
-      <Stack direction="row" className={css.tasksList__item_buttonsWrapper}>
-        <IconButton className={css.tasksList__item_button} size="small">
-          <HistoryEduIcon color="inherit" />
-        </IconButton>
-
-        <IconButton className={css.tasksList__item_button} size="small">
-          <StarOutlineIcon color="inherit" />
-        </IconButton>
-
-        <IconButton
-          className={css.tasksList__item_button}
-          size="small"
-          onClick={() => setIsShowConfirmModalDelete(true)}
-          aria-label={t('Tasks.deleteTaskLabel')}
+        <Typography
+          className={css.tasksList__item_title}
+          gutterBottom
+          variant="inherit"
+          component="h4"
         >
-          <DeleteOutlineIcon color="inherit" />
-        </IconButton>
-      </Stack>
+          {title}
+        </Typography>
+
+        <Typography
+          className={css.tasksList__item_description}
+          gutterBottom
+          variant="inherit"
+          component="p"
+        >
+          {getDescription()}
+        </Typography>
+
+        <Typography
+          className={css.tasksList__item_user}
+          gutterBottom
+          variant="inherit"
+          component="p"
+        >
+          {errorGetUsers ? unknownUser : getUser()}
+        </Typography>
+
+        <Stack direction="row" className={css.tasksList__item_buttonsWrapper}>
+          <IconButton
+            className={css.tasksList__item_button}
+            size="small"
+            onClick={() => setShowUpdateModal(true)}
+          >
+            <HistoryEduIcon color="inherit" />
+          </IconButton>
+
+          <IconButton
+            className={css.tasksList__item_button}
+            size="small"
+            onClick={() => setIsShowConfirmModalDelete(true)}
+            aria-label={t('Tasks.deleteTaskLabel')}
+          >
+            <DeleteOutlineIcon color="inherit" />
+          </IconButton>
+        </Stack>
+      </ListItem>
+
       <ConfirmWindow
         isShow={isShowConfirmModalDelete}
         title={t('Tasks.confirmDeleteTaskModalTitle')}
         disAgreeHandler={() => setIsShowConfirmModalDelete(false)}
         agreeHandler={removeHandler}
       />
-    </ListItem>
+
+      <LightboxUpdateTask
+        showModal={showUpdateModal}
+        isLoading={isUpdateTask}
+        changeShowModal={() => setShowUpdateModal(false)}
+        submitCB={updateTaskObj}
+        modalTitle={t('Tasks.updateModalTitle')}
+        submitButtonText={t('Tasks.updateModalSubmitButton')}
+      />
+    </>
   );
 };
 
