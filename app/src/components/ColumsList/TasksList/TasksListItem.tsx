@@ -16,9 +16,22 @@ import {
   SIZE_DESCRIPTION_TASK_IN_COLUMN,
 } from '$settings/index';
 import { IError, ITask } from '$types/common';
+import { DraggableProvided } from 'react-beautiful-dnd';
 import css from './TasksList.module.scss';
 
-const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, columnId }) => {
+interface ITasksListItemProps extends ITask {
+  draggableTaskProvided: DraggableProvided;
+}
+
+const TasksListItem: FC<ITasksListItemProps> = ({
+  title,
+  description,
+  userId,
+  id,
+  boardId,
+  columnId,
+  draggableTaskProvided,
+}) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { data: users = [], error: errorGetUsers } = useGetAllUsersQuery();
@@ -77,9 +90,12 @@ const TasksListItem: FC<ITask> = ({ title, description, userId, id, boardId, col
     <ListItem
       component="li"
       className={css.tasksList__item}
-      style={{
+      sx={{
         backgroundColor: `rgb(${randomColorPart1}, ${randomColorPart2}, ${randomColorPart3})`,
       }}
+      ref={draggableTaskProvided.innerRef}
+      {...draggableTaskProvided.draggableProps}
+      {...draggableTaskProvided.dragHandleProps}
     >
       <Typography
         className={css.tasksList__item_title}
