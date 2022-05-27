@@ -65,7 +65,7 @@ const TasksList: FC<ITasksListProps> = ({ tasks }) => {
 
   return (
     <DragDropContext onDragEnd={dragEndListItemHandler}>
-      <Droppable droppableId="taskInColumn" direction="vertical">
+      <Droppable droppableId="taskInColumn" ignoreContainerClipping={true} direction="vertical">
         {(droppableTaskProvided: DroppableProvided) => (
           <List
             component="ul"
