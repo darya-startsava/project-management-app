@@ -68,11 +68,14 @@ export interface ITaskCreateObj {
   userId: string;
 }
 
-export interface ITask extends ITaskCreateObj {
-  id: string;
+export interface ITaskUpdateObj extends ITaskCreateObj {
   order: number;
   boardId: string;
   columnId: string;
+}
+
+export interface ITask extends ITaskUpdateObj {
+  id: string;
 }
 
 export interface INewNTaskFormState {

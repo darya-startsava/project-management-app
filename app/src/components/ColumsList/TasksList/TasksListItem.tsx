@@ -1,13 +1,16 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useGetAllUsersQuery, useDeleteTaskMutation, useUpdateTaskMutation } from '$services/api';
+import {
+  useGetAllUsersQuery,
+  useDeleteTaskMutation,
+  useUpdateDragAndDropTaskMutation,
+} from '$services/api';
 import { useSnackbar } from 'notistack';
 import { SubmitHandler } from 'react-hook-form';
 import { IconButton, ListItem, Stack, Typography } from '@mui/material';
 import {
   DeleteOutline as DeleteOutlineIcon,
   HistoryEdu as HistoryEduIcon,
-  StarOutline as StarOutlineIcon,
 } from '@mui/icons-material';
 import CloseButton from '$components/CloseButton';
 import ConfirmWindow from '$components/ConfirmWindow';
@@ -18,10 +21,27 @@ import {
   messageSuccessOptions,
   SIZE_DESCRIPTION_TASK_IN_COLUMN,
 } from '$settings/index';
+// import { IError, ITask, ITaskUpdateObj } from '$types/common';
+
+// const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, boardId, columnId }) => {
 import { IError, ITask, ITaskUpdateObj } from '$types/common';
+import { DraggableProvided } from 'react-beautiful-dnd';
 import css from './TasksList.module.scss';
 
-const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, boardId, columnId }) => {
+interface ITasksListItemProps extends ITask {
+  draggableTaskProvided: DraggableProvided;
+}
+
+const TasksListItem: FC<ITasksListItemProps> = ({
+  title,
+  description,
+  order,
+  userId,
+  id,
+  boardId,
+  columnId,
+  draggableTaskProvided,
+}) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { data: users = [], error: errorGetUsers } = useGetAllUsersQuery();
@@ -35,7 +55,7 @@ const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, board
   const [
     updateTask,
     { isLoading: isUpdateTask, error: errorUpdateTask, isSuccess: isSuccessUpdateTask },
-  ] = useUpdateTaskMutation();
+  ] = useUpdateDragAndDropTaskMutation();
 
   useEffect(() => {
     if (errorUpdateTask) {
@@ -113,9 +133,12 @@ const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, board
       <ListItem
         component="li"
         className={css.tasksList__item}
-        style={{
+        sx={{
           backgroundColor: `rgb(${randomColorPart1}, ${randomColorPart2}, ${randomColorPart3})`,
         }}
+        ref={draggableTaskProvided.innerRef}
+        {...draggableTaskProvided.draggableProps}
+        {...draggableTaskProvided.dragHandleProps}
       >
         <Typography
           className={css.tasksList__item_title}
@@ -153,10 +176,6 @@ const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, board
             <HistoryEduIcon color="inherit" />
           </IconButton>
 
-          <IconButton className={css.tasksList__item_button} size="small">
-            <StarOutlineIcon color="inherit" />
-          </IconButton>
-
           <IconButton
             className={css.tasksList__item_button}
             size="small"
@@ -180,7 +199,7 @@ const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, board
         isLoading={isUpdateTask}
         changeShowModal={() => setShowUpdateModal(false)}
         submitCB={updateTaskObj}
-        modalTitle={t('Tasks.updateModlTitle')}
+        modalTitle={t('Tasks.updateModalTitle')}
         submitButtonText={t('Tasks.updateModalSubmitButton')}
       />
     </>

@@ -41,14 +41,14 @@ import css from './ColumnsList.module.scss';
 
 interface IColumnsListItemProps extends IColumn {
   boardId: string;
-  draggableProvided: DraggableProvided;
+  draggableColumnProvided: DraggableProvided;
 }
 
 const ColumnsListItem: FC<IColumnsListItemProps> = ({
   title,
   boardId,
   id: columnId,
-  draggableProvided,
+  draggableColumnProvided,
   order,
 }) => {
   const { t } = useTranslation();
@@ -181,9 +181,9 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
       <ListItem
         component="li"
         className={css.columnsList__item}
-        ref={draggableProvided.innerRef}
-        {...draggableProvided.draggableProps}
-        {...draggableProvided.dragHandleProps}
+        ref={draggableColumnProvided.innerRef}
+        {...draggableColumnProvided.draggableProps}
+        {...draggableColumnProvided.dragHandleProps}
       >
         {isChangeColumnNameMode ? (
           <Stack className={css.columnsList__item_rename}>
