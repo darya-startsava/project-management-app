@@ -29,7 +29,8 @@
     "editProfile": "Редактировать профиль",
     "signOut": "Выход",
     "newBoard": "Создать новую доску",
-    "goToMainPage": "Перейти на главную страницу"
+    "goToMainPage": "Перейти на главную страницу",
+    "burgerLabel": "Кнопка, открывающая меню"
   },
   "LogIn": {
     "signTitle": "Вход",
@@ -189,7 +190,8 @@
   "NotFoundPage": {
     "heading": "Страница не найдена",
     "text": "Мы не смогли найти то, что вы искали.",
-    "checkUrlText": "Пожалуйста, проверьте URL адрес."
+    "checkUrlText": "Пожалуйста, проверьте URL адрес.",
+    "backMainLink": "Вернуться на главную страницу"
   },
   "General": {
     "ariaLabelCloseButton": "Закрыть",

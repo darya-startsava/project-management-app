@@ -1,9 +1,11 @@
 @import "$assets/scss/variables";
+@import "$assets/scss/commonParts";
 
 .modalForm {
+  @extend %modalWidth;
+
   position: relative;
   z-index: 1;
-  width: $modalFormWidth;
 
   .modalForm_description > div {
     padding: 0;

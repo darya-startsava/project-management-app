@@ -1,23 +1,42 @@
-@import '$assets/scss/variables';
-@import '$assets/scss/mixins';
+@import "$assets/scss/variables";
+@import "$assets/scss/mixins";
+@import "$assets/scss/commonParts";
 
-@include xs_mobile_start() {
-  .error {
-    &_page {
-      font-size: 0.6em;
+.error_page {
+  text-align: center;
+
+  .error_status {
+    font-weight: bold;
+    font-size: 100px;
+    line-height: 1;
+  }
+
+  .error_heading {
+    @extend %pageTitle;
+  }
+
+  .error_text {
+    font-size: $textSizeMobile;
+    margin: 5px 0;
+  }
+
+  .error_link {
+    @extend %buttonFormStyles;
+
+    width: fit-content;
+    margin: 30px auto 0;
+  }
+}
+
+// > 600px
+@include sm_tablet_start() {
+  .error_page {
+    .error_status {
+      font-size: 200px;
+    }
+
+    .error_text {
+      font-size: $textSize;
     }
   }
-}
-.error {
-  &_page {
-    background-color: $darkGrey;
-  }
-}
-
-h3.error_heading {
-  margin-bottom: 20px;
-}
-
-h5.error_text {
-  margin: 20px 0;
 }

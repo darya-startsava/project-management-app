@@ -1,6 +1,6 @@
-
 @import "$assets/scss/variables";
 @import "$assets/scss/mixins";
+@import "$assets/scss/commonParts";
 
 .profile {
   &__loader {
@@ -18,14 +18,17 @@
     flex-direction: column;
     align-items: center;
 
-    &_user{
+    &_user {
       width: 100%;
-      max-width: 320px;
+      max-width: 400px;
     }
 
-    &_img{
+    &_img {
+      display: block;
       width: 100%;
+      max-width: 250px;
       height: auto;
+      margin: 0 auto;
     }
 
     .profile__content_buttons {
@@ -48,7 +51,7 @@
         border-radius: $borderRadiusMin;
         border: none;
         color: $whiteColor;
-        transition: background-color $transitionTime;
+        transition: background-color $transitionTime, box-shadow $transitionTime;
 
         &:hover {
           background-color: $green;
@@ -59,17 +62,20 @@
         }
       }
     }
-
   }
 
   .profile__form_wrapper {
     width: 100%;
-    max-width: 380px;
+    max-width: 420px;
     margin-top: 30px;
   }
 
-  .profile__form{
+  .profile__form {
     width: 100%;
+    margin: 0 auto;
+    padding: 20px 10px;
+    border-radius: $borderRadiusMin;
+    background-color: $whiteColor;
 
     &_title {
       font-weight: 600;
@@ -116,7 +122,7 @@
       box-shadow: $boxShadow;
       transition: transform $transitionTime, background-color $transitionTime;
 
-      img{
+      img {
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -166,6 +172,10 @@
         }
       }
     }
+
+    .profile__form {
+      padding: 20px;
+    }
   }
 
   .avatarWrapper {
@@ -185,10 +195,6 @@
       margin-top: 50px;
     }
 
-    &__title {
-      font-size: $pageTitleTextBig;
-    }
-
     .profile__content {
       flex-direction: row;
       align-items: flex-end;
@@ -202,11 +208,10 @@
       margin: 0 0 0 30px;
     }
 
-    .profile__form{
+    .profile__form {
       &_title {
         font-size: $textSize;
       }
     }
   }
 }
-

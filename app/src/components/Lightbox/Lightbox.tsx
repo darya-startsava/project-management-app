@@ -6,7 +6,7 @@ import { IWrapEl, TSimpleFunction } from '$types/common';
 import css from './LightBox.module.scss';
 
 /*
- ** Принимает 4 аргумента:
+ ** Принимает 5 аргумента:
  ** 1 - modalTitle - заголовок модального окна
  ** 2 - showModal открыто или закрыто модальное окно
  ** 3 - children внутренний контент модального окна
@@ -28,7 +28,12 @@ const LightBox: FC<ILightBoxProps> = ({
   classNameContentWrapper,
 }) => {
   return (
-    <Modal open={showModal} className={css.lightBox} onClose={closeModalFunction}>
+    <Modal
+      open={showModal}
+      className={css.lightBox}
+      onClose={closeModalFunction}
+      aria-labelledby={modalTitle}
+    >
       <Box
         className={classNames(css.lightBox__wrapper, {
           [classNameContentWrapper as string]: !!classNameContentWrapper,
@@ -38,6 +43,7 @@ const LightBox: FC<ILightBoxProps> = ({
 
         {modalTitle ? (
           <Typography
+            id={modalTitle}
             variant="inherit"
             component="p"
             className={css.lightBox__wrapper_title}

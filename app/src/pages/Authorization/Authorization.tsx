@@ -115,7 +115,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   });
   return (
     <Section className={css.authPage} pageAllSpace={true}>
-      <Typography className={css.authPage__title} variant="inherit" component="h2">
+      <Typography className={css.authPage__title} variant="inherit" component="h2" mb={5}>
         {t(`${sortOfAuth}.signTitle`)}{' '}
       </Typography>
 

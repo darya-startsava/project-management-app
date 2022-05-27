@@ -96,7 +96,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
 
   return (
     <>
-      <Grid item component="li" className={css.boardsList__item} key={id} mb={5}>
+      <Grid item component="li" className={css.boardsList__item} key={id}>
         <CardContent className={css.boardsList__item_content}>
           <CardMedia
             className={css.boardsList__item_img}

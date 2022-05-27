@@ -24,7 +24,7 @@ const BoardsHead: FC<IBoardsHeadProps> = ({ searchCB }) => {
   };
 
   return (
-    <Grid container className={css.boards__head} direction="row" alignItems="flex-start">
+    <Grid container className={css.boards__head} direction="row" alignItems="flex-start" mb={5}>
       <Grid item className={css.boards__head_name} component="h2">
         {t('Boards.pageTitle')}
         <TableChartIcon />
