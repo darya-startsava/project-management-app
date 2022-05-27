@@ -23,3 +23,7 @@ export const getSortTasks: TSortArray<Array<ITask>> = (tasks: Array<ITask>) => {
   const sortingTasks = [...tasks].sort((el1: ITask, el2: ITask) => el1.order - el2.order);
   return sortingTasks;
 };
+
+export const importAllFiles = (r: __WebpackModuleApi.RequireContext): Array<string> => {
+  return r.keys().map(r) as Array<string>;
+};

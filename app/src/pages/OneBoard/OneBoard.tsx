@@ -9,12 +9,9 @@ import Section from '$components/Section';
 import ColumnsListItem from '$components/ColumsList';
 import CloseButton from '$components/CloseButton';
 import LightboxColumn from '$components/LightboxColumn';
-import { getSortColumns, randNumber } from '$utils/index';
+import { getSortColumns, importAllFiles, randNumber } from '$utils/index';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
 import { IColumnCreateObj, IError, TCreateElement } from '$types/common';
-import img1 from '$assets/img/1.jpg';
-import img2 from '$assets/img/2.jpg';
-import img3 from '$assets/img/3.jpg';
 import css from './OneBoard.module.scss';
 
 const OneBoard: FC = () => {
@@ -23,7 +20,7 @@ const OneBoard: FC = () => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModalAddColumn, setShowModalAddColumn] = useState<boolean>(false);
-  const arrImages = [img1, img2, img3];
+  const arrImages = importAllFiles(require.context('$assets/images/backgrounds', false, /\.jpg$/));
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
   const { data: columns = [], error: errorGetColumns } = useGetAllColumnsQuery(params.id || '');
   const [

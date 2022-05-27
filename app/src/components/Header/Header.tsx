@@ -14,9 +14,9 @@ import {
   TableChart as TableChartIcon,
 } from '@mui/icons-material';
 import LanguageToggler from '$components/LanguageToggler';
-import { setToken, setLogin } from '$store/appSlice';
+import { setToken } from '$store/appSlice';
 import { ROUTES_PATHS } from '$settings/routing';
-import { TOKEN_AUTH_LOCALSTORAGE, LOGIN_NAME_LOCALSTORAGE } from '$settings/index';
+import { TOKEN_AUTH_LOCALSTORAGE } from '$settings/index';
 import KanbanLogo from '$assets/kanban-logo.png';
 import css from './Header.module.scss';
 import './Header.scss';
@@ -30,9 +30,7 @@ const Header: FC = () => {
 
   const handleLogOut = () => {
     dispatch(setToken(null));
-    dispatch(setLogin(null));
     localStorage.removeItem(TOKEN_AUTH_LOCALSTORAGE);
-    localStorage.removeItem(LOGIN_NAME_LOCALSTORAGE);
     navigate(ROUTES_PATHS.welcome, { replace: true });
   };
 

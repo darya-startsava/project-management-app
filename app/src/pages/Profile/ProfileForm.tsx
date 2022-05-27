@@ -2,16 +2,26 @@ import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch } from '$store/store';
-import { setLogin } from '$store/appSlice';
 import { useUpdateUserMutation } from '$services/api';
 import classNames from 'classnames';
-import { Box, Grid, InputBase, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  FormControl,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputBase,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import ConfirmWindow from '$components/ConfirmWindow';
 import CloseButton from '$components/CloseButton';
 import {
-  CLOSE_SNACKBAR_TIME,
-  LOGIN_NAME_LOCALSTORAGE,
+  messageErrorOptions,
+  messageSuccessOptions,
   USER_LOGIN_MAX_LENGTH,
   USER_LOGIN_MIN_LENGTH,
   USER_NAME_MAX_LENGTH,
@@ -35,6 +45,7 @@ interface IProfileFormProps {
 const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isShowConfirmModalChange, setIsShowConfirmModalChange] = useState<boolean>(false);
   const [userNewInfo, setUserNewInfo] = useState<IFormState | null>(null);
   const {
@@ -49,7 +60,6 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
       password: '',
     },
   });
-  const dispatch = useAppDispatch();
   const [updateUser, { isLoading, error, isSuccess }] = useUpdateUserMutation();
 
   useEffect(() => {
@@ -58,8 +68,7 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
         ERROR_MESSAGE: (error as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
-        variant: 'error',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -69,8 +78,7 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
     if (isSuccess) {
       const errorMessage = t('Profile.successUpdate');
       enqueueSnackbar(errorMessage, {
-        variant: 'success',
-        autoHideDuration: CLOSE_SNACKBAR_TIME,
+        ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
@@ -89,8 +97,6 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
         login: '',
         password: '',
       });
-      dispatch(setLogin(userNewInfo.login));
-      localStorage.setItem(LOGIN_NAME_LOCALSTORAGE, userNewInfo.login);
       setUserNewInfo(null);
     }
     setIsShowConfirmModalChange(false);
@@ -202,13 +208,26 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
           }}
           render={({ field: { ...field }, fieldState: { error } }) => (
             <>
-              <TextField
-                type="password"
-                label={t('Profile.passwordLabel')}
-                {...field}
-                className={inputClassName(!!error?.message)}
-                fullWidth
-              />
+              <FormControl className={inputClassName(!!error?.message)}>
+                <InputLabel htmlFor="password">{t('Profile.passwordLabel')}</InputLabel>
+                <OutlinedInput
+                  id="password"
+                  type={isShowPassword ? 'text' : 'password'}
+                  {...field}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label={t('Profile.passwordVisibilityButtonLabel')}
+                        onClick={() => setIsShowPassword((prev) => !prev)}
+                        edge="end"
+                      >
+                        {isShowPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label={t('Profile.passwordLabel')}
+                />
+              </FormControl>
 
               {error?.message && (
                 <Typography variant="inherit" component="p" className={css.formErrorText}>

@@ -14,7 +14,8 @@
   }
 
   .authForm {
-    width: $formAuthSize;
+    width: 100%;
+    max-width: $formAuthSize;
     margin: 0 auto;
   }
 
