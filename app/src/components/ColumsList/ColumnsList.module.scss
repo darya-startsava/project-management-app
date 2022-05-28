@@ -1,5 +1,6 @@
 @import "$assets/scss/variables";
 @import "$assets/scss/mixins";
+@import "$assets/scss/commonParts";
 
 div.columnsList,
 ul.columnsList {
@@ -7,7 +8,6 @@ ul.columnsList {
 
   flex-wrap: nowrap;
   flex-grow: 1;
-  margin-top: 32px;
   padding: 0;
   overflow-y: hidden;
 
@@ -16,11 +16,11 @@ ul.columnsList {
     align-items: flex-start;
     justify-content: stretch;
     flex-shrink: 0;
-    width: 335px;
+    width: 280px;
     max-height: calc(100% - 5px);
-    padding: 12px 15px;
+    padding: 10px;
     box-shadow: $boxShadow;
-    border-radius: $borderRadiusBig;
+    border-radius: $borderRadiusMin;
     color: $black;
     background-color: $columnBg;
     list-style-type: none;
@@ -28,7 +28,7 @@ ul.columnsList {
 
     & ~ .columnsList__item,
     & ~ .columnsList__itemButton {
-      margin-left: 53px;
+      margin-left: 10px;
     }
   }
 
@@ -36,8 +36,8 @@ ul.columnsList {
     width: 100%;
     margin-bottom: 0;
     font-weight: bold;
-    font-size: $bigTextSize;
-    line-height: 1.5;
+    font-size: $bigTextMiddleSize;
+    line-height: 1.2;
     color: $black;
     word-wrap: break-word;
     cursor: pointer;
@@ -53,9 +53,9 @@ ul.columnsList {
     &_input {
       width: 70%;
       padding: 2px 5px;
-      font-size: $textSize;
+      font-size: $textSizeSmall;
       border: 1px solid transparentize($black, 0.5);
-      border-radius: $borderRadiusMin 0 0 $borderRadiusMin;
+      border-radius: 0 $borderRadiusMin $borderRadiusMin 0;
       line-height: 1.5;
       color: $black;
       background-color: $whiteColor;
@@ -63,7 +63,7 @@ ul.columnsList {
 
     &_buttons {
       width: 30%;
-      border-radius: 0 $borderRadiusMin $borderRadiusMin 0;
+      border-radius: $borderRadiusMin 0 0 $borderRadiusMin;
     }
 
     &_accept,
@@ -79,17 +79,22 @@ ul.columnsList {
 
     &_accept {
       background-color: $green;
-      border-radius: 0;
     }
 
     &_cancel {
+      border-radius: 0;
       background-color: $red;
     }
   }
 
+  .columnsList__buttonsWrapper {
+    width: 100%;
+    @include dflex(space-between, center);
+  }
+
   .columnsList__item_addTaskButton {
     font-weight: 500;
-    font-size: 18px;
+    font-size: $textSizeSmall;
     color: $black;
   }
 
@@ -102,10 +107,74 @@ ul.columnsList {
   .columnsList__item_addButton {
     @extend %commonHeadItemStyles;
 
-    padding: 12px 25px;
+    padding: 20px;
     font-weight: bold;
-    font-size: $bigTextSize;
+    font-size: $bigTextMobileSize;
     line-height: 1.5;
     color: $black;
+  }
+}
+
+// > 600px
+@include sm_tablet_start() {
+  div.columnsList,
+  ul.columnsList {
+    .columnsList__item {
+      width: 335px;
+      padding: 12px 15px;
+      border-radius: $borderRadiusBig;
+
+      & ~ .columnsList__item,
+      & ~ .columnsList__itemButton {
+        margin-left: 30px;
+      }
+    }
+
+    .columnsList__item_rename {
+      &_input {
+        font-size: $textSizeMobile;
+      }
+    }
+
+    .columnsList__item_addTaskButton {
+      font-size: $textSizeMobile;
+    }
+
+    .columnsList__item_addButton {
+      font-size: $bigTextMiddleSize;
+    }
+  }
+}
+
+// > 900px
+@include md_laptop_start() {
+  div.columnsList,
+  ul.columnsList {
+    .columnsList__item_rename {
+      &_input {
+        font-size: $textSize;
+      }
+    }
+
+    .columnsList__item_addButton {
+      font-size: $bigTextSize;
+    }
+  }
+}
+
+// > 1200px
+@include lg_display_start() {
+  div.columnsList,
+  ul.columnsList {
+    .columnsList__item {
+      & ~ .columnsList__item,
+      & ~ .columnsList__itemButton {
+        margin-left: 53px;
+      }
+    }
+
+    .columnsList__item_title {
+      font-size: $bigTextSize;
+    }
   }
 }

@@ -77,7 +77,7 @@ const OneBoard: FC = () => {
 
   return (
     <Section className={css.one_board} pageAllSpace={true}>
-      <Typography className={css.one_board__title} component="h2" variant="inherit">
+      <Typography className={css.one_board__title} component="h2" variant="inherit" mb={5}>
         <Box
           className={css.one_board__title_img}
           component="span"

@@ -29,7 +29,8 @@
     "editProfile": "Edit profile",
     "signOut": "Sign out",
     "newBoard": "Create new board",
-    "goToMainPage": "Go to main page"
+    "goToMainPage": "Go to main page",
+    "burgerLabel": "Open menu button"
   },
   "LogIn": {
     "signTitle": "Sign in",
@@ -189,7 +190,8 @@
   "NotFoundPage": {
     "heading": "Page Not Found",
     "text": "We couldn't find what you were looking for.",
-    "checkUrlText": "Please check URL."
+    "checkUrlText": "Please check URL.",
+    "backMainLink": "Back to main page"
   },
   "General": {
     "ariaLabelCloseButton": "Close",
