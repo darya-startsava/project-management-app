@@ -10,8 +10,8 @@ import { api } from '$services/api';
 import { rtkQueryErrorLogger } from './unauthUserHandler';
 
 const reducerObj = {
-  [api.reducerPath]: api.reducer,
   app: appReducer,
+  [api.reducerPath]: api.reducer,
 };
 
 export const createStore = () =>
