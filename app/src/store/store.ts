@@ -4,14 +4,14 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import appReducer from './appSlice';
 import { api } from '$services/api';
+import { rtkQueryErrorLogger } from './unauthUserHandler';
 
 const reducerObj = {
-  app: appReducer,
   [api.reducerPath]: api.reducer,
+  app: appReducer,
 };
 
 export const createStore = () =>
@@ -20,7 +20,7 @@ export const createStore = () =>
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: true,
-      }).concat(api.middleware),
+      }).concat(api.middleware, rtkQueryErrorLogger),
     devTools: process.env.NODE_ENV !== 'production',
   });
 
