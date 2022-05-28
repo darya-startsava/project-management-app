@@ -218,7 +218,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
           </Typography>
         )}
 
-        <TasksList tasks={getSortTasks(tasks)} />
+        <TasksList tasks={getSortTasks(tasks)} columnId={columnId} />
 
         <Button
           className={css.columnsList__item_addTaskButton}
