@@ -45,6 +45,10 @@ const Welcome = () => {
         modalTitle={t('Welcome.aboutUs')}
         classNameContentWrapper={css.modalWrapper}
       >
+        <Typography className={css.developersDescription} align="center">
+          {t('Welcome.modalText')}
+        </Typography>
+
         <List className={css.developerList}>
           <ListItem className={css.developerList__item}>
             <Box
@@ -53,7 +57,20 @@ const Welcome = () => {
               src={author1}
               alt={t('Welcome.author1')}
             />
-            <Typography className={css.developerList__item_name}>{t('Welcome.author1')}</Typography>
+            <Box
+              component="a"
+              className={css.developerList__item_name}
+              href="https://github.com/TarasiukDima"
+              target="_blank"
+            >
+              {t('Welcome.author1')}
+            </Box>
+            <Typography className={css.developers__item_roleTitle} align="center" display="block">
+              {t('Welcome.roleTitle')}
+            </Typography>
+            <Typography className={css.developers__item_role} align="center">
+              {t('Welcome.roleLead')}
+            </Typography>
           </ListItem>
 
           <ListItem className={css.developerList__item}>
@@ -63,7 +80,20 @@ const Welcome = () => {
               src={author2}
               alt={t('Welcome.author2')}
             />
-            <Typography className={css.developerList__item_name}>{t('Welcome.author2')}</Typography>
+            <Box
+              component="a"
+              className={css.developerList__item_name}
+              href="https://github.com/exekuta"
+              target="_blank"
+            >
+              {t('Welcome.author2')}
+            </Box>
+            <Typography className={css.developers__item_roleTitle} align="center" display="block">
+              {t('Welcome.roleTitle')}
+            </Typography>
+            <Typography className={css.developers__item_role} align="center">
+              {t('Welcome.roleDev')}
+            </Typography>
           </ListItem>
 
           <ListItem className={css.developerList__item}>
@@ -73,13 +103,22 @@ const Welcome = () => {
               src={author3}
               alt={t('Welcome.author3')}
             />
-            <Typography className={css.developerList__item_name}>{t('Welcome.author3')}</Typography>
+            <Box
+              component="a"
+              className={css.developerList__item_name}
+              href="https://github.com/darya-startsava"
+              target="_blank"
+            >
+              {t('Welcome.author3')}
+            </Box>
+            <Typography className={css.developers__item_roleTitle} align="center" display="block">
+              {t('Welcome.roleTitle')}
+            </Typography>
+            <Typography className={css.developers__item_role} align="center">
+              {t('Welcome.roleDev')}
+            </Typography>
           </ListItem>
         </List>
-
-        <Typography className={css.developersDescription} align="center">
-          {t('Welcome.modalText')}
-        </Typography>
       </Lightbox>
     </>
   );
