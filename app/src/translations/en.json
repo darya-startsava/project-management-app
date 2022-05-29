@@ -79,7 +79,9 @@
   },
   "Boards": {
     "pageTitle": "My boards",
-    "inputSearchText": "Search board or task...",
+    "inputSearchText": "Search board...",
+    "inputSearchTextLabel": "Search board by title or description",
+    "nothingFoundMessage": "No matches found in board name or description",
     "errorGetBoards": "Something went wrong. Try to do it later. Error: {{ERROR_MESSAGE}}",
     "successCreate": "The board  was created successfully!",
     "errorCreate": "The board was not created! Try to do it later. Error: {{ERROR_MESSAGE}}",

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useAddBoardMutation, useGetAllBoardsQuery } from '$services/api';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -7,8 +7,9 @@ import BoardsHead from './BoardsHead';
 import BoardsList from '$components/BoardsList';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
+import { Typography } from '@mui/material';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
-import { IBoardCreateObj, IError, TCreateElement } from '$types/common';
+import { IBoard, IBoardCreateObj, IError, TCreateElement } from '$types/common';
 import css from './Boards.module.scss';
 
 export type TChangeBoardsShow = (searchValue: string) => void;
@@ -22,7 +23,9 @@ const Boards: FC = () => {
     addBoard,
     { isLoading: isAddingBoard, error: errorAddBoard, isSuccess: isSuccessAddBoard },
   ] = useAddBoardMutation();
-  const { data: boards = [], error: errorGetBoards } = useGetAllBoardsQuery();
+  const { data: dataBoards = [], error: errorGetBoards } = useGetAllBoardsQuery();
+  const [boards, setBoards] = useState<Array<IBoard>>(dataBoards);
+  const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
 
   useEffect(() => {
     if (errorGetBoards) {
@@ -59,16 +62,21 @@ const Boards: FC = () => {
 
   useEffect(() => {}, [t, enqueueSnackbar, closeSnackbar]);
 
-  const changeBoardsListShow: TChangeBoardsShow = (searchValue: string) => {
-    if (!searchValue.trim().length) {
-      return;
-    }
-    // for better time
-    // const filteredBoards: Array<IBoard> = boardsArray.filter((board: IBoard) =>
-    //   board.title.toLowerCase().includes(searchValue.toLowerCase())
-    // );
-    // setBoards(filteredBoards);
-  };
+  const changeBoardsListShow: TChangeBoardsShow = useCallback(
+    (searchValue: string) => {
+      searchValue ? setShowSearchResults(true) : setShowSearchResults(false);
+      let filteredBoards: Array<IBoard> = dataBoards;
+      if (searchValue) {
+        filteredBoards = dataBoards.filter(
+          (board: IBoard) =>
+            board.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+            board.description.toLowerCase().includes(searchValue.toLowerCase())
+        );
+      }
+      setBoards(filteredBoards);
+    },
+    [dataBoards]
+  );
 
   const addNewColumn: TCreateElement<IBoardCreateObj> = (data: IBoardCreateObj) => {
     addBoard(data);
@@ -78,9 +86,14 @@ const Boards: FC = () => {
   return (
     <Section className={css.boards} pageAllSpace={true}>
       <BoardsHead searchCB={changeBoardsListShow} />
-
+      {showSearchResults && !boards.length && (
+        <Typography component="p" className={css.boards_search_message}>
+          {t('Boards.nothingFoundMessage')}
+        </Typography>
+      )}
       <BoardsList
         boards={boards}
+        showSearchResults={showSearchResults}
         addCardHandler={() => {
           setShowModal(true);
         }}

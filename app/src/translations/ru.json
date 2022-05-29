@@ -79,7 +79,9 @@
   },
   "Boards": {
     "pageTitle": "Список досок",
-    "inputSearchText": "Поиск досок или задач...",
+    "inputSearchText": "Поиск досок...",
+    "inputSearchTextLabel": "Поиск досок по названию или описанию",
+    "nothingFoundMessage": "Не найдено соответствий в названии или описании доски",
     "errorGetBoards": "Что-то пошло не так. Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
     "successCreate": "Доска создана!",
     "errorCreate": "Доска не создана! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",

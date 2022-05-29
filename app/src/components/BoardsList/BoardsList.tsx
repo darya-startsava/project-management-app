@@ -9,8 +9,9 @@ import css from './BoardsList.module.scss';
 interface IBoardsListProps {
   boards: Array<IBoard>;
   addCardHandler: TSimpleFunction;
+  showSearchResults: boolean;
 }
-const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler }) => {
+const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler, showSearchResults }) => {
   const { t } = useTranslation();
 
   return (
@@ -19,17 +20,19 @@ const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler }) => {
         <BoardsListItem key={boardItem.id} {...boardItem} />
       ))}
 
-      <Grid item component="li" className={css.boardsList__item} mb={5}>
-        <Button className={css.boardsList__item_addButton} onClick={addCardHandler}>
-          <Box className={css.boardsList__item_addButtonText} component="span">
-            {t('Boards.addNewBoardButtonText')}
-          </Box>
-          <Box className={css.boardsList__item_buttonIconWrapper} component="span">
-            <TableChartIcon />
-            <AddOutlinedIcon />
-          </Box>
-        </Button>
-      </Grid>
+      {!showSearchResults && (
+        <Grid item component="li" className={css.boardsList__item} mb={5}>
+          <Button className={css.boardsList__item_addButton} onClick={addCardHandler}>
+            <Box className={css.boardsList__item_addButtonText} component="span">
+              {t('Boards.addNewBoardButtonText')}
+            </Box>
+            <Box className={css.boardsList__item_buttonIconWrapper} component="span">
+              <TableChartIcon />
+              <AddOutlinedIcon />
+            </Box>
+          </Button>
+        </Grid>
+      )}
     </Grid>
   );
 };

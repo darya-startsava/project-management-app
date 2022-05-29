@@ -1,6 +1,6 @@
-@import "$assets/scss/variables";
-@import "$assets/scss/mixins";
-@import "$assets/scss/commonParts";
+@import '$assets/scss/variables';
+@import '$assets/scss/mixins';
+@import '$assets/scss/commonParts';
 
 .boards {
   .boards__head {
@@ -44,16 +44,10 @@
         line-height: 1.5;
       }
     }
-
-    &_submit {
-      width: 1px;
-      height: 1px;
-      position: absolute !important;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      clip-path: polygon(0 0, 0 0, 0 0, 0 0);
-    }
+  }
+  p.boards_search_message {
+    font-weight: bold;
+    font-size: $bigTextMiddleSize;
   }
 }
 
@@ -71,6 +65,9 @@
           font-size: $bigTextMiddleSize;
         }
       }
+    }
+    p.boards_search_message {
+      font-size: $bigTextSize;
     }
   }
 }
