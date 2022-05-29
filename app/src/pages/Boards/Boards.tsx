@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import Section from '$components/Section';
 import BoardsHead from './BoardsHead';
+import Spinner from '$components/Spinner';
 import BoardsList from '$components/BoardsList';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
@@ -22,8 +23,13 @@ const Boards: FC = () => {
     addBoard,
     { isLoading: isAddingBoard, error: errorAddBoard, isSuccess: isSuccessAddBoard },
   ] = useAddBoardMutation();
-  const { data: boards = [], error: errorGetBoards } = useGetAllBoardsQuery();
+  const {
+    data: boards = [],
+    error: errorGetBoards,
+    isLoading: isLoadingBoards,
+  } = useGetAllBoardsQuery();
 
+  // show get boards error message
   useEffect(() => {
     if (errorGetBoards) {
       const errorMessage = t('Boards.errorGetBoards', {
@@ -36,6 +42,7 @@ const Boards: FC = () => {
     }
   }, [errorGetBoards, t, enqueueSnackbar, closeSnackbar]);
 
+  // show add board success message
   useEffect(() => {
     if (isSuccessAddBoard) {
       enqueueSnackbar(t('Boards.successCreate'), {
@@ -45,6 +52,7 @@ const Boards: FC = () => {
     }
   }, [isSuccessAddBoard, t, enqueueSnackbar, closeSnackbar]);
 
+  // show add board error message
   useEffect(() => {
     if (errorAddBoard) {
       const errorMessage = t('Boards.errorCreate', {
@@ -56,8 +64,6 @@ const Boards: FC = () => {
       });
     }
   }, [errorAddBoard, t, enqueueSnackbar, closeSnackbar]);
-
-  useEffect(() => {}, [t, enqueueSnackbar, closeSnackbar]);
 
   const changeBoardsListShow: TChangeBoardsShow = (searchValue: string) => {
     if (!searchValue.trim().length) {
@@ -79,12 +85,17 @@ const Boards: FC = () => {
     <Section className={css.boards} pageAllSpace={true}>
       <BoardsHead searchCB={changeBoardsListShow} />
 
-      <BoardsList
-        boards={boards}
-        addCardHandler={() => {
-          setShowModal(true);
-        }}
-      />
+      {isLoadingBoards ? (
+        <Spinner className={css.boards__loader} />
+      ) : (
+        <BoardsList
+          boards={boards}
+          addCardHandler={() => {
+            setShowModal(true);
+          }}
+          showSpinnerEnd={isLoadingBoards || isAddingBoard}
+        />
+      )}
 
       <LightboxBoard
         showModal={showModal}

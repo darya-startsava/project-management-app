@@ -1,5 +1,6 @@
 @import "$assets/scss/variables";
 @import "$assets/scss/mixins";
+@import "$assets/scss/commonParts";
 
 ul.tasksList {
   width: 100%;
@@ -59,6 +60,10 @@ ul.tasksList {
     &_user {
       font-size: 14px;
     }
+  }
+
+  .tasksList__item_button {
+    @extend %simpleIconButtonStyles;
   }
 }
 

@@ -17,6 +17,14 @@
     margin-bottom: 37px;
     list-style-type: none;
     overflow: hidden;
+
+  }
+  .boardsList__item_spinner {
+    margin-top: 5px;
+  }
+
+  .spinner__item {
+    @include dflex();
   }
 
   .boardsList__item_content {
@@ -78,22 +86,44 @@
   }
 
   .boardsList__item_link {
-    color: $black;
+    @extend %simpleButtonStyles;
+
+    padding: 5px;
+    border-radius: 3px;
     text-decoration: none;
+    color: $black;
+    transition: color $transitionTime, box-shadow $transitionTime, background-color $transitionTime;
   }
 
-  .boardsList__item_button svg {
-    fill: $black;
+  .boardsList__item_button {
+    @extend %simpleIconButtonStyles;
   }
 
   .boardsList__item_addButton {
     flex-grow: 1;
     flex-direction: column;
     padding: 0;
+    color: $black;
+    transition: background-color $transitionTime;
 
     span {
       display: block;
       width: 100%;
+    }
+
+    &.disabled {
+      opacity: 0.6;
+      background-color: $lightGrey;
+      cursor: default;
+    }
+
+    &:not(.disabled):active {
+      box-shadow: inset 0 0 20px $whiteColor;
+    }
+
+    &:not(.disabled):hover {
+      color: $whiteColor;
+      background-color: $green;
     }
   }
 
@@ -101,7 +131,7 @@
     font-weight: 600;
     font-size: $bigTextMiddleSize;
     line-height: 1.5;
-    color: $black;
+    transition: color $transitionTime;
   }
 
   .boardsList__item_buttonIconWrapper {
@@ -110,7 +140,7 @@
     svg {
       width: 30px;
       height: 30px;
-      fill: $black;
+      transition: $transitionTime;
     }
   }
 }

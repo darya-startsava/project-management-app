@@ -12,23 +12,32 @@ import {
   DroppableProvided,
   DropResult,
 } from 'react-beautiful-dnd';
+import Spinner from '$components/Spinner';
 import CloseButton from '$components/CloseButton';
 import { messageErrorOptions } from '$settings/index';
 import { IColumn, IError, TSimpleFunction } from '$types/common';
 import css from './ColumnsList.module.scss';
+import classNames from 'classnames';
 
 interface IColumnsListProps {
   columns: Array<IColumn>;
   boardId: string;
   addCardHandler: TSimpleFunction;
+  showSpinnerEnd?: boolean;
 }
 
-const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }) => {
+const ColumnsList: FC<IColumnsListProps> = ({
+  columns,
+  addCardHandler,
+  boardId,
+  showSpinnerEnd = false,
+}) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [updateColumn, { isLoading: isLoadingUpdateColumn, error: errorChangeOrderColumn }] =
     useUpdateDragAndDropColumnMutation();
 
+  // show change column order error message
   useEffect(() => {
     if (errorChangeOrderColumn) {
       const errorMessage = t('Columns.dragDropError', {
@@ -89,8 +98,22 @@ const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }
 
             {droppableColumnProvided.placeholder}
 
+            <>
+              {showSpinnerEnd && (
+                <ListItem component="li" className={css.columnsList__itemButton}>
+                  <Spinner size={50} />
+                </ListItem>
+              )}
+            </>
+
             <ListItem component="li" className={css.columnsList__itemButton}>
-              <Button className={css.columnsList__item_addButton} onClick={addCardHandler}>
+              <Button
+                className={classNames(css.columnsList__item_addButton, {
+                  [css.disabled]: showSpinnerEnd,
+                })}
+                onClick={addCardHandler}
+                disabled={showSpinnerEnd}
+              >
                 + {t('Columns.addNewColumnButtonText')}
               </Button>
             </ListItem>
