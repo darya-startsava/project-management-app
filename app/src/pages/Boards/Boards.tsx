@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useAddBoardMutation, useGetAllBoardsQuery } from '$services/api';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import Section from '$components/Section';
@@ -9,16 +10,20 @@ import BoardsList from '$components/BoardsList';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
-import { IBoardCreateObj, IError, TCreateElement } from '$types/common';
+import { IBoardCreateObj, IError, TCreateElement, TSimpleFunction } from '$types/common';
 import css from './Boards.module.scss';
 
 export type TChangeBoardsShow = (searchValue: string) => void;
+interface ILocationState {
+  openModal?: boolean;
+}
 
 const Boards: FC = () => {
   const { t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModal, setShowModal] = useState<boolean>(false);
-
   const [
     addBoard,
     { isLoading: isAddingBoard, error: errorAddBoard, isSuccess: isSuccessAddBoard },
@@ -30,6 +35,13 @@ const Boards: FC = () => {
   } = useGetAllBoardsQuery();
 
   // show get boards error message
+  useEffect(() => {
+    const needOpenMenu = (location?.state as ILocationState)?.openModal || false;
+    if (needOpenMenu) {
+      setShowModal(true);
+    }
+  }, [location]);
+
   useEffect(() => {
     if (errorGetBoards) {
       const errorMessage = t('Boards.errorGetBoards', {
@@ -78,7 +90,12 @@ const Boards: FC = () => {
 
   const addNewColumn: TCreateElement<IBoardCreateObj> = (data: IBoardCreateObj) => {
     addBoard(data);
+    closeModal();
+  };
+
+  const closeModal: TSimpleFunction = () => {
     setShowModal(false);
+    navigate(location.pathname, { replace: false });
   };
 
   return (
@@ -101,7 +118,7 @@ const Boards: FC = () => {
         showModal={showModal}
         isLoading={isAddingBoard}
         isUpdate={false}
-        closeModalHandler={() => setShowModal(false)}
+        closeModalHandler={closeModal}
         submitCB={addNewColumn}
         modalTitle={t('Boards.createModalTitle')}
         submitButtonText={t('Boards.submitButtonTextAddForm')}

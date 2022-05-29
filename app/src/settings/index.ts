@@ -8,8 +8,10 @@ export const serviceURL = 'https://immense-sea-07745.herokuapp.com';
 
 export const TOKEN_AUTH_LOCALSTORAGE = 'kanban-token';
 export const AVATAR_INDEX_LOCALSTORAGE = 'kanban-avatar';
+export const LANGUAGE_LOCALSTORAGE = 'kanban-language';
 export const CLOSE_SNACKBAR_TIME = 5000;
 export const SIZE_DESCRIPTION_TASK_IN_COLUMN = 30;
+export const APP_LANGUAGES = ['en', 'ru'];
 
 /*
  ** TODO: CHANGE THE VALIDATION VALUES BEFORE BUILD PRODUCTION

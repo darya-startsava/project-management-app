@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
+import { LANGUAGE_LOCALSTORAGE } from '$settings/index';
+import { getStorageLanguage } from '$utils/index';
 import css from './LanguageToggler.module.scss';
 
 const LanguageToggler = () => {
-  const [language, setLanguage] = useState<string>('en');
+  const [language, setLanguage] = useState<string>(getStorageLanguage());
   const { i18n, t } = useTranslation();
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, newLanguage: string) => {
     if (!newLanguage) return;
 
     i18n.changeLanguage(newLanguage);
+    localStorage.setItem(LANGUAGE_LOCALSTORAGE, newLanguage);
     setLanguage(newLanguage);
   };
 

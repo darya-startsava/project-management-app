@@ -43,7 +43,7 @@ interface IProfileFormProps {
 }
 
 const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isShowConfirmModalChange, setIsShowConfirmModalChange] = useState<boolean>(false);
@@ -52,7 +52,8 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
     handleSubmit,
     control,
     reset,
-    formState: { isDirty, isSubmitting },
+    formState: { isDirty, isSubmitting, errors, isSubmitted },
+    trigger,
   } = useForm<IFormState>({
     defaultValues: {
       name: '',
@@ -62,6 +63,16 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
   });
   const [updateUser, { isLoading, error, isSuccess }] = useUpdateUserMutation();
 
+  // change the error message when switching the language
+  useEffect(() => {
+    if (isDirty && isSubmitted) {
+      Object.keys(errors).forEach((fieldName) => {
+        trigger(fieldName as keyof IFormState, { shouldFocus: true });
+      });
+    }
+  }, [i18n.language, isDirty, isSubmitted, errors, trigger]);
+
+  // show update error message
   useEffect(() => {
     if (error) {
       const errorMessage = t('Profile.errorUpdate', {
@@ -74,6 +85,7 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
     }
   }, [error, t, enqueueSnackbar, closeSnackbar]);
 
+  // show update success message
   useEffect(() => {
     if (isSuccess) {
       const errorMessage = t('Profile.successUpdate');

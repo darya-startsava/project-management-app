@@ -51,17 +51,28 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
     changeSortOfAuth = ROUTES_PATHS.login;
   }
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const {
     register,
-    formState: { errors },
+    formState: { errors, isDirty, isSubmitted },
+    trigger,
     handleSubmit,
   } = useForm<IUserRegistration>();
   const [signUp, { isLoading: isLoadingSignUp, error: errorSignUp }] = useSignUpMutation();
   const [signIn, { isLoading: isLoadingSignIn, error: errorSignIn }] = useSignInMutation();
   const { enqueueSnackbar } = useSnackbar();
 
+  // change the error message when switching the language
+  useEffect(() => {
+    if (isDirty && isSubmitted) {
+      Object.keys(errors).forEach((fieldName) => {
+        trigger(fieldName as keyof IUserRegistration, { shouldFocus: true });
+      });
+    }
+  }, [i18n.language, isDirty, isSubmitted, errors, trigger]);
+
+  // show login error message
   useEffect(() => {
     if (errorSignIn && 'data' in errorSignIn) {
       if (errorSignIn.status === 403) {
@@ -72,6 +83,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
     }
   }, [errorSignIn, enqueueSnackbar, t]);
 
+  // show signUp error message
   useEffect(() => {
     if (errorSignUp && 'data' in errorSignUp) {
       if (errorSignUp.status === 409) {

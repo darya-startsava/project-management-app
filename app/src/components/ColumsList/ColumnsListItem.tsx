@@ -29,7 +29,6 @@ import {
   DeleteOutline as DeleteOutlineIcon,
 } from '@mui/icons-material';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
-import { getSortTasks } from '$utils/index';
 import {
   IColumn,
   IColumnUpdateObj,
@@ -234,7 +233,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
           <Spinner size={30} />
         ) : (
           <>
-            <TasksList tasks={getSortTasks(tasks)} />
+            <TasksList tasks={tasks} columnId={columnId} />
 
             <>{isAddingTask && <Spinner size={30} />}</>
 
