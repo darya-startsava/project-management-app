@@ -55,6 +55,10 @@
       clip-path: polygon(0 0, 0 0, 0 0, 0 0);
     }
   }
+
+  .boards__loader {
+    margin-top: 20px;
+  }
 }
 
 // > 600px
@@ -71,6 +75,10 @@
           font-size: $bigTextMiddleSize;
         }
       }
+    }
+
+    .boards__loader {
+      margin-top: 50px;
     }
   }
 }

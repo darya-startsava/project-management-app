@@ -56,7 +56,12 @@ const TasksListItem: FC<ITasksListItemProps> = ({
     updateTask,
     { isLoading: isUpdateTask, error: errorUpdateTask, isSuccess: isSuccessUpdateTask },
   ] = useUpdateDragAndDropTaskMutation();
+  const [
+    deleteTask,
+    { isLoading: isDeleteTask, error: errorDeleteTask, isSuccess: isSuccessDeleteTask },
+  ] = useDeleteTaskMutation();
 
+  // show update task error message
   useEffect(() => {
     if (errorUpdateTask) {
       const errorMessage = t('Tasks.errorUpdateTask', {
@@ -67,8 +72,9 @@ const TasksListItem: FC<ITasksListItemProps> = ({
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [closeSnackbar, enqueueSnackbar, errorUpdateTask, t]);
+  }, [errorUpdateTask, closeSnackbar, enqueueSnackbar, t]);
 
+  // show update task success message
   useEffect(() => {
     if (isSuccessUpdateTask) {
       enqueueSnackbar(t('Tasks.successUpdateTask'), {
@@ -76,7 +82,30 @@ const TasksListItem: FC<ITasksListItemProps> = ({
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [closeSnackbar, enqueueSnackbar, isSuccessUpdateTask, t]);
+  }, [isSuccessUpdateTask, closeSnackbar, enqueueSnackbar, t]);
+
+  // show update task error message
+  useEffect(() => {
+    if (errorDeleteTask) {
+      const errorMessage = t('Tasks.errorDeleteTask', {
+        ERROR_MESSAGE: (errorDeleteTask as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        ...messageErrorOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorDeleteTask, closeSnackbar, enqueueSnackbar, t]);
+
+  // show delete task success message
+  useEffect(() => {
+    if (isSuccessDeleteTask) {
+      enqueueSnackbar(t('Tasks.successDeleteTask'), {
+        ...messageSuccessOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [isSuccessDeleteTask, closeSnackbar, enqueueSnackbar, t]);
 
   const getDescription = () => {
     if (description.length > SIZE_DESCRIPTION_TASK_IN_COLUMN) {
@@ -98,30 +127,6 @@ const TasksListItem: FC<ITasksListItemProps> = ({
     updateTask({ body: { ...data, boardId, columnId, order }, boardId, columnId, taskId: id });
     setShowUpdateModal(false);
   };
-
-  const [deleteTask, { error: errorDeleteTask, isSuccess: isSuccessDeleteTask }] =
-    useDeleteTaskMutation();
-
-  useEffect(() => {
-    if (errorDeleteTask) {
-      const errorMessage = t('Tasks.errorDeleteTask', {
-        ERROR_MESSAGE: (errorDeleteTask as IError).data.message || '',
-      });
-      enqueueSnackbar(errorMessage, {
-        ...messageErrorOptions,
-        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
-      });
-    }
-  }, [errorDeleteTask, closeSnackbar, enqueueSnackbar, t]);
-
-  useEffect(() => {
-    if (isSuccessDeleteTask) {
-      enqueueSnackbar(t('Tasks.successDeleteTask'), {
-        ...messageSuccessOptions,
-        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
-      });
-    }
-  }, [isSuccessDeleteTask, closeSnackbar, enqueueSnackbar, t]);
 
   const removeHandler = async () => {
     deleteTask({ boardId, columnId, taskId: id });
@@ -172,6 +177,8 @@ const TasksListItem: FC<ITasksListItemProps> = ({
             className={css.tasksList__item_button}
             size="small"
             onClick={() => setShowUpdateModal(true)}
+            aria-label={t('Tasks.updateTaskLabel')}
+            disabled={isDeleteTask || isUpdateTask}
           >
             <HistoryEduIcon color="inherit" />
           </IconButton>
@@ -181,6 +188,7 @@ const TasksListItem: FC<ITasksListItemProps> = ({
             size="small"
             onClick={() => setIsShowConfirmModalDelete(true)}
             aria-label={t('Tasks.deleteTaskLabel')}
+            disabled={isDeleteTask || isUpdateTask}
           >
             <DeleteOutlineIcon color="inherit" />
           </IconButton>

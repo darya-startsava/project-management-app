@@ -7,7 +7,6 @@ import { useSnackbar } from 'notistack';
 import { useSignInMutation, useSignUpMutation } from '$services/api';
 import classNames from 'classnames';
 import {
-  CircularProgress,
   TextField,
   Typography,
   Box,
@@ -20,6 +19,7 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Section from '$components/Section';
+import Spinner from '$components/Spinner';
 import { setToken } from '$store/appSlice';
 import { ROUTES_PATHS } from '$settings/routing';
 import {
@@ -133,9 +133,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
 
       <>
         {(isLoadingSignUp || isLoadingSignIn) && (
-          <Box className={css.authPage__loader}>
-            <CircularProgress />
-          </Box>
+          <Spinner className={css.authPage__loader} size={50} />
         )}
       </>
 

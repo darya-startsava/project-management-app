@@ -7,11 +7,14 @@ import {
   useUpdateColumnMutation,
 } from '$services/api';
 import { useSnackbar } from 'notistack';
+import classNames from 'classnames';
 import CloseButton from '$components/CloseButton';
+import Spinner from '$components/Spinner';
 import LightboxTask from '$components/LightboxTask';
 import ConfirmWindow from '$components/ConfirmWindow';
 import TasksList from './TasksList';
 import {
+  Box,
   Button,
   ButtonGroup,
   IconButton,
@@ -53,17 +56,23 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isChangeColumnNameMode, setIsChangeColumnNameMode] = useState<boolean>(false);
+  const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>(title);
   const [showModalAddTasks, setShowModalAddTasks] = useState<boolean>(false);
-
-  const { data: tasks = [], error: errorGetTasks } = useGetAllTasksQuery({ boardId, columnId });
+  const {
+    data: tasks = [],
+    error: errorGetTasks,
+    isLoading: isLoadingTasks,
+  } = useGetAllTasksQuery({ boardId, columnId });
 
   const [updateColumn, { error: errorUpdateColumn, isSuccess: isSuccessUpdateColumn }] =
     useUpdateColumnMutation();
   const [addTask, { isLoading: isAddingTask, error: errorAddTask, isSuccess: isSuccessAddTask }] =
     useAddTaskMutation();
-  const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
+  const [deleteColumn, { error: errorDeleteColumn, isSuccess: isSuccessDeleteColumn }] =
+    useDeleteColumnMutation();
 
+  // show get tasks error message
   useEffect(() => {
     if (errorGetTasks) {
       const errorMessage = t('Tasks.errorGetTasks', {
@@ -76,27 +85,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
     }
   }, [errorGetTasks, t, enqueueSnackbar, closeSnackbar]);
 
-  useEffect(() => {
-    if (errorUpdateColumn) {
-      const errorMessage = t('Columns.errorUpdateColumnTitle', {
-        ERROR_MESSAGE: (errorUpdateColumn as IError).data.message || '',
-      });
-      enqueueSnackbar(errorMessage, {
-        ...messageErrorOptions,
-        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
-      });
-    }
-  }, [closeSnackbar, enqueueSnackbar, errorUpdateColumn, t]);
-
-  useEffect(() => {
-    if (isSuccessUpdateColumn) {
-      enqueueSnackbar(t('Columns.successUpdateColumnTitle'), {
-        ...messageSuccessOptions,
-        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
-      });
-    }
-  }, [closeSnackbar, enqueueSnackbar, isSuccessUpdateColumn, t]);
-
+  // show add task error message
   useEffect(() => {
     if (errorAddTask) {
       const errorMessage = t('Tasks.errorAddTask', {
@@ -109,6 +98,7 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
     }
   }, [errorAddTask, t, enqueueSnackbar, closeSnackbar]);
 
+  // show add task success message
   useEffect(() => {
     if (isSuccessAddTask) {
       enqueueSnackbar(t('Tasks.isSuccessAddTask'), {
@@ -117,6 +107,52 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
       });
     }
   }, [isSuccessAddTask, t, enqueueSnackbar, closeSnackbar]);
+
+  // show update column error message
+  useEffect(() => {
+    if (errorUpdateColumn) {
+      const errorMessage = t('Columns.errorUpdateColumnTitle', {
+        ERROR_MESSAGE: (errorUpdateColumn as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        ...messageErrorOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [closeSnackbar, enqueueSnackbar, errorUpdateColumn, t]);
+
+  // show update column success message
+  useEffect(() => {
+    if (isSuccessUpdateColumn) {
+      enqueueSnackbar(t('Columns.successUpdateColumnTitle'), {
+        ...messageSuccessOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [closeSnackbar, enqueueSnackbar, isSuccessUpdateColumn, t]);
+
+  // show delete column error message
+  useEffect(() => {
+    if (errorDeleteColumn) {
+      const errorMessage = t('Columns.errorDeleteColumn', {
+        ERROR_MESSAGE: (errorDeleteColumn as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        ...messageErrorOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorDeleteColumn, closeSnackbar, enqueueSnackbar, t]);
+
+  // show delete board success message
+  useEffect(() => {
+    if (isSuccessDeleteColumn) {
+      enqueueSnackbar(t('Columns.successDeleteColumn'), {
+        ...messageSuccessOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [isSuccessDeleteColumn, closeSnackbar, enqueueSnackbar, t]);
 
   const addNewBoard: TCreateElement<INewNTaskFormState> = (data: INewNTaskFormState) => {
     addTask({
@@ -135,30 +171,6 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
     setNewTitle(title);
     setIsChangeColumnNameMode(false);
   };
-
-  const [deleteColumn, { error: errorDeleteColumn, isSuccess: isSuccessDeleteColumn }] =
-    useDeleteColumnMutation();
-
-  useEffect(() => {
-    if (errorDeleteColumn) {
-      const errorMessage = t('Columns.errorDeleteColumn', {
-        ERROR_MESSAGE: (errorDeleteColumn as IError).data.message || '',
-      });
-      enqueueSnackbar(errorMessage, {
-        ...messageErrorOptions,
-        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
-      });
-    }
-  }, [errorDeleteColumn, closeSnackbar, enqueueSnackbar, t]);
-
-  useEffect(() => {
-    if (isSuccessDeleteColumn) {
-      enqueueSnackbar(t('Columns.successDeleteColumn'), {
-        ...messageSuccessOptions,
-        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
-      });
-    }
-  }, [isSuccessDeleteColumn, closeSnackbar, enqueueSnackbar, t]);
 
   const removeHandler = async () => {
     deleteColumn({ boardId, columnId });
@@ -217,25 +229,39 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
           </Typography>
         )}
 
-        <TasksList tasks={tasks} columnId={columnId} />
+        {isLoadingTasks ? (
+          <Spinner size={30} />
+        ) : (
+          <>
+            <TasksList tasks={tasks} columnId={columnId} />
 
-        <Button
-          className={css.columnsList__item_addTaskButton}
-          onClick={() => {
-            setShowModalAddTasks(true);
-          }}
-        >
-          + {t('Tasks.addNewTaskButtonText')}
-        </Button>
+            <>{isAddingTask && <Spinner size={30} />}</>
 
-        <IconButton
-          className={css.ColumnList_item_delete_button}
-          size="small"
-          onClick={() => setIsShowConfirmModalDelete(true)}
-          aria-label={t('Boards.deleteColumnLabel')}
-        >
-          <DeleteOutlineIcon color="inherit" />
-        </IconButton>
+            <Box className={css.columnsList__buttonsWrapper}>
+              <Button
+                className={classNames(css.columnsList__item_addTaskButton, {
+                  [css.disabled]: isAddingTask,
+                })}
+                onClick={() => {
+                  setShowModalAddTasks(true);
+                }}
+                disabled={isAddingTask}
+              >
+                + {t('Tasks.addNewTaskButtonText')}
+              </Button>
+
+              <IconButton
+                className={css.columnList_item_delete_button}
+                size="small"
+                onClick={() => setIsShowConfirmModalDelete(true)}
+                aria-label={t('Boards.deleteColumnLabel')}
+                disabled={isAddingTask}
+              >
+                <DeleteOutlineIcon color="inherit" />
+              </IconButton>
+            </Box>
+          </>
+        )}
       </ListItem>
 
       <ConfirmWindow
