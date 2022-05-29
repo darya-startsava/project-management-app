@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import Section from '$components/Section';
+import { ROUTES_PATHS } from '$settings/routing';
 import css from './ErrorPage.module.scss';
 
 interface ILocationState {
@@ -16,13 +17,17 @@ const ErrorPage: FC = () => {
 
   return (
     <Section className={css.errorPage} pageAllSpace={true}>
-      <Typography component="h2" variant="inherit" className={css.errorPage__title} mb={5}>
+      <Typography className={css.errorPage__title} component="h2" variant="inherit" mb={5}>
         {t('ErrorPage.pageTitle')}
       </Typography>
 
-      <Typography component="p" variant="inherit" className={css.errorPage__text}>
+      <Typography className={css.errorPage__text} component="p" variant="inherit">
         {errorText}
       </Typography>
+
+      <Link to={ROUTES_PATHS.welcome} className={css.errorPage_link}>
+        {t('NotFoundPage.backMainLink')}
+      </Link>
     </Section>
   );
 };

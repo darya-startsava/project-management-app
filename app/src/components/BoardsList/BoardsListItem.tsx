@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import { useUpdateBoardMutation, useDeleteBoardMutation } from '$services/api';
 import { SubmitHandler } from 'react-hook-form';
+import classNames from 'classnames';
 import {
   CardActions,
   CardContent,
@@ -19,6 +20,7 @@ import {
 } from '@mui/icons-material';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
+import Spinner from '$components/Spinner';
 import ConfirmWindow from '$components/ConfirmWindow';
 import { importAllFiles, randNumber } from '$utils/index';
 import { ROUTES_PATHS } from '$settings/routing';
@@ -33,12 +35,16 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
   const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
   const arrImages = importAllFiles(require.context('$assets/images/backgrounds', false, /\.jpg$/));
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
-
   const [
     updateBoard,
     { isLoading: isUpdateBoard, error: errorUpdateBoard, isSuccess: isSuccessUpdateBoard },
   ] = useUpdateBoardMutation();
+  const [
+    deleteBoard,
+    { isLoading: isDeleteBoard, error: errorDeletingBoard, isSuccess: isSuccessDeletingBoard },
+  ] = useDeleteBoardMutation();
 
+  // show update board error message
   useEffect(() => {
     if (errorUpdateBoard) {
       const errorMessage = t('Boards.errorUpdateBoardTitle', {
@@ -51,6 +57,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
     }
   }, [errorUpdateBoard, closeSnackbar, enqueueSnackbar, t]);
 
+  // show update board success message
   useEffect(() => {
     if (isSuccessUpdateBoard) {
       enqueueSnackbar(t('Boards.successUpdateBoardTitle'), {
@@ -60,14 +67,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
     }
   }, [isSuccessUpdateBoard, closeSnackbar, enqueueSnackbar, t]);
 
-  const updateBoardTitle: SubmitHandler<IBoardCreateObj> = (data) => {
-    updateBoard({ body: data, id });
-    setShowUpdateModal(false);
-  };
-
-  const [deleteBoard, { error: errorDeletingBoard, isSuccess: isSuccessDeletingBoard }] =
-    useDeleteBoardMutation();
-
+  // show delete board error message
   useEffect(() => {
     if (errorDeletingBoard) {
       const errorMessage = t('Boards.errorDeletingBoard', {
@@ -80,6 +80,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
     }
   }, [errorDeletingBoard, closeSnackbar, enqueueSnackbar, t]);
 
+  // show delete board success message
   useEffect(() => {
     if (isSuccessDeletingBoard) {
       enqueueSnackbar(t('Boards.successDeletingBoard'), {
@@ -89,14 +90,20 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
     }
   }, [isSuccessDeletingBoard, closeSnackbar, enqueueSnackbar, t]);
 
+  const updateBoardTitle: SubmitHandler<IBoardCreateObj> = (data) => {
+    updateBoard({ body: data, id });
+    setShowUpdateModal(false);
+  };
+
   const removeHandler = async () => {
     deleteBoard({ id, title, description });
     setIsShowConfirmModalDelete(false);
   };
 
+  const isChangeStateCard = isUpdateBoard || isDeleteBoard;
   return (
     <>
-      <Grid item component="li" className={css.boardsList__item} key={id} mb={5}>
+      <Grid item component="li" className={css.boardsList__item} key={id}>
         <CardContent className={css.boardsList__item_content}>
           <CardMedia
             className={css.boardsList__item_img}
@@ -124,11 +131,16 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
           </Typography>
         </CardContent>
 
+        <>{isChangeStateCard && <Spinner className={css.boardsList__item_spinner} size={20} />}</>
+
         <CardActions className={css.boardsList__item_actionsWrapper}>
           <Link
-            className={css.boardsList__item_link}
+            className={classNames(css.boardsList__item_link, {
+              [css.disabled]: isChangeStateCard,
+            })}
             to={`${ROUTES_PATHS.boards}/${id}`}
             state={title}
+            aria-disabled={isChangeStateCard}
           >
             {t('Boards.boardsLinkItemText')}
           </Link>
@@ -137,8 +149,10 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
             <IconButton
               className={css.boardsList__item_button}
               size="small"
+              color="inherit"
               aria-label={t('Boards.editBoardTitleLabel')}
               onClick={() => setShowUpdateModal(true)}
+              disabled={isChangeStateCard}
             >
               <HistoryEduIcon color="inherit" />
             </IconButton>
@@ -146,8 +160,10 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
             <IconButton
               className={css.boardsList__item_button}
               size="small"
+              color="inherit"
               onClick={() => setIsShowConfirmModalDelete(true)}
               aria-label={t('Boards.deleteBoardLabel')}
+              disabled={isChangeStateCard}
             >
               <DeleteOutlineIcon color="inherit" />
             </IconButton>

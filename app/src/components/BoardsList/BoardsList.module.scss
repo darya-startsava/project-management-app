@@ -1,7 +1,11 @@
 @import "$assets/scss/variables";
 @import "$assets/scss/mixins";
+@import "$assets/scss/commonParts";
 
 .boardsList {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
   padding: 0;
 
   .boardsList__item {
@@ -9,23 +13,26 @@
 
     display: flex;
     flex-direction: column;
-    width: 30%;
-    min-height: 300px;
+    width: 100%;
     margin-bottom: 37px;
     list-style-type: none;
     overflow: hidden;
 
-    &:not(:nth-child(3n)) {
-      margin-right: 4.5%;
-    }
+  }
+  .boardsList__item_spinner {
+    margin-top: 5px;
   }
 
-  &__item_content {
+  .spinner__item {
+    @include dflex();
+  }
+
+  .boardsList__item_content {
     position: relative;
     z-index: 1;
     flex-grow: 1;
     min-height: 145px;
-    padding: 17px 37px;
+    padding: 10px;
     overflow: hidden;
 
     &:before {
@@ -38,7 +45,7 @@
     }
   }
 
-  &__item_img {
+  .boardsList__item_img {
     position: absolute;
     top: 0;
     left: 0;
@@ -49,23 +56,23 @@
     z-index: -2;
   }
 
-  &__item_title {
+  .boardsList__item_title {
     font-weight: bold;
-    font-size: $bigTextSize;
+    font-size: $bigTextMiddleSize;
     line-height: 1.5;
     color: $whiteColor;
   }
 
-  &__item_description {
-    font-size: $textSize;
+  .boardsList__item_description {
+    font-size: $textSizeSmall;
     color: $whiteColor;
   }
 
-  &__item_actionsWrapper {
+  .boardsList__item_actionsWrapper {
     position: relative;
     z-index: 1;
     justify-content: space-between;
-    margin-top: 62px;
+    margin-top: 30px;
     padding: 0 14px 14px;
 
     &:before {
@@ -78,40 +85,134 @@
     }
   }
 
-  &__item_link {
-    color: $black;
+  .boardsList__item_link {
+    @extend %simpleButtonStyles;
+
+    padding: 5px;
+    border-radius: 3px;
     text-decoration: none;
+    color: $black;
+    transition: color $transitionTime, box-shadow $transitionTime, background-color $transitionTime;
   }
 
-  &__item_button svg {
-    fill: $black;
+  .boardsList__item_button {
+    @extend %simpleIconButtonStyles;
   }
 
-  &__item_addButton {
+  .boardsList__item_addButton {
     flex-grow: 1;
     flex-direction: column;
     padding: 0;
+    color: $black;
+    transition: background-color $transitionTime;
 
     span {
       display: block;
       width: 100%;
     }
+
+    &.disabled {
+      opacity: 0.6;
+      background-color: $lightGrey;
+      cursor: default;
+    }
+
+    &:not(.disabled):active {
+      box-shadow: inset 0 0 20px $whiteColor;
+    }
+
+    &:not(.disabled):hover {
+      color: $whiteColor;
+      background-color: $green;
+    }
   }
 
-  &__item_addButtonText {
+  .boardsList__item_addButtonText {
     font-weight: 600;
-    font-size: $bigTextSize;
+    font-size: $bigTextMiddleSize;
     line-height: 1.5;
-    color: $black;
+    transition: color $transitionTime;
   }
 
-  &__item_buttonIconWrapper {
+  .boardsList__item_buttonIconWrapper {
     @include dflex();
 
     svg {
-      width: 42px;
-      height: 42px;
-      fill: $black;
+      width: 30px;
+      height: 30px;
+      transition: $transitionTime;
+    }
+  }
+}
+
+// > 600px
+@include sm_tablet_start() {
+  .boardsList {
+    justify-content: center;
+    max-width: 100%;
+
+    .boardsList__item {
+      width: 300px;
+      min-height: 300px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    .boardsList__item_content {
+      padding: 15px;
+    }
+
+    .boardsList__item_title {
+      font-size: $bigTextSize;
+    }
+
+    .boardsList__item_description {
+      font-size: $textSize;
+    }
+
+    .boardsList__item_actionsWrapper {
+      margin-top: 40px;
+    }
+
+    .boardsList__item_addButtonText {
+      font-size: $bigTextSize;
+    }
+
+    .boardsList__item_buttonIconWrapper {
+      svg {
+        width: 42px;
+        height: 42px;
+      }
+    }
+  }
+}
+
+// > 900px
+@include md_laptop_start() {
+  .boardsList {
+    justify-content: flex-start;
+
+    .boardsList__item {
+      width: 32%;
+      margin-left: 0;
+      margin-right: 0;
+
+      &:not(:nth-child(3n)) {
+        margin-right: 2%;
+      }
+    }
+  }
+}
+
+// > 1200px
+@include lg_display_start() {
+  .boardsList {
+    .boardsList__item {
+      width: 30%;
+
+      &:not(:nth-child(3n)) {
+        margin-right: 4.5%;
+      }
     }
   }
 }

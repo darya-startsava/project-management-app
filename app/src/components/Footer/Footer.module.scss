@@ -9,19 +9,86 @@
 }
 
 .footerContainer {
-  padding: 20px;
   align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+
+  .footerContainer__schoolLink {
+    width: 80px;
+    order: 1;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .footerContainer__authors {
+    @include dflex();
+
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0;
+
+    .footerContainer__authors_item {
+      list-style-type: none;
+      margin: 0 10px 5px;
+    }
+
+    .footerContainer__authors_link {
+      position: relative;
+      z-index: 1;
+      display: block;
+      padding: 5px 5px 5px 30px;
+      line-height: 24px;
+      color: $black;
+      text-decoration: none;
+
+      &:before {
+        @include psevdo("", absolute, 50%);
+
+        left: 5px;
+        width: 24px;
+        height: 24px;
+        background: url("$assets/svg/githubIcon.svg") no-repeat center center;
+        background-size: contain;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .footerContainer__copyright {
+    display: flex;
+    order: 2;
+    color: $black;
+
+    svg {
+      margin-right: 5px;
+    }
+  }
 }
 
-.githubContainer {
-  @include dflex(space-evenly, center);
+// > 900px
+@include md_laptop_start() {
+  .footerContainer {
+    padding: 20px;
 
-  flex-wrap: nowrap;
-  gap: 10px;
-}
+    .footerContainer__schoolLink {
+      order: 0;
+      width: 115px;
+    }
 
-.centerBox {
-  @include dflex(center, center);
+    .footerContainer__authors {
+      width: fit-content;
 
-  gap: 10px;
+      .footerContainer__authors_item {
+        margin: 0 15px;
+      }
+
+      .footerContainer__authors_link {
+        padding-left: 35px;
+      }
+    }
+  }
 }

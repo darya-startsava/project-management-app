@@ -1,22 +1,24 @@
-@import '$assets/scss/variables';
-@import '$assets/scss/mixins';
+@import "$assets/scss/variables";
+@import "$assets/scss/mixins";
+@import "$assets/scss/commonParts";
 
 .authPage {
   .authPage__title {
     @extend %pageTitle;
-
-    margin-bottom: 50px;
   }
 
   .authPage__loader {
-    width: fit-content;
-    margin: 30px auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .authForm {
     width: 100%;
     max-width: $formAuthSize;
     margin: 0 auto;
+    padding: 20px 10px;
+    border-radius: $borderRadiusMin;
+    background-color: $whiteColor;
   }
 
   .authForm_element {
@@ -45,5 +47,14 @@
 
   .authForm_submit {
     @extend %submitButton;
+  }
+}
+
+// > 600px
+@include sm_tablet_start() {
+  .authPage {
+    .authForm {
+      padding: 20px;
+    }
   }
 }

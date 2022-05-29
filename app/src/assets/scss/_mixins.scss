@@ -37,17 +37,6 @@
 }
 
 /*
-** миксин для медиазапроса ширина экрана больше 0px начиная с мобильных устройств
-** подключать  @include xs_mobile_start() {контент}
-*/
-@mixin xs_mobile_start() {
-  @media screen and (min-width: 0px) {
-    @content;
-  }
-}
-
-
-/*
 ** миксин для медиазапроса ширина экрана больше 600px
 ** подключать  @include sm_tablet_start() {контент}
 */
@@ -74,16 +63,6 @@
 */
 @mixin lg_display_start() {
   @media screen and (min-width: 1200px) {
-    @content;
-  }
-}
-
-/*
-** миксин для медиазапроса ширина экрана больше 1536px
-** подключать  @include xl_bigDisplay_start() {контент}
-*/
-@mixin xl_bigDisplay_start() {
-  @media screen and (min-width: 1536px) {
     @content;
   }
 }

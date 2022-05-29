@@ -6,6 +6,7 @@ import { useSnackbar } from 'notistack';
 import { Box, Typography } from '@mui/material';
 import { TableChart as TableChartIcon } from '@mui/icons-material';
 import Section from '$components/Section';
+import Spinner from '$components/Spinner';
 import ColumnsListItem from '$components/ColumsList';
 import CloseButton from '$components/CloseButton';
 import LightboxColumn from '$components/LightboxColumn';
@@ -22,7 +23,11 @@ const OneBoard: FC = () => {
   const [showModalAddColumn, setShowModalAddColumn] = useState<boolean>(false);
   const arrImages = importAllFiles(require.context('$assets/images/backgrounds', false, /\.jpg$/));
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
-  const { data: columns = [], error: errorGetColumns } = useGetAllColumnsQuery(params.id || '');
+  const {
+    data: columns = [],
+    error: errorGetColumns,
+    isLoading: isLoadingColumns,
+  } = useGetAllColumnsQuery(params.id || '');
   const [
     addColumn,
     { isLoading: isAddingColumn, error: errorAddColumn, isSuccess: isSuccessAddColumn },
@@ -34,6 +39,7 @@ const OneBoard: FC = () => {
     return () => document.body.style.setProperty('--screenOverflowY', 'auto');
   }, []);
 
+  // show get columns error message
   useEffect(() => {
     if (errorGetColumns) {
       const errorMessage = t('Columns.errorGetColumns', {
@@ -46,6 +52,7 @@ const OneBoard: FC = () => {
     }
   }, [errorGetColumns, t, enqueueSnackbar, closeSnackbar]);
 
+  // show get columns success message
   useEffect(() => {
     if (isSuccessAddColumn) {
       enqueueSnackbar(t('Columns.successCreateColumn'), {
@@ -55,6 +62,7 @@ const OneBoard: FC = () => {
     }
   }, [isSuccessAddColumn, t, enqueueSnackbar, closeSnackbar]);
 
+  // show add column error message
   useEffect(() => {
     if (errorAddColumn) {
       const errorMessage = t('Columns.errorCreateColumn', {
@@ -77,25 +85,32 @@ const OneBoard: FC = () => {
 
   return (
     <Section className={css.one_board} pageAllSpace={true}>
-      <Typography className={css.one_board__title} component="h2" variant="inherit">
-        <Box
-          className={css.one_board__title_img}
-          component="span"
-          style={{
-            backgroundImage: `url(${arrImages[indexImg]})`,
-          }}
-        />
-        <Box component="span">{t('Columns.pageTitle', { BOARD_NAME: location.state })}</Box>
-        <TableChartIcon />
-      </Typography>
+      {isLoadingColumns ? (
+        <Spinner className={css.authPage__loader} />
+      ) : (
+        <>
+          <Typography className={css.one_board__title} component="h2" variant="inherit" mb={5}>
+            <Box
+              className={css.one_board__title_img}
+              component="span"
+              style={{
+                backgroundImage: `url(${arrImages[indexImg]})`,
+              }}
+            />
+            <Box component="span">{t('Columns.pageTitle', { BOARD_NAME: location.state })}</Box>
+            <TableChartIcon />
+          </Typography>
 
-      <ColumnsListItem
-        columns={getSortColumns(columns)}
-        boardId={params.id || ''}
-        addCardHandler={() => {
-          setShowModalAddColumn(true);
-        }}
-      />
+          <ColumnsListItem
+            columns={getSortColumns(columns)}
+            boardId={params.id || ''}
+            addCardHandler={() => {
+              setShowModalAddColumn(true);
+            }}
+            showSpinnerEnd={isLoadingColumns || isAddingColumn}
+          />
+        </>
+      )}
 
       <LightboxColumn
         showModal={showModalAddColumn}

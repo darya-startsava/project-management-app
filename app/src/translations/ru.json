@@ -29,7 +29,8 @@
     "editProfile": "Редактировать профиль",
     "signOut": "Выход",
     "newBoard": "Создать новую доску",
-    "goToMainPage": "Перейти на главную страницу"
+    "goToMainPage": "Перейти на главную страницу",
+    "burgerLabel": "Кнопка, открывающая меню"
   },
   "LogIn": {
     "signTitle": "Вход",
@@ -149,6 +150,7 @@
     "errorUpdateTask": "Задача не изменена! Ошибка: {{ERROR_MESSAGE}}",
     "successUpdateTask": "Задача изменена успешно!",
     "dragDropError": "Ошибка перемещения задачи внутри колонки: {{ERROR_MESSAGE}}",
+    "updateTaskLabel": "Обновить задачу",
     "deleteTaskLabel": "Удалить задачу",
     "confirmDeleteTaskModalTitle": "Вы уверены, что хотите удалить эту задачу?",
     "errorDeleteTask": "Задача не удалена! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
@@ -189,7 +191,8 @@
   "NotFoundPage": {
     "heading": "Страница не найдена",
     "text": "Мы не смогли найти то, что вы искали.",
-    "checkUrlText": "Пожалуйста, проверьте URL адрес."
+    "checkUrlText": "Пожалуйста, проверьте URL адрес.",
+    "backMainLink": "Вернуться на главную страницу"
   },
   "General": {
     "ariaLabelCloseButton": "Закрыть",

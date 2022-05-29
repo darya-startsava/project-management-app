@@ -29,7 +29,8 @@
     "editProfile": "Edit profile",
     "signOut": "Sign out",
     "newBoard": "Create new board",
-    "goToMainPage": "Go to main page"
+    "goToMainPage": "Go to main page",
+    "burgerLabel": "Open menu button"
   },
   "LogIn": {
     "signTitle": "Sign in",
@@ -149,6 +150,7 @@
     "errorUpdateTask": "Task has not been changed! Error: {{ERROR_MESSAGE}}",
     "successUpdateTask": "Task changed successfully!",
     "dragDropError": "Error moving task inside a column: {{ERROR_MESSAGE}}",
+    "updateTaskLabel": "Update task",
     "deleteTaskLabel": "Delete task",
     "confirmDeleteTaskModalTitle": "Do you want to delete this task?",
     "errorDeleteTask": "The task was not deleted! Try to do it later. Error: {{ERROR_MESSAGE}}",
@@ -189,7 +191,8 @@
   "NotFoundPage": {
     "heading": "Page Not Found",
     "text": "We couldn't find what you were looking for.",
-    "checkUrlText": "Please check URL."
+    "checkUrlText": "Please check URL.",
+    "backMainLink": "Back to main page"
   },
   "General": {
     "ariaLabelCloseButton": "Close",
