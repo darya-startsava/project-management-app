@@ -59,12 +59,12 @@ const ColumnsListItem: FC<IColumnsListItemProps> = ({
   const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>(title);
   const [showModalAddTasks, setShowModalAddTasks] = useState<boolean>(false);
+
   const {
     data: tasks = [],
     error: errorGetTasks,
     isLoading: isLoadingTasks,
   } = useGetAllTasksQuery({ boardId, columnId });
-
   const [updateColumn, { error: errorUpdateColumn, isSuccess: isSuccessUpdateColumn }] =
     useUpdateColumnMutation();
   const [addTask, { isLoading: isAddingTask, error: errorAddTask, isSuccess: isSuccessAddTask }] =

@@ -96,7 +96,7 @@ ul.columnsList {
     @extend %simpleButtonStyles;
 
     font-weight: 500;
-    font-size: $textSizeSmall;
+    font-size: 14px;
     line-height: 1;
     color: $black;
     background-color: $lightGrey;
@@ -160,7 +160,7 @@ ul.columnsList {
     }
 
     .columnsList__item_addTaskButton {
-      font-size: $textSizeMobile;
+      font-size: $textSizeSmall;
     }
 
     .columnsList__item_addButton {

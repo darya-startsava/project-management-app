@@ -7,7 +7,7 @@ import {
 } from '$services/api';
 import { useSnackbar } from 'notistack';
 import { SubmitHandler } from 'react-hook-form';
-import { IconButton, ListItem, Stack, Typography } from '@mui/material';
+import { Button, IconButton, ListItem, Stack, Typography } from '@mui/material';
 import {
   DeleteOutline as DeleteOutlineIcon,
   HistoryEdu as HistoryEduIcon,
@@ -21,12 +21,10 @@ import {
   messageSuccessOptions,
   SIZE_DESCRIPTION_TASK_IN_COLUMN,
 } from '$settings/index';
-// import { IError, ITask, ITaskUpdateObj } from '$types/common';
-
-// const TasksListItem: FC<ITask> = ({ title, order, description, userId, id, boardId, columnId }) => {
-import { IError, ITask, ITaskUpdateObj } from '$types/common';
+import { IError, ITask, ITaskUpdateObj, TSimpleFunction } from '$types/common';
 import { DraggableProvided } from 'react-beautiful-dnd';
 import css from './TasksList.module.scss';
+import classNames from 'classnames';
 
 interface ITasksListItemProps extends ITask {
   draggableTaskProvided: DraggableProvided;
@@ -44,14 +42,15 @@ const TasksListItem: FC<ITasksListItemProps> = ({
 }) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { data: users = [], error: errorGetUsers } = useGetAllUsersQuery();
   const unknownUser = t('Tasks.unknownUser');
   const randomColorPart1 = useMemo(() => randNumber(255, 0), []);
   const randomColorPart2 = useMemo(() => randNumber(255, 0), []);
   const randomColorPart3 = useMemo(() => randNumber(255, 0), []);
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
+  const [showUpdateFormModal, setShowUpdateFormModal] = useState<boolean>(false);
   const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
 
+  const { data: users = [], error: errorGetUsers } = useGetAllUsersQuery();
   const [
     updateTask,
     { isLoading: isUpdateTask, error: errorUpdateTask, isSuccess: isSuccessUpdateTask },
@@ -128,9 +127,14 @@ const TasksListItem: FC<ITasksListItemProps> = ({
     setShowUpdateModal(false);
   };
 
-  const removeHandler = async () => {
+  const removeHandler: TSimpleFunction = async () => {
     deleteTask({ boardId, columnId, taskId: id });
     setIsShowConfirmModalDelete(false);
+  };
+
+  const updateModalVisible = (showModal: boolean, showModalLikeForm: boolean): void => {
+    setShowUpdateModal(showModal);
+    setShowUpdateFormModal(showModalLikeForm);
   };
 
   return (
@@ -173,10 +177,20 @@ const TasksListItem: FC<ITasksListItemProps> = ({
         </Typography>
 
         <Stack direction="row" className={css.tasksList__item_buttonsWrapper}>
+          <Button
+            className={classNames(css.tasksList__item_openButton, {
+              [css.disabled]: isDeleteTask || isUpdateTask,
+            })}
+            onClick={() => updateModalVisible(true, false)}
+            disabled={isDeleteTask || isUpdateTask}
+          >
+            {t('Tasks.openTaskButton')}
+          </Button>
+
           <IconButton
             className={css.tasksList__item_button}
             size="small"
-            onClick={() => setShowUpdateModal(true)}
+            onClick={() => updateModalVisible(true, true)}
             aria-label={t('Tasks.updateTaskLabel')}
             disabled={isDeleteTask || isUpdateTask}
           >
@@ -205,10 +219,17 @@ const TasksListItem: FC<ITasksListItemProps> = ({
       <LightboxUpdateTask
         showModal={showUpdateModal}
         isLoading={isUpdateTask}
-        changeShowModal={() => setShowUpdateModal(false)}
+        closeModal={() => updateModalVisible(false, false)}
+        responsibleUser={errorGetUsers ? unknownUser : getUser()}
+        users={users}
+        defaultFormState={{
+          title,
+          description,
+          userId,
+        }}
+        showLikeForm={showUpdateFormModal}
+        showForm={() => setShowUpdateFormModal(true)}
         submitCB={updateTaskObj}
-        modalTitle={t('Tasks.updateModalTitle')}
-        submitButtonText={t('Tasks.updateModalSubmitButton')}
       />
     </>
   );
