@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,12 +6,23 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 import { useSignInMutation, useSignUpMutation } from '$services/api';
 import classNames from 'classnames';
-import { CircularProgress, TextField, Typography, Box, InputBase } from '@mui/material';
+import {
+  CircularProgress,
+  TextField,
+  Typography,
+  Box,
+  InputBase,
+  InputAdornment,
+  InputLabel,
+  FormControl,
+  OutlinedInput,
+  IconButton,
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Section from '$components/Section';
-import { setLogin, setToken } from '$store/appSlice';
+import { setToken } from '$store/appSlice';
 import { ROUTES_PATHS } from '$settings/routing';
 import {
-  LOGIN_NAME_LOCALSTORAGE,
   messageErrorOptions,
   TOKEN_AUTH_LOCALSTORAGE,
   USER_LOGIN_MAX_LENGTH,
@@ -34,6 +45,7 @@ enum SortOfAuth {
 }
 
 const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   let changeSortOfAuth = ROUTES_PATHS.registration;
   if (sortOfAuth === SortOfAuth.Registration) {
     changeSortOfAuth = ROUTES_PATHS.login;
@@ -84,9 +96,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   async function userLogIn(user: IUserLogIn) {
     const result = await signIn(user).unwrap();
     dispatch(setToken(result.token));
-    dispatch(setLogin(user.login));
     localStorage.setItem(TOKEN_AUTH_LOCALSTORAGE, result.token);
-    localStorage.setItem(LOGIN_NAME_LOCALSTORAGE, user.login);
     navigate(ROUTES_PATHS.boards);
   }
 
@@ -105,7 +115,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   });
   return (
     <Section className={css.authPage} pageAllSpace={true}>
-      <Typography className={css.authPage__title} variant="inherit" component="h2">
+      <Typography className={css.authPage__title} variant="inherit" component="h2" mb={5}>
         {t(`${sortOfAuth}.signTitle`)}{' '}
       </Typography>
 
@@ -138,6 +148,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
               label={t('Registration.nameLabel')}
               placeholder={t('Registration.namePlaceholder')}
               fullWidth
+              autoFocus={sortOfAuth === SortOfAuth.Registration ? true : false}
             />
 
             {errors?.name?.message && (
@@ -166,6 +177,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
           label={t(`${sortOfAuth}.loginLabel`)}
           placeholder={t(`${sortOfAuth}.loginPlaceholder`)}
           fullWidth
+          autoFocus={sortOfAuth !== SortOfAuth.Registration ? true : false}
         />
 
         {errors?.login?.message && (
@@ -174,25 +186,40 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
           </Typography>
         )}
 
-        <TextField
+        <FormControl
           className={classNames(css.authForm_element, {
             [css.error]: !!errors?.password?.message,
           })}
-          {...register('password', {
-            required: t(`${sortOfAuth}.passwordFieldRequiredMessage`),
-            minLength: {
-              value: USER_PASSWORD_MIN_LENGTH,
-              message: t(`${sortOfAuth}.errorMinLengthPassword`, { USER_PASSWORD_MIN_LENGTH }),
-            },
-            maxLength: {
-              value: USER_PASSWORD_MAX_LENGTH,
-              message: t(`${sortOfAuth}.errorMaxLengthPassword`, { USER_PASSWORD_MAX_LENGTH }),
-            },
-          })}
-          label={t(`${sortOfAuth}.passwordLabel`)}
-          type="password"
-          fullWidth
-        />
+        >
+          <InputLabel htmlFor="password">{t(`${sortOfAuth}.passwordLabel`)}</InputLabel>
+          <OutlinedInput
+            id="password"
+            type={isShowPassword ? 'text' : 'password'}
+            {...register('password', {
+              required: t(`${sortOfAuth}.passwordFieldRequiredMessage`),
+              minLength: {
+                value: USER_PASSWORD_MIN_LENGTH,
+                message: t(`${sortOfAuth}.errorMinLengthPassword`, { USER_PASSWORD_MIN_LENGTH }),
+              },
+              maxLength: {
+                value: USER_PASSWORD_MAX_LENGTH,
+                message: t(`${sortOfAuth}.errorMaxLengthPassword`, { USER_PASSWORD_MAX_LENGTH }),
+              },
+            })}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label={t(`${sortOfAuth}.passwordVisibilityButtonLabel`)}
+                  onClick={() => setIsShowPassword((prev) => !prev)}
+                  edge="end"
+                >
+                  {isShowPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label={t(`${sortOfAuth}.passwordLabel`)}
+          />
+        </FormControl>
 
         {errors?.password?.message && (
           <Typography variant="inherit" component="p" className={css.authForm_errorText}>

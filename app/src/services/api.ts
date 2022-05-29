@@ -14,6 +14,7 @@ import {
   IUserRegistration,
 } from '$types/common';
 import { RootState } from '$store/store';
+import { getSortBoards } from '$utils/index';
 
 enum QueryPoints {
   signup = 'signup',
@@ -59,6 +60,12 @@ export const api = createApi({
             ]
           : [{ type: 'Users', id: 'LIST' }],
     }),
+    getUserInfo: build.query<IUser, string>({
+      query: (id) => ({
+        url: `${QueryPoints.users}/${id}`,
+      }),
+      providesTags: [{ type: 'Users', id: 'LIST' }],
+    }),
     deleteUser: build.mutation<void, string>({
       query: (id) => ({ url: `${QueryPoints.users}/${id}`, method: 'DELETE' }),
       invalidatesTags: [{ type: 'Users', id: 'LIST' }],
@@ -73,6 +80,9 @@ export const api = createApi({
       query: () => ({
         url: QueryPoints.boards,
       }),
+      transformResponse: async (response: Promise<Array<IBoard>>) => {
+        return getSortBoards(await response);
+      },
       providesTags: (result) =>
         result
           ? [
@@ -167,22 +177,22 @@ export const api = createApi({
               draftColumns.forEach((el) => {
                 if (el.id === columnId) {
                   el.order = body.order;
-                  return el;
+                  return;
                 }
 
                 if (
                   (dragAndDropToStart && (el.order < body.order || el.order > oldOrder)) ||
                   (!dragAndDropToStart && (el.order > body.order || el.order < oldOrder))
                 ) {
-                  return el;
+                  return;
                 }
 
                 if (dragAndDropToStart) {
                   el.order = el.order + 1;
-                  return el;
+                  return;
                 } else {
                   el.order = el.order - 1;
-                  return el;
+                  return;
                 }
               });
             }
@@ -312,6 +322,7 @@ export const api = createApi({
 export const {
   useSignUpMutation,
   useSignInMutation,
+  useGetUserInfoQuery,
   useGetAllUsersQuery,
   useDeleteUserMutation,
   useUpdateUserMutation,

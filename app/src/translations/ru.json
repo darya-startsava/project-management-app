@@ -29,7 +29,8 @@
     "editProfile": "Редактировать профиль",
     "signOut": "Выход",
     "newBoard": "Создать новую доску",
-    "goToMainPage": "Перейти на главную страницу"
+    "goToMainPage": "Перейти на главную страницу",
+    "burgerLabel": "Кнопка, открывающая меню"
   },
   "LogIn": {
     "signTitle": "Вход",
@@ -37,6 +38,7 @@
     "loginPlaceholder": "Логин",
     "passwordLabel": "Пароль",
     "passwordPlaceholder": "Пароль",
+    "passwordVisibilityButtonLabel": "Переключение видимости пароля",
     "signButton": "Вход",
     "loginFieldRequiredMessage": "Это поле обязательно для заполнения",
     "passwordFieldRequiredMessage": "Это поле обязательно для заполнения",
@@ -59,6 +61,7 @@
     "loginPlaceholder": "Логин",
     "passwordLabel": "Пароль",
     "passwordPlaceholder": "Пароль",
+    "passwordVisibilityButtonLabel": "Переключение видимости пароля",
     "signButton": "Регистрация",
     "nameFieldRequiredMessage": "Это поле обязательно для заполнения",
     "loginFieldRequiredMessage": "Это поле обязательно для заполнения",
@@ -142,17 +145,21 @@
     "errorMinLengthDescription": "Минимальная длина {{TASKS_DESCRIPTION_MIN_LENGTH}} символов",
     "errorMaxLengthDescription": "Максимальная длина {{TASKS_DESCRIPTION_MAX_LENGTH}} символов",
     "errorChoiceUser": "Необходимость выбора ответственного пользователя",
-    "unknownUser": "Ответственный: ненайден",
+    "unknownUser": "Ответственный: не найден!",
     "responsible": "Ответственный: {{USER}}",
+    "errorUpdateTask": "Задача не изменена! Ошибка: {{ERROR_MESSAGE}}",
+    "successUpdateTask": "Задача изменена успешно!",
     "dragDropError": "Ошибка перемещения задачи внутри колонки: {{ERROR_MESSAGE}}",
     "deleteTaskLabel": "Удалить задачу",
     "confirmDeleteTaskModalTitle": "Вы уверены, что хотите удалить эту задачу?",
     "errorDeleteTask": "Задача не удалена! Попробуйте повторить позже. Ошибка: {{ERROR_MESSAGE}}",
-    "successDeleteTask": "Задача успешно удалена!"
+    "successDeleteTask": "Задача успешно удалена!",
+    "updateModalTitle": "Изменить задачу",
+    "updateModalSubmitButton": "Изменить"
   },
   "Profile": {
     "pageTitle": "Профиль пользователя - {{NAME}}",
-    "errorGetAllUsers": "Ошибка. Профиль не найден.",
+    "errorGetUserInfo": "Ошибка. Профиль не найден.",
     "errorDeleteProfile": "Профиль не удален! Ошибка: {{ERROR_MESSAGE}}",
     "successDeleteUser": "Профиль был удален!",
     "userImage": "Картинка пользователя.",
@@ -172,13 +179,19 @@
     "errorMinLengthPassword": "Минимальная длина {{USER_PASSWORD_MIN_LENGTH}} символов для пароля",
     "errorMaxLengthPassword": "Максимальная длина {{USER_PASSWORD_MAX_LENGTH}} символов для пароля",
     "passwordLabel": "Пароль",
+    "passwordVisibilityButtonLabel": "Переключение видимости пароля",
     "submitChangeFormText": "Обновить профиль",
-    "confirmUpdateModalTitle": "Вы уверены, что хотите изменить данные?"
+    "confirmUpdateModalTitle": "Вы уверены, что хотите изменить данные?",
+    "showAvatarUpdateModalButton": "Изменить аватарку",
+    "avatarUpdateModalTitle": "Выберите новую аватарку",
+    "avatarUpdateModalImgAlt": "Вариант аватарки {{NUMBER_AVATAR}}",
+    "avatarUpdateModalChangeButtonText": "Изменить аватарку"
   },
   "NotFoundPage": {
     "heading": "Страница не найдена",
     "text": "Мы не смогли найти то, что вы искали.",
-    "checkUrlText": "Пожалуйста, проверьте URL адрес."
+    "checkUrlText": "Пожалуйста, проверьте URL адрес.",
+    "backMainLink": "Вернуться на главную страницу"
   },
   "General": {
     "ariaLabelCloseButton": "Закрыть",

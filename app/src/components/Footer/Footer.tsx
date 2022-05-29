@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Grid, Link, Box } from '@mui/material';
-import { GitHub as GitHubIcon, Copyright as CopyrightIcon } from '@mui/icons-material';
+import { Grid, Box } from '@mui/material';
+import { Copyright as CopyrightIcon } from '@mui/icons-material';
 import RSSchoolSign from '$assets/svg/RSSchoolSign.svg';
 import css from './Footer.module.scss';
 
@@ -11,52 +11,54 @@ const Footer: FC = () => {
   return (
     <Box component="footer" className={css.footer}>
       <Grid container className={css.footerContainer}>
-        <Grid item xs={2}>
-          <Box className={css.centerBox}>
-            <Link href="https://rs.school/" underline="none">
-              <img src={RSSchoolSign} alt={t('Footer.RSSchoolLogo')} />
-            </Link>
+        <Grid
+          item
+          className={css.footerContainer__schoolLink}
+          component="a"
+          href="https://rs.school/"
+          target="_blank"
+        >
+          <img src={RSSchoolSign} alt={t('Footer.RSSchoolLogo')} />
+        </Grid>
+
+        <Grid item className={css.footerContainer__authors} component="ul">
+          <Box component="li" className={css.footerContainer__authors_item}>
+            <Box
+              component="a"
+              className={css.footerContainer__authors_link}
+              href="https://github.com/TarasiukDima"
+              target="_blank"
+            >
+              TarasiukDima
+            </Box>
+          </Box>
+
+          <Box component="li" className={css.footerContainer__authors_item}>
+            <Box
+              component="a"
+              className={css.footerContainer__authors_link}
+              href="https://github.com/exekuta"
+              target="_blank"
+            >
+              exekuta
+            </Box>
+          </Box>
+
+          <Box component="li" className={css.footerContainer__authors_item}>
+            <Box
+              component="a"
+              className={css.footerContainer__authors_link}
+              href="https://github.com/darya-startsava"
+              target="_blank"
+            >
+              darya-startsava
+            </Box>
           </Box>
         </Grid>
 
-        <Grid item xs={8}>
-          <Box className={css.githubContainer}>
-            <Box className={css.centerBox}>
-              <GitHubIcon sx={{ color: '#001A33' }} />
-              <Link
-                href="https://github.com/TarasiukDima"
-                underline="none"
-                sx={{ color: '#001A33' }}
-              >
-                TarasiukDima
-              </Link>
-            </Box>
-
-            <Box className={css.centerBox}>
-              <GitHubIcon sx={{ color: '#001A33' }} />
-              <Link href="https://github.com/exekuta" underline="none" sx={{ color: '#001A33' }}>
-                exekuta
-              </Link>
-            </Box>
-
-            <Box className={css.centerBox}>
-              <GitHubIcon sx={{ color: '#001A33' }} />
-              <Link
-                href="https://github.com/darya-startsava"
-                underline="none"
-                sx={{ color: '#001A33' }}
-              >
-                darya-startsava
-              </Link>
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={2}>
-          <Box className={css.centerBox}>
-            <CopyrightIcon sx={{ color: '#001A33' }} />
-            <span style={{ color: '#001A33' }}>2022</span>
-          </Box>
+        <Grid item className={css.footerContainer__copyright} component="p" alignItems="center">
+          <CopyrightIcon color="inherit" />
+          <Box component="span">2022</Box>
         </Grid>
       </Grid>
     </Box>

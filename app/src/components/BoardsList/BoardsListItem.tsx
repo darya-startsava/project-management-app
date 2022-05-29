@@ -2,8 +2,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
-import { useUpdateBoardMutation } from '$services/api';
-import { useDeleteBoardMutation } from '$services/api';
+import { useUpdateBoardMutation, useDeleteBoardMutation } from '$services/api';
 import { SubmitHandler } from 'react-hook-form';
 import {
   CardActions,
@@ -21,12 +20,9 @@ import {
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
 import ConfirmWindow from '$components/ConfirmWindow';
-import { randNumber } from '$utils/index';
+import { importAllFiles, randNumber } from '$utils/index';
 import { ROUTES_PATHS } from '$settings/routing';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
-import img1 from '$assets/img/1.jpg';
-import img2 from '$assets/img/2.jpg';
-import img3 from '$assets/img/3.jpg';
 import { IBoard, IBoardCreateObj, IError } from '$types/common';
 import css from './BoardsList.module.scss';
 
@@ -35,8 +31,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
   const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
-
-  const arrImages = [img1, img2, img3];
+  const arrImages = importAllFiles(require.context('$assets/images/backgrounds', false, /\.jpg$/));
   const indexImg = useMemo(() => randNumber(arrImages.length - 1), [arrImages.length]);
 
   const [
@@ -101,7 +96,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
 
   return (
     <>
-      <Grid item component="li" className={css.boardsList__item} key={id} mb={5}>
+      <Grid item component="li" className={css.boardsList__item} key={id}>
         <CardContent className={css.boardsList__item_content}>
           <CardMedia
             className={css.boardsList__item_img}

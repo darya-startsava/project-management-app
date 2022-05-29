@@ -47,8 +47,13 @@ const LightboxColumn: FC<IBoardsModal> = ({
     if (isUpdate) {
       reset(newData);
     } else {
-      reset(formState);
+      reset();
     }
+  };
+
+  const closeHandler: TSimpleFunction = () => {
+    closeModalHandler();
+    reset();
   };
 
   const classNameSubmit = classNames(css.modalForm_submit, {
@@ -56,7 +61,7 @@ const LightboxColumn: FC<IBoardsModal> = ({
   });
 
   return (
-    <LightBox showModal={showModal} closeModalFunction={closeModalHandler} modalTitle={modalTitle}>
+    <LightBox showModal={showModal} closeModalFunction={closeHandler} modalTitle={modalTitle}>
       <Box
         className={css.modalForm}
         component="form"
@@ -89,6 +94,7 @@ const LightboxColumn: FC<IBoardsModal> = ({
                   [css.error]: !!error?.message,
                 })}
                 fullWidth
+                autoFocus={true}
               />
 
               {error?.message && (
