@@ -8,13 +8,8 @@ import { setToken } from './appSlice';
 
 export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => (next) => (action) => {
   if (isRejectedWithValue(action)) {
-    // eslint-disable-next-line no-console
-    console.warn('next', next, 'action', action);
     const { statusCode } = action.payload.data;
     if (statusCode === 401) {
-      // eslint-disable-next-line no-console
-      console.warn('error');
-
       localStorage.removeItem(TOKEN_AUTH_LOCALSTORAGE);
       api.dispatch(setToken(null));
       return <NavigateToWelcome />;
