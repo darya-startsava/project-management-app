@@ -14,7 +14,7 @@ import {
   IUserRegistration,
 } from '$types/common';
 import { RootState } from '$store/store';
-import { getSortBoards } from '$utils/index';
+import { getSortBoards, getSortTasks } from '$utils/index';
 
 enum QueryPoints {
   signup = 'signup',
@@ -211,7 +211,9 @@ export const api = createApi({
       query: ({ boardId, columnId }) => ({
         url: `${QueryPoints.boards}/${boardId}/columns/${columnId}/${QueryPoints.tasks}`,
       }),
-
+      transformResponse: async (response: Promise<Array<ITask>>) => {
+        return getSortTasks(await response);
+      },
       providesTags: (result) =>
         result
           ? [
@@ -246,30 +248,13 @@ export const api = createApi({
             api.util.updateQueryData('getAllTasks', { boardId, columnId }, (draftTasks) => {
               const dragAndDropTaskIndex = draftTasks.findIndex((task) => task.id === taskId);
               if (dragAndDropTaskIndex > -1) {
-                const oldOrder = draftTasks[dragAndDropTaskIndex].order;
-                const step = oldOrder - body.order;
-                const dragAndDropToStart = step > 0;
-
-                draftTasks.forEach((el) => {
-                  if (el.id === taskId) {
-                    el.order = body.order;
-                    return;
-                  }
-
-                  if (
-                    (dragAndDropToStart && (el.order < body.order || el.order > oldOrder)) ||
-                    (!dragAndDropToStart && (el.order > body.order || el.order < oldOrder))
-                  ) {
-                    return;
-                  }
-
-                  if (dragAndDropToStart) {
-                    el.order = el.order + 1;
-                    return;
-                  } else {
-                    el.order = el.order - 1;
-                    return;
-                  }
+                const movedTask = body;
+                const oldIndex = draftTasks[dragAndDropTaskIndex].order - 1;
+                const newIndex = body.order - 1;
+                draftTasks.splice(oldIndex, 1);
+                draftTasks.splice(newIndex, 0, {
+                  ...movedTask,
+                  id: taskId,
                 });
               }
             })
@@ -295,7 +280,10 @@ export const api = createApi({
               (draftTasks) => {
                 const movedTask = body;
                 const index = body.order - 1;
-                draftTasks.splice(index, 0, { ...movedTask, id: taskId });
+                draftTasks.splice(index, 0, {
+                  ...movedTask,
+                  id: taskId,
+                });
               }
             )
           );
