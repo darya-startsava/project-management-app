@@ -231,42 +231,70 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: 'Tasks', id: 'LIST' }],
       async onQueryStarted({ body, boardId, columnId, taskId }, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
-          api.util.updateQueryData('getAllTasks', { boardId, columnId }, (draftTasks) => {
-            const dragAndDropTaskIndex = draftTasks.findIndex((task) => task.id === taskId);
-            if (dragAndDropTaskIndex > -1) {
-              const oldOrder = draftTasks[dragAndDropTaskIndex].order;
-              const step = oldOrder - body.order;
-              const dragAndDropToStart = step > 0;
+        if (body.columnId === columnId) {
+          const patchResult = dispatch(
+            api.util.updateQueryData('getAllTasks', { boardId, columnId }, (draftTasks) => {
+              const dragAndDropTaskIndex = draftTasks.findIndex((task) => task.id === taskId);
+              if (dragAndDropTaskIndex > -1) {
+                const oldOrder = draftTasks[dragAndDropTaskIndex].order;
+                const step = oldOrder - body.order;
+                const dragAndDropToStart = step > 0;
 
-              draftTasks.forEach((el) => {
-                if (el.id === taskId) {
-                  el.order = body.order;
-                  return;
-                }
+                draftTasks.forEach((el) => {
+                  if (el.id === taskId) {
+                    el.order = body.order;
+                    return;
+                  }
 
-                if (
-                  (dragAndDropToStart && (el.order < body.order || el.order > oldOrder)) ||
-                  (!dragAndDropToStart && (el.order > body.order || el.order < oldOrder))
-                ) {
-                  return;
-                }
+                  if (
+                    (dragAndDropToStart && (el.order < body.order || el.order > oldOrder)) ||
+                    (!dragAndDropToStart && (el.order > body.order || el.order < oldOrder))
+                  ) {
+                    return;
+                  }
 
-                if (dragAndDropToStart) {
-                  el.order = el.order + 1;
-                  return;
-                } else {
-                  el.order = el.order - 1;
-                  return;
-                }
-              });
-            }
-          })
-        );
-        try {
-          await queryFulfilled;
-        } catch {
-          patchResult.undo();
+                  if (dragAndDropToStart) {
+                    el.order = el.order + 1;
+                    return;
+                  } else {
+                    el.order = el.order - 1;
+                    return;
+                  }
+                });
+              }
+            })
+          );
+          try {
+            await queryFulfilled;
+          } catch {
+            patchResult.undo();
+          }
+        } else {
+          const patchResult = dispatch(
+            api.util.updateQueryData('getAllTasks', { boardId, columnId }, (draftTasks) => {
+              const dragAndDropTaskIndex = draftTasks.findIndex((task) => task.id === taskId);
+              if (dragAndDropTaskIndex > -1) {
+                draftTasks.splice(dragAndDropTaskIndex, 1);
+              }
+            })
+          );
+          const patchResult1 = dispatch(
+            api.util.updateQueryData(
+              'getAllTasks',
+              { boardId, columnId: body.columnId },
+              (draftTasks) => {
+                const movedTask = body;
+                const index = body.order - 1;
+                draftTasks.splice(index, 0, { ...movedTask, id: taskId });
+              }
+            )
+          );
+          try {
+            await queryFulfilled;
+          } catch {
+            patchResult.undo();
+            patchResult1.undo();
+          }
         }
       },
     }),
