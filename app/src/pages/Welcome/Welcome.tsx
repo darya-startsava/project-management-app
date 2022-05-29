@@ -3,13 +3,13 @@ import { Button, Typography, ListItem, List, CardMedia, Box } from '@mui/materia
 import { useTranslation } from 'react-i18next';
 import Lightbox from '$components/Lightbox';
 import Section from '$components/Section';
+import AnimatedLeftImg from './AnimatedLeftImg';
+import AnimatedRightImg from './AnimatedRightImg';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import author1 from '$assets/images/Dmitrij.jpg';
 import author2 from '$assets/images/Andrey.jpg';
 import author3 from '$assets/images/Darya.jpeg';
 import css from './Welcome.module.scss';
-
-//TODO: Заменить текст-заглушку "Об авторах" в модальном окне
 
 const Welcome = () => {
   const [showAuthors, setShowAuthors] = useState<boolean>(false);
@@ -20,6 +20,9 @@ const Welcome = () => {
   return (
     <>
       <Section pageAllSpace={true} className={css.welcomePage}>
+        <AnimatedLeftImg />
+        <AnimatedRightImg />
+
         <Typography className={css.welcomePage_title} mb={5}>
           {t('Welcome.titleText')}
         </Typography>

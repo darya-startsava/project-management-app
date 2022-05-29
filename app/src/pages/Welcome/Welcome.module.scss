@@ -5,6 +5,23 @@
 .welcomePage {
   text-align: center;
 
+  .welcomePage_leftImg {
+    position: absolute;
+    top: 22vh;
+    left: 100px;
+    width: 300px;
+    height: 300px;
+  }
+
+  .welcomePage_rightImg {
+    transform: scale(-1,1);
+    position: absolute;
+    top: 22vh;
+    right: 100px;
+    width: 300px;
+    height: 300px;
+  }
+
   .welcomePage_title {
     font-size: 32px;
     font-weight: bold;
