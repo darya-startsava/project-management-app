@@ -35,9 +35,9 @@ import './Header.scss';
 
 const Header: FC = () => {
   const { token } = useAppSelector((state) => state.app);
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
   const trigger = useScrollTrigger();
   const dispatch = useDispatch();
 
@@ -54,6 +54,11 @@ const Header: FC = () => {
 
   const closeMenu: TSimpleFunction = () => {
     setOpenMenu(false);
+  };
+
+  const handleCreateBoard: TSimpleFunction = () => {
+    navigate(ROUTES_PATHS.boards, { replace: true, state: { openModal: true } });
+    closeMenu();
   };
 
   return (
@@ -101,7 +106,7 @@ const Header: FC = () => {
                   </ListItem>
 
                   <ListItem className={css.header__nav_listItem}>
-                    <Button onClick={closeMenu} startIcon={<TableChartIcon />}>
+                    <Button onClick={handleCreateBoard} startIcon={<TableChartIcon />}>
                       {t('Header.newBoard')}
                     </Button>
                   </ListItem>
