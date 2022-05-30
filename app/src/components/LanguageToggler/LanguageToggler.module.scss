@@ -6,7 +6,9 @@
     min-width: 50px;
     padding: 5px;
     line-height: 1.2;
+    border-color: $black;
     color: $black;
+    background-color: $whiteColor;
     transition: background-color $transitionTime, color $transitionTime;
 
     &.active {
