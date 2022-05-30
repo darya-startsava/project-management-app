@@ -16,8 +16,6 @@ const AnimatedLeftImg = () => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         data-name="Layer 1"
-        width="300"
-        height="300"
         viewBox="0 0 735.16469 684.28538"
         xmlnsXlink="http://www.w3.org/1999/xlink"
       >

@@ -16,8 +16,6 @@ const AnimatedRightImg = () => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         data-name="Layer 1"
-        width="300"
-        height="300"
         viewBox="0 0 561.54772 636.42312"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         transform="scale(-1,1)"
