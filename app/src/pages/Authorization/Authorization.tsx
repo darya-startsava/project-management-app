@@ -17,6 +17,7 @@ import {
   OutlinedInput,
   IconButton,
 } from '@mui/material';
+import CloseButton from '$components/CloseButton';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Section from '$components/Section';
 import Spinner from '$components/Spinner';
@@ -62,7 +63,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   } = useForm<IUserRegistration>();
   const [signUp, { isLoading: isLoadingSignUp, error: errorSignUp }] = useSignUpMutation();
   const [signIn, { isLoading: isLoadingSignIn, error: errorSignIn }] = useSignInMutation();
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   // change the error message when switching the language
   useEffect(() => {
@@ -77,23 +78,35 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   useEffect(() => {
     if (errorSignIn && 'data' in errorSignIn) {
       if (errorSignIn.status === 403) {
-        enqueueSnackbar(langRef.current('LogIn.error403Message'), messageErrorOptions);
+        enqueueSnackbar(langRef.current('LogIn.error403Message'), {
+          ...messageErrorOptions,
+          action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+        });
       } else {
-        enqueueSnackbar(langRef.current('LogIn.errorMessage'), messageErrorOptions);
+        enqueueSnackbar(langRef.current('LogIn.errorMessage'), {
+          ...messageErrorOptions,
+          action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+        });
       }
     }
-  }, [errorSignIn, enqueueSnackbar, langRef]);
+  }, [errorSignIn, enqueueSnackbar, closeSnackbar, langRef]);
 
   // show signUp error message
   useEffect(() => {
     if (errorSignUp && 'data' in errorSignUp) {
       if (errorSignUp.status === 409) {
-        enqueueSnackbar(langRef.current('Registration.error409Message'), messageErrorOptions);
+        enqueueSnackbar(langRef.current('Registration.error409Message'), {
+          ...messageErrorOptions,
+          action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+        });
       } else {
-        enqueueSnackbar(langRef.current('Registration.errorMessage'), messageErrorOptions);
+        enqueueSnackbar(langRef.current('Registration.errorMessage'), {
+          ...messageErrorOptions,
+          action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+        });
       }
     }
-  }, [errorSignUp, enqueueSnackbar, langRef]);
+  }, [errorSignUp, enqueueSnackbar, closeSnackbar, langRef]);
 
   const onSubmit: SubmitHandler<IUserRegistration> = async (data) => {
     if (sortOfAuth === SortOfAuth.Registration) {

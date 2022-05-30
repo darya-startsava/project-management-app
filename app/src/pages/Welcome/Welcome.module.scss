@@ -5,6 +5,22 @@
 .welcomePage {
   text-align: center;
 
+  .welcomePage_leftImg {
+    position: absolute;
+    top: 22vh;
+    left: 100px;
+    width: 300px;
+    height: 300px;
+  }
+
+  .welcomePage_rightImg {
+    position: absolute;
+    top: 22vh;
+    right: 100px;
+    width: 300px;
+    height: 300px;
+  }
+
   .welcomePage_title {
     font-size: 32px;
     font-weight: bold;
@@ -150,12 +166,36 @@
   }
 }
 
+@media screen and (max-width: 900px) {
+  .welcomePage {
+    .welcomePage_leftImg {
+      display: none;
+    }
+
+    .welcomePage_rightImg {
+      display: none;
+    }
+  }
+}
+
 // > 900px
 @include md_laptop_start() {
   .welcomePage {
     .welcomePage_title {
       font-size: 72px;
       line-height: 2;
+    }
+
+    .welcomePage_leftImg {
+      left: 10px;
+      width: 200px;
+      height: 200px;
+    }
+
+    .welcomePage_rightImg {
+      right: 10px;
+      width: 200px;
+      height: 200px;
     }
 
     .welcomePage_youtube {
@@ -178,6 +218,40 @@
 
     .developersDescription {
       margin-top: 30px;
+    }
+  }
+}
+
+// > 1200px
+@include lg_display_start() {
+  .welcomePage {
+    .welcomePage_leftImg {
+      left: 50px;
+      width: 250px;
+      height: 250px;  
+    }
+
+    .welcomePage_rightImg {
+      right: 50px;
+      width: 250px;
+      height: 250px;
+    }
+  }
+}
+
+// > 1400px
+@media screen and (min-width: 1400px) {
+  .welcomePage {
+    .welcomePage_leftImg {
+      left: 100px;
+      width: 300px;
+      height: 300px;
+    }
+
+    .welcomePage_rightImg {
+      right: 100px;
+      width: 300px;
+      height: 300px;
     }
   }
 }

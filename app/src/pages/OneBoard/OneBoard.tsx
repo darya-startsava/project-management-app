@@ -36,8 +36,14 @@ const OneBoard: FC = () => {
 
   useEffect(() => {
     document.body.style.setProperty('--screenOverflowY', 'hidden');
+    document.body.style.setProperty('--screenOverflowX', 'auto');
+    document.body.style.setProperty('--heightScreen', '100%');
 
-    return () => document.body.style.setProperty('--screenOverflowY', 'auto');
+    return () => {
+      document.body.style.setProperty('--screenOverflowY', 'initial');
+      document.body.style.setProperty('--screenOverflowX', 'initial');
+      document.body.style.setProperty('--heightScreen', 'auto');
+    };
   }, []);
 
   // show get columns error message

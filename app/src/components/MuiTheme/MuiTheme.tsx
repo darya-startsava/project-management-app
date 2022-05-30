@@ -24,6 +24,9 @@ const MuiTheme: FC<{ children: React.ReactNode }> = (props) => {
         },
       },
     },
+    typography: {
+      fontFamily: "'Gilroy', sans-serif",
+    },
   });
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 };
