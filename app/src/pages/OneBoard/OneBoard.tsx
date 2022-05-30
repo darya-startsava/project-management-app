@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAddColumnMutation, useGetAllColumnsQuery } from '$services/api';
@@ -19,6 +19,7 @@ const OneBoard: FC = () => {
   const params = useParams();
   const location = useLocation();
   const { t } = useTranslation();
+  const langRef = useRef(t);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showModalAddColumn, setShowModalAddColumn] = useState<boolean>(false);
   const arrImages = importAllFiles(require.context('$assets/images/backgrounds', false, /\.jpg$/));
@@ -42,7 +43,7 @@ const OneBoard: FC = () => {
   // show get columns error message
   useEffect(() => {
     if (errorGetColumns) {
-      const errorMessage = t('Columns.errorGetColumns', {
+      const errorMessage = langRef.current('Columns.errorGetColumns', {
         ERROR_MESSAGE: (errorGetColumns as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -50,22 +51,22 @@ const OneBoard: FC = () => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorGetColumns, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorGetColumns, langRef, enqueueSnackbar, closeSnackbar]);
 
   // show get columns success message
   useEffect(() => {
     if (isSuccessAddColumn) {
-      enqueueSnackbar(t('Columns.successCreateColumn'), {
+      enqueueSnackbar(langRef.current('Columns.successCreateColumn'), {
         ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [isSuccessAddColumn, t, enqueueSnackbar, closeSnackbar]);
+  }, [isSuccessAddColumn, langRef, enqueueSnackbar, closeSnackbar]);
 
   // show add column error message
   useEffect(() => {
     if (errorAddColumn) {
-      const errorMessage = t('Columns.errorCreateColumn', {
+      const errorMessage = langRef.current('Columns.errorCreateColumn', {
         ERROR_MESSAGE: (errorAddColumn as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -73,7 +74,7 @@ const OneBoard: FC = () => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorAddColumn, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorAddColumn, langRef, enqueueSnackbar, closeSnackbar]);
 
   const addNewColumn: TCreateElement<IColumnCreateObj> = (data: IColumnCreateObj) => {
     addColumn({

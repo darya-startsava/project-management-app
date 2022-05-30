@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useGetAllUsersQuery,
@@ -43,6 +43,7 @@ const TasksListItem: FC<ITasksListItemProps> = ({
   draggableTaskProvided,
 }) => {
   const { t } = useTranslation();
+  const langRef = useRef(t);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { data: users = [], error: errorGetUsers } = useGetAllUsersQuery();
   const unknownUser = t('Tasks.unknownUser');
@@ -64,7 +65,7 @@ const TasksListItem: FC<ITasksListItemProps> = ({
   // show update task error message
   useEffect(() => {
     if (errorUpdateTask) {
-      const errorMessage = t('Tasks.errorUpdateTask', {
+      const errorMessage = langRef.current('Tasks.errorUpdateTask', {
         ERROR_MESSAGE: (errorUpdateTask as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -72,22 +73,22 @@ const TasksListItem: FC<ITasksListItemProps> = ({
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorUpdateTask, closeSnackbar, enqueueSnackbar, t]);
+  }, [errorUpdateTask, closeSnackbar, enqueueSnackbar, langRef]);
 
   // show update task success message
   useEffect(() => {
     if (isSuccessUpdateTask) {
-      enqueueSnackbar(t('Tasks.successUpdateTask'), {
+      enqueueSnackbar(langRef.current('Tasks.successUpdateTask'), {
         ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [isSuccessUpdateTask, closeSnackbar, enqueueSnackbar, t]);
+  }, [isSuccessUpdateTask, closeSnackbar, enqueueSnackbar, langRef]);
 
   // show update task error message
   useEffect(() => {
     if (errorDeleteTask) {
-      const errorMessage = t('Tasks.errorDeleteTask', {
+      const errorMessage = langRef.current('Tasks.errorDeleteTask', {
         ERROR_MESSAGE: (errorDeleteTask as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -95,17 +96,17 @@ const TasksListItem: FC<ITasksListItemProps> = ({
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorDeleteTask, closeSnackbar, enqueueSnackbar, t]);
+  }, [errorDeleteTask, closeSnackbar, enqueueSnackbar, langRef]);
 
   // show delete task success message
   useEffect(() => {
     if (isSuccessDeleteTask) {
-      enqueueSnackbar(t('Tasks.successDeleteTask'), {
+      enqueueSnackbar(langRef.current('Tasks.successDeleteTask'), {
         ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [isSuccessDeleteTask, closeSnackbar, enqueueSnackbar, t]);
+  }, [isSuccessDeleteTask, closeSnackbar, enqueueSnackbar, langRef]);
 
   const getDescription = () => {
     if (description.length > SIZE_DESCRIPTION_TASK_IN_COLUMN) {

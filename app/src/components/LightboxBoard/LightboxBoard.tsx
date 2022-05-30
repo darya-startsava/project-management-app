@@ -131,12 +131,13 @@ const LightboxBoard: FC<IBoardsModal> = ({
               <TextField
                 type="text"
                 label={t('Boards.descriptionLabelAddForm')}
-                value={value}
+                defaultValue={value}
                 onChange={onChange}
                 className={classNames(css.modalForm_text, {
                   [css.error]: !!error?.message,
                 })}
                 multiline
+                maxRows={5}
                 fullWidth
               />
 

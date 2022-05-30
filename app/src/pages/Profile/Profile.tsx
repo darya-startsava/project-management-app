@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -36,6 +36,7 @@ interface ITokenDecodeObj {
 
 const Profile: FC = () => {
   const { t } = useTranslation();
+  const langRef = useRef(t);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [indexAvatarPhoto, setIndexAvatarPhoto] = useState<number>(0);
@@ -64,17 +65,17 @@ const Profile: FC = () => {
 
   useEffect(() => {
     if (errorUserInfo) {
-      enqueueSnackbar(t('Profile.errorGetUserInfo'), {
+      enqueueSnackbar(langRef.current('Profile.errorGetUserInfo'), {
         ...messageErrorOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
       navigate(ROUTES_PATHS.welcome, { replace: true });
     }
-  }, [errorUserInfo, t, enqueueSnackbar, closeSnackbar, navigate]);
+  }, [errorUserInfo, langRef, enqueueSnackbar, closeSnackbar, navigate]);
 
   useEffect(() => {
     if (errorDeleteProfile) {
-      const errorMessage = t('Profile.errorDeleteProfile', {
+      const errorMessage = langRef.current('Profile.errorDeleteProfile', {
         ERROR_MESSAGE: (errorDeleteProfile as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -82,11 +83,11 @@ const Profile: FC = () => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorDeleteProfile, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorDeleteProfile, langRef, enqueueSnackbar, closeSnackbar]);
 
   useEffect(() => {
     if (isSuccessDeleteUser) {
-      enqueueSnackbar(t('Profile.successDeleteUser'), {
+      enqueueSnackbar(langRef.current('Profile.successDeleteUser'), {
         ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
@@ -94,7 +95,7 @@ const Profile: FC = () => {
       localStorage.removeItem(TOKEN_AUTH_LOCALSTORAGE);
       navigate(ROUTES_PATHS.welcome, { replace: true });
     }
-  }, [isSuccessDeleteUser, t, enqueueSnackbar, closeSnackbar, dispatch, navigate]);
+  }, [isSuccessDeleteUser, langRef, enqueueSnackbar, closeSnackbar, dispatch, navigate]);
 
   const changeIndexPhoto = (index: number) => {
     setIndexAvatarPhoto(index);
