@@ -64,7 +64,9 @@
   }
 
   .developerList__item {
-    display: block;
+    @include dflex();
+
+    flex-direction: column;
     width: fit-content;
     max-width: 100%;
     margin: 0 5px 15px;
@@ -81,13 +83,39 @@
   }
 
   .developerList__item_name {
+    position: relative;
+    z-index: 1;
+    display: block;
     font-weight: bold;
     font-size: $textSize;
     color: $primary;
+    text-decoration: none;
+    padding-left: 35px;
+
+    &:before {
+      @include psevdo("", absolute, 50%);
+
+      left: 5px;
+      width: 24px;
+      height: 24px;
+      background: url("$assets/svg/githubIcon.svg") no-repeat center center;
+      background-size: contain;
+      transform: translateY(-50%);
+    }
+  }
+
+  .developers__item_roleTitle {
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: $textSizeSmall;
+  }
+
+  .developers__item_role {
+    font-size: $textSizeSmall;
   }
 
   .developersDescription {
-    margin-top: 10px;
+    margin-bottom: 30px;
     font-size: $textSizeSmall;
   }
 }
