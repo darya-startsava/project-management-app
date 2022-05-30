@@ -16,7 +16,8 @@
     "modalText": "Hello everyone and welcome to our Kanban project management system. We are a small but ambitious and creative team and our goal with this project was to give you the best Kanban style task management experience. You can find out more information about us and our projects in our Github profiles.",
     "roleTitle": "Role in the project:",
     "roleLead": "Team-lead",
-    "roleDev": "Web-developer"
+    "roleDev": "Web-developer",
+    "video": "Video presentation of our app"
   },
   "LanguageToggler": {
     "AriaLabelToggler": "Change language",

@@ -5,20 +5,22 @@
 .welcomePage {
   text-align: center;
 
-  .welcomePage_leftImg {
+  .welcomePage_leftImg,
+  .welcomePage_rightImg {
+    display: none;
     position: absolute;
     top: 22vh;
-    left: 100px;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
+    z-index: -1;
+  }
+
+  .welcomePage_leftImg {
+    left: 10px;
   }
 
   .welcomePage_rightImg {
-    position: absolute;
-    top: 22vh;
-    right: 100px;
-    width: 300px;
-    height: 300px;
+    right: 10px;
   }
 
   .welcomePage_title {
@@ -35,18 +37,9 @@
     width: 100%;
     max-width: 400px;
     height: 200px;
+    border: none;
     color: $whiteColor;
     background-color: $black;
-
-    svg {
-      font-size: 90px;
-      transition: $transitionTime;
-      cursor: pointer;
-
-      &:hover {
-        fill: $red;
-      }
-    }
   }
 
   .welcomePage_text {
@@ -166,18 +159,6 @@
   }
 }
 
-@media screen and (max-width: 900px) {
-  .welcomePage {
-    .welcomePage_leftImg {
-      display: none;
-    }
-
-    .welcomePage_rightImg {
-      display: none;
-    }
-  }
-}
-
 // > 900px
 @include md_laptop_start() {
   .welcomePage {
@@ -186,16 +167,9 @@
       line-height: 2;
     }
 
-    .welcomePage_leftImg {
-      left: 10px;
-      width: 200px;
-      height: 200px;
-    }
-
+    .welcomePage_leftImg,
     .welcomePage_rightImg {
-      right: 10px;
-      width: 200px;
-      height: 200px;
+      display: block;
     }
 
     .welcomePage_youtube {
@@ -225,16 +199,18 @@
 // > 1200px
 @include lg_display_start() {
   .welcomePage {
+    .welcomePage_leftImg,
+    .welcomePage_rightImg {
+      width: 250px;
+      height: 250px;
+    }
+
     .welcomePage_leftImg {
       left: 50px;
-      width: 250px;
-      height: 250px;  
     }
 
     .welcomePage_rightImg {
       right: 50px;
-      width: 250px;
-      height: 250px;
     }
   }
 }
@@ -242,16 +218,18 @@
 // > 1400px
 @media screen and (min-width: 1400px) {
   .welcomePage {
-    .welcomePage_leftImg {
-      left: 100px;
+    .welcomePage_leftImg,
+    .welcomePage_rightImg {
       width: 300px;
       height: 300px;
     }
 
+    .welcomePage_leftImg {
+      left: 100px;
+    }
+
     .welcomePage_rightImg {
       right: 100px;
-      width: 300px;
-      height: 300px;
     }
   }
 }
