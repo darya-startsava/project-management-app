@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -52,6 +52,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   }
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const langRef = useRef(t);
   const dispatch = useDispatch();
   const {
     register,
@@ -76,23 +77,23 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   useEffect(() => {
     if (errorSignIn && 'data' in errorSignIn) {
       if (errorSignIn.status === 403) {
-        enqueueSnackbar(t('LogIn.error403Message'), messageErrorOptions);
+        enqueueSnackbar(langRef.current('LogIn.error403Message'), messageErrorOptions);
       } else {
-        enqueueSnackbar(t('LogIn.errorMessage'), messageErrorOptions);
+        enqueueSnackbar(langRef.current('LogIn.errorMessage'), messageErrorOptions);
       }
     }
-  }, [errorSignIn, enqueueSnackbar, t]);
+  }, [errorSignIn, enqueueSnackbar, langRef]);
 
   // show signUp error message
   useEffect(() => {
     if (errorSignUp && 'data' in errorSignUp) {
       if (errorSignUp.status === 409) {
-        enqueueSnackbar(t('Registration.error409Message'), messageErrorOptions);
+        enqueueSnackbar(langRef.current('Registration.error409Message'), messageErrorOptions);
       } else {
-        enqueueSnackbar(t('Registration.errorMessage'), messageErrorOptions);
+        enqueueSnackbar(langRef.current('Registration.errorMessage'), messageErrorOptions);
       }
     }
-  }, [errorSignUp, enqueueSnackbar, t]);
+  }, [errorSignUp, enqueueSnackbar, langRef]);
 
   const onSubmit: SubmitHandler<IUserRegistration> = async (data) => {
     if (sortOfAuth === SortOfAuth.Registration) {
@@ -128,7 +129,7 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   return (
     <Section className={css.authPage} pageAllSpace={true}>
       <Typography className={css.authPage__title} variant="inherit" component="h2" mb={5}>
-        {t(`${sortOfAuth}.signTitle`)}{' '}
+        {t(`${sortOfAuth}.signTitle`)}
       </Typography>
 
       <>

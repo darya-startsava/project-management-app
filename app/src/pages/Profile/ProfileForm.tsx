@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -44,6 +44,7 @@ interface IProfileFormProps {
 
 const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
   const { t, i18n } = useTranslation();
+  const langRef = useRef(t);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isShowConfirmModalChange, setIsShowConfirmModalChange] = useState<boolean>(false);
@@ -75,7 +76,7 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
   // show update error message
   useEffect(() => {
     if (error) {
-      const errorMessage = t('Profile.errorUpdate', {
+      const errorMessage = langRef.current('Profile.errorUpdate', {
         ERROR_MESSAGE: (error as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -83,18 +84,18 @@ const ProfileForm: FC<IProfileFormProps> = ({ userId }) => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [error, t, enqueueSnackbar, closeSnackbar]);
+  }, [error, langRef, enqueueSnackbar, closeSnackbar]);
 
   // show update success message
   useEffect(() => {
     if (isSuccess) {
-      const errorMessage = t('Profile.successUpdate');
+      const errorMessage = langRef.current('Profile.successUpdate');
       enqueueSnackbar(errorMessage, {
         ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [isSuccess, t, enqueueSnackbar, closeSnackbar]);
+  }, [isSuccess, langRef, enqueueSnackbar, closeSnackbar]);
 
   const changeUserInfoHandler: SubmitHandler<IFormState> = (data) => {
     setIsShowConfirmModalChange(true);
