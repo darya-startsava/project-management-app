@@ -5,7 +5,6 @@ import Lightbox from '$components/Lightbox';
 import Section from '$components/Section';
 import AnimatedLeftImg from './AnimatedLeftImg';
 import AnimatedRightImg from './AnimatedRightImg';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import author1 from '$assets/images/Dmitrij.jpg';
 import author2 from '$assets/images/Andrey.jpg';
 import author3 from '$assets/images/Darya.jpeg';
@@ -27,9 +26,14 @@ const Welcome = () => {
           {t('Welcome.titleText')}
         </Typography>
 
-        <CardMedia className={css.welcomePage_youtube} src="iframe">
-          <YouTubeIcon aria-label={t('Welcome.youtubeSign')} />
-        </CardMedia>
+        <CardMedia
+          className={css.welcomePage_youtube}
+          id="iframeApp"
+          component="iframe"
+          src="https://www.youtube.com/embed/uhNKQcdveew"
+          allow="accelerometer; autoplay; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          title={t('Welcome.video')}
+        />
 
         <Typography className={css.welcomePage_text}>{t('Welcome.welcomeText')}</Typography>
 

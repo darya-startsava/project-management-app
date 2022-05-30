@@ -17,11 +17,11 @@ export const APP_LANGUAGES = ['en', 'ru'];
  ** TODO: CHANGE THE VALIDATION VALUES BEFORE BUILD PRODUCTION
  */
 // Validation user
-export const USER_NAME_MIN_LENGTH = 1;
+export const USER_NAME_MIN_LENGTH = 5;
 export const USER_NAME_MAX_LENGTH = 30;
-export const USER_LOGIN_MIN_LENGTH = 1;
+export const USER_LOGIN_MIN_LENGTH = 5;
 export const USER_LOGIN_MAX_LENGTH = 30;
-export const USER_PASSWORD_MIN_LENGTH = 1;
+export const USER_PASSWORD_MIN_LENGTH = 5;
 export const USER_PASSWORD_MAX_LENGTH = 30;
 
 // Validation boards

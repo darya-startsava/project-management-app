@@ -58,7 +58,7 @@ const Footer: FC = () => {
 
         <Grid item className={css.footerContainer__copyright} component="p" alignItems="center">
           <CopyrightIcon color="inherit" />
-          <Box component="span">2022</Box>
+          <Box component="span">2022. React 2022Q1</Box>
         </Grid>
       </Grid>
     </Box>
