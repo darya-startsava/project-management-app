@@ -1,6 +1,6 @@
-@import "$assets/scss/variables";
-@import "$assets/scss/mixins";
-@import "$assets/scss/commonParts";
+@import '$assets/scss/variables';
+@import '$assets/scss/mixins';
+@import '$assets/scss/commonParts';
 
 .boardsList {
   width: 100%;
@@ -17,7 +17,6 @@
     margin-bottom: 37px;
     list-style-type: none;
     overflow: hidden;
-
   }
   .boardsList__item_spinner {
     margin-top: 5px;
@@ -34,9 +33,10 @@
     min-height: 145px;
     padding: 10px;
     overflow: hidden;
+    background-color: $black;
 
     &:before {
-      @include psevdo("", absolute, 0);
+      @include psevdo('', absolute, 0);
 
       left: 0;
       width: 100%;
@@ -47,10 +47,10 @@
 
   .boardsList__item_img {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
     filter: blur(4px);
     object-fit: cover;
     z-index: -2;
@@ -76,7 +76,7 @@
     padding: 0 14px 14px;
 
     &:before {
-      @include psevdo("", absolute, -12px);
+      @include psevdo('', absolute, -12px);
 
       left: 7px;
       width: calc(100% - 14px);
@@ -128,7 +128,7 @@
   }
 
   .boardsList__item_addButtonText {
-    font-weight: bold;
+    font-weight: 600;
     font-size: $bigTextMiddleSize;
     line-height: 1.5;
     transition: color $transitionTime;

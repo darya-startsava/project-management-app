@@ -31,11 +31,11 @@ const Boards: FC = () => {
     { isLoading: isAddingBoard, error: errorAddBoard, isSuccess: isSuccessAddBoard },
   ] = useAddBoardMutation();
   const {
-    data: dataBoards = [],
+    data: boards = [],
     error: errorGetBoards,
     isLoading: isLoadingBoards,
   } = useGetAllBoardsQuery();
-  const [boards, setBoards] = useState<Array<IBoard>>(dataBoards);
+  const [value, setValue] = useState<string>('');
   const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
 
   // open modal for header button
@@ -84,19 +84,26 @@ const Boards: FC = () => {
 
   const changeBoardsListShow: TChangeBoardsShow = useCallback(
     (searchValue: string) => {
-      searchValue ? setShowSearchResults(true) : setShowSearchResults(false);
-      let filteredBoards: Array<IBoard> = dataBoards;
-      if (searchValue) {
-        filteredBoards = dataBoards.filter(
-          (board: IBoard) =>
-            board.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-            board.description.toLowerCase().includes(searchValue.toLowerCase())
-        );
+      if (searchValue && !showSearchResults) {
+        setShowSearchResults(true);
       }
-      setBoards(filteredBoards);
+      if (!searchValue && showSearchResults) {
+        setShowSearchResults(false);
+      }
+      setValue(searchValue);
     },
-    [dataBoards]
+    [showSearchResults]
   );
+
+  const filterBoards = (value: string, boards: Array<IBoard>) => {
+    return boards.filter(
+      (board: IBoard) =>
+        board.title.toLowerCase().includes(value.toLowerCase()) ||
+        board.description.toLowerCase().includes(value.toLowerCase())
+    );
+  };
+
+  const filteredBoards = filterBoards(value, boards);
 
   const addNewColumn: TCreateElement<IBoardCreateObj> = (data: IBoardCreateObj) => {
     addBoard(data);
@@ -116,13 +123,13 @@ const Boards: FC = () => {
         <Spinner className={css.boards__loader} />
       ) : (
         <>
-          {showSearchResults && !boards.length && (
+          {showSearchResults && !filteredBoards.length && (
             <Typography component="p" className={css.boards_search_message}>
               {t('Boards.nothingFoundMessage')}
             </Typography>
           )}
           <BoardsList
-            boards={boards}
+            boards={filteredBoards}
             showSearchResults={showSearchResults}
             addCardHandler={() => {
               setShowModal(true);
