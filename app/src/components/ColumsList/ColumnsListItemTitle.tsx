@@ -88,20 +88,6 @@ const ColumnsListItemTitle: FC<IColumnsListItemTitleProps> = ({
       {isChangeColumnNameMode ? (
         <>
           <Stack className={css.columnsList__item_rename}>
-            <ButtonGroup className={css.columnsList__item_rename_buttons}>
-              <Button
-                className={css.columnsList__item_rename_accept}
-                onClick={handleSubmit(submitTitleHandler)}
-                disabled={!!errors?.title?.message}
-              >
-                <CheckIcon />
-              </Button>
-
-              <Button className={css.columnsList__item_rename_cancel} onClick={cancelTitleHandler}>
-                <DoNotDisturbIcon />
-              </Button>
-            </ButtonGroup>
-
             <Box
               className={css.columnsList__item_form}
               component="form"
@@ -133,6 +119,20 @@ const ColumnsListItemTitle: FC<IColumnsListItemTitleProps> = ({
                 )}
               />
             </Box>
+
+            <ButtonGroup className={css.columnsList__item_rename_buttons}>
+              <Button
+                className={css.columnsList__item_rename_accept}
+                onClick={handleSubmit(submitTitleHandler)}
+                disabled={!!errors?.title?.message}
+              >
+                <CheckIcon />
+              </Button>
+
+              <Button className={css.columnsList__item_rename_cancel} onClick={cancelTitleHandler}>
+                <DoNotDisturbIcon />
+              </Button>
+            </ButtonGroup>
           </Stack>
 
           <>
