@@ -11,9 +11,16 @@ import css from './BoardsList.module.scss';
 interface IBoardsListProps {
   boards: Array<IBoard>;
   addCardHandler: TSimpleFunction;
+  showSearchResults: boolean;
   showSpinnerEnd?: boolean;
 }
-const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler, showSpinnerEnd = false }) => {
+
+const BoardsList: FC<IBoardsListProps> = ({
+  boards,
+  addCardHandler,
+  showSearchResults,
+  showSpinnerEnd = false,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -35,23 +42,25 @@ const BoardsList: FC<IBoardsListProps> = ({ boards, addCardHandler, showSpinnerE
         )}
       </>
 
-      <Grid item component="li" className={css.boardsList__item} mb={5}>
-        <Button
-          className={classNames(css.boardsList__item_addButton, {
-            [css.disabled]: showSpinnerEnd,
-          })}
-          onClick={addCardHandler}
-          disabled={showSpinnerEnd}
-        >
-          <Box className={css.boardsList__item_addButtonText} component="span">
-            {t('Boards.addNewBoardButtonText')}
-          </Box>
-          <Box className={css.boardsList__item_buttonIconWrapper} component="span">
-            <TableChartIcon color="inherit" />
-            <AddOutlinedIcon color="inherit" />
-          </Box>
-        </Button>
-      </Grid>
+      {!showSearchResults && (
+        <Grid item component="li" className={css.boardsList__item} mb={5}>
+          <Button
+            className={classNames(css.boardsList__item_addButton, {
+              [css.disabled]: showSpinnerEnd,
+            })}
+            onClick={addCardHandler}
+            disabled={showSpinnerEnd}
+          >
+            <Box className={css.boardsList__item_addButtonText} component="span">
+              {t('Boards.addNewBoardButtonText')}
+            </Box>
+            <Box className={css.boardsList__item_buttonIconWrapper} component="span">
+              <TableChartIcon color="inherit" />
+              <AddOutlinedIcon color="inherit" />
+            </Box>
+          </Button>
+        </Grid>
+      )}
     </Grid>
   );
 };
