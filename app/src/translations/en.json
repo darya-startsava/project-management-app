@@ -155,12 +155,14 @@
     "errorUpdateTask": "Task has not been changed! Error: {{ERROR_MESSAGE}}",
     "successUpdateTask": "Task changed successfully!",
     "dragDropError": "Error moving task inside a column: {{ERROR_MESSAGE}}",
+    "openTaskButton": "Open task",
     "updateTaskLabel": "Update task",
     "deleteTaskLabel": "Delete task",
     "confirmDeleteTaskModalTitle": "Do you want to delete this task?",
     "errorDeleteTask": "The task was not deleted! Try to do it later. Error: {{ERROR_MESSAGE}}",
     "successDeleteTask": "The task was deleted successfully!",
-    "updateModalTitle": "Edit task",
+    "updateModalTitle": "Task: {{TASK_NAME}}",
+    "updateLikeFormModalTitle": "Edit task",
     "updateModalSubmitButton": "Edit"
   },
   "Profile": {

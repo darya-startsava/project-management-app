@@ -7,6 +7,7 @@ import {
 } from '$services/api';
 import { useAppSelector } from '$store/store';
 import { useSnackbar } from 'notistack';
+import classNames from 'classnames';
 import { Button, List, ListItem } from '@mui/material';
 import ColumnsListItem from './ColumnsListItem';
 import {
@@ -22,7 +23,6 @@ import CloseButton from '$components/CloseButton';
 import { messageErrorOptions } from '$settings/index';
 import { IColumn, IError, ITask, TSimpleFunction } from '$types/common';
 import css from './ColumnsList.module.scss';
-import classNames from 'classnames';
 
 interface IColumnsListProps {
   columns: Array<IColumn>;
@@ -40,11 +40,10 @@ const ColumnsList: FC<IColumnsListProps> = ({
   const { t } = useTranslation();
   const langRef = useRef(t);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const state = useAppSelector((state) => state);
 
   let allTasksArray: ITask[] = [];
   const columnsId: string[] = columns.map((item) => item.id);
-  const state = useAppSelector((state) => state);
-
   columnsId.forEach((columnId) => {
     const result = api.endpoints.getAllTasks.select({ boardId, columnId })(state);
     if (result.isSuccess) {

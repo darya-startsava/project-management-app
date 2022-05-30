@@ -50,8 +50,11 @@ ul.columnsList {
     flex-wrap: wrap;
     width: 100%;
 
-    &_input {
+    .columnsList__item_form {
       width: 70%;
+    }
+    &_input {
+      width: 100%;
       padding: 2px 5px;
       font-size: $textSizeSmall;
       border: 1px solid transparentize($black, 0.5);
@@ -79,12 +82,23 @@ ul.columnsList {
 
     &_accept {
       background-color: $green;
+
+      &:disabled {
+        opacity: 0.5;
+      }
     }
 
     &_cancel {
       border-radius: 0;
       background-color: $red;
     }
+  }
+
+  .columnsList__item_renameErrorText {
+    @extend %formError;
+
+    margin: 5px 0 0;
+    font-size: 14px;
   }
 
   .columnsList__buttonsWrapper {
@@ -96,7 +110,7 @@ ul.columnsList {
     @extend %simpleButtonStyles;
 
     font-weight: 500;
-    font-size: $textSizeSmall;
+    font-size: 14px;
     line-height: 1;
     color: $black;
     background-color: $lightGrey;
@@ -160,7 +174,7 @@ ul.columnsList {
     }
 
     .columnsList__item_addTaskButton {
-      font-size: $textSizeMobile;
+      font-size: $textSizeSmall;
     }
 
     .columnsList__item_addButton {
