@@ -1,15 +1,17 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Welcome from '$pages/Welcome';
-import RequiredAuth from '$components/RequiredAuth';
 import Boards from '$pages/Boards';
 import OneBoard from '$pages/OneBoard';
-import Profile from '$pages/Profile';
-import Authorization from '$pages/Authorization';
-import NotFoundPage from '$pages/NotFoundPage';
-import ErrorPage from '$pages/ErrorPage';
+import RequiredAuth from '$components/RequiredAuth';
 import NoDoubleLogin from '$components/NoDoubleLogin';
 import { ROUTES_PATHS } from '$settings/routing';
+import AppSuspensePage from './AppSuspensePage';
+
+const Profile = React.lazy(() => import('$pages/Profile'));
+const Authorization = React.lazy(() => import('$pages/Authorization'));
+const NotFoundPage = React.lazy(() => import('$pages/NotFoundPage'));
+const ErrorPage = React.lazy(() => import('$pages/ErrorPage'));
 
 const AppRoutes: FC = () => {
   return (
@@ -35,7 +37,9 @@ const AppRoutes: FC = () => {
         path={ROUTES_PATHS.login}
         element={
           <NoDoubleLogin redirect={ROUTES_PATHS.boards}>
-            <Authorization key={'LogIn'} sortOfAuth={'LogIn'} />
+            <AppSuspensePage>
+              <Authorization key={'LogIn'} sortOfAuth={'LogIn'} />
+            </AppSuspensePage>
           </NoDoubleLogin>
         }
       />
@@ -43,7 +47,9 @@ const AppRoutes: FC = () => {
         path={ROUTES_PATHS.registration}
         element={
           <NoDoubleLogin redirect={ROUTES_PATHS.boards}>
-            <Authorization key={'Registration'} sortOfAuth={'Registration'} />
+            <AppSuspensePage>
+              <Authorization key={'Registration'} sortOfAuth={'Registration'} />
+            </AppSuspensePage>
           </NoDoubleLogin>
         }
       />
@@ -51,12 +57,28 @@ const AppRoutes: FC = () => {
         path={ROUTES_PATHS.profile}
         element={
           <RequiredAuth redirect={ROUTES_PATHS.welcome}>
-            <Profile />
+            <AppSuspensePage>
+              <Profile />
+            </AppSuspensePage>
           </RequiredAuth>
         }
       />
-      <Route path={ROUTES_PATHS.error_page} element={<ErrorPage />} />
-      <Route path={ROUTES_PATHS.not_found_page} element={<NotFoundPage />} />
+      <Route
+        path={ROUTES_PATHS.error_page}
+        element={
+          <AppSuspensePage>
+            <ErrorPage />
+          </AppSuspensePage>
+        }
+      />
+      <Route
+        path={ROUTES_PATHS.not_found_page}
+        element={
+          <AppSuspensePage>
+            <NotFoundPage />
+          </AppSuspensePage>
+        }
+      />
     </Routes>
   );
 };
