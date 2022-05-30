@@ -1,207 +1,50 @@
 import React, { FC } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useGetAllUsersQuery } from '$services/api';
-import classNames from 'classnames';
-import { InputBase, Box, Typography, MenuItem, CircularProgress, TextField } from '@mui/material';
 import LightBox from '$components/Lightbox';
-import {
-  TASKS_TITLE_MIN_LENGTH,
-  TASKS_TITLE_MAX_LENGTH,
-  TASKS_DESCRIPTION_MIN_LENGTH,
-  TASKS_DESCRIPTION_MAX_LENGTH,
-} from '$settings/index';
-import { ITaskUpdateObj, TCreateElement } from '$types/common';
-import css from './LightboxUpdateTask.module.scss';
+import UpdateTaskForm, { IUpdateTaskFormProps } from './UpdateTaskForm';
+import UpdateTaskContent from './UpdateTaskContent';
+import { TSimpleFunction } from '$types/common';
 
-interface IBoardsModal {
+interface IBoardsModal extends IUpdateTaskFormProps {
   showModal: boolean;
-  isLoading: boolean;
-  changeShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  submitCB: TCreateElement<ITaskUpdateObj>;
-  modalTitle: string;
-  submitButtonText: string;
+  showLikeForm: boolean;
+  showForm: TSimpleFunction;
+  responsibleUser: string;
+  closeModal: TSimpleFunction;
 }
 
 const LightboxTask: FC<IBoardsModal> = ({
   showModal,
   isLoading,
-  changeShowModal,
+  responsibleUser,
+  showLikeForm,
+  showForm,
+  closeModal,
+  defaultFormState,
   submitCB,
-  modalTitle,
-  submitButtonText,
+  users,
 }) => {
   const { t } = useTranslation();
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { isDirty, errors },
-  } = useForm<ITaskUpdateObj>({
-    defaultValues: {
-      title: '',
-      description: '',
-      userId: '',
-    },
-  });
-
-  const { data: users = [], isLoading: isLoadingUsers } = useGetAllUsersQuery();
-
-  const updateTaskHandler: SubmitHandler<ITaskUpdateObj> = (data) => {
-    submitCB(data);
-    reset({
-      title: '',
-      description: '',
-      userId: '',
-    });
-  };
-
-  const classNameSubmit = classNames(css.modalForm_submit, {
-    [css.disabled]:
-      isLoading ||
-      !isDirty ||
-      errors?.title?.message ||
-      errors?.description?.message ||
-      errors?.userId?.message,
-  });
+  const modalTitle = showLikeForm
+    ? t('Tasks.updateLikeFormModalTitle')
+    : t('Tasks.updateModalTitle', { TASK_NAME: defaultFormState.title });
 
   return (
-    <LightBox
-      showModal={showModal}
-      closeModalFunction={() => {
-        changeShowModal(false);
-      }}
-      modalTitle={modalTitle}
-    >
-      <Box
-        className={css.modalForm}
-        component="form"
-        autoComplete="off"
-        onSubmit={handleSubmit(updateTaskHandler)}
-        noValidate
-      >
-        <Controller
-          control={control}
-          name="title"
-          rules={{
-            required: t('Tasks.errorEmptyField'),
-            minLength: {
-              value: TASKS_TITLE_MIN_LENGTH,
-              message: t('Tasks.errorMinLengthTitle', { TASKS_TITLE_MIN_LENGTH }),
-            },
-            maxLength: {
-              value: TASKS_TITLE_MAX_LENGTH,
-              message: t('Tasks.errorMaxLengthTitle', { TASKS_TITLE_MAX_LENGTH }),
-            },
-          }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <>
-              <TextField
-                type="text"
-                value={value}
-                className={classNames(css.modalForm_element, {
-                  [css.error]: error?.message,
-                })}
-                label={t('Tasks.titleLabelForm')}
-                onChange={onChange}
-                autoFocus
-                fullWidth
-              />
-
-              {error?.message && (
-                <Typography variant="inherit" component="p" className={css.modalForm_errorText}>
-                  {t('Tasks.errorText', { ERROR_MESSAGE: error?.message })}
-                </Typography>
-              )}
-            </>
-          )}
+    <LightBox showModal={showModal} closeModalFunction={closeModal} modalTitle={modalTitle}>
+      {showLikeForm ? (
+        <UpdateTaskForm
+          isLoading={isLoading}
+          defaultFormState={defaultFormState}
+          users={users}
+          submitCB={submitCB}
         />
-
-        <Controller
-          control={control}
-          name="description"
-          rules={{
-            required: t('Tasks.errorEmptyField'),
-            minLength: {
-              value: TASKS_DESCRIPTION_MIN_LENGTH,
-              message: t('Tasks.errorMinLengthDescription', { TASKS_DESCRIPTION_MIN_LENGTH }),
-            },
-            maxLength: {
-              value: TASKS_DESCRIPTION_MAX_LENGTH,
-              message: t('Tasks.errorMaxLengthDescription', { TASKS_DESCRIPTION_MAX_LENGTH }),
-            },
-          }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <>
-              <TextField
-                defaultValue={value}
-                className={classNames([css.modalForm_description, css.modalForm_element], {
-                  [css.error]: error?.message,
-                })}
-                label={t('Tasks.descriptionLabelForm')}
-                onChange={onChange}
-                multiline
-                maxRows={5}
-                fullWidth
-              />
-
-              {error?.message && (
-                <Typography variant="inherit" component="p" className={css.modalForm_errorText}>
-                  {t('Tasks.errorText', { ERROR_MESSAGE: error?.message })}
-                </Typography>
-              )}
-            </>
-          )}
+      ) : (
+        <UpdateTaskContent
+          description={defaultFormState.description}
+          responsibleUser={responsibleUser}
+          showForm={showForm}
         />
-
-        {isLoadingUsers ? (
-          <CircularProgress />
-        ) : (
-          <Controller
-            control={control}
-            name="userId"
-            rules={{
-              required: t('Tasks.errorChoiceUser'),
-            }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <>
-                <TextField
-                  id="users"
-                  select
-                  label={t('Tasks.userLabelForm')}
-                  value={value}
-                  onChange={onChange}
-                  className={classNames(css.modalForm_element, {
-                    [css.error]: error?.message,
-                  })}
-                  fullWidth
-                >
-                  {users.map((user) => (
-                    <MenuItem key={user.id} value={user.id}>
-                      {user.login}
-                    </MenuItem>
-                  ))}
-                </TextField>
-
-                {error?.message && (
-                  <Typography variant="inherit" component="p" className={css.modalForm_errorText}>
-                    {t('Tasks.errorText', { ERROR_MESSAGE: error?.message })}
-                  </Typography>
-                )}
-              </>
-            )}
-          />
-        )}
-
-        <InputBase
-          className={classNameSubmit}
-          type="submit"
-          disableInjectingGlobalStyles={true}
-          disabled={isLoading || !isDirty}
-          value={submitButtonText}
-          fullWidth={true}
-        />
-      </Box>
+      )}
     </LightBox>
   );
 };

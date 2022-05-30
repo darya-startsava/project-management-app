@@ -38,7 +38,7 @@ const Boards: FC = () => {
   const [boards, setBoards] = useState<Array<IBoard>>(dataBoards);
   const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
 
-  // show get boards error message
+  // open modal for header button
   useEffect(() => {
     const needOpenMenu = (location?.state as ILocationState)?.openModal || false;
     if (needOpenMenu) {
@@ -46,6 +46,7 @@ const Boards: FC = () => {
     }
   }, [location]);
 
+  // show get boards error message
   useEffect(() => {
     if (errorGetBoards) {
       const errorMessage = langRef.current('Boards.errorGetBoards', {
