@@ -97,9 +97,13 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
 
   const onSubmit: SubmitHandler<IUserRegistration> = async (data) => {
     if (sortOfAuth === SortOfAuth.Registration) {
-      await newUserRegistration(data);
+      try {
+        await newUserRegistration(data);
+        await userLogIn({ login: data.login, password: data.password });
+      } catch (error) {}
+    } else {
+      await userLogIn({ login: data.login, password: data.password });
     }
-    await userLogIn({ login: data.login, password: data.password });
   };
 
   async function newUserRegistration(user: IUserRegistration) {
@@ -107,10 +111,12 @@ const Authorization: FC<IAuthorization> = ({ sortOfAuth }) => {
   }
 
   async function userLogIn(user: IUserLogIn) {
-    const result = await signIn(user).unwrap();
-    dispatch(setToken(result.token));
-    localStorage.setItem(TOKEN_AUTH_LOCALSTORAGE, result.token);
-    navigate(ROUTES_PATHS.boards);
+    try {
+      const result = await signIn(user).unwrap();
+      dispatch(setToken(result.token));
+      localStorage.setItem(TOKEN_AUTH_LOCALSTORAGE, result.token);
+      navigate(ROUTES_PATHS.boards);
+    } catch (error) {}
   }
 
   const checkDisableSubmit = (): boolean => {
