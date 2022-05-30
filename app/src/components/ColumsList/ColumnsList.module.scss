@@ -58,7 +58,7 @@ ul.columnsList {
       padding: 2px 5px;
       font-size: $textSizeSmall;
       border: 1px solid transparentize($black, 0.5);
-      border-radius: 0 $borderRadiusMin $borderRadiusMin 0;
+      border-radius: $borderRadiusMin 0 0 $borderRadiusMin;
       line-height: 1.5;
       color: $black;
       background-color: $whiteColor;
@@ -66,7 +66,7 @@ ul.columnsList {
 
     &_buttons {
       width: 30%;
-      border-radius: $borderRadiusMin 0 0 $borderRadiusMin;
+      border-radius: 0 $borderRadiusMin $borderRadiusMin 0;
     }
 
     &_accept,
@@ -82,6 +82,7 @@ ul.columnsList {
 
     &_accept {
       background-color: $green;
+      border-radius: 0;
 
       &:disabled {
         opacity: 0.5;
@@ -89,7 +90,6 @@ ul.columnsList {
     }
 
     &_cancel {
-      border-radius: 0;
       background-color: $red;
     }
   }
