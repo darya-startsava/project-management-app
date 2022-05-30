@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -30,6 +30,7 @@ import css from './BoardsList.module.scss';
 
 const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
   const { t } = useTranslation();
+  const langRef = useRef(t);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
   const [isShowConfirmModalDelete, setIsShowConfirmModalDelete] = useState<boolean>(false);
@@ -47,7 +48,7 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
   // show update board error message
   useEffect(() => {
     if (errorUpdateBoard) {
-      const errorMessage = t('Boards.errorUpdateBoardTitle', {
+      const errorMessage = langRef.current('Boards.errorUpdateBoardTitle', {
         ERROR_MESSAGE: (errorUpdateBoard as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -55,22 +56,22 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorUpdateBoard, closeSnackbar, enqueueSnackbar, t]);
+  }, [errorUpdateBoard, closeSnackbar, enqueueSnackbar, langRef]);
 
   // show update board success message
   useEffect(() => {
     if (isSuccessUpdateBoard) {
-      enqueueSnackbar(t('Boards.successUpdateBoardTitle'), {
+      enqueueSnackbar(langRef.current('Boards.successUpdateBoardTitle'), {
         ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [isSuccessUpdateBoard, closeSnackbar, enqueueSnackbar, t]);
+  }, [isSuccessUpdateBoard, closeSnackbar, enqueueSnackbar, langRef]);
 
   // show delete board error message
   useEffect(() => {
     if (errorDeletingBoard) {
-      const errorMessage = t('Boards.errorDeletingBoard', {
+      const errorMessage = langRef.current('Boards.errorDeletingBoard', {
         ERROR_MESSAGE: (errorDeletingBoard as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -78,17 +79,17 @@ const BoardsListItem: FC<IBoard> = ({ id, title, description }) => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorDeletingBoard, closeSnackbar, enqueueSnackbar, t]);
+  }, [errorDeletingBoard, closeSnackbar, enqueueSnackbar, langRef]);
 
   // show delete board success message
   useEffect(() => {
     if (isSuccessDeletingBoard) {
-      enqueueSnackbar(t('Boards.successDeletingBoard'), {
+      enqueueSnackbar(langRef.current('Boards.successDeletingBoard'), {
         ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [isSuccessDeletingBoard, closeSnackbar, enqueueSnackbar, t]);
+  }, [isSuccessDeletingBoard, closeSnackbar, enqueueSnackbar, langRef]);
 
   const updateBoardTitle: SubmitHandler<IBoardCreateObj> = (data) => {
     updateBoard({ body: data, id });

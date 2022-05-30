@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useAddBoardMutation, useGetAllBoardsQuery } from '$services/api';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +21,7 @@ interface ILocationState {
 
 const Boards: FC = () => {
   const { t } = useTranslation();
+  const langRef = useRef(t);
   const location = useLocation();
   const navigate = useNavigate();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -47,7 +48,7 @@ const Boards: FC = () => {
 
   useEffect(() => {
     if (errorGetBoards) {
-      const errorMessage = t('Boards.errorGetBoards', {
+      const errorMessage = langRef.current('Boards.errorGetBoards', {
         ERROR_MESSAGE: (errorGetBoards as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -55,22 +56,22 @@ const Boards: FC = () => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorGetBoards, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorGetBoards, langRef, enqueueSnackbar, closeSnackbar]);
 
   // show add board success message
   useEffect(() => {
     if (isSuccessAddBoard) {
-      enqueueSnackbar(t('Boards.successCreate'), {
+      enqueueSnackbar(langRef.current('Boards.successCreate'), {
         ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [isSuccessAddBoard, t, enqueueSnackbar, closeSnackbar]);
+  }, [isSuccessAddBoard, langRef, enqueueSnackbar, closeSnackbar]);
 
   // show add board error message
   useEffect(() => {
     if (errorAddBoard) {
-      const errorMessage = t('Boards.errorCreate', {
+      const errorMessage = langRef.current('Boards.errorCreate', {
         ERROR_MESSAGE: (errorAddBoard as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -78,7 +79,7 @@ const Boards: FC = () => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorAddBoard, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorAddBoard, langRef, enqueueSnackbar, closeSnackbar]);
 
   const changeBoardsListShow: TChangeBoardsShow = useCallback(
     (searchValue: string) => {
