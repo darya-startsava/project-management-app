@@ -125,11 +125,16 @@ const ColumnsListItemTitle: FC<IColumnsListItemTitleProps> = ({
                 className={css.columnsList__item_rename_accept}
                 onClick={handleSubmit(submitTitleHandler)}
                 disabled={!!errors?.title?.message}
+                aria-label={t('Columns.changeTitleConfirm')}
               >
                 <CheckIcon />
               </Button>
 
-              <Button className={css.columnsList__item_rename_cancel} onClick={cancelTitleHandler}>
+              <Button
+                className={css.columnsList__item_rename_cancel}
+                aria-label={t('Columns.changeTitleCancel')}
+                onClick={cancelTitleHandler}
+              >
                 <DoNotDisturbIcon />
               </Button>
             </ButtonGroup>

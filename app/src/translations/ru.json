@@ -131,7 +131,9 @@
     "successDeleteColumn": "Колонка успешно удалена!",
     "errorUpdateColumnTitle": "Название колонки не изменено! Ошибка: {{ERROR_MESSAGE}}",
     "successUpdateColumnTitle": "Название колонки изменено успешно!",
-    "updateColumnTitleLabel": "Форма редактирования названия колонки"
+    "updateColumnTitleLabel": "Форма редактирования названия колонки",
+    "changeTitleConfirm": "Изменить название колонки",
+    "changeTitleCancel": "Оставить текущее название колонки"
   },
   "Tasks": {
     "addNewTaskButtonText": "Добавить новую задачу",

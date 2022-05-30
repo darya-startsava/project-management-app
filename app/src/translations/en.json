@@ -131,7 +131,9 @@
     "successDeleteColumn": "The column was deleted successfully!",
     "errorUpdateColumnTitle": "Column title has not been changed! Error: {{ERROR_MESSAGE}}",
     "successUpdateColumnTitle": "Column title changed successfully!",
-    "updateColumnTitleLabel": "Column title edit form"
+    "updateColumnTitleLabel": "Column title edit form",
+    "changeTitleConfirm": "Change the column name",
+    "changeTitleCancel": "Leave the current column name"
   },
   "Tasks": {
     "addNewTaskButtonText": "Add new task",
