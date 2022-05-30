@@ -13,7 +13,10 @@
     "author1": "Dmitrij",
     "author2": "Andrey",
     "author3": "Darya",
-    "modalText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    "modalText": "Hello everyone and welcome to our Kanban project management system. We are a small but ambitious and creative team and our goal with this project was to give you the best Kanban style task management experience. You can find out more information about us and our projects in our Github profiles.",
+    "roleTitle": "Role in the project:",
+    "roleLead": "Team-lead",
+    "roleDev": "Web-developer"
   },
   "LanguageToggler": {
     "AriaLabelToggler": "Change language",
@@ -79,7 +82,9 @@
   },
   "Boards": {
     "pageTitle": "My boards",
-    "inputSearchText": "Search board or task...",
+    "inputSearchText": "Search board...",
+    "inputSearchTextLabel": "Search board by title or description",
+    "nothingFoundMessage": "No matches found in board name or description",
     "errorGetBoards": "Something went wrong. Try to do it later. Error: {{ERROR_MESSAGE}}",
     "successCreate": "The board  was created successfully!",
     "errorCreate": "The board was not created! Try to do it later. Error: {{ERROR_MESSAGE}}",

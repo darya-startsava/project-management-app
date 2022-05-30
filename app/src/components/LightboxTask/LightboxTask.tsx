@@ -129,13 +129,14 @@ const LightboxTask: FC<IBoardsModal> = ({
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
               <TextField
-                value={value}
+                defaultValue={value}
                 className={classNames([css.modalForm_description, css.modalForm_element], {
                   [css.error]: error?.message,
                 })}
                 label={t('Tasks.descriptionLabelForm')}
                 onChange={onChange}
                 multiline
+                maxRows={5}
                 fullWidth
               />
 

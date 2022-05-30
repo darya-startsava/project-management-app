@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useAddBoardMutation, useGetAllBoardsQuery } from '$services/api';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -9,8 +9,9 @@ import Spinner from '$components/Spinner';
 import BoardsList from '$components/BoardsList';
 import CloseButton from '$components/CloseButton';
 import LightboxBoard from '$components/LightboxBoard';
+import { Typography } from '@mui/material';
 import { messageErrorOptions, messageSuccessOptions } from '$settings/index';
-import { IBoardCreateObj, IError, TCreateElement, TSimpleFunction } from '$types/common';
+import { IBoard, IBoardCreateObj, IError, TCreateElement, TSimpleFunction } from '$types/common';
 import css from './Boards.module.scss';
 
 export type TChangeBoardsShow = (searchValue: string) => void;
@@ -20,6 +21,7 @@ interface ILocationState {
 
 const Boards: FC = () => {
   const { t } = useTranslation();
+  const langRef = useRef(t);
   const location = useLocation();
   const navigate = useNavigate();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -29,12 +31,14 @@ const Boards: FC = () => {
     { isLoading: isAddingBoard, error: errorAddBoard, isSuccess: isSuccessAddBoard },
   ] = useAddBoardMutation();
   const {
-    data: boards = [],
+    data: dataBoards = [],
     error: errorGetBoards,
     isLoading: isLoadingBoards,
   } = useGetAllBoardsQuery();
+  const [boards, setBoards] = useState<Array<IBoard>>(dataBoards);
+  const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
 
-  // show get boards error message
+  // open modal for header button
   useEffect(() => {
     const needOpenMenu = (location?.state as ILocationState)?.openModal || false;
     if (needOpenMenu) {
@@ -42,9 +46,10 @@ const Boards: FC = () => {
     }
   }, [location]);
 
+  // show get boards error message
   useEffect(() => {
     if (errorGetBoards) {
-      const errorMessage = t('Boards.errorGetBoards', {
+      const errorMessage = langRef.current('Boards.errorGetBoards', {
         ERROR_MESSAGE: (errorGetBoards as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -52,22 +57,22 @@ const Boards: FC = () => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorGetBoards, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorGetBoards, langRef, enqueueSnackbar, closeSnackbar]);
 
   // show add board success message
   useEffect(() => {
     if (isSuccessAddBoard) {
-      enqueueSnackbar(t('Boards.successCreate'), {
+      enqueueSnackbar(langRef.current('Boards.successCreate'), {
         ...messageSuccessOptions,
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [isSuccessAddBoard, t, enqueueSnackbar, closeSnackbar]);
+  }, [isSuccessAddBoard, langRef, enqueueSnackbar, closeSnackbar]);
 
   // show add board error message
   useEffect(() => {
     if (errorAddBoard) {
-      const errorMessage = t('Boards.errorCreate', {
+      const errorMessage = langRef.current('Boards.errorCreate', {
         ERROR_MESSAGE: (errorAddBoard as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -75,18 +80,23 @@ const Boards: FC = () => {
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorAddBoard, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorAddBoard, langRef, enqueueSnackbar, closeSnackbar]);
 
-  const changeBoardsListShow: TChangeBoardsShow = (searchValue: string) => {
-    if (!searchValue.trim().length) {
-      return;
-    }
-    // for better time
-    // const filteredBoards: Array<IBoard> = boardsArray.filter((board: IBoard) =>
-    //   board.title.toLowerCase().includes(searchValue.toLowerCase())
-    // );
-    // setBoards(filteredBoards);
-  };
+  const changeBoardsListShow: TChangeBoardsShow = useCallback(
+    (searchValue: string) => {
+      searchValue ? setShowSearchResults(true) : setShowSearchResults(false);
+      let filteredBoards: Array<IBoard> = dataBoards;
+      if (searchValue) {
+        filteredBoards = dataBoards.filter(
+          (board: IBoard) =>
+            board.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+            board.description.toLowerCase().includes(searchValue.toLowerCase())
+        );
+      }
+      setBoards(filteredBoards);
+    },
+    [dataBoards]
+  );
 
   const addNewColumn: TCreateElement<IBoardCreateObj> = (data: IBoardCreateObj) => {
     addBoard(data);
@@ -105,13 +115,21 @@ const Boards: FC = () => {
       {isLoadingBoards ? (
         <Spinner className={css.boards__loader} />
       ) : (
-        <BoardsList
-          boards={boards}
-          addCardHandler={() => {
-            setShowModal(true);
-          }}
-          showSpinnerEnd={isLoadingBoards || isAddingBoard}
-        />
+        <>
+          {showSearchResults && !boards.length && (
+            <Typography component="p" className={css.boards_search_message}>
+              {t('Boards.nothingFoundMessage')}
+            </Typography>
+          )}
+          <BoardsList
+            boards={boards}
+            showSearchResults={showSearchResults}
+            addCardHandler={() => {
+              setShowModal(true);
+            }}
+            showSpinnerEnd={isLoadingBoards || isAddingBoard}
+          />
+        </>
       )}
 
       <LightboxBoard

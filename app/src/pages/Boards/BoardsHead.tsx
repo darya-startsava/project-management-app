@@ -1,7 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search as SearchIcon, TableChart as TableChartIcon } from '@mui/icons-material';
-import { Grid, InputBase, IconButton } from '@mui/material';
+import { Grid, InputBase } from '@mui/material';
 import { TChangeElHandler } from '$types/common';
 import { TChangeBoardsShow } from './Boards';
 import css from './Boards.module.scss';
@@ -18,10 +18,9 @@ const BoardsHead: FC<IBoardsHeadProps> = ({ searchCB }) => {
     setSearchValue(event.target.value);
   };
 
-  const onSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  useEffect(() => {
     searchCB(searchValue);
-  };
+  }, [searchCB, searchValue]);
 
   return (
     <Grid container className={css.boards__head} direction="row" alignItems="flex-start" mb={5}>
@@ -30,32 +29,21 @@ const BoardsHead: FC<IBoardsHeadProps> = ({ searchCB }) => {
         <TableChartIcon />
       </Grid>
 
-      <Grid
-        item
-        className={css.boards__head_form}
-        component="form"
-        autoComplete="off"
-        onSubmit={onSubmit}
-        noValidate
-      >
+      <Grid item className={css.boards__head_form} component="form" autoComplete="off" noValidate>
         <InputBase
           name="searchValue"
+          autoFocus={true}
           className={css.boards__head_search}
           type="search"
           placeholder={t('Boards.inputSearchText')}
           inputProps={{
-            'aria-label': t('Boards.inputSearchText'),
+            'aria-label': t('Boards.inputSearchTextLabel'),
           }}
           value={searchValue}
           onChange={inputSearchHandler}
-          endAdornment={
-            <IconButton type="submit">
-              <SearchIcon />
-            </IconButton>
-          }
+          endAdornment={!searchValue && <SearchIcon />}
           fullWidth
         />
-        <InputBase className={css.boards__head_submit} type="submit" />
       </Grid>
     </Grid>
   );

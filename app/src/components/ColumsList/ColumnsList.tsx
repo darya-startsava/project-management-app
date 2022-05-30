@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   api,
@@ -38,6 +38,7 @@ const ColumnsList: FC<IColumnsListProps> = ({
   showSpinnerEnd = false,
 }) => {
   const { t } = useTranslation();
+  const langRef = useRef(t);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const state = useAppSelector((state) => state);
 
@@ -57,7 +58,7 @@ const ColumnsList: FC<IColumnsListProps> = ({
   // show change column order error message
   useEffect(() => {
     if (errorChangeOrderColumn) {
-      const errorMessage = t('Columns.dragDropError', {
+      const errorMessage = langRef.current('Columns.dragDropError', {
         ERROR_MESSAGE: (errorChangeOrderColumn as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -65,12 +66,12 @@ const ColumnsList: FC<IColumnsListProps> = ({
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorChangeOrderColumn, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorChangeOrderColumn, langRef, enqueueSnackbar, closeSnackbar]);
 
   // show change task order error message
   useEffect(() => {
     if (errorChangeOrderTask) {
-      const errorMessage = t('Tasks.dragDropError', {
+      const errorMessage = langRef.current('Tasks.dragDropError', {
         ERROR_MESSAGE: (errorChangeOrderTask as IError).data.message || '',
       });
       enqueueSnackbar(errorMessage, {
@@ -78,7 +79,7 @@ const ColumnsList: FC<IColumnsListProps> = ({
         action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
       });
     }
-  }, [errorChangeOrderTask, t, enqueueSnackbar, closeSnackbar]);
+  }, [errorChangeOrderTask, langRef, enqueueSnackbar, closeSnackbar]);
 
   const dragEndListItemHandler = (result: DropResult) => {
     if (!result.destination) return;
