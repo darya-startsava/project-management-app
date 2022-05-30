@@ -114,10 +114,11 @@ const Boards: FC = () => {
         <Spinner className={css.boards__loader} />
       ) : (
         <>
-          showSearchResults && !boards.length &&{' '}
-          <Typography component="p" className={css.boards_search_message}>
-            {t('Boards.nothingFoundMessage')}
-          </Typography>
+          {showSearchResults && !boards.length && (
+            <Typography component="p" className={css.boards_search_message}>
+              {t('Boards.nothingFoundMessage')}
+            </Typography>
+          )}
           <BoardsList
             boards={boards}
             showSearchResults={showSearchResults}
