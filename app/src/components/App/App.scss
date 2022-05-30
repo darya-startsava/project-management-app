@@ -1,16 +1,21 @@
 @import "$assets/scss/variables";
 
 :root {
-  --screenOverflowY: auto;
+  --screenOverflowY: initial;
+  --screenOverflowX: initial;
+  --heightScreen: auto;
 }
 
-body, html, #root {
-  height: 100%;
-  overflow-x: hidden;
+body,
+html,
+#root {
+  height: var(--heightScreen);
+  overflow-x: var(--screenOverflowX);
   overflow-y: var(--screenOverflowY);
 }
 
 #root {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }

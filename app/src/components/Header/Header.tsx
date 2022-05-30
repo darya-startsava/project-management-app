@@ -35,10 +35,10 @@ import './Header.scss';
 
 const Header: FC = () => {
   const { token } = useAppSelector((state) => state.app);
-  const navigate = useNavigate();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const trigger = useScrollTrigger({ threshold: 50 });
   const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const trigger = useScrollTrigger();
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
@@ -63,7 +63,13 @@ const Header: FC = () => {
 
   return (
     <StyledEngineProvider injectFirst>
-      <AppBar position="sticky" color={trigger ? 'primary' : 'inherit'} className={css.header}>
+      <AppBar
+        position="sticky"
+        color="inherit"
+        className={classNames(css.header, {
+          [css.active_header]: trigger,
+        })}
+      >
         <Toolbar className={css.header__wrapper}>
           <Typography className={css.header__heading} variant="h6" component="h1">
             <Button href={ROUTES_PATHS.welcome}>
@@ -99,37 +105,52 @@ const Header: FC = () => {
                     <Button
                       onClick={closeMenu}
                       href={ROUTES_PATHS.profile}
-                      startIcon={<ManageAccountsIcon />}
+                      startIcon={<ManageAccountsIcon color="inherit" />}
                     >
                       {t('Header.editProfile')}
                     </Button>
                   </ListItem>
 
                   <ListItem className={css.header__nav_listItem}>
-                    <Button onClick={handleCreateBoard} startIcon={<TableChartIcon />}>
+                    <Button
+                      onClick={handleCreateBoard}
+                      startIcon={<TableChartIcon color="inherit" />}
+                    >
                       {t('Header.newBoard')}
                     </Button>
                   </ListItem>
 
                   <ListItem className={css.header__nav_listItem}>
-                    <Button onClick={closeMenu} href={ROUTES_PATHS.boards} startIcon={<HomeIcon />}>
+                    <Button
+                      onClick={closeMenu}
+                      href={ROUTES_PATHS.boards}
+                      startIcon={<HomeIcon color="inherit" />}
+                    >
                       {t('Header.goToMainPage')}
                     </Button>
                   </ListItem>
                 </List>
               </Box>
 
-              <Button href={ROUTES_PATHS.welcome} startIcon={<LogoutIcon />} onClick={handleLogOut}>
+              <Button
+                className={css.header__signOut}
+                href={ROUTES_PATHS.welcome}
+                startIcon={<LogoutIcon />}
+                onClick={handleLogOut}
+              >
                 {t('Header.signOut')}
               </Button>
             </>
           ) : (
             <>
-              <Button href={ROUTES_PATHS.login} startIcon={<LoginIcon />}>
+              <Button href={ROUTES_PATHS.login} startIcon={<LoginIcon color="inherit" />}>
                 {t('Header.signIn')}
               </Button>
 
-              <Button href={ROUTES_PATHS.registration} startIcon={<AppRegistrationIcon />}>
+              <Button
+                href={ROUTES_PATHS.registration}
+                startIcon={<AppRegistrationIcon color="inherit" />}
+              >
                 {t('Header.signUp')}
               </Button>
             </>
@@ -145,7 +166,7 @@ const Header: FC = () => {
                 })}
                 aria-label={t('Header.burgerLabel')}
                 onClick={burgerHandler}
-              ></ButtonBase>
+              />
             )}
           </>
         </Toolbar>
