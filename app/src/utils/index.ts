@@ -1,3 +1,5 @@
+import { LANGUAGE_LOCALSTORAGE } from '$settings/index';
+import { APP_LANGUAGES } from '$settings/index';
 import { IColumn, IBoard, ITask } from '$types/common';
 
 type TRandNumber = (max: number, min?: number) => number;
@@ -26,4 +28,12 @@ export const getSortTasks: TSortArray<Array<ITask>> = (tasks: Array<ITask>) => {
 
 export const importAllFiles = (r: __WebpackModuleApi.RequireContext): Array<string> => {
   return r.keys().map(r) as Array<string>;
+};
+
+export const getStorageLanguage = (): string => {
+  const localstorageLanguage = localStorage.getItem(LANGUAGE_LOCALSTORAGE) || '';
+  if (APP_LANGUAGES.includes(localstorageLanguage)) {
+    return localstorageLanguage;
+  }
+  return 'en';
 };

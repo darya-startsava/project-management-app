@@ -7,7 +7,7 @@ import { setToken } from '$store/appSlice';
 import { useDeleteUserMutation, useGetUserInfoQuery } from '$services/api';
 import { useDidMount } from 'beautiful-react-hooks';
 import jwt_decode from 'jwt-decode';
-import { Box, Button, ButtonGroup, CircularProgress, Grid, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Grid, Typography } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Section from '$components/Section';
 import ProfileForm from './ProfileForm';
@@ -24,6 +24,7 @@ import {
 } from '$settings/index';
 import { IError } from '$types/common';
 import css from './Profile.module.scss';
+import Spinner from '$components/Spinner';
 
 const avatarsArray = importAllFiles(require.context('$assets/images/avatars', false, /\.png$/));
 
@@ -110,9 +111,7 @@ const Profile: FC = () => {
     <>
       <Section pageAllSpace={true} className={css.profile}>
         {isLoadingUserInfo || isLoadingDelete ? (
-          <Box className={css.profile__loader}>
-            <CircularProgress size={90} />
-          </Box>
+          <Spinner className={css.profile__loader} />
         ) : (
           <>
             <Typography variant="inherit" component="h2" className={css.profile__title} mb={5}>

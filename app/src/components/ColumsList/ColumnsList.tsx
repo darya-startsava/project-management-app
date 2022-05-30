@@ -1,6 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useUpdateDragAndDropColumnMutation } from '$services/api';
+import {
+  api,
+  useUpdateDragAndDropColumnMutation,
+  useUpdateDragAndDropTaskMutation,
+} from '$services/api';
+import { useAppSelector } from '$store/store';
 import { useSnackbar } from 'notistack';
 import { Button, List, ListItem } from '@mui/material';
 import ColumnsListItem from './ColumnsListItem';
@@ -12,23 +17,45 @@ import {
   DroppableProvided,
   DropResult,
 } from 'react-beautiful-dnd';
+import Spinner from '$components/Spinner';
 import CloseButton from '$components/CloseButton';
 import { messageErrorOptions } from '$settings/index';
-import { IColumn, IError, TSimpleFunction } from '$types/common';
+import { IColumn, IError, ITask, TSimpleFunction } from '$types/common';
 import css from './ColumnsList.module.scss';
+import classNames from 'classnames';
 
 interface IColumnsListProps {
   columns: Array<IColumn>;
   boardId: string;
   addCardHandler: TSimpleFunction;
+  showSpinnerEnd?: boolean;
 }
 
-const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }) => {
+const ColumnsList: FC<IColumnsListProps> = ({
+  columns,
+  addCardHandler,
+  boardId,
+  showSpinnerEnd = false,
+}) => {
   const { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  let allTasksArray: ITask[] = [];
+  const columnsId: string[] = columns.map((item) => item.id);
+  const state = useAppSelector((state) => state);
+
+  columnsId.forEach((columnId) => {
+    const result = api.endpoints.getAllTasks.select({ boardId, columnId })(state);
+    if (result.isSuccess) {
+      result.data.forEach((data) => (allTasksArray = [...allTasksArray, data]));
+    }
+  });
+
   const [updateColumn, { isLoading: isLoadingUpdateColumn, error: errorChangeOrderColumn }] =
     useUpdateDragAndDropColumnMutation();
+  const [updateTask, { error: errorChangeOrderTask }] = useUpdateDragAndDropTaskMutation();
 
+  // show change column order error message
   useEffect(() => {
     if (errorChangeOrderColumn) {
       const errorMessage = t('Columns.dragDropError', {
@@ -41,28 +68,63 @@ const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }
     }
   }, [errorChangeOrderColumn, t, enqueueSnackbar, closeSnackbar]);
 
+  useEffect(() => {
+    if (errorChangeOrderTask) {
+      const errorMessage = t('Tasks.dragDropError', {
+        ERROR_MESSAGE: (errorChangeOrderTask as IError).data.message || '',
+      });
+      enqueueSnackbar(errorMessage, {
+        ...messageErrorOptions,
+        action: (key) => <CloseButton closeCb={() => closeSnackbar(key)} />,
+      });
+    }
+  }, [errorChangeOrderTask, t, enqueueSnackbar, closeSnackbar]);
+
   const dragEndListItemHandler = (result: DropResult) => {
     if (!result.destination) return;
+    if (result.type === 'COLUMN') {
+      const newOrder = result.destination.index;
+      const columnId = result.draggableId;
+      const columnDrag = columns.filter((oneColumn) => oneColumn.id === columnId)[0];
 
-    const newOrder = result.destination.index;
-    const columnId = result.draggableId;
-    const columnDrag = columns.filter((oneColumn) => oneColumn.id === columnId)[0];
+      if (newOrder === result.source.index) return;
 
-    if (newOrder === result.source.index) return;
+      updateColumn({
+        boardId,
+        columnId: columnId,
+        body: {
+          title: columnDrag.title,
+          order: newOrder,
+        },
+      });
+    } else if (result.type === 'TASK') {
+      let newOrder = result.destination.index;
+      if (newOrder < 1) {
+        newOrder = 1;
+      }
+      const newColumn = result.destination.droppableId;
+      const taskId = result.draggableId;
+      const taskDrag = allTasksArray.filter((oneTask) => oneTask.id === taskId)[0];
 
-    updateColumn({
-      boardId,
-      columnId: columnId,
-      body: {
-        title: columnDrag.title,
-        order: newOrder,
-      },
-    });
+      updateTask({
+        body: {
+          title: taskDrag.title,
+          order: newOrder,
+          description: taskDrag.description,
+          userId: taskDrag.userId,
+          boardId: taskDrag.boardId,
+          columnId: newColumn,
+        },
+        boardId: taskDrag.boardId,
+        columnId: taskDrag.columnId,
+        taskId: taskDrag.id,
+      });
+    }
   };
 
   return (
     <DragDropContext onDragEnd={dragEndListItemHandler}>
-      <Droppable droppableId="kanbanList" direction="horizontal">
+      <Droppable droppableId="kanbanList" type="COLUMN" direction="horizontal">
         {(droppableColumnProvided: DroppableProvided) => (
           <List
             component="ul"
@@ -89,8 +151,22 @@ const ColumnsList: FC<IColumnsListProps> = ({ columns, addCardHandler, boardId }
 
             {droppableColumnProvided.placeholder}
 
+            <>
+              {showSpinnerEnd && (
+                <ListItem component="li" className={css.columnsList__itemButton}>
+                  <Spinner size={50} />
+                </ListItem>
+              )}
+            </>
+
             <ListItem component="li" className={css.columnsList__itemButton}>
-              <Button className={css.columnsList__item_addButton} onClick={addCardHandler}>
+              <Button
+                className={classNames(css.columnsList__item_addButton, {
+                  [css.disabled]: showSpinnerEnd,
+                })}
+                onClick={addCardHandler}
+                disabled={showSpinnerEnd}
+              >
                 + {t('Columns.addNewColumnButtonText')}
               </Button>
             </ListItem>

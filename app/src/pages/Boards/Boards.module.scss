@@ -49,6 +49,10 @@
     font-weight: bold;
     font-size: $bigTextMiddleSize;
   }
+
+  .boards__loader {
+    margin-top: 20px;
+  }
 }
 
 // > 600px
@@ -68,6 +72,10 @@
     }
     p.boards_search_message {
       font-size: $bigTextSize;
+    }
+
+    .boards__loader {
+      margin-top: 50px;
     }
   }
 }
