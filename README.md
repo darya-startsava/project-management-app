@@ -24,7 +24,7 @@
 
 
 
-### 🚀 Tecnologias:
+### 🚀 Technologies:
   - [x] React
   - [x] Typescript
   - [x] Sass
